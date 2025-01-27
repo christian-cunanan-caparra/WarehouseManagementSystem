@@ -7,4 +7,5 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 
-$routes->get('/hello', 'HelloController::index');
+
+$routes->get('/', 'HelloController::index');  // This will route to the index() method of Home controller

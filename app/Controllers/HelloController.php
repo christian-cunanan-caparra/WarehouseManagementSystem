@@ -2,10 +2,12 @@
 
 namespace App\Controllers;
 
-class HelloController extends BaseController
+use CodeIgniter\Controller;
+
+class HelloController extends Controller
 {
     public function index()
     {
-        return view('index');
+        return view('index');  // This will load the app/views/index.php view
     }
 }
