@@ -9,7 +9,7 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f8fc;
+            background-color: #f7f9fc;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -21,35 +21,33 @@
             background-color: #ffffff;
             border-radius: 15px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            max-width: 400px;
+            padding: 40px;
+            max-width: 500px;
             width: 100%;
         }
 
         h2 {
             text-align: center;
             color: #007bff;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
+            margin-bottom: 20px;
         }
 
         .form-group {
-            margin-bottom: 12px;
+            margin-bottom: 20px;
         }
 
         label {
             font-weight: bold;
             color: #333;
-            font-size: 0.9rem;
         }
 
         input, select {
             width: 100%;
-            padding: 8px;
-            margin-top: 5px;
+            padding: 12px;
+            margin-top: 8px;
             border: 1px solid #ddd;
             border-radius: 8px;
-            font-size: 0.9rem;
+            font-size: 1rem;
             transition: border-color 0.3s ease;
         }
 
@@ -61,9 +59,9 @@
         .btn-primary {
             background-color: #007bff;
             border-color: #007bff;
-            padding: 8px 16px;
+            padding: 12px 20px;
             width: 100%;
-            font-size: 0.95rem;
+            font-size: 1.1rem;
             border-radius: 8px;
         }
 
@@ -73,9 +71,9 @@
         }
 
         .alert {
-            margin-bottom: 12px;
-            font-size: 0.9rem;
-            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            padding: 15px;
             border-radius: 8px;
         }
 
@@ -88,78 +86,69 @@
             background-color: #d4edda;
             color: #155724;
         }
-
-        .header-title {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.4rem;
-            color: #007bff;
-            margin-bottom: 15px;
-        }
-
-        .header-title i {
-            margin-right: 8px;
-            font-size: 1.8rem;
-        }
     </style>
 </head>
 <body>
 
     <div class="container">
         <div class="register-container">
-            <div class="header-title">
-                <i class="fas fa-warehouse"></i>
-                <span>Warehouse Management System</span>
-            </div>
+            <h2>Register</h2>
 
-            <?php if (session()->get('errors') && is_array(session()->get('errors'))): ?>
+            <!-- Display Validation Errors -->
+            <?php if (session()->get('errors')): ?>
                 <div class="alert alert-danger">
                     <?php foreach (session()->get('errors') as $error): ?>
                         <p><?= esc($error) ?></p>
                     <?php endforeach ?>
                 </div>
             <?php endif; ?>
-            <?php if (session()->get('success')): ?>
-                <div class="alert alert-success">
-                    <?= session()->get('success') ?>
-                </div>
-            <?php endif; ?>
 
-            <form action="/register/save" method="POST">
+            <!-- Registration Form -->
+            <form action="/register/save" method="post">
                 <?= csrf_field() ?>
+
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" value="<?= old('name') ?>" required>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" value="<?= old('name') ?>" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" value="<?= old('email') ?>" required>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" value="<?= old('email') ?>" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="address">Address</label>
-                    <input type="text" class="form-control" id="address" name="address" value="<?= old('address') ?>" required>
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address" value="<?= old('address') ?>" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="gender">Gender</label>
-                    <select class="form-control" id="gender" name="gender" required>
-                        <option value="male" <?= old('gender') == 'male' ? 'selected' : '' ?>>Male</option>
-                        <option value="female" <?= old('gender') == 'female' ? 'selected' : '' ?>>Female</option>
-                        <option value="other" <?= old('gender') == 'other' ? 'selected' : '' ?>>Other</option>
+                    <label for="gender">Gender:</label>
+                    <select id="gender" name="gender" required>
+                        <option value="">Select Gender</option>
+                        <option value="Male" <?= old('gender') == 'Male' ? 'selected' : '' ?>>Male</option>
+                        <option value="Female" <?= old('gender') == 'Female' ? 'selected' : '' ?>>Female</option>
+                        <option value="Other" <?= old('gender') == 'Other' ? 'selected' : '' ?>>Other</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="mobile">Mobile Number</label>
-                    <input type="tel" class="form-control" id="mobile" name="mobile" value="<?= old('mobile') ?>" required>
+                    <label for="mobile_number">Mobile Number:</label>
+                    <input type="text" id="mobile_number" name="mobile_number" value="<?= old('mobile_number') ?>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="role">Role:</label>
+                    <select id="role" name="role" required>
+                        <option value="">Select Role</option>
+                        <option value="Admin" <?= old('role') == 'Admin' ? 'selected' : '' ?>>Admin</option>
+                        <option value="Employee" <?= old('role') == 'Employee' ? 'selected' : '' ?>>Employee</option>
+                    </select>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Register</button>
@@ -167,6 +156,9 @@
         </div>
     </div>
 
+    <!-- Include Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
 </body>
 </html>
