@@ -9,8 +9,9 @@
     <!-- Font Awesome for icon -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
+        /* General styles */
         body {
-            background: linear-gradient(to right, #0056b3, #004085);
+            background: linear-gradient(to right, #1e3c72, #2a5298); /* Modern blue gradient */
             font-family: 'Arial', sans-serif;
             height: 100vh;
             margin: 0;
@@ -21,53 +22,67 @@
 
         .container {
             background-color: #ffffff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); /* Stronger shadow */
             width: 100%;
-            max-width: 500px;  /* Set a max-width for laptop POV */
-            transition: all 0.3s ease-in-out;  /* Smooth transition */
+            max-width: 500px;
+            transition: all 0.3s ease-in-out;
         }
 
         /* Hover effect for the container */
         .container:hover {
-            transform: scale(1.05);   /* Slightly enlarge the container */
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);  /* Stronger shadow on hover */
+            transform: translateY(-5px);  /* Lift the container on hover */
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);  /* Stronger shadow on hover */
         }
 
         h1 {
             text-align: center;
-            color: #0056b3;
+            color: #2a5298; /* Slightly darker blue */
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 30px;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .form-control {
-            border-radius: 5px;
-            padding: 10px;
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .form-control:focus {
+            border-color: #2a5298;  /* Change border color on focus */
+            box-shadow: 0 0 10px rgba(42, 82, 152, 0.5);
         }
 
         .btn-primary {
-            background-color: #0056b3;
-            border-color: #0056b3;
-            padding: 10px 20px;
+            background-color: #2a5298;
+            border-color: #2a5298;
+            padding: 12px 20px;
             width: 100%;
-            border-radius: 5px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s ease-in-out;
         }
 
         .btn-primary:hover {
-            background-color: #004085;
-            border-color: #004085;
+            background-color: #1e3c72;
+            border-color: #1e3c72;
         }
 
         .modal-content {
-            border-radius: 10px;
+            border-radius: 15px;
         }
 
         .modal-header {
-            background-color: #0056b3;
+            background-color: #2a5298;
             color: white;
         }
 
@@ -76,23 +91,21 @@
         }
 
         .icon {
-            font-size: 50px;
-            color: #0056b3;
+            font-size: 60px;
+            color: #2a5298;
             text-align: center;
             margin-bottom: 20px;
         }
 
         /* Media query for mobile devices */
         @media (max-width: 768px) {
-            body {
-                display: block;
-                justify-content: initial; /* Center the form on small devices */
-                margin-top: 50px;  /* Add margin on top to separate from the edge */
+            .container {
+                max-width: 90%;  /* Full width on mobile devices */
+                padding: 30px 20px;
             }
 
-            .container {
-                max-width: 100%;  /* Full width on mobile devices */
-                padding: 20px;    /* Reduced padding on small screens */
+            h1 {
+                font-size: 28px; /* Smaller font on mobile */
             }
         }
     </style>
