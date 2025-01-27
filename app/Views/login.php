@@ -10,28 +10,45 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f8f9fa;
+            background: linear-gradient(to right, #0056b3, #004085);
             font-family: 'Arial', sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+
         .container {
-            max-width: 400px;
-            margin-top: 50px;
             background-color: #ffffff;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            transition: all 0.3s ease-in-out;  /* Smooth transition */
         }
+
+        /* Hover effect for the container */
+        .container:hover {
+            transform: scale(1.05);   /* Slightly enlarge the container */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);  /* Stronger shadow on hover */
+        }
+
         h2 {
             text-align: center;
             color: #0056b3;
         }
+
         .form-group {
             margin-bottom: 15px;
         }
+
         .form-control {
             border-radius: 5px;
             padding: 10px;
         }
+
         .btn-primary {
             background-color: #0056b3;
             border-color: #0056b3;
@@ -39,16 +56,19 @@
             width: 100%;
             border-radius: 5px;
         }
+
         .btn-primary:hover {
             background-color: #004085;
             border-color: #004085;
         }
+
         .icon {
             font-size: 50px;
             color: #0056b3;
             text-align: center;
             margin-bottom: 20px;
         }
+
         .alert {
             text-align: center;
         }
