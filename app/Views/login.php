@@ -72,6 +72,24 @@
         .alert {
             text-align: center;
         }
+
+        ::placeholder {
+            color: #6c757d;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .signup-link a {
+            color: #0056b3;
+            text-decoration: none;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -90,16 +108,21 @@
         <form action="/login/authenticate" method="post">
             <div class="form-group">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" required>
+                <input type="email" class="form-control" id="email" name="email" required placeholder="Enter your email">
             </div>
 
             <div class="form-group">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
+                <input type="password" class="form-control" id="password" name="password" required placeholder="Enter your password">
             </div>
 
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
+
+        <!-- Link to register page if the user doesn't have an account yet -->
+        <div class="signup-link">
+            <p>Don't have an account yet? <a href="/register">Sign up here</a></p>
+        </div>
     </div>
 
     <!-- Include Bootstrap JS (For Modal) -->

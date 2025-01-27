@@ -96,6 +96,21 @@
             color: #6c757d;
             opacity: 1;
         }
+
+        /* Style for the login link */
+        .login-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .login-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -151,6 +166,11 @@
 
             <button type="submit" class="btn btn-primary">Register</button>
         </form>
+
+        <!-- Link to login page if the user already has an account -->
+        <div class="login-link">
+            <p>Already have an account? <a href="/login">Login here</a></p>
+        </div>
     </div>
 
     <!-- Modal -->
