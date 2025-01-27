@@ -30,7 +30,7 @@ class Database extends Config
         'hostname' => '127.0.0.1',
         'username' => 'u988465998',
         'password' => 'Ajdkpe11hjk',
-        'database' => 'warehousemanagement',
+        'database' => 'u988465998_warehousemanag',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
         'pConnect' => false,
