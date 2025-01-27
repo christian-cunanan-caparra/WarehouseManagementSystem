@@ -25,7 +25,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 600px;
+            max-width: 500px;  /* Set a max-width for laptop POV */
             transition: all 0.3s ease-in-out;  /* Smooth transition */
         }
 
@@ -80,6 +80,20 @@
             color: #0056b3;
             text-align: center;
             margin-bottom: 20px;
+        }
+
+        /* Media query for mobile devices */
+        @media (max-width: 768px) {
+            body {
+                display: block;
+                justify-content: initial; /* Center the form on small devices */
+                margin-top: 50px;  /* Add margin on top to separate from the edge */
+            }
+
+            .container {
+                max-width: 100%;  /* Full width on mobile devices */
+                padding: 20px;    /* Reduced padding on small screens */
+            }
         }
     </style>
 </head>
