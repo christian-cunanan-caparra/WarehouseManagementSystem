@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Warehouse Management System</title>
+    <title>Verify Reset Code</title>
+    <!-- Include Bootstrap for styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icon -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f0f8ff;
+            background-color: #f0f8ff; /* Light blue background */
             font-family: 'Arial', sans-serif;
             height: 100vh;
             margin: 0;
@@ -27,6 +29,7 @@
             transition: all 0.3s ease-in-out;
         }
 
+        /* Hover effect for the container */
         .container:hover {
             transform: scale(1.05);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
@@ -34,7 +37,7 @@
 
         h1 {
             text-align: center;
-            color: #007bff;
+            color: #007bff; /* Blue color */
         }
 
         .form-group {
@@ -46,7 +49,7 @@
             padding: 10px;
             font-size: 16px;
             box-shadow: none;
-            border: 1px solid #007bff;
+            border: 1px solid #007bff; /* Blue border */
         }
 
         .form-control:focus {
@@ -55,7 +58,7 @@
         }
 
         .btn-primary {
-            background-color: #007bff;
+            background-color: #007bff; /* Blue button */
             border-color: #007bff;
             padding: 12px;
             width: 100%;
@@ -68,20 +71,35 @@
             border-color: #004085;
         }
 
-        .forgot-password {
+        .icon {
+            font-size: 50px;
+            color: #007bff; /* Blue icon */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Placeholder styling */
+        ::placeholder {
+            color: #6c757d;
+            opacity: 1;
+        }
+
+        /* Style for the signup link */
+        .signup-link {
             text-align: center;
             margin-top: 15px;
         }
 
-        .forgot-password a {
+        .signup-link a {
             color: #007bff;
             text-decoration: none;
         }
 
-        .forgot-password a:hover {
+        .signup-link a:hover {
             text-decoration: underline;
         }
 
+        /* Flash error styling */
         .alert {
             font-size: 14px;
             padding: 15px;
@@ -91,7 +109,8 @@
 <body>
 
     <div class="container">
-        <h1><i class="fas fa-warehouse"></i> Warehouse Management System</h1>
+        <h1><i class="fas fa-lock"></i> Verify Reset Code</h1>
+        <p>Please enter the reset code sent to your email.</p>
 
         <!-- Display Error Flash Message -->
         <?php if (session()->getFlashdata('error')): ?>
@@ -100,57 +119,31 @@
             </div>
         <?php endif; ?>
 
-        <!-- Login Form -->
-        <form action="/login/authenticate" method="post">
+        <!-- Reset Code Form -->
+        <form action="/forgot-password/verify-code" method="post">
             <?= csrf_field() ?>
 
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email" required>
             </div>
 
             <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                <label for="reset_code">Reset Code:</label>
+                <input type="text" name="reset_code" class="form-control" id="reset_code" placeholder="Enter reset code" required>
             </div>
 
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-primary mt-3">Verify Code</button>
         </form>
 
-        <!-- Forgot Password Link -->
-        <div class="forgot-password">
-            <p><a href="#" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot Password?</a></p>
-        </div>
-
-        <!-- Link to register page -->
-        <div class="signup-link">
-            <p>Don't have an account yet? <a href="/register">Sign up here</a></p>
+        <div class="signup-link mt-3">
+            <p>Didn't receive the code? <a href="/forgot-password">Resend code</a></p>
         </div>
     </div>
 
-    <!-- Forgot Password Modal -->
-    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="forgotPasswordModalLabel">Forgot Password</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="/forgot-password/send-code" method="post">
-                        <?= csrf_field() ?>
-                        <div class="form-group">
-                            <label for="reset-email">Enter your email:</label>
-                            <input type="email" class="form-control" id="reset-email" name="reset_email" placeholder="Enter your email" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary mt-3">Send Reset Code</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <!-- Include Bootstrap JS (For Modal) -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
 </body>
 </html>
