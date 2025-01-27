@@ -140,7 +140,7 @@
             </div>
 
             <!-- Display Flash Messages -->
-            <?php if (session()->get('errors')): ?>
+            <?php if (session()->get('errors') && is_array(session()->get('errors'))): ?>
                 <div class="alert alert-danger">
                     <?php foreach (session()->get('errors') as $error): ?>
                         <p><?= esc($error) ?></p>
