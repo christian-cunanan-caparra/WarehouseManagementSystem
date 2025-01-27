@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="container mt-5">
-    <h1>Welcome to Admin Dashboard</h1>
+    <h1>Welcome, <?= esc($user_name); ?>!</h1>  <!-- Display the logged-in admin's name -->
     <a href="/logout" class="btn btn-danger">Logout</a>
 </div>
 </body>

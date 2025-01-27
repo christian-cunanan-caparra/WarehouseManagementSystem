@@ -21,7 +21,7 @@
             background-color: #ffffff;
             border-radius: 15px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            padding: 40px;
+            padding: 30px;
             max-width: 400px;
             width: 100%;
         }
@@ -30,10 +30,11 @@
             text-align: center;
             color: #007bff;
             margin-bottom: 20px;
+            font-size: 1.5rem;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         label {
@@ -43,8 +44,8 @@
 
         input {
             width: 100%;
-            padding: 12px;
-            margin-top: 8px;
+            padding: 10px;
+            margin-top: 6px;
             border: 1px solid #ddd;
             border-radius: 8px;
             font-size: 1rem;
@@ -59,9 +60,9 @@
         .btn-primary {
             background-color: #007bff;
             border-color: #007bff;
-            padding: 12px 20px;
+            padding: 10px 18px;
             width: 100%;
-            font-size: 1.1rem;
+            font-size: 1rem;
             border-radius: 8px;
         }
 
@@ -71,9 +72,9 @@
         }
 
         .alert {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-size: 1rem;
-            padding: 15px;
+            padding: 12px;
             border-radius: 8px;
         }
 
@@ -91,14 +92,39 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: #007bff;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .header-title i {
-            margin-right: 10px;
-            font-size: 2.5rem;
+            margin-right: 8px;
+            font-size: 2rem;
+        }
+
+        /* Media Query for Mobile */
+        @media (max-width: 576px) {
+            .login-container {
+                padding: 20px;
+            }
+
+            .header-title {
+                font-size: 1.2rem;
+            }
+
+            h2 {
+                font-size: 1.25rem;
+                margin-bottom: 15px;
+            }
+
+            .form-group {
+                margin-bottom: 12px;
+            }
+
+            .btn-primary {
+                padding: 8px 16px;
+                font-size: 0.95rem;
+            }
         }
     </style>
 </head>
