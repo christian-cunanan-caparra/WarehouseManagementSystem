@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <!-- Include Bootstrap for Modal Styling (Optional) -->
+    <!-- Include Bootstrap for Modal Styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f1f8e9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eaf3fc;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -19,80 +19,80 @@
 
         .container {
             background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            padding: 40px;
             max-width: 400px;
             width: 100%;
         }
 
         h1 {
             text-align: center;
-            color: #4CAF50;
-            margin-bottom: 30px;
+            color: #007bff;
+            margin-bottom: 20px;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         label {
             font-weight: bold;
-            color: #555;
+            color: #333;
         }
 
         input {
             width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
             font-size: 1rem;
+            transition: border-color 0.3s ease;
         }
 
         input:focus {
-            border-color: #4CAF50;
+            border-color: #007bff;
             outline: none;
         }
 
         .btn-primary {
-            background-color: #4CAF50;
-            border-color: #4CAF50;
-            padding: 10px 20px;
+            background-color: #007bff;
+            border-color: #007bff;
+            padding: 12px 20px;
             width: 100%;
             font-size: 1.1rem;
-            border-radius: 5px;
+            border-radius: 8px;
         }
 
         .btn-primary:hover {
-            background-color: #45a049;
-            border-color: #45a049;
+            background-color: #0069d9;
+            border-color: #0062cc;
         }
 
         .modal-content {
-            background: #f8f9fa;
+            background-color: #f8f9fa;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
         .modal-header {
-            border-bottom: 2px solid #dee2e6;
-            background: #4CAF50;
+            background-color: #007bff;
             color: #fff;
-            font-size: 1.25rem;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
             padding: 20px;
             text-align: center;
         }
 
         .modal-body {
             padding: 30px;
-            text-align: center;
             font-size: 1.1rem;
             color: #333;
+            text-align: center;
         }
 
         .modal-footer {
-            border-top: 2px solid #dee2e6;
             padding: 15px;
             text-align: center;
         }
@@ -107,6 +107,12 @@
             border-color: #545b62;
         }
 
+        .errors p {
+            color: #ff5d5d;
+            font-size: 1rem;
+            margin: 10px 0;
+        }
+
     </style>
 </head>
 <body>
@@ -118,7 +124,7 @@
         <?php if (session()->get('errors')): ?>
             <div class="errors">
                 <?php foreach (session()->get('errors') as $error): ?>
-                    <p class="text-danger"><?= esc($error) ?></p>
+                    <p><?= esc($error) ?></p>
                 <?php endforeach ?>
             </div>
         <?php endif; ?>
@@ -146,7 +152,7 @@
         </form>
     </div>
 
-    <!-- Modal -->
+    <!-- Success Modal -->
     <?php if (session()->get('success')): ?>
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog">
