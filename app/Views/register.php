@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <!-- Include Bootstrap for Modal Styling -->
+    <title>Register - Warehouse Management System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #eaf3fc;
+            background-color: #f4f8fc;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -17,19 +17,19 @@
             margin: 0;
         }
 
-        .container {
+        .register-container {
             background-color: #ffffff;
             border-radius: 15px;
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             padding: 40px;
-            max-width: 400px;
+            max-width: 500px;
             width: 100%;
         }
 
-        h1 {
+        h2 {
             text-align: center;
             color: #007bff;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .form-group {
@@ -41,7 +41,7 @@
             color: #333;
         }
 
-        input {
+        input, select {
             width: 100%;
             padding: 12px;
             margin-top: 8px;
@@ -51,7 +51,7 @@
             transition: border-color 0.3s ease;
         }
 
-        input:focus {
+        input:focus, select:focus {
             border-color: #007bff;
             outline: none;
         }
@@ -70,123 +70,113 @@
             border-color: #0062cc;
         }
 
-        .modal-content {
-            background-color: #f8f9fa;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .modal-header {
-            background-color: #007bff;
-            color: #fff;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .modal-body {
-            padding: 30px;
-            font-size: 1.1rem;
-            color: #333;
-            text-align: center;
-        }
-
-        .modal-footer {
-            padding: 15px;
-            text-align: center;
-        }
-
-        .btn-secondary {
-            background-color: #6c757d;
-            border-color: #6c757d;
-        }
-
-        .btn-secondary:hover {
-            background-color: #5a6268;
-            border-color: #545b62;
-        }
-
-        .errors p {
-            color: #ff5d5d;
+        .alert {
+            margin-bottom: 20px;
             font-size: 1rem;
-            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
         }
 
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .header-title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            color: #007bff;
+            margin-bottom: 30px;
+        }
+
+        .header-title i {
+            margin-right: 10px;
+            font-size: 2.5rem;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Register</h1>
-
-        <!-- Display Validation Errors -->
-        <?php if (session()->get('errors')): ?>
-            <div class="errors">
-                <?php foreach (session()->get('errors') as $error): ?>
-                    <p><?= esc($error) ?></p>
-                <?php endforeach ?>
-            </div>
-        <?php endif; ?>
-
-        <!-- Registration Form -->
-        <form action="/register/save" method="POST">
-            <?= csrf_field() ?>
-
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" value="<?= old('name') ?>" required>
+        <div class="register-container">
+            <!-- Header with Icon and Title -->
+            <div class="header-title">
+                <i class="fas fa-warehouse"></i>
+                <span>Warehouse Management System</span>
             </div>
 
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" value="<?= old('email') ?>" required>
-            </div>
-
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Register</button>
-        </form>
-    </div>
-
-    <!-- Success Modal -->
-    <?php if (session()->get('success')): ?>
-    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="successModalLabel">Registration Successful</h5>
+            <!-- Display Flash Messages -->
+            <?php if (session()->get('errors')): ?>
+                <div class="alert alert-danger">
+                    <?php foreach (session()->get('errors') as $error): ?>
+                        <p><?= esc($error) ?></p>
+                    <?php endforeach ?>
                 </div>
-                <div class="modal-body">
+            <?php endif; ?>
+            <?php if (session()->get('success')): ?>
+                <div class="alert alert-success">
                     <?= session()->get('success') ?>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <a href="/login" class="btn btn-primary">Go to Login</a>
+            <?php endif; ?>
+
+            <!-- Registration Form -->
+            <form action="/register/save" method="POST">
+                <?= csrf_field() ?>
+
+                <!-- Name -->
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" value="<?= old('name') ?>" required>
                 </div>
-            </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" value="<?= old('email') ?>" required>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+
+                <!-- Address -->
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control" id="address" name="address" value="<?= old('address') ?>" required>
+                </div>
+
+                <!-- Gender -->
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select class="form-control" id="gender" name="gender" required>
+                        <option value="male" <?= old('gender') == 'male' ? 'selected' : '' ?>>Male</option>
+                        <option value="female" <?= old('gender') == 'female' ? 'selected' : '' ?>>Female</option>
+                        <option value="other" <?= old('gender') == 'other' ? 'selected' : '' ?>>Other</option>
+                    </select>
+                </div>
+
+                <!-- Mobile Number -->
+                <div class="form-group">
+                    <label for="mobile">Mobile Number</label>
+                    <input type="tel" class="form-control" id="mobile" name="mobile" value="<?= old('mobile') ?>" required>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
         </div>
     </div>
 
-    <script>
-        // Show the modal when the page loads
-        document.addEventListener('DOMContentLoaded', function () {
-            var myModal = new bootstrap.Modal(document.getElementById('successModal'));
-            myModal.show();
-
-            // After 4 seconds, automatically close the modal and redirect to index
-            setTimeout(function() {
-                myModal.hide();
-                window.location.href = '/'; // Redirect to index page
-            }, 4000); // 4000ms = 4 seconds
-        });
-    </script>
-    <?php endif; ?>
-
-    <!-- Include Bootstrap JS (For Modal) -->
+    <!-- Include Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 

@@ -13,35 +13,39 @@ class RegisterController extends BaseController
 
     public function save()
     {
-        // Validation code (already added)
-        
-        // Create a new instance of the UserModel
+        // Validate the form input
+        $validation = $this->validate([
+            'name'      => 'required|min_length[3]',
+            'email'     => 'required|valid_email|is_unique[users.email]',
+            'password'  => 'required|min_length[8]',
+            'address'   => 'required',
+            'gender'    => 'required',
+            'mobile'    => 'required|numeric'
+        ]);
+
+        // If validation fails, return back to the form with errors
+        if (!$validation) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        // Prepare the data to be inserted into the database
         $userModel = new UserModel();
-    
-        // Prepare the data to be inserted
-        $userData = [
-            'name' => $this->request->getPost('name'),
-            'email' => $this->request->getPost('email'),
-            'password' => password_hash($this->request->getPost('password'), PASSWORD_BCRYPT),
+        $data = [
+            'name'      => $this->request->getPost('name'),
+            'email'     => $this->request->getPost('email'),
+            'password'  => password_hash($this->request->getPost('password'), PASSWORD_BCRYPT),
+            'address'   => $this->request->getPost('address'),
+            'gender'    => $this->request->getPost('gender'),
+            'mobile'    => $this->request->getPost('mobile')
         ];
-    
+
         // Insert the data into the database
-        $userModel->save($userData);
-    
-        // Send a welcome email
-        $email = \Config\Services::email();
-        $email->setTo($this->request->getPost('email'));
-        $email->setFrom('caparrachristian47@gmail.com', 'Warehouse Management System');
-        $email->setSubject('Welcome!');
-        $email->setMessage('Welcome to the warehouse management system and successfully registered.');
-        $email->send();
-    
-        // Set flashdata for success message
-        session()->setFlashdata('success', 'Registration successful! Please log in.');
-    
-        // Redirect to the register page (or any other page)
-        return redirect()->to('/register');
+        if ($userModel->save($data)) {
+            // Set a success message and redirect to login page
+            return redirect()->to('/login')->with('success', 'Registration successful! Please log in.');
+        } else {
+            // Handle the error if insert fails
+            return redirect()->back()->withInput()->with('errors', ['Failed to register user.']);
+        }
     }
-    
-    
 }
