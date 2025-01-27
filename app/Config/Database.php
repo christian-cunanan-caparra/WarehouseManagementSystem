@@ -28,8 +28,8 @@ class Database extends Config
         
         'DSN'      => '',
         'hostname' => '127.0.0.1',
-        'username' => 'u988465998',
-        'password' => 'Ajdkpe11hjk',
+        'username' => 'u988465998_',
+        'password' => 'Adckio11',
         'database' => 'u988465998_warehousemanag',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
