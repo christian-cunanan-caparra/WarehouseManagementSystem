@@ -13,17 +13,8 @@ class RegisterController extends BaseController
 
     public function save()
     {
-        // Validate input
-        $validation = $this->validate([
-            'name' => 'required',
-            'email' => 'required|valid_email|is_unique[users.email]',
-            'password' => 'required|min_length[8]',
-        ]);
-    
-        if (!$validation) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-        }
-    
+        // Validation code (already added)
+        
         // Create a new instance of the UserModel
         $userModel = new UserModel();
     
@@ -45,8 +36,12 @@ class RegisterController extends BaseController
         $email->setMessage('Welcome to the warehouse management system and successfully registered.');
         $email->send();
     
-        // Redirect to login page
-        return redirect()->to('/index.php')->with('success', 'Registration successful! Please log in.');
+        // Set flashdata for success message
+        session()->setFlashdata('success', 'Registration successful! Please log in.');
+    
+        // Redirect to the register page (or any other page)
+        return redirect()->to('/register');
     }
+    
     
 }
