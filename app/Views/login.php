@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Login - Warehouse Management System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -85,37 +86,57 @@
             background-color: #d4edda;
             color: #155724;
         }
+
+        .header-title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            color: #007bff;
+            margin-bottom: 30px;
+        }
+
+        .header-title i {
+            margin-right: 10px;
+            font-size: 2.5rem;
+        }
     </style>
 </head>
 <body>
 
-    <div class="login-container">
-        <h2>Login</h2>
+    <div class="container">
+        <div class="login-container">
+            <!-- Header with Icon and Title -->
+            <div class="header-title">
+                <i class="fas fa-warehouse"></i>
+                <span>Warehouse Management System</span>
+            </div>
 
-        <!-- Display Flash Messages -->
-        <?php if (session()->getFlashdata('error')): ?>
-            <div class="alert alert-danger">
-                <?= session()->getFlashdata('error') ?>
-            </div>
-        <?php endif; ?>
-        <?php if (session()->getFlashdata('success')): ?>
-            <div class="alert alert-success">
-                <?= session()->getFlashdata('success') ?>
-            </div>
-        <?php endif; ?>
+            <!-- Display Flash Messages -->
+            <?php if (session()->getFlashdata('error')): ?>
+                <div class="alert alert-danger">
+                    <?= session()->getFlashdata('error') ?>
+                </div>
+            <?php endif; ?>
+            <?php if (session()->getFlashdata('success')): ?>
+                <div class="alert alert-success">
+                    <?= session()->getFlashdata('success') ?>
+                </div>
+            <?php endif; ?>
 
-        <!-- Login Form -->
-        <form action="/login/authenticate" method="post">
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" required>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Login</button>
-        </form>
+            <!-- Login Form -->
+            <form action="/login/authenticate" method="post">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
     </div>
 
     <!-- Include Bootstrap JS -->
