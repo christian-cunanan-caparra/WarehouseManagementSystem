@@ -6,6 +6,48 @@
     <title>Register</title>
     <!-- Include Bootstrap for Modal Styling (Optional) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom modal styling for a more advanced design */
+        .modal-content {
+            background: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            border-bottom: 2px solid #dee2e6;
+            background: #4CAF50;
+            color: #fff;
+            font-size: 1.25rem;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .modal-body {
+            padding: 30px;
+            text-align: center;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .modal-footer {
+            border-top: 2px solid #dee2e6;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: #4CAF50;
+            border-color: #4CAF50;
+            padding: 10px 20px;
+            font-size: 1rem;
+        }
+
+        .btn-primary:hover {
+            background-color: #45a049;
+            border-color: #45a049;
+        }
+    </style>
 </head>
 <body>
 
@@ -33,7 +75,7 @@
         <label for="password">Password:</label>
         <input type="password" id="password" name="password"><br>
 
-        <button type="submit">Register</button>
+        <button type="submit" class="btn btn-primary">Register</button>
     </form>
 
     <!-- Modal -->
@@ -43,13 +85,11 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="successModalLabel">Registration Successful</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <?= session()->get('success') ?>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <a href="/login" class="btn btn-primary">Go to Login</a>
                 </div>
             </div>
