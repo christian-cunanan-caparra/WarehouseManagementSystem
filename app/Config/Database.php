@@ -27,9 +27,9 @@ class Database extends Config
     public array $default = [
         'DSN'          => '',
         'hostname'     => 'localhost',
-        'username'     => '',
-        'password'     => '',
-        'database'     => '',
+        'username'     => 'u988465998',
+        'password'     => 'Ajdkpe11hjk',
+        'database'     => 'warehousemanagement',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,
@@ -41,6 +41,7 @@ class Database extends Config
         'compress'     => false,
         'strictOn'     => false,
         'failover'     => [],
+        'saveQueries' => true,
         'port'         => 3306,
         'numberNative' => false,
         'dateFormat'   => [

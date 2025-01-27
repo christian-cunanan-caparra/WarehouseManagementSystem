@@ -8,4 +8,8 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 
 
-$routes->get('/', 'HelloController::index');  // This will route to the index() method of Home controller
+$routes->get('/login', 'Auth::login');  // Login page
+$routes->get('/register', 'Auth::register');  // Register page
+$routes->post('/register', 'Auth::registerSubmit');  // Handle registration form submission
+$routes->post('/login', 'Auth::loginSubmit');  // Handle login form submission
+$routes->get('/dashboard', 'Dashboard::index');  // Dashboard page after login
