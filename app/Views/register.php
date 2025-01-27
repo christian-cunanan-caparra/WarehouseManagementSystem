@@ -111,12 +111,25 @@
         .login-link a:hover {
             text-decoration: underline;
         }
+
+        /* Flash error styling */
+        .alert {
+            font-size: 14px;
+            padding: 15px;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
         <h1><i class="fas fa-warehouse"></i> Warehouse Management System</h1>
+
+        <!-- Display Flash Error Message for Invalid Email -->
+        <?php if (session()->getFlashdata('error')): ?>
+            <div class="alert alert-danger">
+                <?= session()->getFlashdata('error') ?>
+            </div>
+        <?php endif; ?>
 
         <!-- Display Validation Errors -->
         <?php if (session()->get('errors')): ?>
@@ -185,7 +198,7 @@
                     <?= session()->get('success') ?>
                 </div>
                 <div class="modal-footer">
-                    <!-- <a href="/login" class="btn btn-primary">Go to Login</a> -->
+                    <a href="/login" class="btn btn-primary">Go to Login</a>
                 </div>
             </div>
         </div>
@@ -197,10 +210,9 @@
             var myModal = new bootstrap.Modal(document.getElementById('successModal'));
             myModal.show();
 
-            // After 4 seconds, automatically close the modal and redirect to index
+            // After 4 seconds, automatically close the modal and redirect to login
             setTimeout(function() {
-                // myModal.hide();
-                window.location.href = '/'; // Redirect to index page
+                window.location.href = '/login'; // Redirect to login page
             }, 4000); // 4000ms = 4 seconds
         });
     </script>

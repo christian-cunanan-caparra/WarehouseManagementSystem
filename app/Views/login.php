@@ -10,7 +10,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(to right, #0056b3, #004085);
+            background-color: #f0f8ff; /* Light blue background */
             font-family: 'Arial', sans-serif;
             height: 100vh;
             margin: 0;
@@ -22,80 +22,94 @@
         .container {
             background-color: #ffffff;
             padding: 30px;
-            border-radius: 10px;
+            border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 400px;
-            transition: all 0.3s ease-in-out;  /* Smooth transition */
+            transition: all 0.3s ease-in-out;
         }
 
         /* Hover effect for the container */
         .container:hover {
-            transform: scale(1.05);   /* Slightly enlarge the container */
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);  /* Stronger shadow on hover */
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
         }
 
-        h2 {
+        h1 {
             text-align: center;
-            color: #0056b3;
+            color: #007bff; /* Blue color */
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .form-control {
-            border-radius: 5px;
+            border-radius: 10px;
             padding: 10px;
+            font-size: 16px;
+            box-shadow: none;
+            border: 1px solid #007bff; /* Blue border */
+        }
+
+        .form-control:focus {
+            border-color: #0056b3;
+            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
         }
 
         .btn-primary {
-            background-color: #0056b3;
-            border-color: #0056b3;
-            padding: 10px 20px;
+            background-color: #007bff; /* Blue button */
+            border-color: #007bff;
+            padding: 12px;
             width: 100%;
-            border-radius: 5px;
+            border-radius: 10px;
+            font-size: 16px;
         }
 
         .btn-primary:hover {
-            background-color: #004085;
+            background-color: #0056b3;
             border-color: #004085;
         }
 
         .icon {
             font-size: 50px;
-            color: #0056b3;
+            color: #007bff; /* Blue icon */
             text-align: center;
             margin-bottom: 20px;
         }
 
-        .alert {
-            text-align: center;
-        }
-
+        /* Placeholder styling */
         ::placeholder {
             color: #6c757d;
+            opacity: 1;
         }
 
+        /* Style for the signup link */
         .signup-link {
             text-align: center;
             margin-top: 15px;
         }
 
         .signup-link a {
-            color: #0056b3;
+            color: #007bff;
             text-decoration: none;
         }
 
         .signup-link a:hover {
             text-decoration: underline;
         }
+
+        /* Flash error styling */
+        .alert {
+            font-size: 14px;
+            padding: 15px;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h2><i class="fas fa-warehouse"></i> Warehouse Management System</h2>
+        <h1><i class="fas fa-warehouse"></i> Warehouse Management System</h1>
 
         <!-- Display Error Flash Message -->
         <?php if (session()->getFlashdata('error')): ?>
@@ -106,20 +120,22 @@
 
         <!-- Login Form -->
         <form action="/login/authenticate" method="post">
+            <?= csrf_field() ?>
+
             <div class="form-group">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" required placeholder="Enter your email">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
             </div>
 
             <div class="form-group">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required placeholder="Enter your password">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
 
-        <!-- Link to register page if the user doesn't have an account yet -->
+        <!-- Link to register page if the user doesn't have an account -->
         <div class="signup-link">
             <p>Don't have an account yet? <a href="/register">Sign up here</a></p>
         </div>
