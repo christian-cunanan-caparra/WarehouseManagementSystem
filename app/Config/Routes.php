@@ -29,3 +29,8 @@ $routes->post('/register/save', 'RegisterController::save');
 $routes->get('/dashboard', 'DashboardController::index');
 $routes->get('/admin/dashboard', 'DashboardController::index');
 $routes->get('/employee/dashboard', 'DashboardController::index');
+
+$routes->post('/forgot-password/send-code', 'AuthController@sendResetCode');
+$routes->get('/forgot-password/verify', 'AuthController@showVerifyForm');
+$routes->post('/forgot-password/verify-code', 'AuthController@verifyResetCode');
+$routes->post('/forgot-password/reset', 'AuthController@resetPassword');
