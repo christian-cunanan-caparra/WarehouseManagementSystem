@@ -17,3 +17,10 @@ $routes->post('/register/save', 'RegisterController::save');
 $routes->get('/dashboard', 'DashboardController::index');
 
 
+$routes->get('/login', 'LoginController::login');
+$routes->post('/login/authenticate', 'LoginController::authenticate');
+$routes->get('/logout', 'LoginController::logout');
+
+// For admin and employee dashboards
+$routes->get('/admin/dashboard', 'AdminController::dashboard');
+$routes->get('/employee/dashboard', 'EmployeeController::dashboard');
