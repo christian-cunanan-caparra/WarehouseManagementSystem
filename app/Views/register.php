@@ -7,7 +7,68 @@
     <!-- Include Bootstrap for Modal Styling (Optional) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Custom modal styling for a more advanced design */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f8e9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        input:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        .btn-primary {
+            background-color: #4CAF50;
+            border-color: #4CAF50;
+            padding: 10px 20px;
+            width: 100%;
+            font-size: 1.1rem;
+            border-radius: 5px;
+        }
+
+        .btn-primary:hover {
+            background-color: #45a049;
+            border-color: #45a049;
+        }
+
         .modal-content {
             background: #f8f9fa;
             border-radius: 10px;
@@ -36,47 +97,54 @@
             text-align: center;
         }
 
-        .btn-primary {
-            background-color: #4CAF50;
-            border-color: #4CAF50;
-            padding: 10px 20px;
-            font-size: 1rem;
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
         }
 
-        .btn-primary:hover {
-            background-color: #45a049;
-            border-color: #45a049;
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
         }
+
     </style>
 </head>
 <body>
 
-    <h1>Register</h1>
+    <div class="container">
+        <h1>Register</h1>
 
-    <!-- Display Validation Errors -->
-    <?php if (session()->get('errors')): ?>
-        <div class="errors">
-            <?php foreach (session()->get('errors') as $error): ?>
-                <p><?= esc($error) ?></p>
-            <?php endforeach ?>
-        </div>
-    <?php endif; ?>
+        <!-- Display Validation Errors -->
+        <?php if (session()->get('errors')): ?>
+            <div class="errors">
+                <?php foreach (session()->get('errors') as $error): ?>
+                    <p class="text-danger"><?= esc($error) ?></p>
+                <?php endforeach ?>
+            </div>
+        <?php endif; ?>
 
-    <!-- Registration Form -->
-    <form action="/register/save" method="POST">
-        <?= csrf_field() ?>
+        <!-- Registration Form -->
+        <form action="/register/save" method="POST">
+            <?= csrf_field() ?>
 
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="<?= old('name') ?>"><br>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" value="<?= old('name') ?>" required>
+            </div>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="<?= old('email') ?>"><br>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="<?= old('email') ?>" required>
+            </div>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password"><br>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
 
-        <button type="submit" class="btn btn-primary">Register</button>
-    </form>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
 
     <!-- Modal -->
     <?php if (session()->get('success')): ?>
@@ -90,6 +158,7 @@
                     <?= session()->get('success') ?>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <a href="/login" class="btn btn-primary">Go to Login</a>
                 </div>
             </div>
