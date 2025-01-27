@@ -7,9 +7,11 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 
+$routes->get('/', 'LoginController::index');
+$routes->post('/login/authenticate', 'LoginController::authenticate');
+$routes->get('/logout', 'LoginController::logout');
 
-$routes->get('/login', 'Auth::login');  // Login page
-$routes->get('/register', 'Auth::register');  // Register page
-$routes->post('/register', 'Auth::registerSubmit');  // Handle registration form submission
-$routes->post('/login', 'Auth::loginSubmit');  // Handle login form submission
-$routes->get('/dashboard', 'Dashboard::index');  // Dashboard page after login
+$routes->get('/register', 'RegisterController::register');
+$routes->post('/register/save', 'RegisterController::save');
+
+$routes->get('/dashboard', 'DashboardController::index');
