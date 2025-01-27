@@ -41,39 +41,46 @@ class Auth extends Controller
     }
 
     public function registerSubmit()
-    {
-        $email = $this->request->getPost('email');
-        $password = $this->request->getPost('password');
-        $passwordConfirm = $this->request->getPost('password_confirm');
-    
-        // Validation: Check if passwords match
-        if ($password !== $passwordConfirm) {
-            return redirect()->to('/register')->with('error', 'Passwords do not match');
-        }
-    
-        $userModel = new \App\Models\UserModel();
-    
-        // Check if email already exists in the database
-        if ($userModel->where('email', $email)->first()) {
-            return redirect()->to('/register')->with('error', 'Email is already registered');
-        }
-    
-        // Hash the password before saving it
-        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-    
-        // Save the new user to the database
+{
+    $email = $this->request->getPost('email');
+    $password = $this->request->getPost('password');
+    $passwordConfirm = $this->request->getPost('password_confirm');
+
+    // Validation: Check if passwords match
+    if ($password !== $passwordConfirm) {
+        return redirect()->to('/register')->with('error', 'Passwords do not match');
+    }
+
+    $userModel = new \App\Models\UserModel();
+
+    // Check if email already exists
+    if ($userModel->where('email', $email)->first()) {
+        return redirect()->to('/register')->with('error', 'Email is already registered');
+    }
+
+    // Hash the password before saving
+    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+    try {
+        // Attempt to save the user to the database
         $userModel->save([
             'email' => $email,
             'password' => $hashedPassword,
         ]);
-    
-        // Send the welcome email
-        if ($this->sendWelcomeEmail($email)) {
-            return redirect()->to('/login')->with('success', 'Registration successful. Please check your email.');
-        } else {
-            return redirect()->to('/register')->with('error', 'Registration successful, but email could not be sent.');
-        }
+    } catch (\Exception $e) {
+        // Log error and return
+        log_message('error', $e->getMessage());
+        return redirect()->to('/register')->with('error', 'Failed to register. Please try again.');
     }
+
+    // Send the welcome email
+    if ($this->sendWelcomeEmail($email)) {
+        return redirect()->to('/login')->with('success', 'Registration successful. Please check your email.');
+    } else {
+        return redirect()->to('/register')->with('error', 'Registration successful, but email could not be sent.');
+    }
+}
+
     
     private function sendWelcomeEmail($email)
     {
