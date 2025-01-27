@@ -25,6 +25,7 @@ class Database extends Config
      * @var array<string, mixed>
      */
     public $default = [
+        
         'DSN'      => '',
         'hostname' => 'ftp://warehousemanagementsystem.shop',
         'username' => 'u988465998',
@@ -43,6 +44,8 @@ class Database extends Config
         'failover' => [],
         'port'     => 3306,
     ];
+    
+
     
 
     //    /**
@@ -193,4 +196,8 @@ class Database extends Config
             $this->defaultGroup = 'tests';
         }
     }
+
+
+
+    
 }
