@@ -8,47 +8,46 @@ class RegisterController extends BaseController
 {
     public function register()
     {
-        return view('register'); // Render the registration form
+        return view('register'); // Render the register form
     }
 
     public function save()
     {
-        // Validate the form data
+        // Validate user input
         $validation = $this->validate([
             'name' => 'required',
             'email' => 'required|valid_email|is_unique[users.email]',
             'password' => 'required|min_length[8]',
             'address' => 'required',
             'gender' => 'required',
-            'mobile_number' => 'required|numeric',
-            'role' => 'required'
+            'mobile_number' => 'required|regex_match[/^[0-9]{10}$/]', // Assuming mobile number is 10 digits
         ]);
 
-        // If validation fails, redirect back with error messages
         if (!$validation) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        // Create a new UserModel instance
-        $userModel = new UserModel();
-
-        // Save the user data to the database
-        $userModel->save([
+        // Prepare user data to be saved
+        $userData = [
             'name' => $this->request->getPost('name'),
             'email' => $this->request->getPost('email'),
             'password' => password_hash($this->request->getPost('password'), PASSWORD_BCRYPT),
             'address' => $this->request->getPost('address'),
             'gender' => $this->request->getPost('gender'),
             'mobile_number' => $this->request->getPost('mobile_number'),
-            'role' => $this->request->getPost('role'),
-        ]);
+            'role' => 'Employee',  // Set the role to Employee by default
+        ];
 
-        // Optionally, send a welcome email
+        // Save the user data into the database
+        $userModel = new UserModel();
+        $userModel->save($userData);
+
+        // Send a welcome email to the user
         $email = \Config\Services::email();
         $email->setTo($this->request->getPost('email'));
         $email->setFrom('caparrachristian47@gmail.com', 'Warehouse Management System');
         $email->setSubject('Welcome!');
-        $email->setMessage('Welcome to the Warehouse Management System and successfully registered.');
+        $email->setMessage('Welcome to the Warehouse Management System! You have successfully registered.');
         $email->send();
 
         // Redirect to login page with success message
