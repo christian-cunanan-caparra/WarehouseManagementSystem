@@ -6,8 +6,8 @@ use CodeIgniter\Model;
 
 class UserModel extends Model
 {
-    protected $table = 'users'; // Table name
-    protected $primaryKey = 'id'; // Primary key
-    protected $allowedFields = ['email', 'password']; // Fields that can be inserted/updated
-    protected $useTimestamps = true; // Enable automatic timestamps
+    protected $table = 'users';
+    protected $primaryKey = 'id';
+    protected $allowedFields = ['name', 'email', 'password', 'role'];
+    protected $useTimestamps = true;
 }

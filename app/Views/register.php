@@ -19,7 +19,9 @@
             <?= session()->getFlashdata('success') ?>
         </div>
     <?php endif; ?>
-    <form action="/register/save" method="post">
+   <form action="<?= site_url('register/save') ?>" method="post">
+
+        
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>
             <input type="text" class="form-control" id="name" name="name" value="<?= old('name') ?>">
