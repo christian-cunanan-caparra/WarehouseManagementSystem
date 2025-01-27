@@ -13,39 +13,38 @@ class RegisterController extends BaseController
 
     public function save()
     {
-        // Validate the form input
-        $validation = $this->validate([
-            'name'      => 'required|min_length[3]',
-            'email'     => 'required|valid_email|is_unique[users.email]',
-            'password'  => 'required|min_length[8]',
-            'address'   => 'required',
-            'gender'    => 'required',
-            'mobile'    => 'required|numeric'
-        ]);
+        $userModel = new UserModel();
 
-        // If validation fails, return back to the form with errors
-        if (!$validation) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        // Validate input fields (you can add more validation rules)
+        if (!$this->validate([
+            'name' => 'required|min_length[3]|max_length[255]',
+            'email' => 'required|valid_email|is_unique[users.email]',
+            'password' => 'required|min_length[8]',
+            'address' => 'required|min_length[5]',
+            'gender' => 'required',
+            'mobile' => 'required|numeric|min_length[10]|max_length[15]',
+            'role' => 'required'
+        ])) {
+            return redirect()->back()->withInput()->with('errors', $userModel->getValidationMessages());
         }
 
-        // Prepare the data to be inserted into the database
-        $userModel = new UserModel();
+        // Insert data into database
         $data = [
-            'name'      => $this->request->getPost('name'),
-            'email'     => $this->request->getPost('email'),
-            'password'  => password_hash($this->request->getPost('password'), PASSWORD_BCRYPT),
-            'address'   => $this->request->getPost('address'),
-            'gender'    => $this->request->getPost('gender'),
-            'mobile'    => $this->request->getPost('mobile')
+            'name' => $this->request->getPost('name'),
+            'email' => $this->request->getPost('email'),
+            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+            'address' => $this->request->getPost('address'),
+            'gender' => $this->request->getPost('gender'),
+            'mobile' => $this->request->getPost('mobile'),
+            'role' => 'employee',  // Assign a default role to the new user
         ];
 
-        // Insert the data into the database
         if ($userModel->save($data)) {
-            // Set a success message and redirect to login page
-            return redirect()->to('/login')->with('success', 'Registration successful! Please log in.');
+            session()->setFlashdata('success', 'Registration successful. You can now log in.');
+            return redirect()->to('/login');
         } else {
-            // Handle the error if insert fails
-            return redirect()->back()->withInput()->with('errors', ['Failed to register user.']);
+            session()->setFlashdata('error', 'Registration failed. Please try again.');
+            return redirect()->to('/register');
         }
     }
 }
