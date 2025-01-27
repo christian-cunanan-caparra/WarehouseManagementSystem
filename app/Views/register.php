@@ -57,10 +57,16 @@
     </div>
 
     <script>
-        // Trigger the modal when the page loads
+        // Show the modal when the page loads
         document.addEventListener('DOMContentLoaded', function () {
             var myModal = new bootstrap.Modal(document.getElementById('successModal'));
             myModal.show();
+
+            // After 4 seconds, automatically close the modal and redirect to index
+            setTimeout(function() {
+                myModal.hide();
+                window.location.href = '/'; // Redirect to index page
+            }, 4000); // 4000ms = 4 seconds
         });
     </script>
     <?php endif; ?>
