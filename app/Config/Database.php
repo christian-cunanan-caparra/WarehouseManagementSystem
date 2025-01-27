@@ -27,7 +27,7 @@ class Database extends Config
     public $default = [
         
         'DSN'      => '',
-        'hostname' => '127.0.0.1:3306',
+        'hostname' => '127.0.0.1',
         'username' => 'u988465998',
         'password' => 'Ajdkpe11hjk',
         'database' => 'warehousemanagement',
