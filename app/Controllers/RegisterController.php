@@ -21,7 +21,7 @@ class RegisterController extends BaseController
             'password' => 'required|min_length[8]',
             'address' => 'required',
             'gender' => 'required',
-            'mobile_number' => 'required|regex_match[/^[0-9]{10}$/]', // Assuming mobile number is 10 digits
+            'mobile_number' => 'required|numeric|max_length[15]', // Assuming mobile number is 10 digits
         ]);
 
         if (!$validation) {
