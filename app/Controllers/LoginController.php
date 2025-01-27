@@ -8,57 +8,56 @@ class LoginController extends BaseController
 {
     public function login()
     {
+        // Show the login form
         return view('login');
     }
 
     public function authenticate()
     {
-        // Validation of form inputs
+        // Validate login form inputs
         $validation = $this->validate([
             'email' => 'required|valid_email',
             'password' => 'required|min_length[8]',
         ]);
 
         if (!$validation) {
-            // If validation fails, show errors
+            // Redirect back with errors if validation fails
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        // Get user credentials
+        // Retrieve user credentials
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
 
-        // Check if user exists in database
+        // Verify user existence
         $userModel = new UserModel();
         $user = $userModel->where('email', $email)->first();
 
-        // If user does not exist or password is incorrect
+        // Check if user exists and password matches
         if (!$user || !password_verify($password, $user['password'])) {
-            // Set error flash message if login fails
-            session()->setFlashdata('error', 'Invalid login credentials.');
-            return redirect()->to('/login');
+            // Set an error message if credentials are invalid
+            session()->setFlashdata('error', 'Invalid email or password.');
+            return redirect()->to('/login')->withInput();
         }
 
-        // Store user information in session
+        // Store user session details
         session()->set([
             'user_id' => $user['id'],
             'user_name' => $user['name'],
             'user_email' => $user['email'],
-            'role' => $user['role'],  // Store the user role
-            'is_logged_in' => true,   // Indicate that the user is logged in
+            'role' => $user['role'],
+            'is_logged_in' => true,
         ]);
 
-        // Redirect to the dashboard based on role
-        if ($user['role'] == 'Admin') {
-            return redirect()->to('/admin/dashboard');
-        } else {
-            return redirect()->to('/employee/dashboard');
-        }
+        // Redirect based on user role
+        return ($user['role'] === 'Admin') 
+            ? redirect()->to('/admin/dashboard') 
+            : redirect()->to('/employee/dashboard');
     }
 
     public function logout()
     {
-        // Destroy the session to log out
+        // Destroy session and redirect to login page
         session()->destroy();
         return redirect()->to('/login');
     }
