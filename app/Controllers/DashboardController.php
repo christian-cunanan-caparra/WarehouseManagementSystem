@@ -6,19 +6,21 @@ class DashboardController extends BaseController
 {
     public function index()
     {
-        // Check if the user is logged in
         if (!session()->get('loggedIn')) {
-            return redirect()->to('/index.php');  // Redirect to the login page if not logged in
+            return redirect()->to('/index.php');
         }
     
-        // Get the user's name from the session
-        $userName = session()->get('user_name');  // Assuming the name is stored under 'user_name'
+        $role = session()->get('role');  // Safely retrieve role
     
-        // Check the role and load the appropriate dashboard view
-        if (session()->get('role') === 'admin') {
-            return view('admin_dashboard', ['user_name' => $userName]);  // Pass the user's name to the admin dashboard view
+        if (!$role) {
+            // Handle the case where the role is not set, perhaps redirect or show an error
+            return redirect()->to('/login'); // Redirect to login if no role
+        }
+    
+        if ($role === 'admin') {
+            return view('admin_dashboard');
         } else {
-            return view('employee_dashboard', ['user_name' => $userName]);  // Pass the user's name to the employee dashboard view
+            return view('employee_dashboard');
         }
     }
     

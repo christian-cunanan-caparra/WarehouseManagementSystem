@@ -21,7 +21,7 @@
             background-color: #ffffff;
             border-radius: 15px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            padding: 30px;
+            padding: 20px;  /* Reduced padding for a more compact form */
             max-width: 400px;
             width: 100%;
         }
@@ -29,26 +29,27 @@
         h2 {
             text-align: center;
             color: #007bff;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-size: 1.3rem;  /* Reduced font size for the heading */
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 12px;  /* Reduced bottom margin */
         }
 
         label {
             font-weight: bold;
             color: #333;
+            font-size: 0.9rem;  /* Slightly smaller label font size */
         }
 
         input, select {
             width: 100%;
-            padding: 10px;
-            margin-top: 6px;
+            padding: 8px;  /* Reduced padding */
+            margin-top: 5px;  /* Slightly smaller top margin */
             border: 1px solid #ddd;
             border-radius: 8px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;  /* Smaller font size */
             transition: border-color 0.3s ease;
         }
 
@@ -60,9 +61,9 @@
         .btn-primary {
             background-color: #007bff;
             border-color: #007bff;
-            padding: 10px 18px;
+            padding: 8px 16px;  /* Reduced button padding */
             width: 100%;
-            font-size: 1rem;
+            font-size: 0.95rem;  /* Smaller font size for button */
             border-radius: 8px;
         }
 
@@ -72,9 +73,9 @@
         }
 
         .alert {
-            margin-bottom: 15px;
-            font-size: 0.95rem;
-            padding: 12px;
+            margin-bottom: 12px;
+            font-size: 0.9rem;  /* Smaller font size for alerts */
+            padding: 10px;
             border-radius: 8px;
         }
 
@@ -92,20 +93,20 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.5rem;
+            font-size: 1.4rem;  /* Slightly smaller header */
             color: #007bff;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .header-title i {
             margin-right: 8px;
-            font-size: 2rem;
+            font-size: 1.8rem;  /* Slightly smaller icon */
         }
 
         /* Media Query for Mobile */
         @media (max-width: 576px) {
             .register-container {
-                padding: 20px;
+                padding: 15px;  /* Reduce padding for mobile devices */
             }
 
             .header-title {
@@ -113,17 +114,17 @@
             }
 
             h2 {
-                font-size: 1.25rem;
-                margin-bottom: 15px;
-            }
-
-            .form-group {
+                font-size: 1.2rem;  /* Smaller heading for mobile */
                 margin-bottom: 12px;
             }
 
+            .form-group {
+                margin-bottom: 10px;  /* Smaller margin for mobile */
+            }
+
             .btn-primary {
-                padding: 8px 16px;
-                font-size: 0.95rem;
+                padding: 8px 14px;  /* Reduce button padding for mobile */
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -202,9 +203,35 @@
         </div>
     </div>
 
+    <!-- Success Modal -->
+    <div class="modal fade" id="registerSuccessModal" tabindex="-1" aria-labelledby="registerSuccessModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerSuccessModalLabel">Registration Successful</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Your account has been successfully created. You can now log in.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Include Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        // Show the modal if the registration is successful
+        <?php if (session()->get('success')): ?>
+            var myModal = new bootstrap.Modal(document.getElementById('registerSuccessModal'));
+            myModal.show();
+        <?php endif; ?>
+    </script>
 
 </body>
 </html>
