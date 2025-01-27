@@ -15,7 +15,6 @@ class RegisterController extends BaseController
     {
         $userModel = new UserModel();
 
-        // Validate input fields (you can add more validation rules)
         if (!$this->validate([
             'name' => 'required|min_length[3]|max_length[255]',
             'email' => 'required|valid_email|is_unique[users.email]',
@@ -28,7 +27,6 @@ class RegisterController extends BaseController
             return redirect()->back()->withInput()->with('errors', $userModel->getValidationMessages());
         }
 
-        // Insert data into database
         $data = [
             'name' => $this->request->getPost('name'),
             'email' => $this->request->getPost('email'),
@@ -36,7 +34,7 @@ class RegisterController extends BaseController
             'address' => $this->request->getPost('address'),
             'gender' => $this->request->getPost('gender'),
             'mobile' => $this->request->getPost('mobile'),
-            'role' => 'employee',  // Assign a default role to the new user
+            'role' => 'employee', // Default role
         ];
 
         if ($userModel->save($data)) {

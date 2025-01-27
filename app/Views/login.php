@@ -9,15 +9,13 @@
 <body>
     <div class="container mt-5">
         <h2 class="text-center">Login</h2>
-        
-        <!-- Display Flash Messages -->
+
         <?php if (session()->getFlashdata('error')): ?>
             <div class="alert alert-danger">
                 <?= session()->getFlashdata('error') ?>
             </div>
         <?php endif; ?>
 
-        <!-- Login Form -->
         <form action="/login/authenticate" method="POST">
             <?= csrf_field() ?>
             <div class="mb-3">
