@@ -198,7 +198,7 @@
                     <?= session()->get('success') ?>
                 </div>
                 <div class="modal-footer">
-                    <a href="/login" class="btn btn-primary">Go to Login</a>
+                    <!-- <a href="/login" class="btn btn-primary">Go to Login</a> -->
                 </div>
             </div>
         </div>
