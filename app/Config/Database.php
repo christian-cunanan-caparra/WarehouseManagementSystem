@@ -28,9 +28,9 @@ class Database extends Config
         
         'DSN'      => '',
         'hostname' => '127.0.0.1',
-        'username' => 'u988465998_',
+        'username' => 'u988465998',
         'password' => 'Adckio11',
-        'database' => 'u988465998_warehousemanag',
+        'database' => 'warehouse',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
         'pConnect' => false,
