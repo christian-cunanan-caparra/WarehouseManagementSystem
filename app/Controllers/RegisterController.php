@@ -7,6 +7,15 @@ use CodeIgniter\Email\Email;
 
 class RegisterController extends Controller
 {
+
+
+    public function register()
+    {
+        // Load the registration form view
+        return view('register');
+    }
+
+
     public function save()
     {
         $validation = \Config\Services::validation();
