@@ -9,9 +9,8 @@
     <!-- Font Awesome for icon -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-        /* General styles */
         body {
-            background: linear-gradient(to right, #1e3c72, #2a5298); /* Modern blue gradient */
+            background-color: #f0f8ff; /* Light background */
             font-family: 'Arial', sans-serif;
             height: 100vh;
             margin: 0;
@@ -22,9 +21,9 @@
 
         .container {
             background-color: #ffffff;
-            padding: 40px 30px;
+            padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 500px;
             transition: all 0.3s ease-in-out;
@@ -32,16 +31,13 @@
 
         /* Hover effect for the container */
         .container:hover {
-            transform: translateY(-5px);  /* Lift the container on hover */
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);  /* Stronger shadow on hover */
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
         }
 
         h1 {
             text-align: center;
-            color: #2a5298; /* Slightly darker blue */
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 30px;
+            color: #007bff; /* Normal blue */
         }
 
         .form-group {
@@ -50,39 +46,37 @@
 
         .form-control {
             border-radius: 10px;
-            padding: 15px;
-            border: 1px solid #ddd;
+            padding: 10px;
             font-size: 16px;
-            transition: all 0.3s ease-in-out;
+            box-shadow: none;
+            border: 1px solid #007bff; /* Normal blue */
         }
 
         .form-control:focus {
-            border-color: #2a5298;  /* Change border color on focus */
-            box-shadow: 0 0 10px rgba(42, 82, 152, 0.5);
+            border-color: #0056b3;
+            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
         }
 
         .btn-primary {
-            background-color: #2a5298;
-            border-color: #2a5298;
-            padding: 12px 20px;
+            background-color: #007bff; /* Normal blue */
+            border-color: #007bff;
+            padding: 12px;
             width: 100%;
             border-radius: 10px;
-            font-size: 18px;
-            font-weight: 600;
-            transition: all 0.3s ease-in-out;
+            font-size: 16px;
         }
 
         .btn-primary:hover {
-            background-color: #1e3c72;
-            border-color: #1e3c72;
+            background-color: #0056b3;
+            border-color: #004085;
         }
 
         .modal-content {
-            border-radius: 15px;
+            border-radius: 10px;
         }
 
         .modal-header {
-            background-color: #2a5298;
+            background-color: #007bff; /* Normal blue */
             color: white;
         }
 
@@ -91,22 +85,16 @@
         }
 
         .icon {
-            font-size: 60px;
-            color: #2a5298;
+            font-size: 50px;
+            color: #007bff; /* Normal blue */
             text-align: center;
             margin-bottom: 20px;
         }
 
-        /* Media query for mobile devices */
-        @media (max-width: 768px) {
-            .container {
-                max-width: 90%;  /* Full width on mobile devices */
-                padding: 30px 20px;
-            }
-
-            h1 {
-                font-size: 28px; /* Smaller font on mobile */
-            }
+        /* Placeholder styling */
+        ::placeholder {
+            color: #6c757d;
+            opacity: 1;
         }
     </style>
 </head>
@@ -130,22 +118,22 @@
             
             <div class="form-group">
                 <label for="name">Name:</label>
-                <input type="text" class="form-control" id="name" name="name" value="<?= old('name') ?>" required>
+                <input type="text" class="form-control" id="name" name="name" value="<?= old('name') ?>" placeholder="Enter your name" required>
             </div>
             
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" value="<?= old('email') ?>" required>
+                <input type="email" class="form-control" id="email" name="email" value="<?= old('email') ?>" placeholder="Enter your email" required>
             </div>
             
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" class="form-control" id="password" name="password" required>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
             </div>
 
             <div class="form-group">
                 <label for="address">Address:</label>
-                <input type="text" class="form-control" id="address" name="address" value="<?= old('address') ?>" required>
+                <input type="text" class="form-control" id="address" name="address" value="<?= old('address') ?>" placeholder="Enter your address" required>
             </div>
 
             <div class="form-group">
@@ -158,7 +146,7 @@
 
             <div class="form-group">
                 <label for="mobile_number">Mobile Number:</label>
-                <input type="text" class="form-control" id="mobile_number" name="mobile_number" value="<?= old('mobile_number') ?>" required>
+                <input type="text" class="form-control" id="mobile_number" name="mobile_number" value="<?= old('mobile_number') ?>" placeholder="Enter your mobile number" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Register</button>
