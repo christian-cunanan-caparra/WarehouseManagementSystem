@@ -34,16 +34,12 @@ $routes->get('/dashboard', 'DashboardController::index');
 $routes->get('/admin/dashboard', 'DashboardController::index');
 $routes->get('/employee/dashboard', 'DashboardController::index');
 
-$routes->get('/order/tracking', 'OrderController::index');
-$routes->post('/order/updateStatus/(:num)', 'OrderController::updateStatus/$1');
+// $routes->get('/product/create', 'DashboardController::create');
+$routes->post('/product/store', 'DashboardController::store');
+$routes->get('/product/edit/(:num)', 'DashboardController::edit/$1');
+$routes->post('/product/update/(:num)', 'DashboardController::update/$1');
+$routes->get('/product/delete/(:num)', 'DashboardController::delete/$1');
+$routes->get('/product/activate/(:num)', 'DashboardController::activate/$1');
 
-$routes->get('/employee_dashboard', 'EmployeeDashboard::index');
-$routes->get('/employee_dashboard/create', 'EmployeeDashboard::create');
-$routes->post('/employee_dashboard/store', 'EmployeeDashboard::store');
-$routes->get('/employee_dashboard/edit/(:num)', 'EmployeeDashboard::edit/$1');
-$routes->post('/employee_dashboard/update/(:num)', 'EmployeeDashboard::update/$1');
-$routes->get('/employee_dashboard/delete/(:num)', 'EmployeeDashboard::delete/$1');
-
-
-
-$routes->get('/employee_dashboard/activate/(:num)', 'EmployeeDashboard::activate/$1');
+// Employee Dashboard (Filtered Products)
+$routes->get('/employee_dashboard', 'DashboardController::index');

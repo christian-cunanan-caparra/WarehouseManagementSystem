@@ -2,15 +2,11 @@
 
 namespace App\Controllers;
 
-
-
 use App\Models\ProductModel;
 use CodeIgniter\Controller;
 
 class DashboardController extends Controller
 {
-
-
     protected $productModel;
 
     public function __construct()
@@ -18,27 +14,82 @@ class DashboardController extends Controller
         $this->productModel = new ProductModel();
     }
 
-
     public function index()
-{
-    // Ensure user is logged in
-    if (!session()->get('is_logged_in')) {
+    {
+        // Ensure user is logged in
+        if (!session()->get('is_logged_in')) {
+            return redirect()->to('/login');
+        }
+
+        // Retrieve user role from the session
+        $role = session()->get('role');
+
+        // Redirect to the respective dashboard based on the role
+        if ($role === 'Admin') {
+            return view('admin_dashboard');
+        } elseif ($role === 'Employee') {
+            $data['products'] = $this->productModel->where('status', 1)->findAll();
+            return view('employee_dashboard', $data);
+        }
+
+        // If no valid role is set, redirect to login
         return redirect()->to('/login');
     }
 
-    // Retrieve user role from the session
-    $role = session()->get('role');
-
-    // Redirect to the respective dashboard based on the role
-    if ($role === 'Admin') {
-        return view('admin_dashboard');
-    } elseif ($role === 'Employee') {
-        return view('employee_dashboard', ['products' => $this->productModel->findAll()]);
+    public function create()
+    {
+        return view('create_product');
     }
 
-    // If no valid role is set, redirect to login
-    return redirect()->to('/login');
-}
+    public function store()
+    {
+        // Get the form data
+        $data = $this->request->getPost();
+
+        // Set the status to 1 (active) for the new product
+        $data['status'] = 1;
+
+        // Insert the product into the database
+        $this->productModel->insert($data);
+
+        // Redirect with a success message
+        return redirect()->to('/employee_dashboard')->with('message', 'Product added successfully.');
+    }
+
+    public function edit($id)
+    {
+        return view('edit_product', ['product' => $this->productModel->find($id)]);
+    }
+
+    public function update($id)
+    {
+        $this->productModel->update($id, $this->request->getPost());
+        return redirect()->to('/employee_dashboard')->with('message', 'Product updated successfully.');
+    }
+
+    public function delete($id)
+    {
+        // Update the status to 0 (inactive) instead of deleting the record
+        $data = ['status' => 0];
+        $this->productModel->update($id, $data);
+
+        // Set a flash message to indicate success
+        session()->setFlashdata('success', 'Product deactivated successfully.');
+
+        return redirect()->to('/employee_dashboard');
+    }
+
+    public function activate($id)
+    {
+        // Update the status to 1 (active)
+        $data = ['status' => 1];
+        $this->productModel->update($id, $data);
+
+        // Set a flash message to indicate success
+        session()->setFlashdata('success', 'Product activated successfully.');
+
+        return redirect()->to('/employee_dashboard');
+    }
 
     public function logout()
     {
