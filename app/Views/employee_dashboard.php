@@ -278,11 +278,11 @@
             fetch(`/employee_dashboard/get_product/${productId}`)
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('productId').value = data.id;
-                    document.getElementById('productName').value = data.name;
-                    document.getElementById('productDescription').value = data.description;
-                    document.getElementById('productQuantity').value = data.quantity;
-                    document.getElementById('productPrice').value = data.price;
+                    document.getElementById('id').value = data.id;
+                    document.getElementById('name').value = data.name;
+                    document.getElementById('description').value = data.description;
+                    document.getElementById('quantity').value = data.quantity;
+                    document.getElementById('price').value = data.price;
 
                     var modal = new bootstrap.Modal(document.getElementById('productModal'));
                     modal.show();
