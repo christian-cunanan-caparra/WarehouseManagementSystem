@@ -77,35 +77,38 @@
             background-color: #4f52ba;
         }
 
-        /* New Advanced Toggle Button Styles */
-       /* New Advanced Toggle Button Styles */
-.toggle-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;  /* Move the button to the right */
-    background-color: #161a2d;
-    color: white;
-    border: none;
-    padding: 12px;
-    cursor: pointer;
-    font-size: 1.8rem;
-    z-index: 1100;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-}
+        /* Toggle Button Styles (inside the sidebar) */
+        .toggle-btn {
+            position: absolute;
+            top: 20px;
+            left: -50px;  /* Positioned on the left side outside the sidebar */
+            background-color: #161a2d;
+            color: white;
+            border: none;
+            padding: 12px;
+            cursor: pointer;
+            font-size: 1.8rem;
+            z-index: 1100;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
 
-.toggle-btn:hover {
-    background-color: #4f52ba;
-}
+        .toggle-btn:hover {
+            background-color: #4f52ba;
+        }
 
-.toggle-btn:focus {
-    outline: none;
-}
+        .toggle-btn:focus {
+            outline: none;
+        }
 
-.toggle-btn .material-icons {
-    font-size: 2rem;
-}
+        .toggle-btn .material-icons {
+            font-size: 2rem;
+        }
 
+        /* Close Button in Sidebar */
+        .close-btn {
+            display: none;
+        }
 
         /* Content Styles */
         .content {
@@ -154,9 +157,9 @@
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
-          
             <span>Warehouse Dashboard</span>
-            <!-- <span class="material-icons close-btn" id="close-btn">close</span> -->
+            <!-- Close Button -->
+            <span class="material-icons close-btn" id="close-btn">close</span>
         </div>
         <ul class="sidebar-links">
             <h4>Main Menu</h4>
@@ -170,14 +173,13 @@
         </ul>
     </aside>
 
-    <!-- Advanced Toggle Button (Hamburger Icon) -->
+    <!-- Toggle Button (Hamburger Icon) Outside Sidebar -->
     <button class="toggle-btn" id="toggle-btn">
-        <span class="material-icons">menu</span> <!-- Advanced icon -->
+        <span class="material-icons">menu</span> <!-- Open icon -->
     </button>
 
     <!-- Main Content -->
     <div class="content" id="main-content">
-        <br><br><br>
         <h1>Employee Dashboard</h1>
         <p>Welcome to the Warehouse Management System. Here you can manage inventory, view products, and more.</p>
 
@@ -200,7 +202,7 @@
                     <td>High-quality item</td>
                     <td>50</td>
                     <td>$100</td>
-                    <td><a href="edit_product.php" class="btn btn-warning btn-sm">Edit</a></td>
+                    <td><a href="#" class="btn btn-warning btn-sm">Edit</a></td>
                 </tr>
                 <!-- Add more rows as needed -->
             </tbody>
@@ -219,25 +221,28 @@
         if (sidebarState === 'active') {
             sidebar.classList.add('active');
             mainContent.classList.add('active');
+            toggleBtn.style.display = 'none'; // Hide open button when sidebar is open
+            closeBtn.style.display = 'block'; // Show close button
         }
 
         // Toggle Sidebar visibility and save state to localStorage
         toggleBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-            mainContent.classList.toggle('active');
+            sidebar.classList.add('active');
+            mainContent.classList.add('active');
+            toggleBtn.style.display = 'none'; // Hide open button
+            closeBtn.style.display = 'block'; // Show close button
 
             // Save the sidebar state
-            if (sidebar.classList.contains('active')) {
-                localStorage.setItem('sidebarState', 'active');
-            } else {
-                localStorage.setItem('sidebarState', 'inactive');
-            }
+            localStorage.setItem('sidebarState', 'active');
         });
 
         // Close the sidebar when close button is clicked
         closeBtn.addEventListener('click', () => {
             sidebar.classList.remove('active');
             mainContent.classList.remove('active');
+            toggleBtn.style.display = 'block'; // Show open button again
+            closeBtn.style.display = 'none'; // Hide close button
+
             localStorage.setItem('sidebarState', 'inactive');
         });
     </script>
