@@ -171,26 +171,19 @@
         <p>Welcome to the Warehouse Management System. Here you can manage inventory, view products, and more.</p>
 
         <!-- Product Count Card -->
-        <div class="row mb-4" id="product-count-container">
-            <!-- Dynamic product count will appear here -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 bg-primary text-white">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Total Products</h5>
+                            <h3 class="card-text">100</h3> <!-- Replace with dynamic value -->
+                        </div>
+                        <span class="material-icons">inventory</span>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <!-- Product Table -->
-        <h2>Product List</h2>
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="product-table-body">
-                <!-- Product rows will be populated here dynamically -->
-            </tbody>
-        </table>
 
         <a href="#" class="btn btn-primary" id="add-new-product-btn">Add New Product</a>
     </div>
@@ -234,71 +227,83 @@
         </div>
     </div>
 
-    <script>
-        // Sample dynamic data
-        const products = [
-            { id: 1, name: 'Product 1', description: 'Description 1', quantity: 150, price: 10.50 },
-            { id: 2, name: 'Product 2', description: 'Description 2', quantity: 200, price: 20.75 },
-            { id: 3, name: 'Product 3', description: 'Description 3', quantity: 300, price: 5.99 }
-        ];
-
-        // Function to render the product count
-        function renderProductCount() {
-            const countContainer = document.getElementById('product-count-container');
-            const countCard = document.createElement('div');
-            countCard.classList.add('col-md-4');
-            countCard.innerHTML = `
-                <div class="card shadow-sm border-0">
-                    <div class="card-body">
-                        <h5 class="card-title">Total Products</h5>
-                        <p class="card-text">${products.length}</p>
+    <!-- Modal for Edit Product -->
+    <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="editProductForm" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                </div>
-            `;
-            countContainer.appendChild(countCard);
-        }
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="edit-name" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="edit-name" name="name" required>
+                        </div>
 
-        // Function to render the product table
-        function renderProductTable() {
-            const tableBody = document.getElementById('product-table-body');
-            tableBody.innerHTML = ''; // Clear any existing content
-            products.forEach(product => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${product.name}</td>
-                    <td>${product.description}</td>
-                    <td>${product.quantity}</td>
-                    <td>$${product.price}</td>
-                    <td><button class="btn btn-warning edit-product-btn" data-id="${product.id}">Edit</button></td>
-                `;
-                tableBody.appendChild(row);
-            });
-        }
+                        <div class="mb-3">
+                            <label for="edit-description" class="form-label">Product Description</label>
+                            <textarea class="form-control" id="edit-description" name="description" rows="3" required></textarea>
+                        </div>
 
-        // Function to edit product
-        function editProduct(productId) {
-            const product = products.find(p => p.id === productId);
-            if (product) {
-                document.getElementById('edit-name').value = product.name;
-                document.getElementById('edit-description').value = product.description;
-                document.getElementById('edit-quantity').value = product.quantity;
-                document.getElementById('edit-price').value = product.price;
-                const editModal = new bootstrap.Modal(document.getElementById('editProductModal'));
-                editModal.show();
-            }
-        }
+                        <div class="mb-3">
+                            <label for="edit-quantity" class="form-label">Quantity</label>
+                            <input type="number" class="form-control" id="edit-quantity" name="quantity" required>
+                        </div>
 
-        // Handle clicking the "Edit" button
-        document.body.addEventListener('click', (e) => {
-            if (e.target.classList.contains('edit-product-btn')) {
-                const productId = parseInt(e.target.getAttribute('data-id'));
-                editProduct(productId);
-            }
+                        <div class="mb-3">
+                            <label for="edit-price" class="form-label">Price</label>
+                            <input type="number" class="form-control" id="edit-price" name="price" step="0.01" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update Product</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sidebar and Modal Behavior
+        const sidebar = document.getElementById('sidebar');
+        const closeBtn = document.getElementById('close-btn');
+        const toggleBtn = document.getElementById('toggle-btn');
+        const mainContent = document.getElementById('main-content');
+        const addNewProductBtn = document.getElementById('add-new-product-btn');
+        const editProductBtns = document.querySelectorAll('.edit-product-btn');
+
+        window.onload = () => { sidebar.classList.add('active'); mainContent.classList.add('active'); };
+
+        closeBtn.onclick = () => { sidebar.classList.remove('active'); mainContent.classList.remove('active'); toggleBtn.style.display = 'block'; };
+        toggleBtn.onclick = () => { sidebar.classList.add('active'); mainContent.classList.add('active'); toggleBtn.style.display = 'none'; };
+
+        // Add New Product Modal
+        addNewProductBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const addNewProductModal = new bootstrap.Modal(document.getElementById('addNewProductModal'));
+            addNewProductModal.show();
         });
 
-        // Initial render
-        renderProductCount();
-        renderProductTable();
+        // Edit Products Modal
+        editProductBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const productId = btn.getAttribute('data-id');
+
+                // Dynamically populate the modal with the product info (replace with real data)
+                document.getElementById('edit-name').value = 'Example Product';
+                document.getElementById('edit-description').value = 'Product description...';
+                document.getElementById('edit-quantity').value = 100;
+                document.getElementById('edit-price').value = 19.99;
+
+                const editProductModal = new bootstrap.Modal(document.getElementById('editProductModal'));
+                editProductModal.show();
+            });
+        });
     </script>
+
 </body>
 </html>
