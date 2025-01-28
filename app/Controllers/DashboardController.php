@@ -61,8 +61,6 @@ class DashboardController extends Controller
     
         return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to add product.']);
     }
-    
-    
 
     public function edit($id)
     {
@@ -109,5 +107,26 @@ class DashboardController extends Controller
         // Destroy session and redirect to login page
         session()->destroy();
         return redirect()->to('/login');
+    }
+
+    // Chat related methods below
+    
+    public function chat()
+    {
+        // Check if user is logged in
+        if (!session()->get('is_logged_in')) {
+            return redirect()->to('/login');
+        }
+
+        return view('chat_view'); // Chat page view
+    }
+
+    // Method for handling message sending
+    public function sendMessage()
+    {
+        $message = $this->request->getPost('message');
+        // Here you would store the message in the database
+        // For now, we'll return the message as a response
+        return $this->response->setJSON(['message' => $message]);
     }
 }
