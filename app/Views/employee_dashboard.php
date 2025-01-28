@@ -26,7 +26,7 @@
             padding: 20px;
             transition: 0.4s ease-in-out;
             box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
+            z-index: 1020; /* Sidebar z-index */
             border-right: 2px solid rgba(255, 255, 255, 0.1);
         }
 
@@ -89,6 +89,7 @@
             transition: 0.3s;
             border-radius: 5px;
             display: none;
+            z-index: 1050; /* Ensure it appears above sidebar */
         }
 
         .toggle-btn:hover {
@@ -102,10 +103,20 @@
             transition: margin-left 0.4s ease;
             background: #f8f9fa;
             min-height: 100vh;
+            z-index: 1000; /* Ensure content is above sidebar */
         }
 
         .content.active {
             margin-left: 270px;
+        }
+
+        /* ---- Modal Backdrop ---- */
+        .modal-backdrop {
+            z-index: 1050; /* Higher than sidebar */
+        }
+
+        .modal-content {
+            z-index: 1060; /* Ensure modal content is above everything else */
         }
 
         /* ---- Product Count Card ---- */
@@ -211,7 +222,7 @@
                                 <td><?= esc($product['price']) ?></td>
                                 <td><?= $product['status'] == 1 ? 'Active' : 'Inactive' ?></td>
                                 <td>
-                                    <button class="btn btn-warning btn-sm btn-edit" data-id="<?= esc($product['id']) ?>">Edit</button>
+                                    <a href="/employee_dashboard/edit/<?= $product['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
                                     <a href="/employee_dashboard/delete/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Deactivate</a>
                                 </td>
                             </tr>
@@ -226,96 +237,23 @@
         <a href="/employee_dashboard/create" class="btn btn-primary">Add New Product</a>
     </div>
 
-    <!-- Edit Product Modal -->
-    <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="editProductForm">
-                        <div class="mb-3">
-                            <label for="productName" class="form-label">Product Name</label>
-                            <input type="text" class="form-control" id="productName" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="productDescription" class="form-label">Description</label>
-                            <textarea class="form-control" id="productDescription" rows="3" required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="productQuantity" class="form-label">Quantity</label>
-                            <input type="number" class="form-control" id="productQuantity" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="productPrice" class="form-label">Price</label>
-                            <input type="number" class="form-control" id="productPrice" required>
-                        </div>
-                        <input type="hidden" id="productId" />
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // Handle Modal Opening and Product Editing
-        document.addEventListener('DOMContentLoaded', function() {
-            const editButtons = document.querySelectorAll('.btn-edit');
-            
-            editButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const productId = this.getAttribute('data-id');
-                    
-                    // Fetch product data by ID
-                    fetch(`/employee_dashboard/edit/${productId}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.status === 'success') {
-                                // Populate modal fields with data
-                                const product = data.product;
-                                document.getElementById('productId').value = product.id;
-                                document.getElementById('productName').value = product.name;
-                                document.getElementById('productDescription').value = product.description;
-                                document.getElementById('productQuantity').value = product.quantity;
-                                document.getElementById('productPrice').value = product.price;
-                                
-                                // Show modal
-                                const myModal = new bootstrap.Modal(document.getElementById('editProductModal'));
-                                myModal.show();
-                            }
-                        })
-                        .catch(error => console.error('Error fetching product data:', error));
-                });
-            });
+        const sidebar = document.getElementById('sidebar');
+        const closeBtn = document.getElementById('close-btn');
+        const toggleBtn = document.getElementById('toggle-btn');
+        const mainContent = document.getElementById('main-content');
 
-            // Handle form submission (AJAX for updating product)
-            const editForm = document.getElementById('editProductForm');
-            editForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                
-                const formData = new FormData(editForm);
-                
-                fetch(`/employee_dashboard/update/${formData.get('productId')}`, {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        // Close the modal and refresh the product list
-                        const myModal = bootstrap.Modal.getInstance(document.getElementById('editProductModal'));
-                        myModal.hide();
-                        location.reload();
-                    } else {
-                        alert('Failed to update product');
-                    }
-                })
-                .catch(error => console.error('Error updating product:', error));
-            });
+        // Toggle Sidebar visibility
+        toggleBtn.addEventListener('click', function() {
+            sidebar.classList.toggle('active');
+            mainContent.classList.toggle('active');
         });
+
+        // Close Sidebar
+        closeBtn.onclick = () => {
+            sidebar.classList.remove('active');
+            mainContent.classList.remove('active');
+        };
     </script>
 
 </body>
