@@ -50,9 +50,14 @@ class LoginController extends BaseController
         ]);
 
         // Redirect based on user role
-        return ($user['role'] === 'Admin') 
-            ? redirect()->to('/admin/dashboard') 
-            : redirect()->to('/employee/dashboard');
+        if ($user['role'] === 'Admin') {
+            return redirect()->to('/admin/dashboard');
+        } else if ($user['role'] === 'Employee') {
+            return redirect()->to('/employee/dashboard');
+        }
+
+        // Fallback if role is unknown (shouldn't happen in a properly configured system)
+        return redirect()->to('/login');
     }
 
     public function logout()

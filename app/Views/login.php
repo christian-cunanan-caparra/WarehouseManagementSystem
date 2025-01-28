@@ -21,7 +21,7 @@
 
         .container {
             background-color: #ffffff;
-            padding: 30px;
+            padding: 40px;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 100%;
@@ -111,10 +111,21 @@
     <div class="container">
         <h1><i class="fas fa-warehouse"></i> Warehouse Management System</h1>
 
-        <!-- Display Error Flash Message -->
+        <!-- Display Flash Error -->
         <?php if (session()->getFlashdata('error')): ?>
             <div class="alert alert-danger">
                 <?= session()->getFlashdata('error') ?>
+            </div>
+        <?php endif; ?>
+
+        <!-- Display Validation Errors -->
+        <?php if (isset($errors) && !empty($errors)): ?>
+            <div class="alert alert-danger">
+                <ul>
+                    <?php foreach ($errors as $error): ?>
+                        <li><?= esc($error) ?></li>
+                    <?php endforeach; ?>
+                </ul>
             </div>
         <?php endif; ?>
 
@@ -124,7 +135,7 @@
 
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" value="<?= old('email') ?>" required>
             </div>
 
             <div class="form-group">
