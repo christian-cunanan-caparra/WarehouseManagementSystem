@@ -266,6 +266,7 @@
 </div>
 
 <!-- Modal for Editing Product -->
+<!-- Modal for Editing Product -->
 <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -275,23 +276,23 @@
             </div>
             <div class="modal-body">
                 <!-- Product Edit Form -->
-                <form id="editProductForm" method="POST" action="/employee_dashboard/update/<?= $product['id'] ?>">
-                    <input type="hidden" id="editProductId" name="id" value="<?= $product['id'] ?>" />
+                <form id="editProductForm" method="POST">
+                    <input type="hidden" id="editProductId" name="id" />
                     <div class="mb-3">
                         <label for="editProductName" class="form-label">Product Name</label>
-                        <input type="text" class="form-control" id="editProductName" name="name" value="<?= esc($product['name']) ?>" required>
+                        <input type="text" class="form-control" id="editProductName" name="name" required>
                     </div>
                     <div class="mb-3">
                         <label for="editProductDescription" class="form-label">Description</label>
-                        <textarea class="form-control" id="editProductDescription" name="description" required><?= esc($product['description']) ?></textarea>
+                        <textarea class="form-control" id="editProductDescription" name="description" required></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="editProductQuantity" class="form-label">Quantity</label>
-                        <input type="number" class="form-control" id="editProductQuantity" name="quantity" value="<?= esc($product['quantity']) ?>" required>
+                        <input type="number" class="form-control" id="editProductQuantity" name="quantity" required>
                     </div>
                     <div class="mb-3">
                         <label for="editProductPrice" class="form-label">Price</label>
-                        <input type="number" class="form-control" id="editProductPrice" name="price" value="<?= esc($product['price']) ?>" required>
+                        <input type="number" class="form-control" id="editProductPrice" name="price" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -302,6 +303,7 @@
         </div>
     </div>
 </div>
+
 
 
 
@@ -354,55 +356,57 @@
     });
 
     // Handle form submission for editing a product
-    $('#editProductForm').on('submit', function (e) {
-        e.preventDefault(); // Prevent the form from submitting normally
+  
 
-        var formData = $(this).serialize(); // Serialize the form data
-
-        $.ajax({
-            url: $(this).attr('action'), // The form's action URL (contains product ID)
-            type: 'POST',
-            data: formData,
-            success: function (response) {
-                if (response.status === 'success') {
-                    // Close the modal
-                    $('#editProductModal').modal('hide');
-                    
-                    // Optionally, update the product list dynamically without reloading the page
-                    alert(response.message);
-                    location.reload(); // Reload the page to see the updated product (or update product list dynamically)
-                } else {
-                    alert(response.message); // Show error message
-                }
-            },
-            error: function (xhr, status, error) {
-                alert("An error occurred: " + error);
-            }
-        });
-    });
-    
     // When an "Edit" button is clicked, populate the modal with the product details
-    $('.edit-product-btn').on('click', function () {
-        var productId = $(this).data('id');
-        
-        $.ajax({
-            url: '/employee_dashboard/edit/' + productId, // Get the product details by ID
-            type: 'GET',
-            success: function (response) {
-                // Assuming response contains product data
-                $('#editProductId').val(response.product.id);
-                $('#editProductName').val(response.product.name);
-                $('#editProductDescription').val(response.product.description);
-                $('#editProductQuantity').val(response.product.quantity);
-                $('#editProductPrice').val(response.product.price);
+$('.edit-product-btn').on('click', function () {
+    var productId = $(this).data('id'); // Get product ID
 
-                // Show the Edit Modal
-                $('#editProductModal').modal('show');
-            },
-            error: function (xhr, status, error) {
-                alert("An error occurred: " + error);
+    $.ajax({
+        url: '/employee_dashboard/edit/' + productId, // Make a request to fetch product details by ID
+        type: 'GET',
+        success: function (response) {
+            // Assuming response contains product data, populate the modal form
+            $('#editProductId').val(response.product.id);
+            $('#editProductName').val(response.product.name);
+            $('#editProductDescription').val(response.product.description);
+            $('#editProductQuantity').val(response.product.quantity);
+            $('#editProductPrice').val(response.product.price);
+
+            // Show the Edit Modal
+            $('#editProductModal').modal('show');
+        },
+        error: function (xhr, status, error) {
+            alert("An error occurred: " + error);
+        }
+    });
+});
+
+// Handle form submission for editing a product via AJAX
+$('#editProductForm').on('submit', function (e) {
+    e.preventDefault(); // Prevent the form from submitting normally
+
+    var formData = $(this).serialize(); // Serialize the form data
+
+    $.ajax({
+        url: '/employee_dashboard/update/' + $('#editProductId').val(), // Dynamic URL for updating the product
+        type: 'POST',
+        data: formData,
+        success: function (response) {
+            if (response.status === 'success') {
+                // Close the modal and reset the form
+                $('#editProductModal').modal('hide');
+
+                // Optionally, update the product list dynamically without reloading the page
+                alert(response.message);
+                location.reload(); // Reload the page to see the updated product list
+            } else {
+                alert(response.message); // Show error message
             }
-        });
+        },
+        error: function (xhr, status, error) {
+            alert("An error occurred: " + error);
+        }
     });
 });
 
