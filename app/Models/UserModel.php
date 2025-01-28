@@ -25,17 +25,8 @@ class UserModel extends Model
         'role' => 'required|max_length[50]'
     ];
 
-    public function getChats($userId)
-    {
-        return $this->db->table('chats')
-            ->join('messages', 'messages.chat_id = chats.id', 'left') // Left join to include chats without messages
-            ->where('chats.user_id', $userId)
-            ->orWhere('messages.sender_id', $userId)
-            ->groupBy('chats.id') // Avoid duplicate chats
-            ->get()->getResultArray();
-    }
-    
 
+    
     // Validation error messages
     protected $validationMessages = [
         'name' => ['required' => 'Name is required'],
