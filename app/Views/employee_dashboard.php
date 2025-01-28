@@ -24,7 +24,7 @@
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             padding: 30px;
-            max-width: 600px;
+            max-width: 800px;
             width: 90%;
             animation: fadeIn 0.5s ease-in-out;
         }
@@ -96,6 +96,41 @@
             background-color: #c82333;
             box-shadow: 0 6px 15px rgba(220, 53, 69, 0.4);
         }
+
+        .inventory-table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+        }
+
+        .inventory-table th, .inventory-table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        .inventory-table th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .inventory-table td {
+            background-color: #f1f4f9;
+        }
+
+        .btn-manage {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #28a745;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .btn-manage:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
 <body>
@@ -110,6 +145,32 @@
         <li><i class="fas fa-check-circle"></i> Task 2: KISS MUNA</li>
         <li><i class="fas fa-check-circle"></i> Task 3: KISS MUNA</li>
     </ul>
+
+    <h3>Warehouse Management</h3>
+    <p>Manage and track warehouse inventory below:</p>
+    
+    <table class="inventory-table">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Stock Level</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($inventory as $item): ?>
+                <tr>
+                    <td><?= $item['product_name'] ?></td>
+                    <td><?= $item['stock_level'] ?></td>
+                    <td>$<?= number_format($item['price'], 2) ?></td>
+                    <td>
+                        <a href="/manage_inventory/<?= $item['id'] ?>" class="btn-manage">Manage</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 
     <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
 </div>
