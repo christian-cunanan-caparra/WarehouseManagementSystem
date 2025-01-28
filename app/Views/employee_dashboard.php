@@ -15,20 +15,20 @@
     <style>
         /* ---- Sidebar Styling ---- */
         .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0; /* Keep it fixed to the left side */
-    width: 270px;
-    height: 100%;
-    background: rgba(22, 26, 45, 0.9);
-    backdrop-filter: blur(10px);
-    color: white;
-    padding: 20px;
-    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3);
-    z-index: 1000;
-    border-right: 2px solid rgba(255, 255, 255, 0.1);
-    overflow-y: auto; /* Make sure the sidebar content scrolls if it's too long */
-}
+            position: fixed;
+            top: 0;
+            left: -270px;
+            width: 270px;
+            height: 100%;
+            background: rgba(22, 26, 45, 0.9);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 20px;
+            transition: 0.4s ease-in-out;
+            box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            border-right: 2px solid rgba(255, 255, 255, 0.1);
+        }
 
         .sidebar.active {
             left: 0;
@@ -77,33 +77,32 @@
 
         /* ---- Sidebar Toggle Button ---- */
         .toggle-btn {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    background: #161a2d;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 1.5rem;
-    transition: 0.3s;
-    border-radius: 5px;
-    display: block;
-    z-index: 1001;
-}
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #161a2d;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: 0.3s;
+            border-radius: 5px;
+            display: none;
+        }
 
-.toggle-btn:hover {
-    background: #4f52ba;
-}
+        .toggle-btn:hover {
+            background: #4f52ba;
+        }
 
         /* ---- Main Content ---- */
         .content {
-    margin-left: 270px; /* Create space for the sidebar */
-    padding: 30px;
-    transition: margin-left 0.4s ease;
-    background: #f8f9fa;
-    min-height: 100vh;
-}
+            margin-left: 50px;
+            padding: 30px;
+            transition: margin-left 0.4s ease;
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
 
         .content.active {
             margin-left: 270px;
