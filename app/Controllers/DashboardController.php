@@ -10,6 +10,7 @@ class DashboardController extends BaseController
 
     public function __construct()
     {
+        // Initialize the Inventory Model
         $this->inventoryModel = new InventoryModel();
     }
 
@@ -27,22 +28,40 @@ class DashboardController extends BaseController
         if ($role === 'Admin') {
             return view('admin_dashboard');
         } elseif ($role === 'Employee') {
-            $inventory = $this->inventoryModel->findAll();
-            return view('employee_dashboard', ['inventory' => $inventory]);
+            return view('employee_dashboard');
         }
 
         // If no valid role is set, redirect to login
         return redirect()->to('/login');
     }
 
+    // Show specific inventory item for management
     public function manage_inventory($id)
     {
         $inventoryItem = $this->inventoryModel->find($id);
 
-        if ($inventoryItem) {
-            return view('manage_inventory', ['item' => $inventoryItem]);
+        if (!$inventoryItem) {
+            return redirect()->to('/employee_dashboard')->with('error', 'Inventory item not found.');
+        }
+
+        return view('inventory_manage', ['item' => $inventoryItem]);
+    }
+
+    // Update inventory item
+    public function update_inventory($id)
+    {
+        // Get data from the form (POST request)
+        $data = [
+            'stock_level' => $this->request->getPost('stock_level'),
+        ];
+
+        // Try updating the inventory item
+        $success = $this->inventoryModel->updateInventory($id, $data);
+
+        if ($success) {
+            return redirect()->to('/employee_dashboard')->with('success', 'Inventory updated successfully.');
         } else {
-            return redirect()->to('/employee_dashboard')->with('error', 'Item not found.');
+            return redirect()->to('/employee_dashboard')->with('error', 'Failed to update inventory.');
         }
     }
 
