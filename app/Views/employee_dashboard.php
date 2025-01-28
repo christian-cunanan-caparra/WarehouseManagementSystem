@@ -211,7 +211,7 @@
                                 <td><?= esc($product['price']) ?></td>
                                 <td><?= $product['status'] == 1 ? 'Active' : 'Inactive' ?></td>
                                 <td>
-                                    <a href="#" class="btn btn-warning btn-sm" onclick="editProduct(<?= $product['id'] ?>)">Edit</a>
+                                    <a href="/employee_dashboard/edit/<?= $product['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
                                     <a href="/employee_dashboard/delete/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Deactivate</a>
                                 </td>
                             </tr>
@@ -226,89 +226,15 @@
         <a href="/employee_dashboard/create" class="btn btn-primary">Add New Product</a>
     </div>
 
-    <!-- Add/Edit Product Modal -->
-    <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="productModalLabel">Add/Edit Product</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="productForm">
-                        <input type="hidden" id="id" name="id">
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Product Name</label>
-                            <input type="text" class="form-control" id="productName" name="name" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Product Description</label>
-                            <textarea class="form-control" id="productDescription" name="description" rows="3" required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="quantity" class="form-label">Quantity</label>
-                            <input type="number" class="form-control" id="productQuantity" name="quantity" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="price" class="form-label">Price</label>
-                            <input type="number" class="form-control" id="productPrice" name="price" step="0.01" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary" id="submitProductBtn">Save Product</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script>
         const sidebar = document.getElementById('sidebar');
         const closeBtn = document.getElementById('close-btn');
         const toggleBtn = document.getElementById('toggle-btn');
         const mainContent = document.getElementById('main-content');
 
-        // Show sidebar on page load
         window.onload = () => { sidebar.classList.add('active'); mainContent.classList.add('active'); };
-
-        // Toggle Sidebar
         closeBtn.onclick = () => { sidebar.classList.remove('active'); mainContent.classList.remove('active'); toggleBtn.style.display = 'block'; };
         toggleBtn.onclick = () => { sidebar.classList.add('active'); mainContent.classList.add('active'); toggleBtn.style.display = 'none'; };
-
-        // Open Add/Edit Product Modal
-        function editProduct(productId) {
-            fetch(`/employee_dashboard/get_product/${productId}`)
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('id').value = data.id;
-                    document.getElementById('name').value = data.name;
-                    document.getElementById('description').value = data.description;
-                    document.getElementById('quantity').value = data.quantity;
-                    document.getElementById('price').value = data.price;
-
-                    var modal = new bootstrap.Modal(document.getElementById('productModal'));
-                    modal.show();
-                });
-        }
-
-        // Handle form submission
-        document.getElementById('productForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            const formData = new FormData(this);
-
-            fetch('/employee_dashboard/save_product', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Product saved successfully!');
-                    location.reload(); // Reload page to reflect the changes
-                } else {
-                    alert('Error saving product');
-                }
-            });
-        });
     </script>
 
 </body>
