@@ -225,85 +225,83 @@
             <p>No active products available.</p>
         <?php endif; ?>
 
-        <!-- Add New Product Button -->
-        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">Add New Product</a>
+      <!-- Add New Product Button -->
+<a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">Add New Product</a>
 
-        <!-- Modal for Adding Product -->
-        <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- Modal for Adding Product -->
+<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Product Creation Form -->
+                <form id="addProductForm" method="POST" action="/employee_dashboard/store">
+                    <div class="mb-3">
+                        <label for="productName" class="form-label">Product Name</label>
+                        <input type="text" class="form-control" id="productName" name="name" required>
                     </div>
-                    <div class="modal-body">
-                        <!-- Product Creation Form -->
-                        <form id="addProductForm" method="POST">
-                            <div class="mb-3">
-                                <label for="productName" class="form-label">Product Name</label>
-                                <input type="text" class="form-control" id="productName" name="name" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="productDescription" class="form-label">Description</label>
-                                <textarea class="form-control" id="productDescription" name="description" required></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label for="productQuantity" class="form-label">Quantity</label>
-                                <input type="number" class="form-control" id="productQuantity" name="quantity" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="productPrice" class="form-label">Price</label>
-                                <input type="number" class="form-control" id="productPrice" name="price" required>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save Product</button>
-                            </div>
-                        </form>
+                    <div class="mb-3">
+                        <label for="productDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="productDescription" name="description" required></textarea>
                     </div>
-                </div>
+                    <div class="mb-3">
+                        <label for="productQuantity" class="form-label">Quantity</label>
+                        <input type="number" class="form-control" id="productQuantity" name="quantity" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productPrice" class="form-label">Price</label>
+                        <input type="number" class="form-control" id="productPrice" name="price" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save Product</button>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
+</div>
 
-
-
-        <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editLabel">Edit Product</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- Modal for Editing Product -->
+<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Product Edit Form -->
+                <form id="editProductForm" method="POST" action="/employee_dashboard/update/<?= $product['id'] ?>">
+                    <input type="hidden" id="editProductId" name="id" value="<?= $product['id'] ?>" />
+                    <div class="mb-3">
+                        <label for="editProductName" class="form-label">Product Name</label>
+                        <input type="text" class="form-control" id="editProductName" name="name" value="<?= esc($product['name']) ?>" required>
                     </div>
-                    <div class="modal-body">
-                        <!-- Product Creation Form -->
-                        <form id="editProductForm" method="POST">
-                            <div class="mb-3">
-                                <label for="productName" class="form-label">Product Name</label>
-                                <input type="text" class="form-control" id="productName" name="name" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="productDescription" class="form-label">Description</label>
-                                <textarea class="form-control" id="productDescription" name="description" required></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label for="productQuantity" class="form-label">Quantity</label>
-                                <input type="number" class="form-control" id="productQuantity" name="quantity" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="productPrice" class="form-label">Price</label>
-                                <input type="number" class="form-control" id="productPrice" name="price" required>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save Product</button>
-                            </div>
-                        </form>
+                    <div class="mb-3">
+                        <label for="editProductDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="editProductDescription" name="description" required><?= esc($product['description']) ?></textarea>
                     </div>
-                </div>
+                    <div class="mb-3">
+                        <label for="editProductQuantity" class="form-label">Quantity</label>
+                        <input type="number" class="form-control" id="editProductQuantity" name="quantity" value="<?= esc($product['quantity']) ?>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editProductPrice" class="form-label">Price</label>
+                        <input type="number" class="form-control" id="editProductPrice" name="price" value="<?= esc($product['price']) ?>" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
             </div>
         </div>
-
-
+    </div>
+</div>
 
 
 
@@ -320,66 +318,94 @@
         toggleBtn.onclick = () => { sidebar.classList.add('active'); mainContent.classList.add('active'); toggleBtn.style.display = 'none'; };
 
         // Handle form submission via AJAX
-        document.getElementById('addProductForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+      
+      
+      
+      
+        $(document).ready(function () {
+    // Handle form submission for adding a new product
+    $('#addProductForm').on('submit', function (e) {
+        e.preventDefault(); // Prevent the form from submitting normally
 
-            const formData = new FormData(this);
-            
-            fetch('/employee_dashboard/store', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    // Close the modal
-                    const modal = new bootstrap.Modal(document.getElementById('addProductModal'));
-                    modal.hide();
+        var formData = $(this).serialize(); // Serialize the form data
 
-                    // Optionally, refresh the product list or show a success message
-                    alert(data.message);
-                    window.location.reload();  // Refresh the page to show the new product
+        $.ajax({
+            url: '/employee_dashboard/store', // URL to submit the form data to
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                if (response.status === 'success') {
+                    // Close the modal and reset the form
+                    $('#addProductModal').modal('hide');
+                    $('#addProductForm')[0].reset();
+
+                    // Optionally, update the product list dynamically without reloading the page
+                    // Example: You can append the new product to your product table here
+                    alert(response.message);
+                    location.reload(); // Reload the page to see the new product (or update product list dynamically)
                 } else {
-                    alert(data.message);
+                    alert(response.message); // Show error message
                 }
-            })
-            .catch(error => {
-                console.error("Error adding product:", error);
-                alert("There was an error adding the product.");
-            });
+            },
+            error: function (xhr, status, error) {
+                alert("An error occurred: " + error);
+            }
         });
+    });
 
+    // Handle form submission for editing a product
+    $('#editProductForm').on('submit', function (e) {
+        e.preventDefault(); // Prevent the form from submitting normally
 
+        var formData = $(this).serialize(); // Serialize the form data
 
-
-        document.getElementById('editProductForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const formData = new FormData(this);
-            
-            fetch('/employee_dashboard/store', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
+        $.ajax({
+            url: $(this).attr('action'), // The form's action URL (contains product ID)
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                if (response.status === 'success') {
                     // Close the modal
-                    const modal = new bootstrap.Modal(document.getElementById('addProductModal'));
-                    modal.hide();
-
-                    // Optionally, refresh the product list or show a success message
-                    alert(data.message);
-                    window.location.reload();  // Refresh the page to show the new product
+                    $('#editProductModal').modal('hide');
+                    
+                    // Optionally, update the product list dynamically without reloading the page
+                    alert(response.message);
+                    location.reload(); // Reload the page to see the updated product (or update product list dynamically)
                 } else {
-                    alert(data.message);
+                    alert(response.message); // Show error message
                 }
-            })
-            .catch(error => {
-                console.error("Error adding product:", error);
-                alert("There was an error adding the product.");
-            });
+            },
+            error: function (xhr, status, error) {
+                alert("An error occurred: " + error);
+            }
         });
+    });
+    
+    // When an "Edit" button is clicked, populate the modal with the product details
+    $('.edit-product-btn').on('click', function () {
+        var productId = $(this).data('id');
+        
+        $.ajax({
+            url: '/employee_dashboard/edit/' + productId, // Get the product details by ID
+            type: 'GET',
+            success: function (response) {
+                // Assuming response contains product data
+                $('#editProductId').val(response.product.id);
+                $('#editProductName').val(response.product.name);
+                $('#editProductDescription').val(response.product.description);
+                $('#editProductQuantity').val(response.product.quantity);
+                $('#editProductPrice').val(response.product.price);
+
+                // Show the Edit Modal
+                $('#editProductModal').modal('show');
+            },
+            error: function (xhr, status, error) {
+                alert("An error occurred: " + error);
+            }
+        });
+    });
+});
+
 
 
 
