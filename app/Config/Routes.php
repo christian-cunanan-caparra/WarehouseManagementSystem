@@ -47,3 +47,10 @@ $routes->get('/employee_dashboard/activate/(:num)', 'DashboardController::activa
 
 
 
+// $routes->get('chat/messages/(:num)', 'ChatController::getMessages/$1');
+// $routes->post('chat/send/(:num)', 'ChatController::sendMessage/$1');
+
+$routes->get('chat', 'ChatController::index');
+$routes->get('chat/messages/(:num)', 'ChatController::getMessages/$1');
+$routes->post('chat/send', 'ChatController::sendMessage');
+$routes->get('chat/reset', 'ChatController::resetMessages');
