@@ -78,32 +78,34 @@
         }
 
         /* New Advanced Toggle Button Styles */
-        .toggle-btn {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background-color: #161a2d;
-            color: white;
-            border: none;
-            padding: 12px;
-            cursor: pointer;
-            font-size: 1.8rem;
-            z-index: 1100;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
+       /* New Advanced Toggle Button Styles */
+.toggle-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;  /* Move the button to the right */
+    background-color: #161a2d;
+    color: white;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    font-size: 1.8rem;
+    z-index: 1100;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
 
-        .toggle-btn:hover {
-            background-color: #4f52ba;
-        }
+.toggle-btn:hover {
+    background-color: #4f52ba;
+}
 
-        .toggle-btn:focus {
-            outline: none;
-        }
+.toggle-btn:focus {
+    outline: none;
+}
 
-        .toggle-btn .material-icons {
-            font-size: 2rem;
-        }
+.toggle-btn .material-icons {
+    font-size: 2rem;
+}
+
 
         /* Content Styles */
         .content {
@@ -152,10 +154,10 @@
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <br><br><br> <br>
-            
+          
+            <span>Warehouse Dashboard</span>
             <!-- <span class="material-icons close-btn" id="close-btn">close</span> -->
-        </div><span>Warehouse Dashboard</span>
+        </div>
         <ul class="sidebar-links">
             <h4>Main Menu</h4>
             <li><a href="#"><span class="material-icons">dashboard</span> Dashboard</a></li>
