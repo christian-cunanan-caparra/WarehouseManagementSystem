@@ -384,58 +384,28 @@
     });
     
     // When an "Edit" button is clicked, populate the modal with the product details
- // When an "Edit" button is clicked, populate the modal with the product details
-$('.edit-product-btn').on('click', function () {
-    var productId = $(this).data('id'); // Get product ID
+    $('.edit-product-btn').on('click', function () {
+        var productId = $(this).data('id');
+        
+        $.ajax({
+            url: '/employee_dashboard/edit/' + productId, // Get the product details by ID
+            type: 'GET',
+            success: function (response) {
+                // Assuming response contains product data
+                $('#editProductId').val(response.product.id);
+                $('#editProductName').val(response.product.name);
+                $('#editProductDescription').val(response.product.description);
+                $('#editProductQuantity').val(response.product.quantity);
+                $('#editProductPrice').val(response.product.price);
 
-    $.ajax({
-        url: '/employee_dashboard/edit/' + productId, // Make a request to fetch product details by ID
-        type: 'GET',
-        success: function (response) {
-            // Assuming response contains product data, populate the modal form
-            $('#editProductId').val(response.product.id);
-            $('#editProductName').val(response.product.name);
-            $('#editProductDescription').val(response.product.description);
-            $('#editProductQuantity').val(response.product.quantity);
-            $('#editProductPrice').val(response.product.price);
-
-            // Show the Edit Modal
-            $('#editProductModal').modal('show');
-        },
-        error: function (xhr, status, error) {
-            alert("An error occurred: " + error);
-        }
-    });
-});
-
-// Handle form submission for editing a product via AJAX
-$('#editProductForm').on('submit', function (e) {
-    e.preventDefault(); // Prevent the form from submitting normally
-
-    var formData = $(this).serialize(); // Serialize the form data
-
-    $.ajax({
-        url: '/employee_dashboard/update/' + $('#editProductId').val(), // Dynamic URL for updating the product
-        type: 'POST',
-        data: formData,
-        success: function (response) {
-            if (response.status === 'success') {
-                // Close the modal and reset the form
-                $('#editProductModal').modal('hide');
-
-                // Optionally, update the product list dynamically without reloading the page
-                alert(response.message);
-                location.reload(); // Reload the page to see the updated product list
-            } else {
-                alert(response.message); // Show error message
+                // Show the Edit Modal
+                $('#editProductModal').modal('show');
+            },
+            error: function (xhr, status, error) {
+                alert("An error occurred: " + error);
             }
-        },
-        error: function (xhr, status, error) {
-            alert("An error occurred: " + error);
-        }
+        });
     });
-});
-
 });
 
 
