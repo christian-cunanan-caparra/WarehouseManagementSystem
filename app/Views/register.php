@@ -118,12 +118,45 @@
             font-size: 14px;
             padding: 15px;
         }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .btn-primary {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .form-control {
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 15px;
+            }
+
+            .btn-primary {
+                padding: 8px;
+                font-size: 12px;
+            }
+
+            .form-control {
+                padding: 6px;
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1><i class="fas fa-warehouse"></i> AHAHAHA Management System</h1>
+        <h1><i class="fas fa-warehouse"></i> Warehouse Management System</h1>
 
         <!-- Display Flash Error Message for Invalid Email -->
         <?php if (session()->getFlashdata('error')): ?>
