@@ -159,8 +159,6 @@
             <li><a href="#"><span class="material-icons">dashboard</span> Dashboard</a></li>
             <li><a href="#"><span class="material-icons">inventory</span> Products</a></li>
             <li><a href="#"><span class="material-icons">settings</span> Settings</a></li>
-            
-          
         </ul>
     </aside>
 
@@ -213,7 +211,8 @@
                                 <td><?= esc($product['price']) ?></td>
                                 <td><?= $product['status'] == 1 ? 'Active' : 'Inactive' ?></td>
                                 <td>
-                                    <a href="/employee_dashboard/edit/<?= $product['id'] ?>" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editProductModal">Edit</a>
+                                    <!-- Edit Button with data-id -->
+                                    <a href="#" class="btn btn-warning btn-sm edit-product-btn" data-id="<?= $product['id'] ?>" data-bs-toggle="modal" data-bs-target="#editProductModal">Edit</a>
                                     <a href="/employee_dashboard/delete/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Deactivate</a>
                                 </td>
                             </tr>
@@ -225,194 +224,159 @@
             <p>No active products available.</p>
         <?php endif; ?>
 
-      <!-- Add New Product Button -->
-<a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">Add New Product</a>
+        <!-- Add New Product Button -->
+        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">Add New Product</a>
 
-<!-- Modal for Adding Product -->
-<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Product Creation Form -->
-                <form id="addProductForm" method="POST" action="/employee_dashboard/store">
-                    <div class="mb-3">
-                        <label for="productName" class="form-label">Product Name</label>
-                        <input type="text" class="form-control" id="productName" name="name" required>
+        <!-- Modal for Adding Product -->
+        <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="mb-3">
-                        <label for="productDescription" class="form-label">Description</label>
-                        <textarea class="form-control" id="productDescription" name="description" required></textarea>
+                    <div class="modal-body">
+                        <!-- Product Creation Form -->
+                        <form id="addProductForm" method="POST" action="/employee_dashboard/store">
+                            <div class="mb-3">
+                                <label for="productName" class="form-label">Product Name</label>
+                                <input type="text" class="form-control" id="productName" name="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="productDescription" class="form-label">Description</label>
+                                <textarea class="form-control" id="productDescription" name="description" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="productQuantity" class="form-label">Quantity</label>
+                                <input type="number" class="form-control" id="productQuantity" name="quantity" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="productPrice" class="form-label">Price</label>
+                                <input type="number" class="form-control" id="productPrice" name="price" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save Product</button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="mb-3">
-                        <label for="productQuantity" class="form-label">Quantity</label>
-                        <input type="number" class="form-control" id="productQuantity" name="quantity" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="productPrice" class="form-label">Price</label>
-                        <input type="number" class="form-control" id="productPrice" name="price" required>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save Product</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal for Editing Product -->
-<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Product Edit Form -->
-                <form id="editProductForm" method="POST" action="/employee_dashboard/update/<?= $product['id'] ?>">
-                    <input type="hidden" id="editProductId" name="id" value="<?= $product['id'] ?>" />
-                    <div class="mb-3">
-                        <label for="editProductName" class="form-label">Product Name</label>
-                        <input type="text" class="form-control" id="editProductName" name="name" value="<?= esc($product['name']) ?>" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="editProductDescription" class="form-label">Description</label>
-                        <textarea class="form-control" id="editProductDescription" name="description" required><?= esc($product['description']) ?></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="editProductQuantity" class="form-label">Quantity</label>
-                        <input type="number" class="form-control" id="editProductQuantity" name="quantity" value="<?= esc($product['quantity']) ?>" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="editProductPrice" class="form-label">Price</label>
-                        <input type="number" class="form-control" id="editProductPrice" name="price" value="<?= esc($product['price']) ?>" required>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
+
+        <!-- Modal for Editing Product -->
+        <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Product Edit Form -->
+                        <form id="editProductForm" method="POST" action="/employee_dashboard/update">
+                            <input type="hidden" id="editProductId" name="id" />
+                            <div class="mb-3">
+                                <label for="editProductName" class="form-label">Product Name</label>
+                                <input type="text" class="form-control" id="editProductName" name="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editProductDescription" class="form-label">Description</label>
+                                <textarea class="form-control" id="editProductDescription" name="description" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editProductQuantity" class="form-label">Quantity</label>
+                                <input type="number" class="form-control" id="editProductQuantity" name="quantity" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editProductPrice" class="form-label">Price</label>
+                                <input type="number" class="form-control" id="editProductPrice" name="price" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Update Product</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-</div>
 
-
-
-    </div>
-
-    <script>
-        const sidebar = document.getElementById('sidebar');
-        const closeBtn = document.getElementById('close-btn');
-        const toggleBtn = document.getElementById('toggle-btn');
-        const mainContent = document.getElementById('main-content');
-
-        window.onload = () => { sidebar.classList.add('active'); mainContent.classList.add('active'); };
-        closeBtn.onclick = () => { sidebar.classList.remove('active'); mainContent.classList.remove('active'); toggleBtn.style.display = 'block'; };
-        toggleBtn.onclick = () => { sidebar.classList.add('active'); mainContent.classList.add('active'); toggleBtn.style.display = 'none'; };
-
-        // Handle form submission via AJAX
-      
-      
-      
-      
-        $(document).ready(function () {
-    // Handle form submission for adding a new product
-    $('#addProductForm').on('submit', function (e) {
-        e.preventDefault(); // Prevent the form from submitting normally
-
-        var formData = $(this).serialize(); // Serialize the form data
-
-        $.ajax({
-            url: '/employee_dashboard/store', // URL to submit the form data to
-            type: 'POST',
-            data: formData,
-            success: function (response) {
-                if (response.status === 'success') {
-                    // Close the modal and reset the form
-                    $('#addProductModal').modal('hide');
-                    $('#addProductForm')[0].reset();
-
-                    // Optionally, update the product list dynamically without reloading the page
-                    // Example: You can append the new product to your product table here
-                    alert(response.message);
-                    location.reload(); // Reload the page to see the new product (or update product list dynamically)
-                } else {
-                    alert(response.message); // Show error message
-                }
-            },
-            error: function (xhr, status, error) {
-                alert("An error occurred: " + error);
-            }
-        });
-    });
-
-    // Handle form submission for editing a product
-    $('#editProductForm').on('submit', function (e) {
-        e.preventDefault(); // Prevent the form from submitting normally
-
-        var formData = $(this).serialize(); // Serialize the form data
-
-        $.ajax({
-            url: $(this).attr('action'), // The form's action URL (contains product ID)
-            type: 'POST',
-            data: formData,
-            success: function (response) {
-                if (response.status === 'success') {
-                    // Close the modal
-                    $('#editProductModal').modal('hide');
-                    
-                    // Optionally, update the product list dynamically without reloading the page
-                    alert(response.message);
-                    location.reload(); // Reload the page to see the updated product (or update product list dynamically)
-                } else {
-                    alert(response.message); // Show error message
-                }
-            },
-            error: function (xhr, status, error) {
-                alert("An error occurred: " + error);
-            }
-        });
-    });
+    <!-- jQuery 3.x and AJAX -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
-    // When an "Edit" button is clicked, populate the modal with the product details
-    $('.edit-product-btn').on('click', function () {
-        var productId = $(this).data('id');
-        
-        $.ajax({
-            url: '/employee_dashboard/edit/' + productId, // Get the product details by ID
-            type: 'GET',
-            success: function (response) {
-                // Assuming response contains product data
-                $('#editProductId').val(response.product.id);
-                $('#editProductName').val(response.product.name);
-                $('#editProductDescription').val(response.product.description);
-                $('#editProductQuantity').val(response.product.quantity);
-                $('#editProductPrice').val(response.product.price);
+    <script>
+        // Toggle Sidebar
+        $(document).ready(function () {
+            $('#toggle-btn').click(function () {
+                $('#sidebar').toggleClass('active');
+                $('#main-content').toggleClass('active');
+            });
 
-                // Show the Edit Modal
-                $('#editProductModal').modal('show');
-            },
-            error: function (xhr, status, error) {
-                alert("An error occurred: " + error);
-            }
+            // Edit Product Button Click
+            $('.edit-product-btn').click(function () {
+                var productId = $(this).data('id');
+                $.ajax({
+                    url: '/employee_dashboard/edit/' + productId, // Get product details by ID
+                    type: 'GET',
+                    success: function (response) {
+                        // Populate the modal with product details
+                        $('#editProductId').val(response.product.id);
+                        $('#editProductName').val(response.product.name);
+                        $('#editProductDescription').val(response.product.description);
+                        $('#editProductQuantity').val(response.product.quantity);
+                        $('#editProductPrice').val(response.product.price);
+
+                        // Show the modal
+                        $('#editProductModal').modal('show');
+                    }
+                });
+            });
+
+            // Add New Product Form Submission (AJAX)
+            $('#addProductForm').on('submit', function (e) {
+                e.preventDefault(); // Prevent form from submitting normally
+                var formData = $(this).serialize();
+
+                $.ajax({
+                    url: '/employee_dashboard/store',
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        if (response.status === 'success') {
+                            $('#addProductModal').modal('hide');
+                            alert('Product added successfully');
+                            location.reload(); // Reload the page to see the new product
+                        } else {
+                            alert('Error: ' + response.message);
+                        }
+                    }
+                });
+            });
+
+            // Edit Product Form Submission (AJAX)
+            $('#editProductForm').on('submit', function (e) {
+                e.preventDefault(); // Prevent form from submitting normally
+                var formData = $(this).serialize();
+
+                $.ajax({
+                    url: $(this).attr('action'), // Use action URL
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        if (response.status === 'success') {
+                            $('#editProductModal').modal('hide');
+                            alert('Product updated successfully');
+                            location.reload(); // Reload to see updated product
+                        } else {
+                            alert('Error: ' + response.message);
+                        }
+                    }
+                });
+            });
         });
-    });
-});
-
-
-
-
-
-
-
     </script>
-
 </body>
 </html>
