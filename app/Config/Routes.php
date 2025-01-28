@@ -30,10 +30,3 @@ $routes->get('/dashboard', 'DashboardController::index');
 $routes->get('/admin/dashboard', 'DashboardController::index');
 $routes->get('/employee/dashboard', 'DashboardController::index');
 
-
-$routes->get('/users/create', 'Users::create');    // For creating a new user
-$routes->post('/users/store', 'Users::store');      // For storing the new user
-$routes->get('/users/edit/(:segment)', 'Users::edit/$1');  // For editing a user
-$routes->post('/users/update/(:segment)', 'Users::update/$1');  // For updating the user
-
-
