@@ -123,7 +123,7 @@
 <body>
 
     <div class="container">
-        <h1><i class="fas fa-warehouse"></i> Warehouse Management System</h1>
+        <h1><i class="fas fa-warehouse"></i> AHAHAHA Management System</h1>
 
         <!-- Display Flash Error Message for Invalid Email -->
         <?php if (session()->getFlashdata('error')): ?>
