@@ -50,16 +50,18 @@ class DashboardController extends Controller
     {
         // Get the form data
         $data = $this->request->getPost();
-
+    
         // Set the status to 1 (active) for the new product
         $data['status'] = 1;
-
+    
         // Insert the product into the database
-        $this->productModel->insert($data);
-
-        // Redirect with a success message
-        return redirect()->to('/employee_dashboard')->with('message', 'Product added successfully.');
+        if ($this->productModel->insert($data)) {
+            return $this->response->setJSON(['status' => 'success', 'message' => 'Product added successfully.']);
+        }
+    
+        return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to add product.']);
     }
+    
 
     public function edit($id)
     {
