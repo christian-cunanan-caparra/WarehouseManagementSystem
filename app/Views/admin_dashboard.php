@@ -11,11 +11,7 @@
             background-color: #f0f4f8;
             font-family: 'Poppins', sans-serif;
             margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            padding: 20px;
         }
 
         .dashboard-container {
@@ -23,20 +19,8 @@
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             padding: 30px;
-            max-width: 600px;
-            width: 90%;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            max-width: 900px;
+            margin: auto;
         }
 
         h1 {
@@ -46,66 +30,50 @@
             margin-bottom: 20px;
         }
 
-        p {
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px;
             text-align: center;
-            font-size: 16px;
-            color: #6c757d;
-            margin-bottom: 30px;
         }
 
-        .options-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .options-list li {
-            background-color: #e9ecef;
-            margin-bottom: 10px;
-            padding: 15px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            font-size: 16px;
-            color: #495057;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease-in-out;
-        }
-
-        .options-list li:hover {
+        table th {
             background-color: #007bff;
-            color: #ffffff;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+            color: white;
         }
 
-        .options-list li i {
-            margin-right: 10px;
-            color: #007bff;
+        .btn {
+            margin: 5px;
         }
 
-        .options-list li:hover i {
-            color: #ffffff;
+        .btn-create {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-edit {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
         }
 
         .btn-logout {
-            display: block;
-            width: 100%;
-            padding: 12px;
             background-color: #dc3545;
-            color: #fff;
-            font-size: 16px;
-            border: none;
-            border-radius: 10px;
+            color: white;
             text-align: center;
-            font-weight: 600;
-            text-transform: uppercase;
-            box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .btn-logout:hover {
-            background-color: #c82333;
-            box-shadow: 0 6px 15px rgba(220, 53, 69, 0.4);
+            width: 100%;
+            padding: 10px;
+            display: block;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -115,12 +83,40 @@
     <h1>Welcome, Admin <?= session()->get('user_name') ?>!</h1>
     <p>You are logged in as an Admin.</p>
 
-    <h3>Admin Options</h3>
-    <ul class="options-list">
-        <li><i class="fas fa-users"></i> Manage Users</li>
-        <li><i class="fas fa-chart-line"></i> View Reports</li>
-        <li><i class="fas fa-cogs"></i> System Settings</li>
-    </ul>
+    <button class="btn btn-create" onclick="location.href='/admin/create_user'"><i class="fas fa-user-plus"></i> Add New User</button>
+
+    <h3>User List</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (!empty($users)): ?>
+                <?php foreach ($users as $user): ?>
+                    <tr>
+                        <td><?= $user['id'] ?></td>
+                        <td><?= $user['name'] ?></td>
+                        <td><?= $user['email'] ?></td>
+                        <td><?= $user['role'] ?></td>
+                        <td>
+                            <a href="/admin/edit_user/<?= $user['id'] ?>" class="btn btn-edit"><i class="fas fa-edit"></i> Edit</a>
+                            <a href="/admin/delete_user/<?= $user['id'] ?>" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this user?');"><i class="fas fa-trash"></i> Delete</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="5">No users found.</td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
 
     <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
 </div>
