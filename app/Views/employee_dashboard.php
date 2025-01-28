@@ -172,14 +172,29 @@
     </div>
 
     <script>
-        // Toggle Sidebar visibility
+        // Get elements
         const toggleBtn = document.getElementById('toggle-btn');
         const sidebar = document.getElementById('sidebar');
         const mainContent = document.getElementById('main-content');
 
+        // Check local storage for sidebar state and set initial state
+        const sidebarState = localStorage.getItem('sidebarState');
+        if (sidebarState === 'active') {
+            sidebar.classList.add('active');
+            mainContent.classList.add('active');
+        }
+
+        // Toggle Sidebar visibility and save state to localStorage
         toggleBtn.addEventListener('click', () => {
             sidebar.classList.toggle('active');
             mainContent.classList.toggle('active');
+
+            // Save the sidebar state
+            if (sidebar.classList.contains('active')) {
+                localStorage.setItem('sidebarState', 'active');
+            } else {
+                localStorage.setItem('sidebarState', 'inactive');
+            }
         });
     </script>
 
