@@ -42,9 +42,10 @@
             align-items: center;
         }
 
+        /* Close Button inside Sidebar */
         .sidebar-header .close-btn {
             cursor: pointer;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
         }
 
         .sidebar-links {
@@ -81,7 +82,7 @@
         .toggle-btn {
             position: absolute;
             top: 20px;
-            left: 10px;  /* Positioned on the left side outside the sidebar */
+            left: 10px;  /* Positioned outside the sidebar */
             background-color: #161a2d;
             color: white;
             border: none;
@@ -105,36 +106,21 @@
             font-size: 2rem;
         }
 
-        /* Close Button in Sidebar */
-        .close-btn {
-            display: none;
-        }
-
         /* Content Styles */
         .content {
             margin-left: 0;
             padding: 20px;
             transition: margin-left 0.3s ease, width 0.3s ease;
-            width: 100%; /* Make content wide by default */
+            width: 100%;
         }
 
         .content.active {
             margin-left: 260px;
-            width: calc(100% - 260px); /* Make content narrow when sidebar is open */
+            width: calc(100% - 260px); /* Content shifts when sidebar is open */
         }
 
         .content h1 {
-            margin-left: 20px; /* Adjust margin-left for content */
-        }
-
-        /* Table Styles */
-        .table-wrapper {
-            overflow-x: auto;
-            margin-top: 20px;
-        }
-
-        .table th, .table td {
-            white-space: nowrap; /* Prevent text wrapping */
+            margin-left: 20px;
         }
 
         /* Add responsive styles */
@@ -164,11 +150,11 @@
         /* For Tablet and Mobile */
         @media (max-width: 991px) {
             .content.active {
-                margin-left: 0; /* On medium devices, content will span full width */
+                margin-left: 0;
             }
 
             .table th, .table td {
-                font-size: 0.85rem; /* Smaller text for smaller screens */
+                font-size: 0.85rem;
             }
         }
 
@@ -179,11 +165,11 @@
             }
 
             .content.active {
-                margin-left: 260px; /* For large screens, sidebar remains fixed */
+                margin-left: 260px;
             }
 
             .table th, .table td {
-                font-size: 1rem; /* Larger text on larger screens */
+                font-size: 1rem;
             }
         }
     </style>
@@ -250,7 +236,6 @@
                             <td>$200</td>
                             <td><a href="#" class="btn btn-warning btn-sm">Edit</a></td>
                         </tr>
-                        <!-- Add more rows as needed -->
                     </tbody>
                 </table>
             </div>
