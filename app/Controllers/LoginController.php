@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use CodeIgniter\Controller;
 
 class LoginController extends BaseController
 {
@@ -14,52 +15,56 @@ class LoginController extends BaseController
 
     public function authenticate()
     {
+        $session = session();
+        $userModel = new UserModel();
+
         // Validate login form inputs
         $validation = $this->validate([
             'email'    => 'required|valid_email',
-            'password' => 'required|min_length[8]', // Validate password length
+            'password' => 'required|min_length[8]',
         ]);
-    
+
         if (!$validation) {
-            // Redirect back with errors if validation fails
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
-    
+
         // Retrieve user credentials
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
-    
-        // Verify user existence
-        $userModel = new UserModel();
+
+        // Find user by email
         $user = $userModel->where('email', $email)->first();
-    
-        // Check if user exists and password matches
+
+        // Check if user exists and password is correct
         if (!$user || !password_verify($password, $user['password'])) {
-            // Set an error message if credentials are invalid
-            session()->setFlashdata('error', 'Invalid email or password.');
+            $session->setFlashdata('error', 'Invalid email or password.');
             return redirect()->to('/login')->withInput();
         }
-    
+
         // Store user session details
-        session()->set([
+        $session->set([
             'user_id'   => $user['id'],
             'user_name' => $user['name'],
             'user_email' => $user['email'],
             'role'      => $user['role'],
             'is_logged_in' => true,
         ]);
-    
-        // Redirect based on user role
-        return ($user['role'] === 'Admin') 
-            ? redirect()->to('/admin/dashboard') 
-            : redirect()->to('/employee/dashboard');
+
+        // Regenerate session ID for security
+        $session->regenerate();
+
+        // Redirect user to intended page or dashboard based on role
+        return redirect()->to($session->get('redirect_url') ?? (($user['role'] === 'Admin') ? '/admin/dashboard' : '/employee/dashboard'));
     }
-    
 
     public function logout()
     {
-        // Destroy session and redirect to login page
-        session()->destroy();
-        return redirect()->to('/login');
+        $session = session();
+
+        // Destroy session and clear data
+        $session->destroy();
+
+        // Redirect to login page with a logout success message
+        return redirect()->to('/login')->with('success', 'You have been logged out.');
     }
 }
