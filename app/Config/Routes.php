@@ -64,3 +64,9 @@ $routes->get('/employee_dashboard/activate/(:num)', 'DashboardController::activa
 $routes->get('/chat', 'ChatController::index');
 $routes->get('/chat/fetchMessages', 'ChatController::fetchMessages');
 $routes->post('/chat/sendMessage', 'ChatController::sendMessage');
+
+
+$routes->group('chat', function($routes) {
+    $routes->post('sendMessage', 'ChatController::sendMessage');
+    $routes->get('fetchMessages', 'ChatController::fetchMessages');
+});
