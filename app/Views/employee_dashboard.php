@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Dashboard - Warehouse Management System</title>
-
+    
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+    
     <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+    
     <style>
         /* Sidebar Styling */
         .sidebar {
@@ -21,11 +21,13 @@
             width: 270px;
             height: 100%;
             background: rgba(22, 26, 45, 0.9);
+            backdrop-filter: blur(10px);
             color: white;
             padding: 20px;
-            transition: left 0.3s ease;
+            transition: 0.4s ease-in-out;
             box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3);
             z-index: 1000;
+            border-right: 2px solid rgba(255, 255, 255, 0.1);
         }
 
         .sidebar.active {
@@ -67,7 +69,13 @@
             padding-left: 15px;
         }
 
-        /* Toggle Button Styling */
+        .menu-separator {
+            margin: 15px 0;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Sidebar Toggle Button */
         .toggle-btn {
             position: fixed;
             top: 20px;
@@ -80,26 +88,63 @@
             font-size: 1.5rem;
             transition: 0.3s;
             border-radius: 5px;
+            display: none;
         }
 
         .toggle-btn:hover {
             background: #4f52ba;
         }
 
-        /* Main Content Styling */
+        /* Main Content */
         .content {
-            margin-left: 270px;
+            margin-left: 50px;
             padding: 30px;
-            transition: margin-left 0.3s ease;
+            transition: margin-left 0.4s ease;
+            background: #f8f9fa;
+            min-height: 100vh;
         }
 
         .content.active {
-            margin-left: 0;
+            margin-left: 270px;
         }
 
-        /* Modal Styling */
-        .modal-dialog {
-            max-width: 600px;
+        /* Product Count Card */
+        .card {
+            border-radius: 12px;
+            transition: 0.3s ease-in-out;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card .material-icons {
+            font-size: 4rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                left: -270px;
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            .content {
+                margin-left: 0;
+            }
+
+            .content.active {
+                margin-left: 270px;
+            }
+
+            .toggle-btn {
+                display: block;
+            }
         }
     </style>
 </head>
@@ -107,6 +152,7 @@
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
+        <button class="close-btn" id="close-btn">&times;</button>
         <div class="sidebar-header">Warehouse Management System</div>
         <ul class="sidebar-links">
             <h4>Main Menu</h4>
@@ -122,10 +168,7 @@
     <!-- Main Content -->
     <div class="content" id="main-content">
         <h1>Dashboard</h1>
-        <p>Welcome to the Warehouse Management System. Manage inventory, view products, and more.</p>
-
-        <!-- Add New Product Button -->
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">Add New Product</button>
+        <p>Welcome to the Warehouse Management System. Here you can manage inventory, view products, and more.</p>
 
         <!-- Product Count Card -->
         <div class="row mb-4">
@@ -142,7 +185,7 @@
             </div>
         </div>
 
-        <!-- Product List Table -->
+        <!-- Product Table -->
         <h2>Product List</h2>
         <table class="table table-striped" id="product-table">
             <thead>
@@ -157,9 +200,12 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Products will be injected here -->
+                <!-- Product rows will be inserted here -->
             </tbody>
         </table>
+
+        <!-- Add New Product Button -->
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">Add New Product</button>
     </div>
 
     <!-- Modal for Adding New Product -->
@@ -174,22 +220,22 @@
                     <form id="add-product-form">
                         <div class="mb-3">
                             <label for="name" class="form-label">Product Name</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
+                            <input type="text" class="form-control" id="name" required>
                         </div>
 
                         <div class="mb-3">
                             <label for="description" class="form-label">Product Description</label>
-                            <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                            <textarea class="form-control" id="description" rows="3" required></textarea>
                         </div>
 
                         <div class="mb-3">
                             <label for="quantity" class="form-label">Quantity</label>
-                            <input type="number" class="form-control" id="quantity" name="quantity" required>
+                            <input type="number" class="form-control" id="quantity" required>
                         </div>
 
                         <div class="mb-3">
                             <label for="price" class="form-label">Price</label>
-                            <input type="number" class="form-control" id="price" name="price" step="0.01" required>
+                            <input type="number" class="form-control" id="price" step="0.01" required>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Add Product</button>
@@ -200,19 +246,23 @@
     </div>
 
     <script>
-        // Toggle sidebar visibility
-        document.getElementById('toggle-btn').addEventListener('click', function() {
-            document.getElementById('sidebar').classList.toggle('active');
-            document.getElementById('main-content').classList.toggle('active');
-        });
+        // Sidebar toggle and close button functionality
+        const sidebar = document.getElementById('sidebar');
+        const closeBtn = document.getElementById('close-btn');
+        const toggleBtn = document.getElementById('toggle-btn');
+        const mainContent = document.getElementById('main-content');
 
-        // Sample data for the product list (replace with dynamic data from backend)
+        window.onload = () => { sidebar.classList.add('active'); mainContent.classList.add('active'); };
+        closeBtn.onclick = () => { sidebar.classList.remove('active'); mainContent.classList.remove('active'); toggleBtn.style.display = 'block'; };
+        toggleBtn.onclick = () => { sidebar.classList.add('active'); mainContent.classList.add('active'); toggleBtn.style.display = 'none'; };
+
+        // Sample data for product list
         const products = [
             { id: 1, name: 'Product 1', description: 'Description 1', quantity: 10, price: 100, status: 'Active' },
             { id: 2, name: 'Product 2', description: 'Description 2', quantity: 20, price: 200, status: 'Active' }
         ];
 
-        // Function to display products in the table
+        // Display products in table
         function displayProducts() {
             const tableBody = document.querySelector('#product-table tbody');
             tableBody.innerHTML = '';
@@ -233,11 +283,11 @@
                 tableBody.appendChild(row);
             });
 
-            // Update the total product count
+            // Update product count
             document.getElementById('total-products').textContent = products.length;
         }
 
-        // Handle form submission to add a new product
+        // Add product modal functionality
         document.getElementById('add-product-form').addEventListener('submit', function(event) {
             event.preventDefault();
 
@@ -250,15 +300,13 @@
                 status: 'Active'
             };
 
-            products.push(newProduct);  // Add new product to the list
-            displayProducts();  // Update the table and product count
+            products.push(newProduct);
+            displayProducts();
 
-            // Close the modal
             const modal = bootstrap.Modal.getInstance(document.getElementById('addProductModal'));
             modal.hide();
         });
 
-        // Display products initially
         displayProducts();
     </script>
 
