@@ -33,18 +33,24 @@
         }
 
         function sendMessage() {
-            let message = $("#message").val();
-            if (message.trim() === "") return;
+    let message = $("#message").val().trim();
+    if (message === "") return; // Prevent empty messages
 
-            $.post("<?= base_url('chat/sendMessage') ?>", { message: message }, function(response) {
-                if (response.status === "success") {
-                    $("#message").val("");
-                    fetchMessages();
-                } else {
-                    alert(response.message);
-                }
-            });
+    console.log("Sending message:", message); // Debugging line
+
+    $.post("<?= base_url('chat/sendMessage') ?>", { message: message }, function(response) {
+        console.log("Response:", response); // Debugging line
+        if (response.status === "success") {
+            $("#message").val("");
+            fetchMessages();
+        } else {
+            alert(response.message);
         }
+    }).fail(function(xhr, status, error) {
+        console.error("Error:", error); // Debugging line
+    });
+}
+
 
         setInterval(fetchMessages, 3000);
         fetchMessages();
