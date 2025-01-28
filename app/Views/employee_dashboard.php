@@ -157,8 +157,8 @@
         <ul class="sidebar-links">
             <h4>Main Menu</h4>
             <li><a href="#"><span class="material-icons">dashboard</span> Dashboard</a></li>
-            <li><a href="#" id="add-new-product-btn"><span class="material-icons">inventory</span> Add New Product</a></li>
-            <li><a href="#" class="edit-product-btn" data-id="1"><span class="material-icons">settings</span> Edit Product</a></li>
+            <li><a href="#"><span class="material-icons">inventory</span> Products</a></li>
+            <li><a href="#"><span class="material-icons">settings</span> Settings</a></li>
         </ul>
     </aside>
 
@@ -177,7 +177,7 @@
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <div>
                             <h5 class="card-title">Total Products</h5>
-                            <h3 class="card-text">100</h3> <!-- Replace with dynamic value -->
+                            <h3 class="card-text"><?= count($products) ?></h3>
                         </div>
                         <span class="material-icons">inventory</span>
                     </div>
@@ -185,124 +185,56 @@
             </div>
         </div>
 
-        <a href="#" class="btn btn-primary" id="add-new-product-btn">Add New Product</a>
-    </div>
+        <!-- Product Table -->
+        <h2>Product List</h2>
+        <?php if (!empty($products)): ?>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($products as $product): ?>
+                        <?php if ($product['status'] == 1): ?>
+                            <tr>
+                                <td><?= esc($product['id']) ?></td>
+                                <td><?= esc($product['name']) ?></td>
+                                <td><?= esc($product['description']) ?></td>
+                                <td><?= esc($product['quantity']) ?></td>
+                                <td><?= esc($product['price']) ?></td>
+                                <td><?= $product['status'] == 1 ? 'Active' : 'Inactive' ?></td>
+                                <td>
+                                    <a href="/employee_dashboard/edit/<?= $product['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="/employee_dashboard/delete/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Deactivate</a>
+                                </td>
+                            </tr>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <p>No active products available.</p>
+        <?php endif; ?>
 
-    <!-- Modal for Add New Product -->
-    <div class="modal fade" id="addNewProductModal" tabindex="-1" aria-labelledby="addNewProductModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form action="/employee_dashboard/store" method="post">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addNewProductModalLabel">Add New Product</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Product Name</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Product Description</label>
-                            <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="quantity" class="form-label">Quantity</label>
-                            <input type="number" class="form-control" id="quantity" name="quantity" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="price" class="form-label">Price</label>
-                            <input type="number" class="form-control" id="price" name="price" step="0.01" required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Add Product</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal for Edit Product -->
-    <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form id="editProductForm" method="post">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="edit-name" class="form-label">Product Name</label>
-                            <input type="text" class="form-control" id="edit-name" name="name" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="edit-description" class="form-label">Product Description</label>
-                            <textarea class="form-control" id="edit-description" name="description" rows="3" required></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="edit-quantity" class="form-label">Quantity</label>
-                            <input type="number" class="form-control" id="edit-quantity" name="quantity" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="edit-price" class="form-label">Price</label>
-                            <input type="number" class="form-control" id="edit-price" name="price" step="0.01" required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Update Product</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+        <a href="/employee_dashboard/create" class="btn btn-primary">Add New Product</a>
     </div>
 
     <script>
-        // Sidebar and Modal Behavior
         const sidebar = document.getElementById('sidebar');
         const closeBtn = document.getElementById('close-btn');
         const toggleBtn = document.getElementById('toggle-btn');
         const mainContent = document.getElementById('main-content');
-        const addNewProductBtn = document.getElementById('add-new-product-btn');
-        const editProductBtns = document.querySelectorAll('.edit-product-btn');
 
         window.onload = () => { sidebar.classList.add('active'); mainContent.classList.add('active'); };
-
         closeBtn.onclick = () => { sidebar.classList.remove('active'); mainContent.classList.remove('active'); toggleBtn.style.display = 'block'; };
         toggleBtn.onclick = () => { sidebar.classList.add('active'); mainContent.classList.add('active'); toggleBtn.style.display = 'none'; };
-
-        // Add New Product Modal
-        addNewProductBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const addNewProductModal = new bootstrap.Modal(document.getElementById('addNewProductModal'));
-            addNewProductModal.show();
-        });
-
-        // Edit Products Modal
-        editProductBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const productId = btn.getAttribute('data-id');
-
-                // Dynamically populate the modal with the product info (replace with real data)
-                document.getElementById('edit-name').value = 'Example Product';
-                document.getElementById('edit-description').value = 'Product description...';
-                document.getElementById('edit-quantity').value = 100;
-                document.getElementById('edit-price').value = 19.99;
-
-                const editProductModal = new bootstrap.Modal(document.getElementById('editProductModal'));
-                editProductModal.show();
-            });
-        });
     </script>
 
 </body>
