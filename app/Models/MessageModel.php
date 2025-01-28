@@ -15,7 +15,7 @@ class MessageModel extends Model
     {
         return $this->select('messages.*, users.name')
                     ->join('users', 'users.id = messages.user_id')
-                    ->orderBy('messages.created_at', 'ASC') // Fix: Order correctly
+                    ->orderBy('messages.created_at', 'ASC')
                     ->findAll();
     }
 }
