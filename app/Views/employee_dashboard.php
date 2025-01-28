@@ -356,9 +356,35 @@
     });
 
     // Handle form submission for editing a product
-  
+    $('#editProductForm').on('submit', function (e) {
+        e.preventDefault(); // Prevent the form from submitting normally
 
+        var formData = $(this).serialize(); // Serialize the form data
+
+        $.ajax({
+            url: $(this).attr('action'), // The form's action URL (contains product ID)
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                if (response.status === 'success') {
+                    // Close the modal
+                    $('#editProductModal').modal('hide');
+                    
+                    // Optionally, update the product list dynamically without reloading the page
+                    alert(response.message);
+                    location.reload(); // Reload the page to see the updated product (or update product list dynamically)
+                } else {
+                    alert(response.message); // Show error message
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("An error occurred: " + error);
+            }
+        });
+    });
+    
     // When an "Edit" button is clicked, populate the modal with the product details
+ // When an "Edit" button is clicked, populate the modal with the product details
 $('.edit-product-btn').on('click', function () {
     var productId = $(this).data('id'); // Get product ID
 
@@ -408,6 +434,8 @@ $('#editProductForm').on('submit', function (e) {
             alert("An error occurred: " + error);
         }
     });
+});
+
 });
 
 
