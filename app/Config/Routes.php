@@ -31,4 +31,3 @@ $routes->get('/admin/dashboard', 'DashboardController::index');
 $routes->get('/employee/dashboard', 'DashboardController::index');
 
 
-$routes->get('/employee-dashboard', 'Dashboard::employeeDashboard');  // Employee dashboard route
