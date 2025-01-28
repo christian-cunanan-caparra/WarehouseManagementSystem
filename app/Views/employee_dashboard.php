@@ -11,6 +11,19 @@
     <div class="container mt-5">
         <h2>Product List</h2>
 
+        <!-- Flash message for success or error -->
+        <?php if (session()->getFlashdata('success')): ?>
+            <div class="alert alert-success">
+                <?= session()->getFlashdata('success') ?>
+            </div>
+        <?php endif; ?>
+        <?php if (session()->getFlashdata('error')): ?>
+            <div class="alert alert-danger">
+                <?= session()->getFlashdata('error') ?>
+            </div>
+        <?php endif; ?>
+
+        <!-- Check if there are products -->
         <?php if (!empty($products)): ?>
             <table class="table table-striped">
                 <thead>

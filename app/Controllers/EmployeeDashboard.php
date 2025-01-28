@@ -34,6 +34,7 @@ class EmployeeDashboard extends BaseController
         ];
 
         $this->productModel->insert($data);
+        session()->setFlashdata('success', 'Product created successfully!');
         return redirect()->to('/employee_dashboard');
     }
 
@@ -53,12 +54,14 @@ class EmployeeDashboard extends BaseController
         ];
 
         $this->productModel->update($id, $data);
+        session()->setFlashdata('success', 'Product updated successfully!');
         return redirect()->to('/employee_dashboard');
     }
 
     public function delete($id)
     {
         $this->productModel->delete($id);
+        session()->setFlashdata('success', 'Product deleted successfully!');
         return redirect()->to('/employee_dashboard');
     }
 }
