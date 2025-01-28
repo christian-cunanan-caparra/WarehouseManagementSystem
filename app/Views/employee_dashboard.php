@@ -35,7 +35,7 @@
         </tr>
         <?php endforeach; ?>
     </table>
-=======
+
     <div class="container mt-5">
         <h2>Product List</h2>
 
