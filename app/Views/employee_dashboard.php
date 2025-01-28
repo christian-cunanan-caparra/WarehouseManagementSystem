@@ -77,6 +77,7 @@
             background-color: #4f52ba;
         }
 
+        /* New Advanced Toggle Button Styles */
         .toggle-btn {
             position: absolute;
             top: 20px;
@@ -84,29 +85,41 @@
             background-color: #161a2d;
             color: white;
             border: none;
-            padding: 10px;
+            padding: 12px;
             cursor: pointer;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            z-index: 1100;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background-color: #4f52ba;
         }
 
         .toggle-btn:focus {
             outline: none;
         }
 
+        .toggle-btn .material-icons {
+            font-size: 2rem;
+        }
+
+        /* Content Styles */
         .content {
-            margin-left: 260px;
+            margin-left: 0;
             padding: 20px;
             transition: margin-left 0.3s ease, width 0.3s ease;
+            width: 100%; /* Make content wide by default */
         }
 
         .content.active {
-            margin-left: 0;
-            width: 100%;
+            margin-left: 260px;
+            width: calc(100% - 260px); /* Make content narrow when sidebar is open */
         }
 
-        .content.full-width {
-            margin-left: 0;
-            width: 100%;
+        .content h1 {
+            margin-left: 20px; /* Adjust margin-left for content */
         }
 
         /* Add responsive styles */
@@ -139,8 +152,9 @@
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
+            <br><br><br> <br><br><br>
             <span>Warehouse Dashboard</span>
-            <span class="material-icons close-btn" id="close-btn">close</span>
+            <!-- <span class="material-icons close-btn" id="close-btn">close</span> -->
         </div>
         <ul class="sidebar-links">
             <h4>Main Menu</h4>
@@ -154,11 +168,14 @@
         </ul>
     </aside>
 
-    <!-- Toggle Button -->
-    <button class="toggle-btn" id="toggle-btn">&#9776;</button>
+    <!-- Advanced Toggle Button (Hamburger Icon) -->
+    <button class="toggle-btn" id="toggle-btn">
+        <span class="material-icons">menu</span> <!-- Advanced icon -->
+    </button>
 
     <!-- Main Content -->
     <div class="content" id="main-content">
+        <br><br><br>
         <h1>Employee Dashboard</h1>
         <p>Welcome to the Warehouse Management System. Here you can manage inventory, view products, and more.</p>
 
