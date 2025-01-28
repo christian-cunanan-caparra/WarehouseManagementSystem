@@ -13,114 +13,23 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <style>
-        /* Sidebar and other styles */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: -270px;
-            width: 270px;
-            height: 100%;
-            background: rgba(22, 26, 45, 0.9);
-            color: white;
-            padding: 20px;
-            transition: 0.4s ease-in-out;
-            box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-        }
-        .sidebar.active {
-            left: 0;
-        }
-        .sidebar-header {
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-align: center;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .sidebar-links {
-            list-style: none;
-            padding: 0;
-            margin-top: 20px;
-        }
-        .sidebar-links li {
-            margin-bottom: 15px;
-        }
-        .sidebar-links li a {
-            color: white;
-            font-size: 1.1rem;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px;
-            transition: 0.3s ease;
-            border-radius: 6px;
-        }
-        .sidebar-links li a:hover {
-            background: rgba(255, 255, 255, 0.2);
-            padding-left: 15px;
-        }
-        .menu-separator {
-            margin: 15px 0;
-            height: 1px;
-            background-color: rgba(255, 255, 255, 0.3);
-        }
-        .toggle-btn {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: #161a2d;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            font-size: 1.5rem;
-            transition: 0.3s;
-            border-radius: 5px;
-            display: none;
-        }
-        .toggle-btn:hover {
-            background: #4f52ba;
-        }
-        .content {
-            margin-left: 270px;
-            padding: 30px;
-            transition: margin-left 0.4s ease;
-            background: #f8f9fa;
-            min-height: 100vh;
-        }
-        .content.active {
-            margin-left: 0;
-        }
-        .card {
-            border-radius: 12px;
-            transition: 0.3s ease-in-out;
-            text-align: center;
-        }
-        .card:hover {
-            transform: scale(1.05);
-        }
-        .card .material-icons {
-            font-size: 4rem;
-            opacity: 0.8;
-        }
-        @media (max-width: 768px) {
-            .sidebar {
-                left: -270px;
-            }
-            .sidebar.active {
-                left: 0;
-            }
-            .content {
-                margin-left: 0;
-            }
-            .content.active {
-                margin-left: 270px;
-            }
-            .toggle-btn {
-                display: block;
-            }
-        }
+        /* Sidebar and other styles (same as original) */
+        .sidebar { position: fixed; top: 0; left: -270px; width: 270px; height: 100%; background: rgba(22, 26, 45, 0.9); backdrop-filter: blur(10px); color: white; padding: 20px; transition: 0.4s ease-in-out; box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3); z-index: 1000; border-right: 2px solid rgba(255, 255, 255, 0.1); }
+        .sidebar.active { left: 0; }
+        .sidebar-header { font-size: 1.5rem; font-weight: bold; text-align: center; padding-bottom: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
+        .sidebar-links { list-style: none; padding: 0; margin-top: 20px; }
+        .sidebar-links li { margin-bottom: 15px; }
+        .sidebar-links li a { color: white; font-size: 1.1rem; text-decoration: none; display: flex; align-items: center; gap: 12px; padding: 10px; transition: 0.3s ease; border-radius: 6px; }
+        .sidebar-links li a:hover { background: rgba(255, 255, 255, 0.2); padding-left: 15px; }
+        .menu-separator { margin: 15px 0; height: 1px; background-color: rgba(255, 255, 255, 0.3); }
+        .toggle-btn { position: fixed; top: 20px; left: 20px; background: #161a2d; color: white; border: none; padding: 10px; cursor: pointer; font-size: 1.5rem; transition: 0.3s; border-radius: 5px; display: none; }
+        .toggle-btn:hover { background: #4f52ba; }
+        .content { margin-left: 50px; padding: 30px; transition: margin-left 0.4s ease; background: #f8f9fa; min-height: 100vh; }
+        .content.active { margin-left: 270px; }
+        .card { border-radius: 12px; transition: 0.3s ease-in-out; text-align: center; }
+        .card:hover { transform: scale(1.05); }
+        .card .material-icons { font-size: 4rem; opacity: 0.8; }
+        @media (max-width: 768px) { .sidebar { left: -270px; } .sidebar.active { left: 0; } .content { margin-left: 0; } .content.active { margin-left: 270px; } .toggle-btn { display: block; } }
     </style>
 </head>
 <body>
@@ -259,17 +168,6 @@
                     alert('Error occurred!');
                 }
             });
-        });
-
-        // Toggle sidebar visibility
-        $('#toggle-btn').click(function() {
-            $('#sidebar').toggleClass('active');
-            $('#main-content').toggleClass('active');
-        });
-
-        $('#close-btn').click(function() {
-            $('#sidebar').removeClass('active');
-            $('#main-content').removeClass('active');
         });
     </script>
 </body>
