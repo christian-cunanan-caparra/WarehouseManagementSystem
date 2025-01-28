@@ -1,117 +1,220 @@
-<?php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard - Warehouse Management System</title>
 
-namespace App\Controllers;
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-use App\Models\ProductModel;
-use CodeIgniter\Controller;
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-class DashboardController extends Controller
-{
-    protected $productModel;
-
-    public function __construct()
-    {
-        $this->productModel = new ProductModel();
-    }
-
-    public function index()
-    {
-        // Ensure user is logged in
-        if (!session()->get('is_logged_in')) {
-            return redirect()->to('/login');
+    <style>
+        /* Sidebar and other custom styles */
+        body {
+            font-family: 'Arial', sans-serif;
         }
-
-        // Retrieve user role from the session
-        $role = session()->get('role');
-
-        // Redirect to the respective dashboard based on the role
-        if ($role === 'Admin') {
-            return view('admin_dashboard');
-        } elseif ($role === 'Employee') {
-            $data['products'] = $this->productModel->where('status', 1)->findAll();
-            return view('employee_dashboard', $data);
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 20px;
         }
-
-        // If no valid role is set, redirect to login
-        return redirect()->to('/login');
-    }
-
-    // Method to store a new product (for adding)
-    public function store()
-    {
-        // Get the form data
-        $data = $this->request->getPost();
-        
-        // Set the status to 1 (active) for the new product
-        $data['status'] = 1;
-        
-        // Insert the product into the database
-        if ($this->productModel->insert($data)) {
-            return $this->response->setJSON(['status' => 'success', 'message' => 'Product added successfully.']);
+        .sidebar a {
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
         }
-        
-        return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to add product.']);
-    }
-
-    // Method to show the edit form (for editing)
-    public function edit($id)
-    {
-        // Restrict access if the user is not logged in
-        if (!session()->get('is_logged_in')) {
-            return redirect()->to('/login')->with('error', 'You must be logged in to access this page.');
+        .sidebar a:hover {
+            background-color: #575757;
         }
-
-        $product = $this->productModel->find($id);
-        
-        // Return the edit form with pre-filled data
-        return $this->response->setJSON(['status' => 'success', 'data' => $product]);
-    }
-
-    // Method to update a product (for editing)
-    public function update()
-    {
-        // Get the form data
-        $data = $this->request->getPost();
-
-        // Update the product in the database
-        if ($this->productModel->update($data['id'], $data)) {
-            return $this->response->setJSON(['status' => 'success', 'message' => 'Product updated successfully.']);
+        .content {
+            margin-left: 260px;
+            padding: 20px;
         }
+        .content h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .modal-header .btn-close {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
 
-        return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to update product.']);
-    }
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2 class="text-white text-center">Dashboard</h2>
+        <a href="#" data-bs-toggle="modal" data-bs-target="#addProductModal">Add Product</a>
+        <a href="/dashboard/logout">Logout</a>
+    </div>
 
-    // Method to deactivate (soft delete) a product
-    public function delete($id)
-    {
-        // Update the status to 0 (inactive) instead of deleting the record
-        $data = ['status' => 0];
-        $this->productModel->update($id, $data);
+    <!-- Main Content -->
+    <div class="content">
+        <h1>Product List</h1>
+        <div class="row">
+            <?php foreach($products as $product): ?>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= $product['name']; ?></h5>
+                            <p class="card-text"><?= $product['description']; ?></p>
+                            <p><strong>Price: </strong> $<?= $product['price']; ?></p>
+                            <p><strong>Quantity: </strong> <?= $product['quantity']; ?></p>
+                            <button class="btn btn-warning edit-btn" data-id="<?= $product['id']; ?>" data-name="<?= $product['name']; ?>" data-description="<?= $product['description']; ?>" data-quantity="<?= $product['quantity']; ?>" data-price="<?= $product['price']; ?>" data-bs-toggle="modal" data-bs-target="#editProductModal">Edit</button>
+                            <a href="/dashboard/delete/<?= $product['id']; ?>" class="btn btn-danger">Deactivate</a>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
 
-        // Set a flash message to indicate success
-        session()->setFlashdata('success', 'Product deactivated successfully.');
+    <!-- Add Product Modal -->
+    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addProductForm">
+                        <div class="mb-3">
+                            <label for="productName" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="productName" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="productDescription" name="description" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productQuantity" class="form-label">Quantity</label>
+                            <input type="number" class="form-control" id="productQuantity" name="quantity" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productPrice" class="form-label">Price</label>
+                            <input type="number" class="form-control" id="productPrice" name="price" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Add Product</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        return redirect()->to('/employee_dashboard');
-    }
+    <!-- Edit Product Modal -->
+    <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editProductForm">
+                        <input type="hidden" id="editProductId" name="id">
+                        <div class="mb-3">
+                            <label for="editProductName" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="editProductName" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editProductDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="editProductDescription" name="description" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editProductQuantity" class="form-label">Quantity</label>
+                            <input type="number" class="form-control" id="editProductQuantity" name="quantity" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editProductPrice" class="form-label">Price</label>
+                            <input type="number" class="form-control" id="editProductPrice" name="price" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    // Method to activate a product
-    public function activate($id)
-    {
-        // Update the status to 1 (active)
-        $data = ['status' => 1];
-        $this->productModel->update($id, $data);
+    <!-- JavaScript -->
+    <script>
+        // Edit Product Functionality
+        const editButtons = document.querySelectorAll('.edit-btn');
+        editButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.dataset.id;
+                const productName = this.dataset.name;
+                const productDescription = this.dataset.description;
+                const productQuantity = this.dataset.quantity;
+                const productPrice = this.dataset.price;
 
-        // Set a flash message to indicate success
-        session()->setFlashdata('success', 'Product activated successfully.');
+                // Populate the modal form with the product's data
+                document.getElementById('editProductId').value = productId;
+                document.getElementById('editProductName').value = productName;
+                document.getElementById('editProductDescription').value = productDescription;
+                document.getElementById('editProductQuantity').value = productQuantity;
+                document.getElementById('editProductPrice').value = productPrice;
 
-        return redirect()->to('/employee_dashboard');
-    }
+                const modal = new bootstrap.Modal(document.getElementById('editProductModal'));
+                modal.show();
+            });
+        });
 
-    // Logout method
-    public function logout()
-    {
-        // Destroy session and redirect to login page
-        session()->destroy();
-        return redirect()->to('/login');
-    }
-}
+        // Handle adding product
+        document.getElementById('addProductForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+
+            fetch('/dashboard/store', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Product added successfully!');
+                    location.reload();
+                } else {
+                    alert(data.message);
+                }
+            });
+        });
+
+        // Handle updating product
+        document.getElementById('editProductForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+
+            fetch('/dashboard/update', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Product updated successfully!');
+                    location.reload();
+                } else {
+                    alert(data.message);
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
