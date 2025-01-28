@@ -27,6 +27,7 @@
             padding: 20px;
             transition: 0.3s ease;
             z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
         }
 
         .sidebar.active {
@@ -34,17 +35,23 @@
         }
 
         .sidebar-header {
-            font-size: 1.25rem;
-            font-weight: 600;
+            font-size: 1.5rem; /* Increased font size */
+            font-weight: 700;
             color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 30px;
         }
 
         .sidebar-header .close-btn {
             cursor: pointer;
-            font-size: 1.5rem;
+            font-size: 2rem; /* Larger close icon */
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-header .close-btn:hover {
+            transform: rotate(180deg); /* Rotate close button on hover */
         }
 
         .sidebar-links {
@@ -53,31 +60,33 @@
         }
 
         .sidebar-links li {
-            margin-bottom: 15px;
+            margin-bottom: 20px; /* Increased spacing between items */
         }
 
         .sidebar-links li a {
             color: white;
-            font-size: 1.1rem;
+            font-size: 1.2rem; /* Larger font for links */
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
         }
 
         .sidebar-links li a:hover {
             background-color: #4f52ba;
-            border-radius: 4px;
-            padding: 10px;
+            transform: scale(1.05); /* Slight hover zoom effect */
         }
 
         .sidebar .menu-separator {
-            margin: 15px 0;
+            margin: 20px 0;
             height: 1px;
             background-color: #4f52ba;
         }
 
-        /* Toggle Button Styles (inside the sidebar) */
+        /* Toggle Button Styles (outside the sidebar) */
         .toggle-btn {
             position: absolute;
             top: 20px;
@@ -85,16 +94,18 @@
             background-color: #161a2d;
             color: white;
             border: none;
-            padding: 12px;
+            padding: 15px;
             cursor: pointer;
-            font-size: 1.8rem;
+            font-size: 2rem; /* Increased size */
             z-index: 1100;
-            border-radius: 5px;
+            border-radius: 50%; /* Circular button */
             transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Slight shadow for the toggle button */
         }
 
         .toggle-btn:hover {
             background-color: #4f52ba;
+            transform: scale(1.1); /* Zoom effect on hover */
         }
 
         .toggle-btn:focus {
@@ -102,7 +113,7 @@
         }
 
         .toggle-btn .material-icons {
-            font-size: 2rem;
+            font-size: 2.5rem; /* Larger icon */
         }
 
         /* Close Button in Sidebar */
