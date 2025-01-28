@@ -19,7 +19,8 @@ class EmployeeDashboard extends Controller
      */
     public function index()
     {
-        return view('/employee_dashboard', ['products' => $this->productModel->findAll()]);
+        $data['products'] = $this->productModel->where('status', 1)->findAll();
+    return view('employee_dashboard', $data);
     }
 
     /**
