@@ -36,7 +36,6 @@ class DashboardController extends Controller
         return redirect()->to('/login');
     }
 
-    // Method to render create product form
     public function create()
     {
         // Restrict access if the user is not logged in
@@ -47,7 +46,6 @@ class DashboardController extends Controller
         return view('create_product');
     }
 
-    // Method to store a new product
     public function store()
     {
         // Get the form data
@@ -63,8 +61,9 @@ class DashboardController extends Controller
     
         return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to add product.']);
     }
+    
+    
 
-    // Method to render the edit product form
     public function edit($id)
     {
         // Restrict access if the user is not logged in
@@ -75,20 +74,12 @@ class DashboardController extends Controller
         return view('edit_product', ['product' => $this->productModel->find($id)]);
     }
 
-    // Method to update a product
     public function update($id)
     {
-        // Get the form data and update the product
-        $data = $this->request->getPost();
-        
-        if ($this->productModel->update($id, $data)) {
-            return redirect()->to('/employee_dashboard')->with('message', 'Product updated successfully.');
-        }
-
-        return redirect()->to('/employee_dashboard')->with('error', 'Failed to update product.');
+        $this->productModel->update($id, $this->request->getPost());
+        return redirect()->to('/employee_dashboard')->with('message', 'Product updated successfully.');
     }
 
-    // Method to delete a product (mark as inactive)
     public function delete($id)
     {
         // Update the status to 0 (inactive) instead of deleting the record
@@ -101,7 +92,6 @@ class DashboardController extends Controller
         return redirect()->to('/employee_dashboard');
     }
 
-    // Method to activate a product
     public function activate($id)
     {
         // Update the status to 1 (active)
@@ -114,7 +104,6 @@ class DashboardController extends Controller
         return redirect()->to('/employee_dashboard');
     }
 
-    // Logout method to destroy the session
     public function logout()
     {
         // Destroy session and redirect to login page
