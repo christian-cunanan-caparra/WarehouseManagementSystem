@@ -112,6 +112,9 @@
             padding: 20px;
             transition: margin-left 0.3s ease, width 0.3s ease;
             width: 100%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for content */
+            border-radius: 8px; /* Rounded corners */
+            background-color: #fff;
         }
 
         .content.active {
