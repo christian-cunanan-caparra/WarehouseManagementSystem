@@ -24,22 +24,6 @@ class EmployeeDashboard extends BaseController
         return view('create_product');
     }
 
-    public function store()
-    {
-        // Get data from the form
-        $data = [
-            'name'        => $this->request->getPost('name'),
-            'description' => $this->request->getPost('description'),
-            'quantity'    => $this->request->getPost('quantity'),
-            'price'       => $this->request->getPost('price'),
-        ];
-
-        // Insert the product data into the database
-        $this->productModel->insert($data);
-
-        // Redirect back to the employee dashboard
-        return redirect()->to('/employee_dashboard');
-    }
 
     public function edit($id)
     {
