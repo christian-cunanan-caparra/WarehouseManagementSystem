@@ -94,19 +94,15 @@
         }
 
         .content {
-            margin-left: 260px;
+            margin-left: 0;
             padding: 20px;
             transition: margin-left 0.3s ease, width 0.3s ease;
+            width: 100%; /* Make content wide by default */
         }
 
         .content.active {
-            margin-left: 0;
-            width: 100%;
-        }
-
-        .content.full-width {
-            margin-left: 0;
-            width: 100%;
+            margin-left: 260px;
+            width: calc(100% - 260px); /* Make content narrow when sidebar is open */
         }
 
         /* Add responsive styles */
