@@ -70,14 +70,15 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            padding: 10px;
-            border-radius: 4px;
-            transition: background-color 0.3s ease;
+            padding: 12px;
+            border-radius: 50px; /* Rounded edges */
+            transition: all 0.3s ease;
         }
 
         .sidebar-links li a:hover {
             background-color: #4f52ba;
             transform: scale(1.05); /* Slight hover zoom effect */
+            box-shadow: 0 2px 8px rgba(79, 82, 186, 0.5); /* Shadow on hover */
         }
 
         .sidebar .menu-separator {
@@ -106,6 +107,7 @@
         .toggle-btn:hover {
             background-color: #4f52ba;
             transform: scale(1.1); /* Zoom effect on hover */
+            box-shadow: 0 4px 12px rgba(79, 82, 186, 0.4); /* Stronger shadow on hover */
         }
 
         .toggle-btn:focus {
@@ -119,6 +121,28 @@
         /* Close Button in Sidebar */
         .close-btn {
             display: none;
+        }
+
+        /* Modern Buttons for Table and Actions */
+        .btn-modern {
+            background: linear-gradient(145deg, #4f52ba, #3b4197);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 50px; /* Rounded button */
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(79, 82, 186, 0.2); /* Soft shadow */
+        }
+
+        .btn-modern:hover {
+            background: linear-gradient(145deg, #3b4197, #4f52ba);
+            transform: scale(1.05); /* Subtle scaling on hover */
+            box-shadow: 0 5px 15px rgba(79, 82, 186, 0.4); /* Stronger shadow on hover */
+        }
+
+        .btn-modern:focus {
+            outline: none;
         }
 
         /* Content Styles */
@@ -214,7 +238,7 @@
                         <td>High-quality item</td>
                         <td>50</td>
                         <td>$100</td>
-                        <td><a href="#" class="btn btn-warning btn-sm">Edit</a></td>
+                        <td><button class="btn-modern">Edit</button></td>
                     </tr>
                     <!-- Add more rows as needed -->
                 </tbody>
