@@ -77,11 +77,11 @@
             background-color: #4f52ba;
         }
 
-        /* Toggle Button Styles (inside the sidebar) */
+        /* Toggle Button Styles (outside the sidebar) */
         .toggle-btn {
             position: absolute;
             top: 20px;
-            left: -50px;  /* Positioned on the left side outside the sidebar */
+            left: 10px;  /* Positioned on the left side outside the sidebar */
             background-color: #161a2d;
             color: white;
             border: none;
@@ -194,7 +194,7 @@
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <span>Warehouse Dashboard</span>
-            <!-- Close Button -->
+            <!-- Close Button inside Sidebar -->
             <span class="material-icons close-btn" id="close-btn">close</span>
         </div>
         <ul class="sidebar-links">
