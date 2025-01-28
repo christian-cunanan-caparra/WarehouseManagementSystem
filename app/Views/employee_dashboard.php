@@ -150,25 +150,6 @@
                 left: 10px;
             }
         }
-
-        /* For Tablet and Mobile */
-        @media (max-width: 991px) {
-            .content.active {
-                margin-left: 0; /* On medium devices, content will span full width */
-            }
-        }
-
-        /* Large Screens */
-        @media (min-width: 1200px) {
-            .sidebar {
-                left: 0;
-            }
-
-            .content.active {
-                margin-left: 260px; /* For large screens, sidebar remains fixed */
-            }
-        }
-
     </style>
 </head>
 <body>
