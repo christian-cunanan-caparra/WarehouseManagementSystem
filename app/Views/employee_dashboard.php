@@ -159,7 +159,7 @@
             <li><a href="#"><span class="material-icons">dashboard</span> Dashboard</a></li>
             <li><a href="#"><span class="material-icons">inventory</span> Products</a></li>
             <li><a href="#"><span class="material-icons">settings</span> Settings</a></li>
-            <li><a href="/chat"><span class="material-icons">chat</span> Chat</a></li>
+          
         </ul>
     </aside>
 
