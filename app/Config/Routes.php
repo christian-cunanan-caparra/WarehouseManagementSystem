@@ -34,12 +34,13 @@ $routes->get('/dashboard', 'DashboardController::index');
 $routes->get('/admin/dashboard', 'DashboardController::index');
 $routes->get('/employee/dashboard', 'DashboardController::index');
 
-// $routes->get('/product/create', 'DashboardController::create');
-$routes->post('/product/store', 'DashboardController::store');
-$routes->get('/product/edit/(:num)', 'DashboardController::edit/$1');
-$routes->post('/product/update/(:num)', 'DashboardController::update/$1');
-$routes->get('/product/delete/(:num)', 'DashboardController::delete/$1');
-$routes->get('/product/activate/(:num)', 'DashboardController::activate/$1');
-
-// Employee Dashboard (Filtered Products)
 $routes->get('/employee_dashboard', 'DashboardController::index');
+$routes->get('/employee_dashboard/create', 'DashboardController::create');
+$routes->post('/employee_dashboard/store', 'DashboardController::store');
+$routes->get('/employee_dashboard/edit/(:num)', 'DashboardController::edit/$1');
+$routes->post('/employee_dashboard/update/(:num)', 'DashboardController::update/$1');
+$routes->get('/employee_dashboard/delete/(:num)', 'DashboardController::delete/$1');
+
+
+
+$routes->get('/employee_dashboard/activate/(:num)', 'DashboardController::activate/$1');
