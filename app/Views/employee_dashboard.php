@@ -27,6 +27,7 @@
             padding: 20px;
             transition: 0.3s ease;
             z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
         }
 
         .sidebar.active {
@@ -34,17 +35,23 @@
         }
 
         .sidebar-header {
-            font-size: 1.25rem;
-            font-weight: 600;
+            font-size: 1.5rem; /* Increased font size */
+            font-weight: 700;
             color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 30px;
         }
 
         .sidebar-header .close-btn {
             cursor: pointer;
-            font-size: 1.5rem;
+            font-size: 2rem; /* Larger close icon */
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-header .close-btn:hover {
+            transform: rotate(180deg); /* Rotate close button on hover */
         }
 
         .sidebar-links {
@@ -53,48 +60,54 @@
         }
 
         .sidebar-links li {
-            margin-bottom: 15px;
+            margin-bottom: 20px; /* Increased spacing between items */
         }
 
         .sidebar-links li a {
             color: white;
-            font-size: 1.1rem;
+            font-size: 1.2rem; /* Larger font for links */
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
+            padding: 12px;
+            border-radius: 50px; /* Rounded edges */
+            transition: all 0.3s ease;
         }
 
         .sidebar-links li a:hover {
             background-color: #4f52ba;
-            border-radius: 4px;
-            padding: 10px;
+            transform: scale(1.05); /* Slight hover zoom effect */
+            box-shadow: 0 2px 8px rgba(79, 82, 186, 0.5); /* Shadow on hover */
         }
 
         .sidebar .menu-separator {
-            margin: 15px 0;
+            margin: 20px 0;
             height: 1px;
             background-color: #4f52ba;
         }
 
-        /* New Advanced Toggle Button Styles */
+        /* Toggle Button Styles (outside the sidebar) */
         .toggle-btn {
             position: absolute;
             top: 20px;
-            left: 20px;
+            left: -50px;  /* Positioned on the left side outside the sidebar */
             background-color: #161a2d;
             color: white;
             border: none;
-            padding: 12px;
+            padding: 15px;
             cursor: pointer;
-            font-size: 1.8rem;
+            font-size: 2rem; /* Increased size */
             z-index: 1100;
-            border-radius: 5px;
+            border-radius: 50%; /* Circular button */
             transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Slight shadow for the toggle button */
         }
 
         .toggle-btn:hover {
             background-color: #4f52ba;
+            transform: scale(1.1); /* Zoom effect on hover */
+            box-shadow: 0 4px 12px rgba(79, 82, 186, 0.4); /* Stronger shadow on hover */
         }
 
         .toggle-btn:focus {
@@ -102,7 +115,34 @@
         }
 
         .toggle-btn .material-icons {
-            font-size: 2rem;
+            font-size: 2.5rem; /* Larger icon */
+        }
+
+        /* Close Button in Sidebar */
+        .close-btn {
+            display: none;
+        }
+
+        /* Modern Buttons for Table and Actions */
+        .btn-modern {
+            background: linear-gradient(145deg, #4f52ba, #3b4197);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 50px; /* Rounded button */
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(79, 82, 186, 0.2); /* Soft shadow */
+        }
+
+        .btn-modern:hover {
+            background: linear-gradient(145deg, #3b4197, #4f52ba);
+            transform: scale(1.05); /* Subtle scaling on hover */
+            box-shadow: 0 5px 15px rgba(79, 82, 186, 0.4); /* Stronger shadow on hover */
+        }
+
+        .btn-modern:focus {
+            outline: none;
         }
 
         /* Content Styles */
@@ -152,10 +192,10 @@
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <br><br><br> <br>
-            
-            <!-- <span class="material-icons close-btn" id="close-btn">close</span> -->
-        </div><span>Warehouse Dashboard</span>
+            <span>Warehouse Dashboard</span>
+            <!-- Close Button -->
+            <span class="material-icons close-btn" id="close-btn">close</span>
+        </div>
         <ul class="sidebar-links">
             <h4>Main Menu</h4>
             <li><a href="#"><span class="material-icons">dashboard</span> Dashboard</a></li>
@@ -168,41 +208,42 @@
         </ul>
     </aside>
 
-    <!-- Advanced Toggle Button (Hamburger Icon) -->
+    <!-- Toggle Button (Hamburger Icon) Outside Sidebar -->
     <button class="toggle-btn" id="toggle-btn">
-        <span class="material-icons">menu</span> <!-- Advanced icon -->
+        <span class="material-icons">menu</span> <!-- Open icon -->
     </button>
 
-    <!-- Main Content -->
+    <!-- Main Content (Container) -->
     <div class="content" id="main-content">
-        <br><br><br>
-        <h1>Employee Dashboard</h1>
-        <p>Welcome to the Warehouse Management System. Here you can manage inventory, view products, and more.</p>
+        <div class="container">
+            <h1>Employee Dashboard</h1>
+            <p>Welcome to the Warehouse Management System. Here you can manage inventory, view products, and more.</p>
 
-        <!-- Example Product Table -->
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Product A</td>
-                    <td>High-quality item</td>
-                    <td>50</td>
-                    <td>$100</td>
-                    <td><a href="edit_product.php" class="btn btn-warning btn-sm">Edit</a></td>
-                </tr>
-                <!-- Add more rows as needed -->
-            </tbody>
-        </table>
+            <!-- Example Product Table -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Product A</td>
+                        <td>High-quality item</td>
+                        <td>50</td>
+                        <td>$100</td>
+                        <td><button class="btn-modern">Edit</button></td>
+                    </tr>
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script>
@@ -217,25 +258,28 @@
         if (sidebarState === 'active') {
             sidebar.classList.add('active');
             mainContent.classList.add('active');
+            toggleBtn.style.display = 'none'; // Hide open button when sidebar is open
+            closeBtn.style.display = 'block'; // Show close button
         }
 
         // Toggle Sidebar visibility and save state to localStorage
         toggleBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-            mainContent.classList.toggle('active');
+            sidebar.classList.add('active');
+            mainContent.classList.add('active');
+            toggleBtn.style.display = 'none'; // Hide open button
+            closeBtn.style.display = 'block'; // Show close button
 
             // Save the sidebar state
-            if (sidebar.classList.contains('active')) {
-                localStorage.setItem('sidebarState', 'active');
-            } else {
-                localStorage.setItem('sidebarState', 'inactive');
-            }
+            localStorage.setItem('sidebarState', 'active');
         });
 
         // Close the sidebar when close button is clicked
         closeBtn.addEventListener('click', () => {
             sidebar.classList.remove('active');
             mainContent.classList.remove('active');
+            toggleBtn.style.display = 'block'; // Show open button again
+            closeBtn.style.display = 'none'; // Hide close button
+
             localStorage.setItem('sidebarState', 'inactive');
         });
     </script>
