@@ -38,9 +38,16 @@ $routes->get('/employee_dashboard', 'DashboardController::index');
 $routes->get('/employee_dashboard/create', 'DashboardController::create');
 $routes->post('/employee_dashboard/store', 'DashboardController::store');
 $routes->get('/employee_dashboard/edit/(:num)', 'DashboardController::edit/$1');
-$routes->post('/employee_dashboard/update/(:num)', 'DashboardController::update/$1');
-$routes->get('/employee_dashboard/delete/(:num)', 'DashboardController::delete/$1');
+// $routes->post('/employee_dashboard/update/(:num)', 'DashboardController::update/$1');
+// $routes->get('/employee_dashboard/delete/(:num)', 'DashboardController::delete/$1');
 
 
 
 $routes->get('/employee_dashboard/activate/(:num)', 'DashboardController::activate/$1');
+
+
+
+$routes->get('/employee_dashboard', 'DashboardController::index');
+$routes->get('/employee_dashboard/get_product/(:num)', 'DashboardController::get_product/$1');
+$routes->post('/employee_dashboard/update', 'DashboardController::update');
+$routes->get('/employee_dashboard/delete/(:num)', 'DashboardController::delete/$1');

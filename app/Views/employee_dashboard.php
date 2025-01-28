@@ -211,8 +211,8 @@
                                 <td><?= esc($product['price']) ?></td>
                                 <td><?= $product['status'] == 1 ? 'Active' : 'Inactive' ?></td>
                                 <td>
-                                    <a href="/employee_dashboard/edit/<?= $product['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                                    <a href="/employee_dashboard/delete/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Deactivate</a>
+                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" onclick="populateEditForm(<?= esc($product['id']) ?>)">Edit</button>
+                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="setProductId(<?= esc($product['id']) ?>)">Deactivate</button>
                                 </td>
                             </tr>
                         <?php endif; ?>
@@ -226,15 +226,91 @@
         <a href="/employee_dashboard/create" class="btn btn-primary">Add New Product</a>
     </div>
 
-    <script>
-        const sidebar = document.getElementById('sidebar');
-        const closeBtn = document.getElementById('close-btn');
-        const toggleBtn = document.getElementById('toggle-btn');
-        const mainContent = document.getElementById('main-content');
+    <!-- Edit Product Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm" action="/employee_dashboard/update" method="POST">
+                        <input type="hidden" name="id" id="editId">
 
-        window.onload = () => { sidebar.classList.add('active'); mainContent.classList.add('active'); };
-        closeBtn.onclick = () => { sidebar.classList.remove('active'); mainContent.classList.remove('active'); toggleBtn.style.display = 'block'; };
-        toggleBtn.onclick = () => { sidebar.classList.add('active'); mainContent.classList.add('active'); toggleBtn.style.display = 'none'; };
+                        <div class="mb-3">
+                            <label for="editName" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="editName" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editDescription" class="form-label">Description</label>
+                            <input type="text" class="form-control" id="editDescription" name="description" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editQuantity" class="form-label">Quantity</label>
+                            <input type="number" class="form-control" id="editQuantity" name="quantity" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editPrice" class="form-label">Price</label>
+                            <input type="number" step="0.01" class="form-control" id="editPrice" name="price" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="editStatus" class="form-label">Status</label>
+                            <select class="form-select" id="editStatus" name="status" required>
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" form="editForm">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Product Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Deactivate Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to deactivate this product?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <a href="#" id="deleteLink" class="btn btn-danger">Deactivate</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Populate the edit modal with product data
+        function populateEditForm(productId) {
+            fetch(`/employee_dashboard/get_product/${productId}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('editId').value = data.id;
+                    document.getElementById('editName').value = data.name;
+                    document.getElementById('editDescription').value = data.description;
+                    document.getElementById('editQuantity').value = data.quantity;
+                    document.getElementById('editPrice').value = data.price;
+                    document.getElementById('editStatus').value = data.status;
+                })
+                .catch(error => console.error('Error fetching product data:', error));
+        }
+
+        // Set the product ID for deactivation
+        function setProductId(productId) {
+            document.getElementById('deleteLink').href = `/employee_dashboard/delete/${productId}`;
+        }
     </script>
 
 </body>
