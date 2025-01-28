@@ -8,7 +8,6 @@
 </head>
 <body>
 
-<<<<<<< HEAD
 <!------ano bago?--------->
     <h1>Inventory Products</h1>
     <a href="/employee_dashboard/create">Add New Product</a>
@@ -35,7 +34,7 @@
         </tr>
         <?php endforeach; ?>
     </table>
-
+=======
     <div class="container mt-5">
         <h2>Product List</h2>
 
@@ -88,6 +87,5 @@
         <a href="/employee_dashboard/create" class="btn btn-primary">Add New Product</a>
     </div>
 
->>>>>>> 47976650d6af624ab331df8444247f172ef69dc5
 </body>
 </html>
