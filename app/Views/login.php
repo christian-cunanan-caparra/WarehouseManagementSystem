@@ -155,6 +155,15 @@
     <!-- Include Bootstrap JS (For Modal) -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <script>
+    document.querySelector('form').addEventListener('submit', function(event) {
+        var password = document.getElementById('password').value;
+        if (password.length < 8) {
+            event.preventDefault();  // Prevent form submission
+            alert('Password must be at least 8 characters long.');
+        }
+    });
+</script>
 
 </body>
 </html>
