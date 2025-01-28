@@ -174,6 +174,7 @@
 
     <!-- Main Content -->
     <div class="content" id="main-content">
+        <br><br><br>
         <h1>Employee Dashboard</h1>
         <p>Welcome to the Warehouse Management System. Here you can manage inventory, view products, and more.</p>
 
