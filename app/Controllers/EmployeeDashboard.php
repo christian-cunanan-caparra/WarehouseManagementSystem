@@ -48,21 +48,19 @@ class EmployeeDashboard extends BaseController
     }
 
     public function edit($id)
-    {
-        
-        $productModel = new ProductModel();
+{
+    // Fetch the product by ID
+    $product = $this->productModel->find($id);
 
-        // Fetch the product by ID
-        $product = $productModel->find($id);
-
-        // If product not found, show error
-        if (!$product) {
-            return redirect()->to('/employee_dashboard')->with('error', 'Product not found.');
-        }
-
-        // Load the edit view and pass the product data
-        return view('employee_dashboard/edit', ['product' => $product]);
+    // If product not found, show error
+    if (!$product) {
+        return redirect()->to('/employee_dashboard')->with('error', 'Product not found.');
     }
+
+    // Load the edit view and pass the product data
+    return view('employee_dashboard/edit_product', ['product' => $product]);
+}
+
 
    
     public function update($id)
