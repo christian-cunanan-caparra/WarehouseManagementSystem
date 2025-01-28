@@ -20,7 +20,7 @@
             left: -270px;
             width: 270px;
             height: 100%;
-            background: rgba(22, 26, 45, 0.9); /* Dark Glassmorphism */
+            background: rgba(22, 26, 45, 0.9);
             backdrop-filter: blur(10px);
             color: white;
             padding: 20px;
@@ -92,6 +92,26 @@
             color: #f00;
         }
 
+        /* ---- Sidebar Toggle Button ---- */
+        .toggle-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #161a2d;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: 0.3s;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .toggle-btn:hover {
+            background: #4f52ba;
+        }
+
         /* ---- Main Content ---- */
         .content {
             margin-left: 270px;
@@ -122,6 +142,10 @@
             .content.active {
                 margin-left: 270px;
             }
+
+            .toggle-btn {
+                display: block;
+            }
         }
     </style>
 </head>
@@ -143,16 +167,56 @@
         </ul>
     </aside>
 
+    <!-- Toggle Button -->
+    <button class="toggle-btn" id="toggle-btn">&#9776;</button>
+
     <!-- Main Content -->
     <div class="content" id="main-content">
         <h1>Employee Dashboard</h1>
         <p>Welcome to the Warehouse Management System. Here you can manage inventory, view products, and more.</p>
+
+        <!-- Product Table -->
+        <h2>Product List</h2>
+        <?php if (!empty($products)): ?>
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($products as $product): ?>
+                        <tr>
+                            <td><?= $product['id'] ?></td>
+                            <td><?= $product['name'] ?></td>
+                            <td><?= $product['description'] ?></td>
+                            <td><?= $product['quantity'] ?></td>
+                            <td>$<?= number_format($product['price'], 2) ?></td>
+                            <td>
+                                <a href="/employee_dashboard/edit/<?= $product['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="/employee_dashboard/delete/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <p>No products available. Please add some products.</p>
+        <?php endif; ?>
+
+        <a href="/employee_dashboard/create" class="btn btn-primary">Add New Product</a>
     </div>
 
     <script>
         // Sidebar Toggle Script
         const sidebar = document.getElementById('sidebar');
         const closeBtn = document.getElementById('close-btn');
+        const toggleBtn = document.getElementById('toggle-btn');
         const mainContent = document.getElementById('main-content');
 
         // Automatically show the sidebar when the page loads
@@ -164,6 +228,14 @@
         closeBtn.addEventListener('click', () => {
             sidebar.classList.remove('active');
             mainContent.classList.remove('active');
+            toggleBtn.style.display = 'block';
+        });
+
+        // Show the sidebar when the toggle button is clicked
+        toggleBtn.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            mainContent.classList.add('active');
+            toggleBtn.style.display = 'none';
         });
     </script>
 
