@@ -30,7 +30,7 @@ $routes->post('/register/save', 'RegisterController::save');
 // Dashboard routes (redirect based on role)
 $routes->get('/dashboard', 'DashboardController::index');
 $routes->get('/admin/dashboard', 'DashboardController::index');
-$routes->get('/employee_dashboard', 'DashboardController::index');
+$routes->get('/employee/dashboard', 'DashboardController::index');
 
 $routes->get('/order/tracking', 'OrderController::index');
 $routes->post('/order/updateStatus/(:num)', 'OrderController::updateStatus/$1');
