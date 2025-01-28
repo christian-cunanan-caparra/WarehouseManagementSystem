@@ -6,11 +6,11 @@
     <title>Register - Warehouse Management System</title>
     <!-- Include Bootstrap for Modal Styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for icon -->
+    <!-- Font Awesome for icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f0f8ff;
+            background-color: #e9f5ff;
             font-family: 'Arial', sans-serif;
             height: 100vh;
             margin: 0;
@@ -22,78 +22,67 @@
 
         .container {
             background-color: #ffffff;
-            padding: 30px;
+            padding: 40px 30px;
             border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 500px;
-            transition: all 0.3s ease-in-out;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
 
         .container:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            transform: scale(1.03);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
         }
 
         h1 {
             text-align: center;
-            color: #007bff;
-        }
-
-        .form-group {
+            color: #0056b3;
             margin-bottom: 20px;
         }
 
+        .form-group label {
+            font-weight: bold;
+            color: #333333;
+        }
+
         .form-control {
-            border-radius: 10px;
-            padding: 10px;
+            border-radius: 8px;
+            padding: 12px;
             font-size: 16px;
-            box-shadow: none;
             border: 1px solid #007bff;
         }
 
         .form-control:focus {
             border-color: #0056b3;
-            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+            box-shadow: 0 0 6px rgba(38, 143, 255, 0.5);
         }
 
         .btn-primary {
             background-color: #007bff;
-            border-color: #007bff;
-            padding: 12px;
+            border: none;
+            padding: 14px;
             width: 100%;
-            border-radius: 10px;
+            border-radius: 8px;
             font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s;
         }
 
         .btn-primary:hover {
             background-color: #0056b3;
-            border-color: #004085;
+            transform: translateY(-2px);
         }
 
-        .modal-content {
-            border-radius: 10px;
+        .btn-primary:active {
+            transform: translateY(0);
         }
 
-        .modal-header {
-            background-color: #007bff;
-            color: white;
-        }
-
-        .modal-body {
-            font-size: 16px;
-        }
-
-        .icon {
-            font-size: 50px;
-            color: #007bff;
-            text-align: center;
+        .alert {
+            font-size: 14px;
             margin-bottom: 20px;
-        }
-
-        ::placeholder {
-            color: #6c757d;
-            opacity: 1;
+            padding: 15px;
+            border-radius: 8px;
         }
 
         .login-link {
@@ -110,47 +99,41 @@
             text-decoration: underline;
         }
 
-        .alert {
-            font-size: 14px;
-            padding: 15px;
+        .icon {
+            font-size: 50px;
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
         }
 
         @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-
             h1 {
                 font-size: 24px;
             }
 
             .btn-primary {
-                padding: 10px;
+                padding: 12px;
                 font-size: 14px;
             }
 
             .form-control {
-                padding: 8px;
+                padding: 10px;
                 font-size: 14px;
             }
         }
 
         @media (max-width: 576px) {
-            .container {
-                padding: 15px;
-            }
-
             h1 {
                 font-size: 20px;
             }
 
             .btn-primary {
-                padding: 8px;
+                padding: 10px;
                 font-size: 12px;
             }
 
             .form-control {
-                padding: 6px;
+                padding: 8px;
                 font-size: 12px;
             }
         }
@@ -161,6 +144,7 @@
     <div class="container">
         <h1><i class="fas fa-warehouse"></i> Warehouse Management System</h1>
 
+        <!-- Display errors or success messages -->
         <?php if (session()->getFlashdata('error')): ?>
             <div class="alert alert-danger">
                 <?= session()->getFlashdata('error') ?>
@@ -175,31 +159,32 @@
             </div>
         <?php endif; ?>
 
+        <!-- Registration form -->
         <form action="/register/save" method="POST">
             <?= csrf_field() ?>
             
             <div class="form-group">
-                <label for="name">Name:</label>
+                <label for="name">Name</label>
                 <input type="text" class="form-control" id="name" name="name" value="<?= old('name') ?>" placeholder="Enter your name" required>
             </div>
             
             <div class="form-group">
-                <label for="email">Email:</label>
+                <label for="email">Email</label>
                 <input type="email" class="form-control" id="email" name="email" value="<?= old('email') ?>" placeholder="Enter your email" required>
             </div>
             
             <div class="form-group">
-                <label for="password">Password:</label>
+                <label for="password">Password</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
             </div>
 
             <div class="form-group">
-                <label for="address">Address:</label>
+                <label for="address">Address</label>
                 <input type="text" class="form-control" id="address" name="address" value="<?= old('address') ?>" placeholder="Enter your address" required>
             </div>
 
             <div class="form-group">
-                <label for="gender">Gender:</label>
+                <label for="gender">Gender</label>
                 <select class="form-control" id="gender" name="gender" required>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -207,13 +192,14 @@
             </div>
 
             <div class="form-group">
-                <label for="mobile_number">Mobile Number:</label>
+                <label for="mobile_number">Mobile Number</label>
                 <input type="text" class="form-control" id="mobile_number" name="mobile_number" value="<?= old('mobile_number') ?>" placeholder="Enter your mobile number" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Register</button>
         </form>
 
+        <!-- Link to Login -->
         <div class="login-link">
             <p>Already have an account? <a href="/login">Login here</a></p>
         </div>
@@ -223,7 +209,7 @@
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title" id="successModalLabel">Registration Successful</h5>
                 </div>
                 <div class="modal-body">
