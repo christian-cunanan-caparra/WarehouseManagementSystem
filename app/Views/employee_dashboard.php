@@ -153,9 +153,9 @@
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <br><br><br> <br>
-            <span>Warehouse Dashboard</span>
+            
             <!-- <span class="material-icons close-btn" id="close-btn">close</span> -->
-        </div>
+        </div><span>Warehouse Dashboard</span>
         <ul class="sidebar-links">
             <h4>Main Menu</h4>
             <li><a href="#"><span class="material-icons">dashboard</span> Dashboard</a></li>
