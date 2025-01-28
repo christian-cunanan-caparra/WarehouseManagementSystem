@@ -109,7 +109,7 @@
 </head>
 <body>
 
-<<<<<<< HEAD
+
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">Warehouse Dashboard</div>
@@ -124,10 +124,9 @@
             <li><a href="jhuniel.html"><span class="material-icons">account_circle</span> Jhuniel Galang</a></li>
         </ul>
     </aside>
-=======
     <div class="container mt-5">
         <h2>Product List</h2>
->>>>>>> cd35627d40a18f2528afdd2450d0290fc8c0675c
+
 
     <!-- Toggle Button -->
     <button class="toggle-btn" id="toggle-btn">&#9776;</button>
@@ -197,7 +196,7 @@
         <?php endif; ?>
 
         <a href="/employee_dashboard/create" class="btn btn-primary">Add New Product</a>
->>>>>>> cd35627d40a18f2528afdd2450d0290fc8c0675c
+
     </div>
 
     <script>
