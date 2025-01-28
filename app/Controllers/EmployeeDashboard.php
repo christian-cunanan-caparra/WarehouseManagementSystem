@@ -93,7 +93,7 @@ class EmployeeDashboard extends Controller
 
     $this->productModel->update($id, $data);
 
-    // Set a flash message to indicate success
+    // Set a flash message to indicate sucsscess
     session()->setFlashdata('success', 'Product activated successfully.');
 
     return redirect()->to('/employee_dashboard');
