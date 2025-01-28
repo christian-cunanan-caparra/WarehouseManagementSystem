@@ -213,8 +213,7 @@
                                 <td><?= esc($product['price']) ?></td>
                                 <td><?= $product['status'] == 1 ? 'Active' : 'Inactive' ?></td>
                                 <td>
-                                <a href="#" class="btn btn-warning btn-sm edit-product-btn" data-id="<?= $product['id'] ?>" data-bs-toggle="modal" data-bs-target="#editProductModal">Edit</a>
-
+                                    <a href="/employee_dashboard/edit/<?= $product['id']?>" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editProductModal">Edit</a>
                                     <a href="/employee_dashboard/delete/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Deactivate</a>
                                 </td>
                             </tr>
