@@ -159,8 +159,7 @@
             <li><a href="#"><span class="material-icons">dashboard</span> Dashboard</a></li>
             <li><a href="#"><span class="material-icons">inventory</span> Products</a></li>
             <li><a href="#"><span class="material-icons">settings</span> Settings</a></li>
-            <a href="/index.php/chat" class="btn btn-primary">Go to Chat</a>
-
+            
           
         </ul>
     </aside>

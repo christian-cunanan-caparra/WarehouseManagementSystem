@@ -46,11 +46,3 @@ $routes->get('/employee_dashboard/delete/(:num)', 'DashboardController::delete/$
 $routes->get('/employee_dashboard/activate/(:num)', 'DashboardController::activate/$1');
 
 
-
-$routes->group('chat', function($routes) {
-  
-
-
-$routes->get('chat', 'DashboardController::chat');
-$routes->post('chat/sendMessage', 'DashboardController::sendMessage');
-});
