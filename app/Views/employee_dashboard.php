@@ -231,7 +231,7 @@
             toggleBtn.style.display = 'block';
         });
 
-        // Show the sidebar when the toggle button is clicked
+        // Show the sidebar when the toggle button iss clicked
         toggleBtn.addEventListener('click', () => {
             sidebar.classList.add('active');
             mainContent.classList.add('active');
