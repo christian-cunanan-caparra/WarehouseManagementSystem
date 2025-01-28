@@ -80,13 +80,14 @@
         .toggle-btn {
             position: absolute;
             top: 20px;
-            left: 20px;
+            right: 20px;
             background-color: #161a2d;
             color: white;
             border: none;
             padding: 10px;
             cursor: pointer;
             font-size: 1.5rem;
+            z-index: 1100;
         }
 
         .toggle-btn:focus {
@@ -125,7 +126,7 @@
 
             .toggle-btn {
                 top: 10px;
-                left: 10px;
+                right: 10px;
             }
         }
     </style>
@@ -150,7 +151,7 @@
         </ul>
     </aside>
 
-    <!-- Toggle Button -->
+    <!-- Toggle Button (Hamburger Icon) -->
     <button class="toggle-btn" id="toggle-btn">&#9776;</button>
 
     <!-- Main Content -->
