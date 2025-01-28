@@ -131,7 +131,7 @@
     <!-- Toggle Button -->
     <button class="toggle-btn" id="toggle-btn">&#9776;</button>
 
-<<<<<<< HEAD
+
     <!-- Main Content -->
     <div class="content" id="main-content">
         <h1>Employee Dashboard</h1>
