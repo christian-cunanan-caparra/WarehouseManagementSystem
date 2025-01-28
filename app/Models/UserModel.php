@@ -99,4 +99,82 @@ class UserModel extends Model
     {
         return $this->delete($id);
     }
+
+
+
+    public function create()
+{
+    return view('users/create');
 }
+
+public function edit($id)
+{
+    $userModel = new UserModel();
+    $data['user'] = $userModel->find($id);  // Fetch the user by ID
+    return view('users/edit', $data);  // Pass the user data to the view
+}
+
+public function store()
+{
+    $userModel = new UserModel();
+
+    if (!$this->validate($userModel->getValidationRules())) {
+        return view('users/create', [
+            'validation' => $this->validator
+        ]);
+    }
+
+    // Save user
+    $userModel->save([
+        'name' => $this->request->getPost('name'),
+        'email' => $this->request->getPost('email'),
+        'address' => $this->request->getPost('address'),
+        'gender' => $this->request->getPost('gender'),
+        'mobile_number' => $this->request->getPost('mobile_number'),
+        'role' => $this->request->getPost('role'),
+        'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT)
+    ]);
+
+    return redirect()->to('/users')->with('success', 'User created successfully!');
+}
+
+public function update($id)
+{
+    $userModel = new UserModel();
+
+    // Validate the user input
+    if (!$this->validate($userModel->getValidationRules())) {
+        return view('users/edit', [
+            'validation' => $this->validator,
+            'user' => $userModel->find($id)
+        ]);
+    }
+
+    // Update the user
+    $userData = [
+        'name' => $this->request->getPost('name'),
+        'email' => $this->request->getPost('email'),
+        'address' => $this->request->getPost('address'),
+        'gender' => $this->request->getPost('gender'),
+        'mobile_number' => $this->request->getPost('mobile_number'),
+        'role' => $this->request->getPost('role')
+    ];
+
+    // If the password is provided, hash it
+    $password = $this->request->getPost('password');
+    if (!empty($password)) {
+        $userData['password'] = password_hash($password, PASSWORD_DEFAULT);
+    }
+
+    $userModel->update($id, $userData);
+
+    return redirect()->to('/users')->with('success', 'User updated successfully!');
+}
+
+
+
+
+}
+
+
+
