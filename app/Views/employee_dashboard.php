@@ -213,7 +213,7 @@
                                 <td><?= esc($product['price']) ?></td>
                                 <td><?= $product['status'] == 1 ? 'Active' : 'Inactive' ?></td>
                                 <td>
-                                    <a href="/employee_dashboard/edit/<?= $product['id']?>" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editProductModal">Edit</a>
+                                    <a href="/employee_dashboard/edit/<?= $product['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
                                     <a href="/employee_dashboard/delete/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Deactivate</a>
                                 </td>
                             </tr>
@@ -322,90 +322,66 @@
       
       
       
-        $(document).ready(function () {
-    // Handle form submission for adding a new product
-    $('#addProductForm').on('submit', function (e) {
-        e.preventDefault(); // Prevent the form from submitting normally
+        document.getElementById('addProductForm').addEventListener('submit', function(event) {
+            event.preventDefault();
 
-        var formData = $(this).serialize(); // Serialize the form data
-
-        $.ajax({
-            url: '/employee_dashboard/store', // URL to submit the form data to
-            type: 'POST',
-            data: formData,
-            success: function (response) {
-                if (response.status === 'success') {
-                    // Close the modal and reset the form
-                    $('#addProductModal').modal('hide');
-                    $('#addProductForm')[0].reset();
-
-                    // Optionally, update the product list dynamically without reloading the page
-                    // Example: You can append the new product to your product table here
-                    alert(response.message);
-                    location.reload(); // Reload the page to see the new product (or update product list dynamically)
-                } else {
-                    alert(response.message); // Show error message
-                }
-            },
-            error: function (xhr, status, error) {
-                alert("An error occurred: " + error);
-            }
-        });
-    });
-
-    // Handle form submission for editing a product
-    $('#editProductForm').on('submit', function (e) {
-        e.preventDefault(); // Prevent the form from submitting normally
-
-        var formData = $(this).serialize(); // Serialize the form data
-
-        $.ajax({
-            url: $(this).attr('action'), // The form's action URL (contains product ID)
-            type: 'POST',
-            data: formData,
-            success: function (response) {
-                if (response.status === 'success') {
+            const formData = new FormData(this);
+            
+            fetch('/employee_dashboard/store', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
                     // Close the modal
-                    $('#editProductModal').modal('hide');
-                    
-                    // Optionally, update the product list dynamically without reloading the page
-                    alert(response.message);
-                    location.reload(); // Reload the page to see the updated product (or update product list dynamically)
+                    const modal = new bootstrap.Modal(document.getElementById('addProductModal'));
+                    modal.hide();
+
+                    // Optionally, refresh the product list or show a success message
+                    alert(data.message);
+                    window.location.reload();  // Refresh the page to show the new product
                 } else {
-                    alert(response.message); // Show error message
+                    alert(data.message);
                 }
-            },
-            error: function (xhr, status, error) {
-                alert("An error occurred: " + error);
-            }
+            })
+            .catch(error => {
+                console.error("Error adding product:", error);
+                alert("There was an error adding the product.");
+            });
         });
-    });
-    
-    // When an "Edit" button is clicked, populate the modal with the product details
-    $('.edit-product-btn').on('click', function () {
-        var productId = $(this).data('id');
-        
-        $.ajax({
-            url: '/employee_dashboard/edit/' + productId, // Get the product details by ID
-            type: 'GET',
-            success: function (response) {
-                // Assuming response contains product data
-                $('#editProductId').val(response.product.id);
-                $('#editProductName').val(response.product.name);
-                $('#editProductDescription').val(response.product.description);
-                $('#editProductQuantity').val(response.product.quantity);
-                $('#editProductPrice').val(response.product.price);
 
-                // Show the Edit Modal
-                $('#editProductModal').modal('show');
-            },
-            error: function (xhr, status, error) {
-                alert("An error occurred: " + error);
-            }
+
+
+
+        document.getElementById('editProductForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+            
+            fetch('/employee_dashboard/store', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Close the modal
+                    const modal = new bootstrap.Modal(document.getElementById('addProductModal'));
+                    modal.hide();
+
+                    // Optionally, refresh the product list or show a success message
+                    alert(data.message);
+                    window.location.reload();  // Refresh the page to show the new product
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error("Error adding product:", error);
+                alert("There was an error adding the product.");
+            });
         });
-    });
-});
-
 
 
 
