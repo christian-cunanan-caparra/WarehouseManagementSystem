@@ -4,21 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Dashboard - Warehouse Management System</title>
+    
+    <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
     <style>
-        /* Sidebar Styles */
+        /* ---- Sidebar Styling ---- */
         .sidebar {
             position: fixed;
             top: 0;
-            left: -260px;
-            width: 260px;
+            left: -270px;
+            width: 270px;
             height: 100%;
-            background-color: #161a2d;
+            background: rgba(22, 26, 45, 0.9); /* Dark Glassmorphism */
+            backdrop-filter: blur(10px);
             color: white;
             padding: 20px;
-            transition: 0.3s ease;
+            transition: 0.4s ease-in-out;
+            box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3);
             z-index: 1000;
+            border-right: 2px solid rgba(255, 255, 255, 0.1);
         }
 
         .sidebar.active {
@@ -26,13 +35,16 @@
         }
 
         .sidebar-header {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .sidebar-links {
             list-style: none;
+            padding: 0;
             margin-top: 20px;
         }
 
@@ -46,51 +58,57 @@
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            padding: 10px;
+            transition: 0.3s ease;
+            border-radius: 6px;
         }
 
         .sidebar-links li a:hover {
-            background-color: #4f52ba;
-            border-radius: 4px;
-            padding: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            padding-left: 15px;
         }
 
-        .sidebar .menu-separator {
+        .menu-separator {
             margin: 15px 0;
             height: 1px;
-            background-color: #4f52ba;
+            background-color: rgba(255, 255, 255, 0.3);
         }
 
-        .toggle-btn {
+        /* ---- Close Button ---- */
+        .close-btn {
             position: absolute;
-            top: 20px;
-            left: 20px;
-            background-color: #161a2d;
+            top: 10px;
+            right: 10px;
+            background: transparent;
             color: white;
             border: none;
-            padding: 10px;
-            cursor: pointer;
             font-size: 1.5rem;
+            cursor: pointer;
+            transition: 0.3s;
         }
 
-        .toggle-btn:focus {
-            outline: none;
+        .close-btn:hover {
+            color: #f00;
         }
 
+        /* ---- Main Content ---- */
         .content {
-            margin-left: 260px;
-            padding: 20px;
-            transition: margin-left 0.3s ease;
+            margin-left: 270px;
+            padding: 30px;
+            transition: margin-left 0.4s ease;
+            background: #f8f9fa;
+            min-height: 100vh;
         }
 
         .content.active {
             margin-left: 0;
         }
 
-        /* Add responsive styles */
+        /* ---- Responsive Design ---- */
         @media (max-width: 768px) {
             .sidebar {
-                left: -260px;
+                left: -270px;
             }
 
             .sidebar.active {
@@ -102,16 +120,16 @@
             }
 
             .content.active {
-                margin-left: 260px;
+                margin-left: 270px;
             }
         }
     </style>
 </head>
 <body>
 
-
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
+        <button class="close-btn" id="close-btn">&times;</button>
         <div class="sidebar-header">Warehouse Dashboard</div>
         <ul class="sidebar-links">
             <h4>Main Menu</h4>
@@ -124,74 +142,28 @@
             <li><a href="jhuniel.html"><span class="material-icons">account_circle</span> Jhuniel Galang</a></li>
         </ul>
     </aside>
-    <div class="container mt-5">
-        <h2>Product List</h2>
-
-
-    <!-- Toggle Button -->
-    <button class="toggle-btn" id="toggle-btn">&#9776;</button>
-
 
     <!-- Main Content -->
     <div class="content" id="main-content">
         <h1>Employee Dashboard</h1>
         <p>Welcome to the Warehouse Management System. Here you can manage inventory, view products, and more.</p>
-
-        <!-- Example Product Table -->
-        <table class="table">
-            <thead>
-               
-                <!-- Add more rows as needed -->
-            </tbody>
-        </table>
-
-        <!-- Csheck if there are products -->
-        <?php if (!empty($products)): ?>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($products as $product): ?>
-                        <tr>
-                            <td><?= $product['id'] ?></td>
-                            <td><?= $product['name'] ?></td>
-                            <td><?= $product['description'] ?></td>
-                            <td><?= $product['quantity'] ?></td>
-                            <td><?= $product['price'] ?></td>
-                            <td>
-                            <a href="/employee_dashboard/edit/<?= $product['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-<a href="/employee_dashboard/delete/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this product?')">Delete</a>
-
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php else: ?>
-            <p>No products available. Please add some products.</p>
-        <?php endif; ?>
-
-        <a href="/employee_dashboard/create" class="btn btn-primary">Add New Product</a>
-
     </div>
 
     <script>
-        // Toggle Sidebar visibility
-        const toggleBtn = document.getElementById('toggle-btn');
+        // Sidebar Toggle Script
         const sidebar = document.getElementById('sidebar');
+        const closeBtn = document.getElementById('close-btn');
         const mainContent = document.getElementById('main-content');
 
-        toggleBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-            mainContent.classList.toggle('active');
+        // Automatically show the sidebar when the page loads
+        window.onload = () => {
+            sidebar.classList.add('active');
+        };
+
+        // Close the sidebar when the close button is clicked
+        closeBtn.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            mainContent.classList.remove('active');
         });
     </script>
 
