@@ -18,10 +18,11 @@ class EmployeeDashboard extends BaseController
     {
         // Fetch all products from the database
         $data['products'] = $this->productModel->findAll();
-
+    
         // Pass the products data to the view
         return view('employee_dashboard', $data);
     }
+    
 
     public function create()
     {
@@ -31,19 +32,6 @@ class EmployeeDashboard extends BaseController
 
     public function store()
     {
-        // Validate form input
-        $validation = \Config\Services::validation();
-        $validation->setRules([
-            'name' => 'required|min_length[3]',
-            'description' => 'required',
-            'quantity' => 'required|integer',
-            'price' => 'required|decimal',
-        ]);
-
-        if (!$validation->withRequest($this->request)->run()) {
-            return redirect()->to('/employee_dashboard/create')->withInput()->with('errors', $validation->getErrors());
-        }
-
         // Get data from the form
         $data = [
             'name'        => $this->request->getPost('name'),
@@ -56,13 +44,16 @@ class EmployeeDashboard extends BaseController
         $this->productModel->insert($data);
 
         // Redirect back to the employee dashboard
-        return redirect()->to('/employee_dashboard')->with('success', 'Product added successfully');
+        return redirect()->to('/employee_dashboard');
     }
 
     public function edit($id)
     {
+        
+        $productModel = new ProductModel();
+
         // Fetch the product by ID
-        $product = $this->productModel->find($id);
+        $product = $productModel->find($id);
 
         // If product not found, show error
         if (!$product) {
@@ -70,24 +61,12 @@ class EmployeeDashboard extends BaseController
         }
 
         // Load the edit view and pass the product data
-        return view('edit_product', ['product' => $product]);
+        return view('employee_dashboard/edit', ['product' => $product]);
     }
 
+   
     public function update($id)
     {
-        // Validate form input
-        $validation = \Config\Services::validation();
-        $validation->setRules([
-            'name' => 'required|min_length[3]',
-            'description' => 'required',
-            'quantity' => 'required|integer',
-            'price' => 'required|decimal',
-        ]);
-
-        if (!$validation->withRequest($this->request)->run()) {
-            return redirect()->to("/employee_dashboard/edit/{$id}")->withInput()->with('errors', $validation->getErrors());
-        }
-
         // Get the updated data from the form
         $data = [
             'name'        => $this->request->getPost('name'),
@@ -100,7 +79,7 @@ class EmployeeDashboard extends BaseController
         $this->productModel->update($id, $data);
 
         // Redirect back to the employee dashboard
-        return redirect()->to('/employee_dashboard')->with('success', 'Product updated successfully');
+        return redirect()->to('/employee_dashboard');
     }
 
     public function delete($id)
@@ -109,6 +88,6 @@ class EmployeeDashboard extends BaseController
         $this->productModel->delete($id);
 
         // Redirect back to the employee dashboard
-        return redirect()->to('/employee_dashboard')->with('success', 'Product deleted successfully');
+        return redirect()->to('/employee_dashboard');
     }
 }
