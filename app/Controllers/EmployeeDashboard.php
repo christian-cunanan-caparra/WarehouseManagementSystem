@@ -3,8 +3,9 @@
 namespace App\Controllers;
 
 use App\Models\ProductModel;
+use CodeIgniter\Controller;
 
-class EmployeeDashboard extends BaseController
+class EmployeeDashboard extends Controller
 {
     protected $productModel;
 
@@ -13,40 +14,54 @@ class EmployeeDashboard extends BaseController
         $this->productModel = new ProductModel();
     }
 
+    /**
+     * Display all products.
+     */
     public function index()
     {
-        $data['products'] = $this->productModel->findAll();
-        return view('employee_dashboard', $data);
+        return view('employee_dashboard', ['products' => $this->productModel->findAll()]);
     }
 
+    /**
+     * Show the product creation form.
+     */
     public function create()
     {
         return view('create_product');
     }
 
+    /**
+     * Store new product in the database.
+     */
+    public function store()
+    {
+        $this->productModel->insert($this->request->getPost());
+        return redirect()->to('/employee_dashboard')->with('message', 'Product added successfully.');
+    }
 
+    /**
+     * Show the edit form for a specific product.
+     */
     public function edit($id)
     {
-        $data['product'] = $this->productModel->find($id);
-        return view('edit_product', $data);
+        return view('edit_product', ['product' => $this->productModel->find($id)]);
     }
 
+    /**
+     * Update product details.
+     */
     public function update($id)
     {
-        $data = [
-            'name'        => $this->request->getPost('name'),
-            'description' => $this->request->getPost('description'),
-            'quantity'    => $this->request->getPost('quantity'),
-            'price'       => $this->request->getPost('price'),
-        ];
-
-        $this->productModel->update($id, $data);
-        return redirect()->to('/employee_dashboard');
+        $this->productModel->update($id, $this->request->getPost());
+        return redirect()->to('/employee_dashboard')->with('message', 'Product updated successfully.');
     }
 
+    /**
+     * Delete a product.
+     */
     public function delete($id)
     {
         $this->productModel->delete($id);
-        return redirect()->to('/employee_dashboard');
+        return redirect()->to('/employee_dashboard')->with('message', 'Product deleted successfully.');
     }
 }
