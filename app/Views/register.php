@@ -17,6 +17,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 15px; /* Add padding for smaller screens */
         }
 
         .container {
