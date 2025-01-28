@@ -38,6 +38,11 @@ class DashboardController extends Controller
 
     public function create()
     {
+        // Restrict access if the user is not logged in
+        if (!session()->get('is_logged_in')) {
+            return redirect()->to('/login')->with('error', 'You must be logged in to access this page.');
+        }
+
         return view('create_product');
     }
 
@@ -58,6 +63,11 @@ class DashboardController extends Controller
 
     public function edit($id)
     {
+        // Restrict access if the user is not logged in
+        if (!session()->get('is_logged_in')) {
+            return redirect()->to('/login')->with('error', 'You must be logged in to access this page.');
+        }
+
         return view('edit_product', ['product' => $this->productModel->find($id)]);
     }
 
