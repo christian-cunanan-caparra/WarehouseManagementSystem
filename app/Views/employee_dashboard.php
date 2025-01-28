@@ -75,23 +75,6 @@
             background-color: rgba(255, 255, 255, 0.3);
         }
 
-        /* ---- Close Button ---- */
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: transparent;
-            color: white;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .close-btn:hover {
-            color: #f00;
-        }
-
         /* ---- Sidebar Toggle Button ---- */
         .toggle-btn {
             position: fixed;
@@ -114,7 +97,7 @@
 
         /* ---- Main Content ---- */
         .content {
-            margin-left: 50px;  /* Start with no margin */
+            margin-left: 50px;
             padding: 30px;
             transition: margin-left 0.4s ease;
             background: #f8f9fa;
@@ -122,7 +105,23 @@
         }
 
         .content.active {
-            margin-left: 270px;  /* Push content when sidebar is active */
+            margin-left: 270px;
+        }
+
+        /* ---- Product Count Card ---- */
+        .card {
+            border-radius: 12px;
+            transition: 0.3s ease-in-out;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card .material-icons {
+            font-size: 4rem;
+            opacity: 0.8;
         }
 
         /* ---- Responsive Design ---- */
@@ -160,10 +159,6 @@
             <li><a href="#"><span class="material-icons">dashboard</span> Dashboard</a></li>
             <li><a href="#"><span class="material-icons">inventory</span> Products</a></li>
             <li><a href="#"><span class="material-icons">settings</span> Settings</a></li>
-            <div class="menu-separator"></div>
-            <h4>Resume</h4>
-            <li><a href="index.html"><span class="material-icons">account_circle</span> Christian Caparra</a></li>
-            <li><a href="jhuniel.html"><span class="material-icons">account_circle</span> Jhuniel Galang</a></li>
         </ul>
     </aside>
 
@@ -172,76 +167,74 @@
 
     <!-- Main Content -->
     <div class="content" id="main-content">
-        <h1>Employee Dashboard</h1>
+        <h1>Dashboard</h1>
         <p>Welcome to the Warehouse Management System. Here you can manage inventory, view products, and more.</p>
+
+        <!-- Product Count Card -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 bg-primary text-white">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Total Products</h5>
+                            <h3 class="card-text"><?= count($products) ?></h3>
+                        </div>
+                        <span class="material-icons">inventory</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Product Table -->
         <h2>Product List</h2>
         <?php if (!empty($products)): ?>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($products as $product): ?>
-                <?php if ($product['status'] == 1): ?> <!-- Only show active products -->
+            <table class="table table-striped">
+                <thead>
                     <tr>
-                        <td><?= esc($product['id']) ?></td>
-                        <td><?= esc($product['name']) ?></td>
-                        <td><?= esc($product['description']) ?></td>
-                        <td><?= esc($product['quantity']) ?></td>
-                        <td><?= esc($product['price']) ?></td>
-                        <td><?= $product['status'] == 1 ? 'Active' : 'Inactive' ?></td>
-                        <td>
-                            <a href="/employee_dashboard/edit/<?= $product['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="/employee_dashboard/delete/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to deactivate this product?')">Deactivate</a>
-                        </td>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                        <th>Actions</th>
                     </tr>
-                <?php endif; ?>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-<?php else: ?>
-    <p>No active products available. Please add some products.</p>
-<?php endif; ?>
+                </thead>
+                <tbody>
+                    <?php foreach ($products as $product): ?>
+                        <?php if ($product['status'] == 1): ?>
+                            <tr>
+                                <td><?= esc($product['id']) ?></td>
+                                <td><?= esc($product['name']) ?></td>
+                                <td><?= esc($product['description']) ?></td>
+                                <td><?= esc($product['quantity']) ?></td>
+                                <td><?= esc($product['price']) ?></td>
+                                <td><?= $product['status'] == 1 ? 'Active' : 'Inactive' ?></td>
+                                <td>
+                                    <a href="/employee_dashboard/edit/<?= $product['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="/employee_dashboard/delete/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Deactivate</a>
+                                </td>
+                            </tr>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <p>No active products available.</p>
+        <?php endif; ?>
 
         <a href="/employee_dashboard/create" class="btn btn-primary">Add New Product</a>
     </div>
 
     <script>
-        // Sidebar Toggle Script
         const sidebar = document.getElementById('sidebar');
         const closeBtn = document.getElementById('close-btn');
         const toggleBtn = document.getElementById('toggle-btn');
         const mainContent = document.getElementById('main-content');
 
-        // Automatically show the sidebar when the page loads
-        window.onload = () => {
-            sidebar.classList.add('active');
-            mainContent.classList.add('active');  // Ensure content takes full space when sidebar is active
-        };
-
-        // Close the sidebar when the close button is clicked
-        closeBtn.addEventListener('click', () => {
-            sidebar.classList.remove('active');
-            mainContent.classList.remove('active');  // Adjust content margin when sidebar is closed
-            toggleBtn.style.display = 'block';
-        });
-
-        // Show the sidebar when the toggle button is clicked
-        toggleBtn.addEventListener('click', () => {
-            sidebar.classList.add('active');
-            mainContent.classList.add('active');  // Ensure content is pushed to the side when sidebar is opened
-            toggleBtn.style.display = 'none';
-        });
+        window.onload = () => { sidebar.classList.add('active'); mainContent.classList.add('active'); };
+        closeBtn.onclick = () => { sidebar.classList.remove('active'); mainContent.classList.remove('active'); toggleBtn.style.display = 'block'; };
+        toggleBtn.onclick = () => { sidebar.classList.add('active'); mainContent.classList.add('active'); toggleBtn.style.display = 'none'; };
     </script>
 
 </body>
