@@ -264,6 +264,49 @@
                 </div>
             </div>
         </div>
+
+
+
+        <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editLabel">Edit Product</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Product Creation Form -->
+                        <form id="editProductForm" method="POST">
+                            <div class="mb-3">
+                                <label for="productName" class="form-label">Product Name</label>
+                                <input type="text" class="form-control" id="productName" name="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="productDescription" class="form-label">Description</label>
+                                <textarea class="form-control" id="productDescription" name="description" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="productQuantity" class="form-label">Quantity</label>
+                                <input type="number" class="form-control" id="productQuantity" name="quantity" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="productPrice" class="form-label">Price</label>
+                                <input type="number" class="form-control" id="productPrice" name="price" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save Product</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
     </div>
 
     <script>
@@ -305,6 +348,44 @@
                 alert("There was an error adding the product.");
             });
         });
+
+
+
+
+        document.getElementById('editProductForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+            
+            fetch('/employee_dashboard/store', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Close the modal
+                    const modal = new bootstrap.Modal(document.getElementById('addProductModal'));
+                    modal.hide();
+
+                    // Optionally, refresh the product list or show a success message
+                    alert(data.message);
+                    window.location.reload();  // Refresh the page to show the new product
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error("Error adding product:", error);
+                alert("There was an error adding the product.");
+            });
+        });
+
+
+
+
+
+
     </script>
 
 </body>
