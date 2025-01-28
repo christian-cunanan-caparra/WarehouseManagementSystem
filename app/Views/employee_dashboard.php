@@ -118,6 +118,10 @@
             width: calc(100% - 260px); /* Make content narrow when sidebar is open */
         }
 
+        .content h1 {
+            margin-left: 20px; /* Adjust margin-left for content */
+        }
+
         /* Add responsive styles */
         @media (max-width: 768px) {
             .sidebar {
@@ -149,7 +153,7 @@
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <span>Warehouse Dashboard</span>
-            <span class="material-icons close-btn" id="close-btn">close</span>
+            <!-- <span class="material-icons close-btn" id="close-btn">close</span> -->
         </div>
         <ul class="sidebar-links">
             <h4>Main Menu</h4>
