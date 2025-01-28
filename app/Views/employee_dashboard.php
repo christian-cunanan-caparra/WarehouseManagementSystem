@@ -24,8 +24,8 @@
         .menu-separator { margin: 15px 0; height: 1px; background-color: rgba(255, 255, 255, 0.3); }
         .toggle-btn { position: fixed; top: 20px; left: 20px; background: #161a2d; color: white; border: none; padding: 10px; cursor: pointer; font-size: 1.5rem; transition: 0.3s; border-radius: 5px; display: none; }
         .toggle-btn:hover { background: #4f52ba; }
-        .content { margin-left: 50px; padding: 30px; transition: margin-left 0.4s ease; background: #f8f9fa; min-height: 100vh; }
-        .content.active { margin-left: 270px; }
+        .content { margin-left: 270px; padding: 30px; transition: margin-left 0.4s ease; background: #f8f9fa; min-height: 100vh; }
+        .content.active { margin-left: 0; }
         .card { border-radius: 12px; transition: 0.3s ease-in-out; text-align: center; }
         .card:hover { transform: scale(1.05); }
         .card .material-icons { font-size: 4rem; opacity: 0.8; }
@@ -168,6 +168,17 @@
                     alert('Error occurred!');
                 }
             });
+        });
+
+        // Toggle sidebar visibility
+        $('#toggle-btn').click(function() {
+            $('#sidebar').toggleClass('active');
+            $('#main-content').toggleClass('active');
+        });
+
+        $('#close-btn').click(function() {
+            $('#sidebar').removeClass('active');
+            $('#main-content').removeClass('active');
         });
     </script>
 </body>
