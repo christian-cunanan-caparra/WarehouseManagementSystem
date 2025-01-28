@@ -10,14 +10,14 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f0f8ff; /* Light background */
+            background-color: #f0f8ff;
             font-family: 'Arial', sans-serif;
             height: 100vh;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 15px; /* Add padding for smaller screens */
+            padding: 15px;
         }
 
         .container {
@@ -30,7 +30,6 @@
             transition: all 0.3s ease-in-out;
         }
 
-        /* Hover effect for the container */
         .container:hover {
             transform: scale(1.05);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
@@ -38,7 +37,7 @@
 
         h1 {
             text-align: center;
-            color: #007bff; /* Normal blue */
+            color: #007bff;
         }
 
         .form-group {
@@ -50,7 +49,7 @@
             padding: 10px;
             font-size: 16px;
             box-shadow: none;
-            border: 1px solid #007bff; /* Normal blue */
+            border: 1px solid #007bff;
         }
 
         .form-control:focus {
@@ -59,7 +58,7 @@
         }
 
         .btn-primary {
-            background-color: #007bff; /* Normal blue */
+            background-color: #007bff;
             border-color: #007bff;
             padding: 12px;
             width: 100%;
@@ -77,7 +76,7 @@
         }
 
         .modal-header {
-            background-color: #007bff; /* Normal blue */
+            background-color: #007bff;
             color: white;
         }
 
@@ -87,18 +86,16 @@
 
         .icon {
             font-size: 50px;
-            color: #007bff; /* Normal blue */
+            color: #007bff;
             text-align: center;
             margin-bottom: 20px;
         }
 
-        /* Placeholder styling */
         ::placeholder {
             color: #6c757d;
             opacity: 1;
         }
 
-        /* Style for the login link */
         .login-link {
             text-align: center;
             margin-top: 15px;
@@ -113,16 +110,18 @@
             text-decoration: underline;
         }
 
-        /* Flash error styling */
         .alert {
             font-size: 14px;
             padding: 15px;
         }
 
-        /* Media queries for responsiveness */
         @media (max-width: 768px) {
             .container {
                 padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
             }
 
             .btn-primary {
@@ -139,6 +138,10 @@
         @media (max-width: 576px) {
             .container {
                 padding: 15px;
+            }
+
+            h1 {
+                font-size: 20px;
             }
 
             .btn-primary {
@@ -158,14 +161,12 @@
     <div class="container">
         <h1><i class="fas fa-warehouse"></i> Warehouse Management System</h1>
 
-        <!-- Display Flash Error Message for Invalid Email -->
         <?php if (session()->getFlashdata('error')): ?>
             <div class="alert alert-danger">
                 <?= session()->getFlashdata('error') ?>
             </div>
         <?php endif; ?>
 
-        <!-- Display Validation Errors -->
         <?php if (session()->get('errors')): ?>
             <div class="alert alert-danger">
                 <?php foreach (session()->get('errors') as $error): ?>
@@ -174,7 +175,6 @@
             </div>
         <?php endif; ?>
 
-        <!-- Registration Form -->
         <form action="/register/save" method="POST">
             <?= csrf_field() ?>
             
@@ -214,13 +214,11 @@
             <button type="submit" class="btn btn-primary">Register</button>
         </form>
 
-        <!-- Link to login page if the user already has an account -->
         <div class="login-link">
             <p>Already have an account? <a href="/login">Login here</a></p>
         </div>
     </div>
 
-    <!-- Modal -->
     <?php if (session()->get('success')): ?>
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -231,30 +229,23 @@
                 <div class="modal-body">
                     <?= session()->get('success') ?>
                 </div>
-                <div class="modal-footer">
-                    <!-- <a href="/login" class="btn btn-primary">Go to Login</a> -->
-                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Show the modal when the page loads
         document.addEventListener('DOMContentLoaded', function () {
             var myModal = new bootstrap.Modal(document.getElementById('successModal'));
             myModal.show();
 
-            // After 4 seconds, automatically close the modal and redirect to login
             setTimeout(function() {
-                window.location.href = '/login'; // Redirect to login page
-            }, 4000); // 4000ms = 4 seconds
+                window.location.href = '/login';
+            }, 4000);
         });
     </script>
     <?php endif; ?>
 
-    <!-- Include Bootstrap JS (For Modal) -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-
 </body>
 </html>
