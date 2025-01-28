@@ -114,7 +114,7 @@
 
         /* ---- Main Content ---- */
         .content {
-            margin-left: 0;  /* Start with no margin */
+            margin-left: 50px;  /* Start with no margin */
             padding: 30px;
             transition: margin-left 0.4s ease;
             background: #f8f9fa;
