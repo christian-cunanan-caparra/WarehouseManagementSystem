@@ -63,21 +63,15 @@ class DashboardController extends Controller
     }
     
 
-   public function edit($id)
-{
-    // Ensure user is logged in
-    if (!session()->get('is_logged_in')) {
-        return redirect()->to('/login')->with('error', 'You must be logged in to access this page.');
+    public function edit($id)
+    {
+        // Restrict access if the user is not logged in
+        if (!session()->get('is_logged_in')) {
+            return redirect()->to('/login')->with('error', 'You must be logged in to access this page.');
+        }
+
+        return view('edit_product', ['product' => $this->productModel->find($id)]);
     }
-
-    $product = $this->productModel->find($id);
-    if (!$product) {
-        return $this->response->setJSON(['status' => 'error', 'message' => 'Product not found']);
-    }
-
-    return $this->response->setJSON(['status' => 'success', 'product' => $product]);
-}
-
 
     public function update($id)
     {
