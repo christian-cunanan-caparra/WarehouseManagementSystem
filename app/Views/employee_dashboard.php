@@ -162,8 +162,8 @@
                 <!-- Add more rows as needed -->
             </tbody>
         </table>
-=======
-        <!-- Check if there are products -->
+
+        <!-- Csheck if there are products -->
         <?php if (!empty($products)): ?>
             <table class="table table-striped">
                 <thead>
