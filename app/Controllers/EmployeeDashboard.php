@@ -18,10 +18,11 @@ class EmployeeDashboard extends BaseController
     {
         // Fetch all products from the database
         $data['products'] = $this->productModel->findAll();
-
+    
         // Pass the products data to the view
         return view('employee_dashboard', $data);
     }
+    
 
     public function create()
     {
