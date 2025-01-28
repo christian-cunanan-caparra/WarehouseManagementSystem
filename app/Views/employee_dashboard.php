@@ -140,24 +140,7 @@
         <!-- Example Product Table -->
         <table class="table">
             <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Product A</td>
-                    <td>High-quality item</td>
-                    <td>50</td>
-                    <td>$100</td>
-                    <td><a href="#" class="btn btn-warning btn-sm">Edit</a></td>
-                </tr>
+               
                 <!-- Add more rows as needed -->
             </tbody>
         </table>
