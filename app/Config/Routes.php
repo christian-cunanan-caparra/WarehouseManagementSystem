@@ -49,5 +49,5 @@ $routes->get('/employee_dashboard/activate/(:num)', 'DashboardController::activa
 
 $routes->get('/employee_dashboard', 'DashboardController::index');
 $routes->get('/employee_dashboard/get_product/(:num)', 'DashboardController::get_product/$1');
-$routes->post('/employee_dashboard/update', 'DashboardController::update');
+$routes->post('/employee_dashboard/update', 'DashboardController::update/$1');
 $routes->get('/employee_dashboard/delete/(:num)', 'DashboardController::delete/$1');
