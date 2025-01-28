@@ -2,6 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Models\InventoryModel;
+use App\Models\OrderModel;
+
 class DashboardController extends BaseController
 {
     public function index()
@@ -14,11 +17,30 @@ class DashboardController extends BaseController
         // Retrieve user role from the session
         $role = session()->get('role');
 
-        // Redirect to the respective dashboard based on the role
+        // Load necessary models for the employee dashboard
+        $inventoryModel = new InventoryModel();
+        $orderModel = new OrderModel();
+
+        // Retrieve employee-related data
         if ($role === 'Admin') {
             return view('admin_dashboard');
         } elseif ($role === 'Employee') {
-            return view('employee_dashboard');
+            // Fetch data specific to Employee (tasks, inventory, etc.)
+            $stock_count = $inventoryModel->countAll();
+            $pending_orders = $orderModel->where('status', 'Pending')->countAllResults();
+            $notifications_count = 5; // This could be dynamically fetched from a notifications model
+
+            $orders = $orderModel->findAll();
+            $inventory = $inventoryModel->findAll();
+
+            // Pass data to the employee dashboard view
+            return view('employee_dashboard', [
+                'stock_count' => $stock_count,
+                'pending_orders' => $pending_orders,
+                'notifications_count' => $notifications_count,
+                'orders' => $orders,
+                'inventory' => $inventory
+            ]);
         }
 
         // If no valid role is set, redirect to login

@@ -24,7 +24,7 @@
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             padding: 30px;
-            max-width: 600px;
+            max-width: 900px;
             width: 90%;
             animation: fadeIn 0.5s ease-in-out;
         }
@@ -104,12 +104,91 @@
     <h1>Welcome, <?= session()->get('user_name') ?>!</h1>
     <p>You are logged in as an Employee. Here's what you need to do:</p>
 
-    <h3>Your Tasks</h3>
-    <ul class="task-list">
-        <li><i class="fas fa-check-circle"></i> Task 1: KISS MUNA</li>
-        <li><i class="fas fa-check-circle"></i> Task 2: KISS MUNA</li>
-        <li><i class="fas fa-check-circle"></i> Task 3: KISS MUNA</li>
-    </ul>
+    <!-- Dashboard Overview -->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-center shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Items in Stock</h5>
+                    <p class="card-text"><?= $stock_count ?></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Pending Orders</h5>
+                    <p class="card-text"><?= $pending_orders ?></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Notifications</h5>
+                    <p class="card-text"><?= $notifications_count ?></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Tracking Section -->
+    <div class="mt-5">
+        <h2>Order Tracking</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Status</th>
+                    <th>Last Updated</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($orders as $order): ?>
+                    <tr>
+                        <td><?= $order['id'] ?></td>
+                        <td><?= $order['item_name'] ?></td>
+                        <td><?= $order['quantity'] ?></td>
+                        <td><?= $order['status'] ?></td>
+                        <td><?= $order['updated_at'] ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Inventory Section -->
+    <div class="mt-5">
+        <h2>Inventory</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Item ID</th>
+                    <th>Item Name</th>
+                    <th>Stock</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($inventory as $item): ?>
+                    <tr>
+                        <td><?= $item['id'] ?></td>
+                        <td><?= $item['name'] ?></td>
+                        <td><?= $item['stock'] ?></td>
+                        <td>
+                            <form action="<?= base_url('employee/request_item') ?>" method="post">
+                                <?= csrf_field() ?>
+                                <input type="hidden" name="item_id" value="<?= $item['id'] ?>">
+                                <button type="submit" class="btn btn-sm btn-primary">Request Item</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
 
     <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
 </div>

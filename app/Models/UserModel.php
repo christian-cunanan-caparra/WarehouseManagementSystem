@@ -8,11 +8,9 @@ class UserModel extends Model
 {
     protected $table = 'users';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['name', 'email', 'password', 'address', 'gender', 'mobile_number', 'role'];
+    protected $allowedFields = ['name', 'email', 'password', 'address', 'gender', 'mobile_number', 'role', 'reset_code', 'reset_code_expiry'];
 
-
-    
-    protected $useTimestamps = true; // To automatically manage created_at and updated_at timestamps
+    protected $useTimestamps = true;
 
     // Validation rules
     protected $validationRules = [
@@ -35,9 +33,14 @@ class UserModel extends Model
         'mobile_number' => ['required' => 'Mobile number is required'],
         'role' => ['required' => 'Role is required']
     ];
+
     public function checkUserByEmail($email)
     {
         return $this->where('email', $email)->first();
     }
 
+    public function checkUserByResetCode($code)
+    {
+        return $this->where('reset_code', $code)->first();
+    }
 }
