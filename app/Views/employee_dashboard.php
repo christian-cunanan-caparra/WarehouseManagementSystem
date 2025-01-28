@@ -114,7 +114,7 @@
 
         /* ---- Main Content ---- */
         .content {
-            margin-left: 270px;
+            margin-left: 50px;  /* Start with no margin */
             padding: 30px;
             transition: margin-left 0.4s ease;
             background: #f8f9fa;
@@ -122,7 +122,7 @@
         }
 
         .content.active {
-            margin-left: 0;
+            margin-left: 270px;  /* Push content when sidebar is active */
         }
 
         /* ---- Responsive Design ---- */
@@ -226,19 +226,20 @@
         // Automatically show the sidebar when the page loads
         window.onload = () => {
             sidebar.classList.add('active');
+            mainContent.classList.add('active');  // Ensure content takes full space when sidebar is active
         };
 
         // Close the sidebar when the close button is clicked
         closeBtn.addEventListener('click', () => {
             sidebar.classList.remove('active');
-            mainContent.classList.remove('active');
+            mainContent.classList.remove('active');  // Adjust content margin when sidebar is closed
             toggleBtn.style.display = 'block';
         });
 
         // Show the sidebar when the toggle button is clicked
         toggleBtn.addEventListener('click', () => {
             sidebar.classList.add('active');
-            mainContent.classList.add('active');
+            mainContent.classList.add('active');  // Ensure content is pushed to the side when sidebar is opened
             toggleBtn.style.display = 'none';
         });
     </script>
