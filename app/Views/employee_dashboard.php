@@ -77,23 +77,35 @@
             background-color: #4f52ba;
         }
 
+        /* New Advanced Toggle Button Styles */
         .toggle-btn {
             position: absolute;
             top: 20px;
-            right: 20px;
+            left: 20px;
             background-color: #161a2d;
             color: white;
             border: none;
-            padding: 10px;
+            padding: 12px;
             cursor: pointer;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             z-index: 1100;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background-color: #4f52ba;
         }
 
         .toggle-btn:focus {
             outline: none;
         }
 
+        .toggle-btn .material-icons {
+            font-size: 2rem;
+        }
+
+        /* Content Styles */
         .content {
             margin-left: 0;
             padding: 20px;
@@ -126,7 +138,7 @@
 
             .toggle-btn {
                 top: 10px;
-                right: 10px;
+                left: 10px;
             }
         }
     </style>
@@ -151,8 +163,10 @@
         </ul>
     </aside>
 
-    <!-- Toggle Button (Hamburger Icon) -->
-    <button class="toggle-btn" id="toggle-btn">&#9776;</button>
+    <!-- Advanced Toggle Button (Hamburger Icon) -->
+    <button class="toggle-btn" id="toggle-btn">
+        <span class="material-icons">menu</span> <!-- Advanced icon -->
+    </button>
 
     <!-- Main Content -->
     <div class="content" id="main-content">
