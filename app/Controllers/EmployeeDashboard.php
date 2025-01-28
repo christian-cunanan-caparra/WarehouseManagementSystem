@@ -19,7 +19,7 @@ class EmployeeDashboard extends Controller
      */
     public function index()
     {
-        return view('employee_dashboard', ['products' => $this->productModel->findAll()]);
+        return view('/employee_dashboard', ['products' => $this->productModel->findAll()]);
     }
 
     /**
@@ -33,7 +33,12 @@ class EmployeeDashboard extends Controller
     /**
      * Store new product in the database.
      */
- 
+    public function store()
+    {
+        $this->productModel->insert($this->request->getPost());
+        return redirect()->to('/employee_dashboard')->with('message', 'Product added successfully.');
+    }
+
     /**
      * Show the edit form for a specific product.
      */
