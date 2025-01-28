@@ -37,6 +37,14 @@
             font-size: 1.25rem;
             font-weight: 600;
             color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar-header .close-btn {
+            cursor: pointer;
+            font-size: 1.5rem;
         }
 
         .sidebar-links {
@@ -88,11 +96,17 @@
         .content {
             margin-left: 260px;
             padding: 20px;
-            transition: margin-left 0.3s ease;
+            transition: margin-left 0.3s ease, width 0.3s ease;
         }
 
         .content.active {
             margin-left: 0;
+            width: 100%;
+        }
+
+        .content.full-width {
+            margin-left: 0;
+            width: 100%;
         }
 
         /* Add responsive styles */
@@ -124,7 +138,10 @@
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">Warehouse Dashboard</div>
+        <div class="sidebar-header">
+            <span>Warehouse Dashboard</span>
+            <span class="material-icons close-btn" id="close-btn">close</span>
+        </div>
         <ul class="sidebar-links">
             <h4>Main Menu</h4>
             <li><a href="#"><span class="material-icons">dashboard</span> Dashboard</a></li>
@@ -176,6 +193,7 @@
         const toggleBtn = document.getElementById('toggle-btn');
         const sidebar = document.getElementById('sidebar');
         const mainContent = document.getElementById('main-content');
+        const closeBtn = document.getElementById('close-btn');
 
         // Check local storage for sidebar state and set initial state
         const sidebarState = localStorage.getItem('sidebarState');
@@ -195,6 +213,13 @@
             } else {
                 localStorage.setItem('sidebarState', 'inactive');
             }
+        });
+
+        // Close the sidebar when close button is clicked
+        closeBtn.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            mainContent.classList.remove('active');
+            localStorage.setItem('sidebarState', 'inactive');
         });
     </script>
 
