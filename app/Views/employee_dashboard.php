@@ -236,21 +236,21 @@
                 </div>
                 <div class="modal-body">
                     <form id="productForm">
-                        <input type="hidden" id="productId" name="id">
+                        <input type="hidden" id="id" name="id">
                         <div class="mb-3">
-                            <label for="productName" class="form-label">Product Name</label>
+                            <label for="name" class="form-label">Product Name</label>
                             <input type="text" class="form-control" id="productName" name="name" required>
                         </div>
                         <div class="mb-3">
-                            <label for="productDescription" class="form-label">Product Description</label>
+                            <label for="description" class="form-label">Product Description</label>
                             <textarea class="form-control" id="productDescription" name="description" rows="3" required></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="productQuantity" class="form-label">Quantity</label>
+                            <label for="quantity" class="form-label">Quantity</label>
                             <input type="number" class="form-control" id="productQuantity" name="quantity" required>
                         </div>
                         <div class="mb-3">
-                            <label for="productPrice" class="form-label">Price</label>
+                            <label for="price" class="form-label">Price</label>
                             <input type="number" class="form-control" id="productPrice" name="price" step="0.01" required>
                         </div>
                         <button type="submit" class="btn btn-primary" id="submitProductBtn">Save Product</button>
