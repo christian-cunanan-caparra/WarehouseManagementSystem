@@ -6,7 +6,7 @@ class ChatModel extends Model
 {
     protected $table = 'chats';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['name', 'created_at', 'updated_at'];
+    protected $allowedFields = ['user_id', 'created_at', 'updated_at'];
 
     // Method to create a new chat
     public function createChat($data)

@@ -27,7 +27,6 @@ class UserModel extends Model
 
     public function getChats($userId)
     {
-        // Return chats where the user is involved
         return $this->db->table('chats')
             ->join('messages', 'messages.chat_id = chats.id')
             ->where('chats.user_id', $userId)

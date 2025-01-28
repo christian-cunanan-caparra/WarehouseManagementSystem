@@ -11,6 +11,8 @@ class MessageModel extends Model
     // Get all messages by chat ID
     public function getMessagesByChatId($chatId)
     {
-        return $this->where('chat_id', $chatId)->orderBy('created_at', 'ASC')->findAll();
+        return $this->where('chat_id', $chatId)
+                    ->orderBy('created_at', 'ASC')
+                    ->findAll();
     }
 }

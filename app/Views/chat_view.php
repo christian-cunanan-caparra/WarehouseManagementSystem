@@ -4,93 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat Dashboard</title>
-    <style>
-        .chat-box { width: 70%; float: left; padding: 10px; }
-        .chat-list { width: 25%; float: right; padding: 10px; border-left: 1px solid #ccc; }
-        .message { padding: 5px 10px; margin-bottom: 10px; }
-        .sent { background-color: #f1f1f1; text-align: right; }
-        .received { background-color: #e0e0e0; text-align: left; }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-
-    <div class="chat-list">
+    <div class="container mt-4">
+        <h1>Chat Dashboard</h1>
+        
+        <!-- Display the chat list -->
         <h3>Chats</h3>
-        <ul>
+        <ul class="list-group">
             <?php foreach ($chats as $chat): ?>
-                <li class="chat-item" data-chat-id="<?= $chat->id ?>"><?= $chat->name ?></li>
+                <li class="list-group-item">
+                    <a href="#" class="chat-link" data-chat-id="<?= esc($chat['id']) ?>"><?= esc($chat['name']) ?></a>
+                </li>
             <?php endforeach; ?>
         </ul>
+
+        <!-- Display messages for the selected chat -->
+        <div id="chat-messages" class="mt-4"></div>
+
+        <!-- Send message form -->
+        <form id="sendMessageForm" class="mt-4">
+            <div class="mb-3">
+                <textarea class="form-control" id="messageText" rows="3" placeholder="Type your message"></textarea>
+            </div>
+            <input type="hidden" id="chatId" value="">
+            <button type="submit" class="btn btn-primary">Send</button>
+        </form>
     </div>
 
-    <div class="chat-box">
-        <h3>Chat Messages</h3>
-        <div id="messageBox"></div>
-        <textarea id="newMessage" placeholder="Type a message..."></textarea>
-        <button id="sendMessage">Send</button>
-    </div>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            let currentChatId = null;
-            const messageBox = document.getElementById('messageBox');
-            const sendMessageBtn = document.getElementById('sendMessage');
-            const newMessageInput = document.getElementById('newMessage');
-            
-            // Load messages for the selected chat
-            function loadMessages(chatId) {
-                fetch(`/chat/messages/${chatId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        messageBox.innerHTML = '';
-                        if (data.messages.length > 0) {
-                            data.messages.forEach(message => {
-                                const messageDiv = document.createElement('div');
-                                messageDiv.classList.add('message');
-                                messageDiv.classList.add(message.sender_id == <?= session()->get('user_id') ?> ? 'sent' : 'received');
-                                messageDiv.innerHTML = `<p><strong>${message.sender_id == <?= session()->get('user_id') ?> ? 'You' : 'User ' + message.sender_id}:</strong></p><p>${message.message}</p>`;
-                                messageBox.appendChild(messageDiv);
-                            });
-                        } else {
-                            messageBox.innerHTML = '<p>No messages yet.</p>';
-                        }
+        // Event listener to load messages for the selected chat
+        $('.chat-link').on('click', function (e) {
+            e.preventDefault();
+            var chatId = $(this).data('chat-id');
+            $('#chatId').val(chatId);
+            loadMessages(chatId);
+        });
+
+        // Function to load messages for a selected chat
+        function loadMessages(chatId) {
+            $.ajax({
+                url: '/chat/getMessages/' + chatId,
+                method: 'GET',
+                success: function (data) {
+                    var messages = data.messages;
+                    var messageHtml = '';
+                    messages.forEach(function (message) {
+                        messageHtml += '<p><strong>' + message.sender_name + ':</strong> ' + message.message + '</p>';
                     });
-            }
-
-            // Select chat and load messages
-            document.querySelectorAll('.chat-item').forEach(item => {
-                item.addEventListener('click', function () {
-                    currentChatId = item.getAttribute('data-chat-id');
-                    loadMessages(currentChatId);
-                });
+                    $('#chat-messages').html(messageHtml);
+                }
             });
+        }
 
-            // Send message functionality
-            sendMessageBtn.addEventListener('click', function () {
-                const message = newMessageInput.value;
-                if (message.trim() === '' || currentChatId === null) return;
-
-                // Send the message via AJAX
-                fetch('/chat/send', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        chat_id: currentChatId,
-                        message: message
-                    }),
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        newMessageInput.value = '';  // Clear the input field
-                        loadMessages(currentChatId); // Reload messages
-                    }
-                });
+        // Send message function
+        $('#sendMessageForm').on('submit', function (e) {
+            e.preventDefault();
+            var message = $('#messageText').val();
+            var chatId = $('#chatId').val();
+            $.ajax({
+                url: '/chat/sendMessage',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ chat_id: chatId, message: message }),
+                success: function () {
+                    $('#messageText').val(''); // Clear the input field
+                    loadMessages(chatId); // Reload messages
+                }
             });
         });
     </script>
-
 </body>
 </html>
