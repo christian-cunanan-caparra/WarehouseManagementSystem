@@ -152,6 +152,7 @@
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
+            <br><br><br>
             <span>Warehouse Dashboard</span>
             <!-- <span class="material-icons close-btn" id="close-btn">close</span> -->
         </div>
