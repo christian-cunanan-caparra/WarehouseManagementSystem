@@ -63,12 +63,12 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            padding: 10px;
+            border-radius: 4px;
         }
 
         .sidebar-links li a:hover {
             background-color: #4f52ba;
-            border-radius: 4px;
-            padding: 10px;
         }
 
         .sidebar .menu-separator {
@@ -127,6 +127,16 @@
             margin-left: 20px; /* Adjust margin-left for content */
         }
 
+        /* Table Styles */
+        .table-wrapper {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        .table th, .table td {
+            white-space: nowrap; /* Prevent text wrapping */
+        }
+
         /* Add responsive styles */
         @media (max-width: 768px) {
             .sidebar {
@@ -156,6 +166,10 @@
             .content.active {
                 margin-left: 0; /* On medium devices, content will span full width */
             }
+
+            .table th, .table td {
+                font-size: 0.85rem; /* Smaller text for smaller screens */
+            }
         }
 
         /* Large Screens */
@@ -167,8 +181,11 @@
             .content.active {
                 margin-left: 260px; /* For large screens, sidebar remains fixed */
             }
-        }
 
+            .table th, .table td {
+                font-size: 1rem; /* Larger text on larger screens */
+            }
+        }
     </style>
 </head>
 <body>
@@ -204,29 +221,39 @@
             <p>Welcome to the Warehouse Management System. Here you can manage inventory, view products, and more.</p>
 
             <!-- Example Product Table -->
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Product A</td>
-                        <td>High-quality item</td>
-                        <td>50</td>
-                        <td>$100</td>
-                        <td><a href="#" class="btn btn-warning btn-sm">Edit</a></td>
-                    </tr>
-                    <!-- Add more rows as needed -->
-                </tbody>
-            </table>
+            <div class="table-wrapper">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Product A</td>
+                            <td>High-quality item</td>
+                            <td>50</td>
+                            <td>$100</td>
+                            <td><a href="#" class="btn btn-warning btn-sm">Edit</a></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Product B</td>
+                            <td>Premium item</td>
+                            <td>20</td>
+                            <td>$200</td>
+                            <td><a href="#" class="btn btn-warning btn-sm">Edit</a></td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
