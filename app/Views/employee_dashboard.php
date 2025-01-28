@@ -26,7 +26,7 @@
             padding: 20px;
             transition: 0.4s ease-in-out;
             box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3);
-            z-index: 1030; /* Sidebar z-index */
+            z-index: 1000;
             border-right: 2px solid rgba(255, 255, 255, 0.1);
         }
 
@@ -89,7 +89,6 @@
             transition: 0.3s;
             border-radius: 5px;
             display: none;
-            z-index: 1060; /* Ensure the button is above everything else */
         }
 
         .toggle-btn:hover {
@@ -103,20 +102,10 @@
             transition: margin-left 0.4s ease;
             background: #f8f9fa;
             min-height: 100vh;
-            z-index: 1020; /* Ensure content is above sidebar */
         }
 
         .content.active {
             margin-left: 270px;
-        }
-
-        /* ---- Modal Styling ---- */
-        .modal-backdrop {
-            z-index: 1040; /* Ensure modal backdrop is above the sidebar */
-        }
-
-        .modal-content {
-            z-index: 1050; /* Ensure modal content is above the backdrop and sidebar */
         }
 
         /* ---- Product Count Card ---- */
@@ -272,30 +261,14 @@
     </div>
 
     <script>
+        // Handle Modal Opening and Product Editing
         document.addEventListener('DOMContentLoaded', function() {
             const editButtons = document.querySelectorAll('.btn-edit');
-            const toggleBtn = document.getElementById('toggle-btn');
-            const sidebar = document.getElementById('sidebar');
-            const mainContent = document.getElementById('main-content');
-
-            // Toggle Sidebar visibility
-            toggleBtn.addEventListener('click', function() {
-                sidebar.classList.toggle('active');
-                mainContent.classList.toggle('active');
-            });
-
-            // Close Sidebar when close button is clicked
-            const closeBtn = document.getElementById('close-btn');
-            closeBtn.onclick = () => {
-                sidebar.classList.remove('active');
-                mainContent.classList.remove('active');
-            };
-
-            // Handle Modal Opening and Product Editing
+            
             editButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     const productId = this.getAttribute('data-id');
-
+                    
                     // Fetch product data by ID
                     fetch(`/employee_dashboard/edit/${productId}`)
                         .then(response => response.json())
@@ -308,7 +281,7 @@
                                 document.getElementById('productDescription').value = product.description;
                                 document.getElementById('productQuantity').value = product.quantity;
                                 document.getElementById('productPrice').value = product.price;
-
+                                 
                                 // Show modal
                                 const myModal = new bootstrap.Modal(document.getElementById('editProductModal'));
                                 myModal.show();
@@ -322,9 +295,9 @@
             const editForm = document.getElementById('editProductForm');
             editForm.addEventListener('submit', function(event) {
                 event.preventDefault();
-
+                
                 const formData = new FormData(editForm);
-
+                
                 fetch(`/employee_dashboard/update/${formData.get('productId')}`, {
                     method: 'POST',
                     body: formData
@@ -342,7 +315,18 @@
                 })
                 .catch(error => console.error('Error updating product:', error));
             });
+
+            // Toggle sidebar visibility
+            const toggleButton = document.getElementById('toggle-btn');
+            const sidebar = document.getElementById('sidebar');
+            const content = document.getElementById('main-content');
+
+            toggleButton.addEventListener('click', function() {
+                sidebar.classList.toggle('active');
+                content.classList.toggle('active');
+            });
         });
     </script>
+
 </body>
 </html>
