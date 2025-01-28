@@ -5,6 +5,8 @@
     <title>Employee Dashboard</title>
 </head>
 <body>
+
+<!------ano bago?--------->
     <h1>Inventory Products</h1>
     <a href="/employee_dashboard/create">Add New Product</a>
     <table border="1">
