@@ -46,4 +46,6 @@ $routes->get('/employee_dashboard/delete/(:num)', 'DashboardController::delete/$
 $routes->get('/employee_dashboard/activate/(:num)', 'DashboardController::activate/$1');
 
 
+$routes->get('/chat', 'ChatController::index');
+$routes->post('/chat/sendMessage', 'ChatController::sendMessage');
 
