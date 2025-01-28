@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Dashboard - Warehouse Management System</title>
-    
+
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
+
     <style>
-        /* ---- Sidebar Styling ---- */
+        /* Sidebar Styling */
         .sidebar {
             position: fixed;
             top: 0;
@@ -21,13 +21,11 @@
             width: 270px;
             height: 100%;
             background: rgba(22, 26, 45, 0.9);
-            backdrop-filter: blur(10px);
             color: white;
             padding: 20px;
-            transition: 0.4s ease-in-out;
+            transition: left 0.3s ease;
             box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3);
             z-index: 1000;
-            border-right: 2px solid rgba(255, 255, 255, 0.1);
         }
 
         .sidebar.active {
@@ -69,13 +67,7 @@
             padding-left: 15px;
         }
 
-        .menu-separator {
-            margin: 15px 0;
-            height: 1px;
-            background-color: rgba(255, 255, 255, 0.3);
-        }
-
-        /* ---- Sidebar Toggle Button ---- */
+        /* Toggle Button Styling */
         .toggle-btn {
             position: fixed;
             top: 20px;
@@ -88,63 +80,26 @@
             font-size: 1.5rem;
             transition: 0.3s;
             border-radius: 5px;
-            display: none;
         }
 
         .toggle-btn:hover {
             background: #4f52ba;
         }
 
-        /* ---- Main Content ---- */
+        /* Main Content Styling */
         .content {
-            margin-left: 50px;
+            margin-left: 270px;
             padding: 30px;
-            transition: margin-left 0.4s ease;
-            background: #f8f9fa;
-            min-height: 100vh;
+            transition: margin-left 0.3s ease;
         }
 
         .content.active {
-            margin-left: 270px;
+            margin-left: 0;
         }
 
-        /* ---- Product Count Card ---- */
-        .card {
-            border-radius: 12px;
-            transition: 0.3s ease-in-out;
-            text-align: center;
-        }
-
-        .card:hover {
-            transform: scale(1.05);
-        }
-
-        .card .material-icons {
-            font-size: 4rem;
-            opacity: 0.8;
-        }
-
-        /* ---- Responsive Design ---- */
-        @media (max-width: 768px) {
-            .sidebar {
-                left: -270px;
-            }
-
-            .sidebar.active {
-                left: 0;
-            }
-
-            .content {
-                margin-left: 0;
-            }
-
-            .content.active {
-                margin-left: 270px;
-            }
-
-            .toggle-btn {
-                display: block;
-            }
+        /* Modal Styling */
+        .modal-dialog {
+            max-width: 600px;
         }
     </style>
 </head>
@@ -152,7 +107,6 @@
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
-        <button class="close-btn" id="close-btn">&times;</button>
         <div class="sidebar-header">Warehouse Management System</div>
         <ul class="sidebar-links">
             <h4>Main Menu</h4>
@@ -168,7 +122,10 @@
     <!-- Main Content -->
     <div class="content" id="main-content">
         <h1>Dashboard</h1>
-        <p>Welcome to the Warehouse Management System. Here you can manage inventory, view products, and more.</p>
+        <p>Welcome to the Warehouse Management System. Manage inventory, view products, and more.</p>
+
+        <!-- Add New Product Button -->
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">Add New Product</button>
 
         <!-- Product Count Card -->
         <div class="row mb-4">
@@ -177,7 +134,7 @@
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <div>
                             <h5 class="card-title">Total Products</h5>
-                            <h3 class="card-text"><?= count($products) ?></h3>
+                            <h3 class="card-text" id="total-products">0</h3>
                         </div>
                         <span class="material-icons">inventory</span>
                     </div>
@@ -185,56 +142,124 @@
             </div>
         </div>
 
-        <!-- Product Table -->
+        <!-- Product List Table -->
         <h2>Product List</h2>
-        <?php if (!empty($products)): ?>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($products as $product): ?>
-                        <?php if ($product['status'] == 1): ?>
-                            <tr>
-                                <td><?= esc($product['id']) ?></td>
-                                <td><?= esc($product['name']) ?></td>
-                                <td><?= esc($product['description']) ?></td>
-                                <td><?= esc($product['quantity']) ?></td>
-                                <td><?= esc($product['price']) ?></td>
-                                <td><?= $product['status'] == 1 ? 'Active' : 'Inactive' ?></td>
-                                <td>
-                                    <a href="/employee_dashboard/edit/<?= $product['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                                    <a href="/employee_dashboard/delete/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Deactivate</a>
-                                </td>
-                            </tr>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php else: ?>
-            <p>No active products available.</p>
-        <?php endif; ?>
+        <table class="table table-striped" id="product-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Products will be injected here -->
+            </tbody>
+        </table>
+    </div>
 
-        <a href="/employee_dashboard/create" class="btn btn-primary">Add New Product</a>
+    <!-- Modal for Adding New Product -->
+    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="add-product-form">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Product Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="quantity" class="form-label">Quantity</label>
+                            <input type="number" class="form-control" id="quantity" name="quantity" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="price" class="form-label">Price</label>
+                            <input type="number" class="form-control" id="price" name="price" step="0.01" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Add Product</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        const sidebar = document.getElementById('sidebar');
-        const closeBtn = document.getElementById('close-btn');
-        const toggleBtn = document.getElementById('toggle-btn');
-        const mainContent = document.getElementById('main-content');
+        // Toggle sidebar visibility
+        document.getElementById('toggle-btn').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('main-content').classList.toggle('active');
+        });
 
-        window.onload = () => { sidebar.classList.add('active'); mainContent.classList.add('active'); };
-        closeBtn.onclick = () => { sidebar.classList.remove('active'); mainContent.classList.remove('active'); toggleBtn.style.display = 'block'; };
-        toggleBtn.onclick = () => { sidebar.classList.add('active'); mainContent.classList.add('active'); toggleBtn.style.display = 'none'; };
+        // Sample data for the product list (replace with dynamic data from backend)
+        const products = [
+            { id: 1, name: 'Product 1', description: 'Description 1', quantity: 10, price: 100, status: 'Active' },
+            { id: 2, name: 'Product 2', description: 'Description 2', quantity: 20, price: 200, status: 'Active' }
+        ];
+
+        // Function to display products in the table
+        function displayProducts() {
+            const tableBody = document.querySelector('#product-table tbody');
+            tableBody.innerHTML = '';
+            products.forEach(product => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${product.id}</td>
+                    <td>${product.name}</td>
+                    <td>${product.description}</td>
+                    <td>${product.quantity}</td>
+                    <td>${product.price}</td>
+                    <td>${product.status}</td>
+                    <td>
+                        <button class="btn btn-warning btn-sm">Edit</button>
+                        <button class="btn btn-danger btn-sm">Deactivate</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            // Update the total product count
+            document.getElementById('total-products').textContent = products.length;
+        }
+
+        // Handle form submission to add a new product
+        document.getElementById('add-product-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const newProduct = {
+                id: products.length + 1,
+                name: document.getElementById('name').value,
+                description: document.getElementById('description').value,
+                quantity: document.getElementById('quantity').value,
+                price: document.getElementById('price').value,
+                status: 'Active'
+            };
+
+            products.push(newProduct);  // Add new product to the list
+            displayProducts();  // Update the table and product count
+
+            // Close the modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('addProductModal'));
+            modal.hide();
+        });
+
+        // Display products initially
+        displayProducts();
     </script>
 
 </body>
