@@ -266,7 +266,6 @@
 </div>
 
 <!-- Modal for Editing Product -->
-<!-- Modal for Editing Product -->
 <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -276,23 +275,23 @@
             </div>
             <div class="modal-body">
                 <!-- Product Edit Form -->
-                <form id="editProductForm" method="POST">
-                    <input type="hidden" id="editProductId" name="id" />
+                <form id="editProductForm" method="POST" action="/employee_dashboard/update/<?= $product['id'] ?>">
+                    <input type="hidden" id="editProductId" name="id" value="<?= $product['id'] ?>" />
                     <div class="mb-3">
                         <label for="editProductName" class="form-label">Product Name</label>
-                        <input type="text" class="form-control" id="editProductName" name="name" required>
+                        <input type="text" class="form-control" id="editProductName" name="name" value="<?= esc($product['name']) ?>" required>
                     </div>
                     <div class="mb-3">
                         <label for="editProductDescription" class="form-label">Description</label>
-                        <textarea class="form-control" id="editProductDescription" name="description" required></textarea>
+                        <textarea class="form-control" id="editProductDescription" name="description" required><?= esc($product['description']) ?></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="editProductQuantity" class="form-label">Quantity</label>
-                        <input type="number" class="form-control" id="editProductQuantity" name="quantity" required>
+                        <input type="number" class="form-control" id="editProductQuantity" name="quantity" value="<?= esc($product['quantity']) ?>" required>
                     </div>
                     <div class="mb-3">
                         <label for="editProductPrice" class="form-label">Price</label>
-                        <input type="number" class="form-control" id="editProductPrice" name="price" required>
+                        <input type="number" class="form-control" id="editProductPrice" name="price" value="<?= esc($product['price']) ?>" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -303,7 +302,6 @@
         </div>
     </div>
 </div>
-
 
 
 
