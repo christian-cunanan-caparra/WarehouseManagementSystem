@@ -49,13 +49,22 @@ class EmployeeDashboard extends BaseController
 
     public function edit($id)
     {
-        // Fetch product details for editing
-        $data['product'] = $this->productModel->find($id);
+        
+        $productModel = new ProductModel();
 
-        // Pass the product data to the view
-        return view('edit_product', $data);
+        // Fetch the product by ID
+        $product = $productModel->find($id);
+
+        // If product not found, show error
+        if (!$product) {
+            return redirect()->to('/employee_dashboard')->with('error', 'Product not found.');
+        }
+
+        // Load the edit view and pass the product data
+        return view('employee_dashboard/edit', ['product' => $product]);
     }
 
+   
     public function update($id)
     {
         // Get the updated data from the form
