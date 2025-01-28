@@ -36,34 +36,24 @@ class DashboardController extends Controller
         return redirect()->to('/login');
     }
 
-    public function create()
-    {
-        // Restrict access if the user is not logged in
-        if (!session()->get('is_logged_in')) {
-            return redirect()->to('/login')->with('error', 'You must be logged in to access this page.');
-        }
-
-        return view('create_product');
-    }
-
+    // Method to store a new product (for adding)
     public function store()
     {
         // Get the form data
         $data = $this->request->getPost();
-    
+        
         // Set the status to 1 (active) for the new product
         $data['status'] = 1;
-    
+        
         // Insert the product into the database
         if ($this->productModel->insert($data)) {
             return $this->response->setJSON(['status' => 'success', 'message' => 'Product added successfully.']);
         }
-    
+        
         return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to add product.']);
     }
-    
-    
 
+    // Method to show the edit form (for editing)
     public function edit($id)
     {
         // Restrict access if the user is not logged in
@@ -71,15 +61,27 @@ class DashboardController extends Controller
             return redirect()->to('/login')->with('error', 'You must be logged in to access this page.');
         }
 
-        return view('edit_product', ['product' => $this->productModel->find($id)]);
+        $product = $this->productModel->find($id);
+        
+        // Return the edit form with pre-filled data
+        return $this->response->setJSON(['status' => 'success', 'data' => $product]);
     }
 
-    public function update($id)
+    // Method to update a product (for editing)
+    public function update()
     {
-        $this->productModel->update($id, $this->request->getPost());
-        return redirect()->to('/employee_dashboard')->with('message', 'Product updated successfully.');
+        // Get the form data
+        $data = $this->request->getPost();
+
+        // Update the product in the database
+        if ($this->productModel->update($data['id'], $data)) {
+            return $this->response->setJSON(['status' => 'success', 'message' => 'Product updated successfully.']);
+        }
+
+        return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to update product.']);
     }
 
+    // Method to deactivate (soft delete) a product
     public function delete($id)
     {
         // Update the status to 0 (inactive) instead of deleting the record
@@ -92,6 +94,7 @@ class DashboardController extends Controller
         return redirect()->to('/employee_dashboard');
     }
 
+    // Method to activate a product
     public function activate($id)
     {
         // Update the status to 1 (active)
@@ -104,6 +107,7 @@ class DashboardController extends Controller
         return redirect()->to('/employee_dashboard');
     }
 
+    // Logout method
     public function logout()
     {
         // Destroy session and redirect to login page
