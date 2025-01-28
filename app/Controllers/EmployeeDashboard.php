@@ -74,4 +74,19 @@ class EmployeeDashboard extends Controller
 
     return redirect()->to('/employee_dashboard');
     }
+
+    public function activate($id)
+{
+    // Update the status to 1 (active)
+    $data = [
+        'status' => 1,
+    ];
+
+    $this->productModel->update($id, $data);
+
+    // Set a flash message to indicate success
+    session()->setFlashdata('success', 'Product activated successfully.');
+
+    return redirect()->to('/employee_dashboard');
+}
 }

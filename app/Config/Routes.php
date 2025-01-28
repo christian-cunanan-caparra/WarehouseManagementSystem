@@ -46,3 +46,4 @@ $routes->get('/employee_dashboard/delete/(:num)', 'EmployeeDashboard::delete/$1'
 
 
 
+$routes->get('/employee_dashboard/activate/(:num)', 'EmployeeDashboard::activate/$1');
