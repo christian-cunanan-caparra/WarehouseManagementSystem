@@ -45,19 +45,25 @@
 
         // Function to load messages for a selected chat
         function loadMessages(chatId) {
-            $.ajax({
-                url: '/chat/getMessages/' + chatId,
-                method: 'GET',
-                success: function (data) {
-                    var messages = data.messages;
-                    var messageHtml = '';
-                    messages.forEach(function (message) {
-                        messageHtml += '<p><strong>' + message.sender_name + ':</strong> ' + message.message + '</p>';
-                    });
-                    $('#chat-messages').html(messageHtml);
-                }
+    $.ajax({
+        url: '/chat/getMessages/' + chatId,
+        method: 'GET',
+        success: function (data) {
+            console.log(data); // Debugging output
+
+            var messages = data.messages;
+            var messageHtml = '';
+            messages.forEach(function (message) {
+                messageHtml += '<p><strong>' + message.sender_id + ':</strong> ' + message.message + '</p>';
             });
+            $('#chat-messages').html(messageHtml);
+        },
+        error: function (xhr) {
+            console.log("Error loading messages:", xhr.responseText);
         }
+    });
+}
+
 
         // Send message function
         $('#sendMessageForm').on('submit', function (e) {

@@ -39,21 +39,39 @@ class ChatController extends Controller
 
     // Send a message (AJAX endpoint)
     public function sendMessage()
-    {
-        $messageData = $this->request->getJSON();
+{
+    $messageData = $this->request->getJSON();
+    $userId = session()->get('user_id'); // Get the logged-in user
 
-        $data = [
-            'chat_id' => $messageData->chat_id,
-            'sender_id' => session()->get('user_id'),
-            'message' => $messageData->message
-        ];
-
-        // Insert the message into the database
-        $this->messageModel->insert($data);
-
-        // Return response after insertion
-        return $this->response->setJSON(['status' => 'success']);
+    if (!$userId) {
+        return $this->response->setJSON(['status' => 'error', 'message' => 'User not logged in']);
     }
+
+    $data = [
+        'chat_id' => $messageData->chat_id,
+        'sender_id' => $userId,
+        'message' => $messageData->message,
+        'created_at' => date('Y-m-d H:i:s')
+    ];
+
+    if ($this->messageModel->insert($data)) {
+        return $this->response->setJSON(['status' => 'success']);
+    } else {
+        return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to save message']);
+    }
+}
+
+public function testMessage()
+{
+    $this->messageModel->insert([
+        'chat_id' => 1,
+        'sender_id' => 1,
+        'message' => 'Test message',
+        'created_at' => date('Y-m-d H:i:s')
+    ]);
+    echo "Message inserted";
+}
+
 
     // Reset messages (this might be scheduled or triggered manually)
     public function resetMessages()
