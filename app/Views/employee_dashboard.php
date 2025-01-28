@@ -198,7 +198,7 @@
                     <td>High-quality item</td>
                     <td>50</td>
                     <td>$100</td>
-                    <td><a href="#" class="btn btn-warning btn-sm">Edit</a></td>
+                    <td><a href="edit_product.php" class="btn btn-warning btn-sm">Edit</a></td>
                 </tr>
                 <!-- Add more rows as needed -->
             </tbody>
