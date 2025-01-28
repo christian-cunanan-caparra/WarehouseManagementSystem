@@ -160,7 +160,7 @@
                 <li><a href="#"><span class="material-icons">inventory</span> Products</a></li>
                 <li><a href="#"><span class="material-icons">settings</span> Settings</a></li>
                 <!-- Logout Button in the sidebar -->
-<li><a href="/dashboard/logout"><span class="material-icons">exit_to_app</span> Logout</a></li>
+<!-- <li><a href="/dashboard/logout"><span class="material-icons">exit_to_app</span> Logout</a></li> -->
 
                 
             
