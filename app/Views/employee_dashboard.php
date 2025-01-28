@@ -75,23 +75,21 @@
             background-color: rgba(255, 255, 255, 0.3);
         }
 
-        /* ---- Sidebar Toggle Button ---- */
-        .toggle-btn {
+        /* ---- Close Button ---- */
+        .close-btn {
             position: absolute;
-            top: 20px;
-            left: 20px;
-            background: #161a2d;
+            top: 10px;
+            right: 10px;
+            background: transparent;
             color: white;
             border: none;
-            padding: 10px;
-            cursor: pointer;
             font-size: 1.5rem;
+            cursor: pointer;
             transition: 0.3s;
-            border-radius: 5px;
         }
 
-        .toggle-btn:hover {
-            background: #4f52ba;
+        .close-btn:hover {
+            color: #f00;
         }
 
         /* ---- Main Content ---- */
@@ -131,6 +129,7 @@
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
+        <button class="close-btn" id="close-btn">&times;</button>
         <div class="sidebar-header">Warehouse Dashboard</div>
         <ul class="sidebar-links">
             <h4>Main Menu</h4>
@@ -144,60 +143,27 @@
         </ul>
     </aside>
 
-    <!-- Toggle Button -->
-    <button class="toggle-btn" id="toggle-btn">&#9776;</button>
-
     <!-- Main Content -->
     <div class="content" id="main-content">
         <h1>Employee Dashboard</h1>
         <p>Welcome to the Warehouse Management System. Here you can manage inventory, view products, and more.</p>
-
-        <!-- Product Table -->
-        <h2>Product List</h2>
-        <?php if (!empty($products)): ?>
-            <table class="table table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($products as $product): ?>
-                        <tr>
-                            <td><?= $product['id'] ?></td>
-                            <td><?= $product['name'] ?></td>
-                            <td><?= $product['description'] ?></td>
-                            <td><?= $product['quantity'] ?></td>
-                            <td>$<?= number_format($product['price'], 2) ?></td>
-                            <td>
-                                <a href="/employee_dashboard/edit/<?= $product['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                                <a href="/employee_dashboard/delete/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php else: ?>
-            <p>No products available. Please add some products.</p>
-        <?php endif; ?>
-
-        <a href="/employee_dashboard/create" class="btn btn-primary">Add New Product</a>
     </div>
 
     <script>
         // Sidebar Toggle Script
-        const toggleBtn = document.getElementById('toggle-btn');
         const sidebar = document.getElementById('sidebar');
+        const closeBtn = document.getElementById('close-btn');
         const mainContent = document.getElementById('main-content');
 
-        toggleBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-            mainContent.classList.toggle('active');
+        // Automatically show the sidebar when the page loads
+        window.onload = () => {
+            sidebar.classList.add('active');
+        };
+
+        // Close the sidebar when the close button is clicked
+        closeBtn.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            mainContent.classList.remove('active');
         });
     </script>
 
