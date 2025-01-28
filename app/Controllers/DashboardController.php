@@ -65,19 +65,36 @@ class DashboardController extends Controller
 
     public function edit($id)
     {
+        // Ensure user is logged in
+        if (!session()->get('is_logged_in')) {
+            return redirect()->to('/login')->with('error', 'You must be logged in to access this page.');
+        }
+    
+        $product = $this->productModel->find($id);
+        if (!$product) {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Product not found']);
+        }
+    
+        return $this->response->setJSON(['status' => 'success', 'product' => $product]);
+    }
+    
+
+    public function update($id)
+    {
         // Restrict access if the user is not logged in
         if (!session()->get('is_logged_in')) {
             return redirect()->to('/login')->with('error', 'You must be logged in to access this page.');
         }
-
-        return view('edit_product', ['product' => $this->productModel->find($id)]);
+    
+        $data = $this->request->getPost();
+        
+        if ($this->productModel->update($id, $data)) {
+            return $this->response->setJSON(['status' => 'success', 'message' => 'Product updated successfully']);
+        }
+    
+        return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to update product']);
     }
-
-    public function update($id)
-    {
-        $this->productModel->update($id, $this->request->getPost());
-        return redirect()->to('/employee_dashboard')->with('message', 'Product updated successfully.');
-    }
+    
 
     public function delete($id)
     {
