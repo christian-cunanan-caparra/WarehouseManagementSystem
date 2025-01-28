@@ -154,7 +154,7 @@
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <button class="close-btn" id="close-btn">&times;</button>
-        <div class="sidebar-header">Warehouse Dashboard</div>
+        <div class="sidebar-header">Warehouse Management System</div>
         <ul class="sidebar-links">
             <h4>Main Menu</h4>
             <li><a href="#"><span class="material-icons">dashboard</span> Dashboard</a></li>
@@ -172,7 +172,7 @@
 
     <!-- Main Content -->
     <div class="content" id="main-content">
-        <h1>Employee Dashboard</h1>
+        <h1> Dashboard</h1>
         <p>Welcome to the Warehouse Management System. Here you can manage inventory, view products, and more.</p>
 
         <!-- Product Table -->
