@@ -178,36 +178,40 @@
         <!-- Product Table -->
         <h2>Product List</h2>
         <?php if (!empty($products)): ?>
-            <table class="table table-hover">
-                <thead class="table-dark">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($products as $product): ?>
+                <?php if ($product['status'] == 1): ?> <!-- Only show active products -->
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Actions</th>
+                        <td><?= esc($product['id']) ?></td>
+                        <td><?= esc($product['name']) ?></td>
+                        <td><?= esc($product['description']) ?></td>
+                        <td><?= esc($product['quantity']) ?></td>
+                        <td><?= esc($product['price']) ?></td>
+                        <td><?= $product['status'] == 1 ? 'Active' : 'Inactive' ?></td>
+                        <td>
+                            <a href="/employee_dashboard/edit/<?= $product['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="/employee_dashboard/delete/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to deactivate this product?')">Deactivate</a>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($products as $product): ?>
-                        <tr>
-                            <td><?= $product['id'] ?></td>
-                            <td><?= $product['name'] ?></td>
-                            <td><?= $product['description'] ?></td>
-                            <td><?= $product['quantity'] ?></td>
-                            <td>$<?= number_format($product['price'], 2) ?></td>
-                            <td>
-                                <a href="/employee_dashboard/edit/<?= $product['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                                <a href="/employee_dashboard/delete/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php else: ?>
-            <p>No products available. Please add some products.</p>
-        <?php endif; ?>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php else: ?>
+    <p>No active products available. Please add some products.</p>
+<?php endif; ?>
 
         <a href="/employee_dashboard/create" class="btn btn-primary">Add New Product</a>
     </div>

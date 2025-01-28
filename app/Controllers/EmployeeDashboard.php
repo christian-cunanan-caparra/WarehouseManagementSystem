@@ -19,7 +19,8 @@ class EmployeeDashboard extends Controller
      */
     public function index()
     {
-        return view('/employee_dashboard', ['products' => $this->productModel->findAll()]);
+        $data['products'] = $this->productModel->where('status', 1)->findAll();
+    return view('employee_dashboard', $data);
     }
 
     /**
@@ -61,7 +62,31 @@ class EmployeeDashboard extends Controller
      */
     public function delete($id)
     {
-        $this->productModel->delete($id);
-        return redirect()->to('/employee_dashboard')->with('message', 'Product deleted successfully.');
+            // Update the status to 0 (inactive) instead of deleting the record
+    $data = [
+        'status' => 0,
+    ];
+
+    $this->productModel->update($id, $data);
+
+    // Set a flash message to indicate success
+    session()->setFlashdata('success', 'Product deactivated successfully.');
+
+    return redirect()->to('/employee_dashboard');
     }
+
+    public function activate($id)
+{
+    // Update the status to 1 (active)
+    $data = [
+        'status' => 1,
+    ];
+
+    $this->productModel->update($id, $data);
+
+    // Set a flash message to indicate success
+    session()->setFlashdata('success', 'Product activated successfully.');
+
+    return redirect()->to('/employee_dashboard');
+}
 }
