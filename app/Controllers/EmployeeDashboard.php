@@ -49,7 +49,7 @@ class EmployeeDashboard extends BaseController
 
     public function edit($id)
     {
-        // Load the ProductModel
+        
         $productModel = new ProductModel();
 
         // Fetch the product by ID
