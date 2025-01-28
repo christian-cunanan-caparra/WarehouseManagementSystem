@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <style>
-        /* ---- Sidebar Styling ---- */
+        /* Sidebar Styling */
         .sidebar {
             position: fixed;
             top: 0;
@@ -75,7 +75,7 @@
             background-color: rgba(255, 255, 255, 0.3);
         }
 
-        /* ---- Sidebar Toggle Button ---- */
+        /* Sidebar Toggle Button */
         .toggle-btn {
             position: fixed;
             top: 20px;
@@ -95,7 +95,7 @@
             background: #4f52ba;
         }
 
-        /* ---- Main Content ---- */
+        /* Main Content */
         .content {
             margin-left: 50px;
             padding: 30px;
@@ -108,7 +108,7 @@
             margin-left: 270px;
         }
 
-        /* ---- Product Count Card ---- */
+        /* Product Count Card */
         .card {
             border-radius: 12px;
             transition: 0.3s ease-in-out;
@@ -124,7 +124,7 @@
             opacity: 0.8;
         }
 
-        /* ---- Responsive Design ---- */
+        /* Responsive Design */
         @media (max-width: 768px) {
             .sidebar {
                 left: -270px;
@@ -261,6 +261,7 @@
     </div>
 
     <script>
+        // Sidebar Toggle Logic
         const sidebar = document.getElementById('sidebar');
         const closeBtn = document.getElementById('close-btn');
         const toggleBtn = document.getElementById('toggle-btn');
