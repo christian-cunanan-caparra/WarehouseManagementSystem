@@ -16,7 +16,7 @@ class EmployeeDashboard extends BaseController
     public function index()
     {
         $data['products'] = $this->productModel->findAll();
-        return view('employee_dashboard', $data);
+        return view('employee/dashboard', $data);
     }
 
     public function create()
