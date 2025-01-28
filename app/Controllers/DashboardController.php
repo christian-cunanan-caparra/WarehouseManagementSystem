@@ -62,6 +62,7 @@ class DashboardController extends Controller
         return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to add product.']);
     }
     
+    
 
     public function edit($id)
     {
