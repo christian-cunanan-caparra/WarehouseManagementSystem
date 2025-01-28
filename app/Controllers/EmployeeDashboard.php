@@ -36,8 +36,17 @@ class EmployeeDashboard extends Controller
      */
     public function store()
     {
-        $this->productModel->insert($this->request->getPost());
-        return redirect()->to('/employee_dashboard')->with('message', 'Product added successfully.');
+            // Get the form data
+    $data = $this->request->getPost();
+
+    // Set the status to 1 (active) for the new product
+    $data['status'] = 1;
+
+    // Insert the product into the database
+    $this->productModel->insert($data);
+
+    // Redirect with a success message
+    return redirect()->to('/employee_dashboard')->with('message', 'Product added successfully.');
     }
 
     /**
