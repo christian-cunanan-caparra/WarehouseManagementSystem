@@ -42,10 +42,9 @@
             align-items: center;
         }
 
-        /* Close Button inside Sidebar */
         .sidebar-header .close-btn {
             cursor: pointer;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
         }
 
         .sidebar-links {
@@ -78,11 +77,11 @@
             background-color: #4f52ba;
         }
 
-        /* Toggle Button Styles (outside the sidebar) */
+        /* Toggle Button Styles (inside the sidebar) */
         .toggle-btn {
             position: absolute;
             top: 20px;
-            left: 10px;  /* Positioned outside the sidebar */
+            left: -50px;  /* Positioned on the left side outside the sidebar */
             background-color: #161a2d;
             color: white;
             border: none;
@@ -106,24 +105,36 @@
             font-size: 2rem;
         }
 
+        /* Close Button in Sidebar */
+        .close-btn {
+            display: none;
+        }
+
         /* Content Styles */
         .content {
             margin-left: 0;
             padding: 20px;
             transition: margin-left 0.3s ease, width 0.3s ease;
-            width: 100%;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for content */
-            border-radius: 8px; /* Rounded corners */
-            background-color: #fff;
+            width: 100%; /* Make content wide by default */
         }
 
         .content.active {
             margin-left: 260px;
-            width: calc(100% - 260px); /* Content shifts when sidebar is open */
+            width: calc(100% - 260px); /* Make content narrow when sidebar is open */
         }
 
         .content h1 {
-            margin-left: 20px;
+            margin-left: 20px; /* Adjust margin-left for content */
+        }
+
+        /* Table Styles */
+        .table-wrapper {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        .table th, .table td {
+            white-space: nowrap; /* Prevent text wrapping */
         }
 
         /* Add responsive styles */
@@ -153,11 +164,11 @@
         /* For Tablet and Mobile */
         @media (max-width: 991px) {
             .content.active {
-                margin-left: 0;
+                margin-left: 0; /* On medium devices, content will span full width */
             }
 
             .table th, .table td {
-                font-size: 0.85rem;
+                font-size: 0.85rem; /* Smaller text for smaller screens */
             }
         }
 
@@ -168,11 +179,11 @@
             }
 
             .content.active {
-                margin-left: 260px;
+                margin-left: 260px; /* For large screens, sidebar remains fixed */
             }
 
             .table th, .table td {
-                font-size: 1rem;
+                font-size: 1rem; /* Larger text on larger screens */
             }
         }
     </style>
@@ -183,7 +194,7 @@
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <span>Warehouse Dashboard</span>
-            <!-- Close Button inside Sidebar -->
+            <!-- Close Button -->
             <span class="material-icons close-btn" id="close-btn">close</span>
         </div>
         <ul class="sidebar-links">
@@ -239,6 +250,7 @@
                             <td>$200</td>
                             <td><a href="#" class="btn btn-warning btn-sm">Edit</a></td>
                         </tr>
+                        <!-- Add more rows as needed -->
                     </tbody>
                 </table>
             </div>
