@@ -27,7 +27,7 @@ class ChatController extends Controller
         // Retrieve chats for the logged-in user
         $data['chats'] = $this->userModel->getChats($userId);
 
-        return view('chat_dashboard', $data);
+        return view('chat_view', $data); // Use the correct view here
     }
 
     // Get messages for a specific chat (AJAX endpoint)
