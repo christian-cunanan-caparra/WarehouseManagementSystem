@@ -198,7 +198,15 @@
                             <td><?= esc($product['price']) ?></td>
                             <td><?= $product['status'] == 1 ? 'Active' : 'Inactive' ?></td>
                             <td>
-                            <button class="btn btn-warning btn-sm edit-btn" data-id="<?= esc($product['id']) ?>" data-name="<?= esc($product['name']) ?>" data-description="<?= esc($product['description']) ?>" data-quantity="<?= esc($product['quantity']) ?>" data-price="<?= esc($product['price']) ?>" data-bs-toggle="modal" data-bs-target="#editProductModal">Edit</button>
+                            <button class="btn btn-warning btn-sm edit-btn" 
+    data-id="<?= esc($product['id']) ?>" 
+    data-name="<?= esc($product['name']) ?>" 
+    data-description="<?= esc($product['description']) ?>" 
+    data-quantity="<?= esc($product['quantity']) ?>" 
+    data-price="<?= esc($product['price']) ?>" 
+    data-bs-toggle="modal" 
+    data-bs-target="#editProductModal">Edit</button>
+
 
                                 <a href="/employee_dashboard/delete/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Deactivate</a>
                             </td>
@@ -234,6 +242,7 @@
 
         <!-- Edit Product Modal -->
         <!-- Edit Product Modal -->
+                        <!-- Edit Product Modal -->
 <div class="modal fade" id="editProductModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -255,12 +264,15 @@
     </div>
 </div>
 
+
     </div>
 
     <script>
         // Script for editing products
-        document.querySelectorAll('.edit-btn').forEach(button => {
+       // Script for editing products
+document.querySelectorAll('.edit-btn').forEach(button => {
     button.addEventListener('click', function() {
+        // Ensure the modal fields are populated correctly
         document.getElementById('editProductId').value = this.dataset.id;
         document.getElementById('editProductName').value = this.dataset.name;
         document.getElementById('editProductDescription').value = this.dataset.description;
@@ -268,6 +280,7 @@
         document.getElementById('editProductPrice').value = this.dataset.price;
     });
 });
+
 
         // AJAX for adding product
        
