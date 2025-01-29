@@ -163,21 +163,18 @@
 
         <!-- Product Count -->
         <div class="row mb-4">
-    <div class="col-md-4">
-        <div class="card shadow-sm border-0 bg-primary text-white">
-            <div class="card-body d-flex justify-content-between align-items-center">
-                <div>
-                    <h5 class="card-title">Total Products</h5>
-                    <h3 class="card-text">
-                        <?= array_sum(array_column($products, 'id')) ?>
-                    </h3>
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 bg-primary text-white">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Total Products</h5>
+                            <h3 class="card-text"><?= count($id) ?></h3>
+                        </div>
+                        <span class="material-icons">inventory</span>
+                    </div>
                 </div>
-                <span class="material-icons">inventory</span>
             </div>
         </div>
-    </div>
-</div>
-
 
     <script>
    
