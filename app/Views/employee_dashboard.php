@@ -146,7 +146,8 @@
         <ul class="sidebar-links">
             <li><a href="#"><span class="material-icons">dashboard</span> Dashboard</a></li>
             <li><a href="#"><span class="material-icons">inventory</span> Products</a></li>
-            <li><a href="#"><span class="material-icons">settings</span> Settings</a></li>
+            <li><a href="/inventory"><span class="material-icons">storage</span> Inventory</a></li>
+
         </ul>
     </aside>
 
