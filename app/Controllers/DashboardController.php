@@ -47,21 +47,21 @@ class DashboardController extends Controller
     }
 
     public function store()
-{
-    // Get the form data
-    $data = $this->request->getPost();
+    {
+        // Get the form data
+        $data = $this->request->getPost();
     
-    // Set the status to 1 (active) for the new product
-    $data['status'] = 1;
+        // Set the status to 1 (active) for the new product
+        $data['status'] = 1;
     
-    // Insert the product into the database
-    if ($this->productModel->insert($data)) {
-        return $this->response->setJSON(['status' => 'success', 'message' => 'Product added successfully.']);
+        // Insert the product into the database
+        if ($this->productModel->insert($data)) {
+            return $this->response->setJSON(['status' => 'success', 'message' => 'Product added successfully.']);
+        }
+    
+        return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to add product.']);
     }
     
-    return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to add product.']);
-}
-
     
 
     public function edit($id)
@@ -76,24 +76,9 @@ class DashboardController extends Controller
 
     public function update($id)
     {
-        // Check if the user is logged in
-        if (!session()->get('is_logged_in')) {
-            return $this->response->setJSON(['status' => 'error', 'message' => 'You must be logged in to perform this action.']);
-        }
-    
-        // Get the product data from the POST request
-        $data = $this->request->getPost();
-    
-        // Attempt to update the product
-        if ($this->productModel->update($id, $data)) {
-            // Return a success message
-            return $this->response->setJSON(['status' => 'success', 'message' => 'Product updated successfully.']);
-        }
-    
-        // Return an error message if the update fails
-        return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to update product.']);
+        $this->productModel->update($id, $this->request->getPost());
+        return redirect()->to('/employee_dashboard')->with('message', 'Product updated successfully.');
     }
-    
 
     public function delete($id)
     {
