@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\ProductModel;
 use CodeIgniter\Controller;
+use App\Models\InventoryLogModel;
 
 class DashboardController extends Controller
 {
@@ -81,17 +82,66 @@ class DashboardController extends Controller
     }
 
     // Store Product
-    public function store()
+    public function inventoryLogs()
     {
-        $data = $this->request->getPost();
-        $data['status'] = 1;
-
-        if ($this->productModel->insert($data)) {
-            return $this->response->setJSON(['status' => 'success', 'message' => 'Product added successfully.']);
+        if (!session()->get('is_logged_in')) {
+            return redirect()->to('/login');
         }
-
-        return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to add product.']);
+    
+        // Get all logs with product information
+        $logs = (new InventoryLogModel())->join('products', 'products.id = inventory_logs.product_id')
+                                         ->join('users', 'users.id = inventory_logs.user_id') // Assuming user_id is stored in the logs table
+                                         ->select('inventory_logs.*, products.name as product_name, users.name as user_name')
+                                         ->findAll();
+    
+        return view('inventory_logs', ['logs' => $logs]);
     }
+    
+
+public function store()
+{
+    $data = $this->request->getPost();
+    $data['status'] = 1;
+
+    // Insert the product into the products table
+    if ($this->productModel->insert($data)) {
+        // Log the action of adding the product to inventory
+        $logData = [
+            'product_id' => $this->productModel->getInsertID(),
+            'action'     => 'Added stock',
+            'quantity'   => $data['quantity'],
+            'created_at' => date('Y-m-d H:i:s'),
+        ];
+        (new InventoryLogModel())->insert($logData);
+
+        return $this->response->setJSON(['status' => 'success', 'message' => 'Product added successfully.']);
+    }
+
+    return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to add product.']);
+}
+
+public function update($id)
+{
+    $data = $this->request->getPost();
+    $quantityChange = $data['quantity'] ?? 0; // assuming you are updating quantity
+
+    // Update the product
+    if ($this->productModel->update($id, $data)) {
+        // Log the stock action (added or removed)
+        $logData = [
+            'product_id' => $id,
+            'action'     => ($quantityChange > 0) ? 'Added stock' : 'Removed stock',
+            'quantity'   => $quantityChange,
+            'created_at' => date('Y-m-d H:i:s'),
+        ];
+        (new InventoryLogModel())->insert($logData);
+
+        return $this->response->setJSON(['message' => 'Product updated successfully.']);
+    }
+
+    return $this->response->setJSON(['message' => 'Failed to update product.']);
+}
+
 
     // Edit Product View
     public function edit($id)
@@ -104,16 +154,7 @@ class DashboardController extends Controller
     }
 
     // Update Product
-    public function update($id)
-    {
-        $data = $this->request->getPost();
-
-        if ($this->productModel->update($id, $data)) {
-            return $this->response->setJSON(['message' => 'Product updated successfully.']);
-        }
-
-        return $this->response->setJSON(['message' => 'Failed to update product.']);
-    }
+   
 
     // Deactivate Product
     public function delete($id)
