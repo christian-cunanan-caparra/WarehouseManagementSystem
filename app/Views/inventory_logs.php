@@ -12,11 +12,11 @@
         <?php if (!empty($logs)): ?>
             <?php foreach ($logs as $log): ?>
                 <tr>
-                    <td><?= $log['product_name'] ?></td>
-                    <td><?= $log['action'] ?></td>
-                    <td><?= $log['quantity'] ?></td>
-                    <td><?= $log['user_name'] ?></td>
-                    <td><?= $log['created_at'] ?></td>
+                    <td><?= esc($log['product_name']) ?></td>
+                    <td><?= esc($log['action']) ?></td>
+                    <td><?= esc($log['quantity']) ?></td>
+                    <td><?= esc($log['user_name']) ?></td>
+                    <td><?= esc($log['created_at']) ?></td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
