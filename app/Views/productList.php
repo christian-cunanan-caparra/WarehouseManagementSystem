@@ -206,7 +206,7 @@
                        
                         <th>Stock In</th>
                         <th>Stock Out</th>
-                        <th>Remaining Stock</th>
+                        <th>Inventory Stock</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
