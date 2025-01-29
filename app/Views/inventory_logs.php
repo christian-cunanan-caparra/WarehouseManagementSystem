@@ -192,7 +192,7 @@
     </aside>
 
     <!-- Toggle Button -->
-    <button class="toggle-btn" id="toggle-btn">&#9776;</button>
+    <!-- <button class="toggle-btn" id="toggle-btn">&#9776;</button> -->
 
     <div class="content" id="main-content">
         <h2>Inventory Logs</h2>
