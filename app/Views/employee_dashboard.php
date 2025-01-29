@@ -147,7 +147,7 @@
             <li><a href="#"><span class="material-icons">dashboard</span> Dashboard</a></li>
             <li><a href="Product.php"><span class="material-icons">inventory</span> Products</a></li>
             <li><a href="/inventory"><span class="material-icons">storage</span> Inventory</a></li>
-            <li><a href="/inventory/logs"><span class="material-icons">history</span> Inventory Logs</a></li>
+            <a href="/inventory/logs" class="btn btn-primary">View Inventory Logs</a>
 
 
         </ul>
