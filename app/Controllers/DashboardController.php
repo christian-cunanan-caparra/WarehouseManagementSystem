@@ -85,7 +85,7 @@ class DashboardController extends Controller
     public function store()
     {
         $data = $this->request->getPost();
-        $data['status'] = 1;
+        $data['status'] = 0;
 
         if ($this->productModel->insert($data)) {
             return $this->response->setJSON(['status' => 'success', 'message' => 'Product added successfully.']);
