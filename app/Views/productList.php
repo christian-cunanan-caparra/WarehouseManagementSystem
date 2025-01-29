@@ -158,9 +158,6 @@
 
     <!-- Main Content -->
     <div class="content" id="main-content">
-        <h1>Products</h1>
-        <p>Manage your products here.</p>
-
         <!-- Product Table -->
         <h2>Product List</h2>
         <div class="table-responsive">
