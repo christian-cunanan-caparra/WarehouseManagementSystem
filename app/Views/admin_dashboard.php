@@ -48,22 +48,21 @@
         }
 
         .btn {
-            margin: 5px;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            transition: all 0.3s ease;
         }
 
-        .btn-create {
-            background-color: #28a745;
+        .btn-activate {
+            background: linear-gradient(45deg, #28a745, #218838);
             color: white;
+            border: none;
         }
 
-        .btn-edit {
-            background-color: #ffc107;
-            color: black;
-        }
-
-        .btn-delete {
-            background-color: #dc3545;
-            color: white;
+        .btn-activate:hover {
+            background: linear-gradient(45deg, #218838, #28a745);
+            transform: scale(1.05);
         }
 
         .btn-logout {
@@ -75,6 +74,10 @@
             display: block;
             margin-top: 20px;
         }
+
+        .btn-logout:hover {
+            background-color: #c82333;
+        }
     </style>
 </head>
 <body>
@@ -83,9 +86,6 @@
     <h1>Welcome, Admin <?= session()->get('user_name') ?>!</h1>
     <p>You are logged in as an Admin.</p>
 
-    <!-- <button class="btn btn-create" onclick="location.href='/admin/create_user'"><i class="fas fa-user-plus"></i> Add New User</button> -->
-
-    
     <h3>Requesting New Products</h3>
 
     <table>
@@ -105,7 +105,9 @@
                     <td><?= esc($product['price']) ?></td>
                     <td>
                         <form action="/admin/activate/<?= $product['id'] ?>" method="post" class="d-inline">
-                            <button type="submit" class="btn btn-success btn-sm">Activate</button>
+                            <button type="submit" class="btn btn-activate btn-sm">
+                                <i class="fas fa-check"></i> Activate
+                            </button>
                         </form>
                     </td>
                 </tr>
