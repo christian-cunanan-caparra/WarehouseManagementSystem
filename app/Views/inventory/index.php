@@ -264,6 +264,33 @@
                 </table>
             </div>
         </div>
+
+
+
+
+
+        <div class="modal fade" id="addProductModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add New Product</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addProductForm">
+                            <input type="text" class="form-control mb-2" id="productName" name="name" placeholder="Product Name" required>
+                            <textarea class="form-control mb-2" id="productDescription" name="description" placeholder="Description" required></textarea>
+                            <input type="number" class="form-control mb-2" id="productQuantity" name="quantity" placeholder="Quantity" required>
+                            <input type="number" class="form-control mb-2" id="productPrice" name="price" placeholder="Price" required>
+                            <button type="submit" class="btn btn-primary w-100">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
     </div>
 
     <!-- Bootstrap JS -->
@@ -311,6 +338,35 @@
                 mainContent.classList.remove('active');
             }
         };
+
+
+
+        document.getElementById('addProductForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            let data = new FormData(this);
+            fetch('/employee_dashboard/store', {
+                method: 'POST',
+                body: data,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest' // Ensure the server recognizes this as an AJAX request
+                }
+            })
+            .then(response => response.json())
+            .then(result => {
+                if(result.status === 'success') {
+                    alert(result.message);
+                    window.location.reload(); // Reload the page to update the list
+                } else {
+                    alert(result.message || 'Failed to add product.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while adding the product.');
+            });
+        });
+
     </script>
 </body>
 </html>
