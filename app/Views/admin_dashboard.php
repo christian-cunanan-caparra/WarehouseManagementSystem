@@ -86,35 +86,30 @@
     <button class="btn btn-create" onclick="location.href='/admin/create_user'"><i class="fas fa-user-plus"></i> Add New User</button>
 
     <h3>User List</h3>
+    <h3>Inactive Products</h3>
+
     <table>
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Price</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <?php if (!empty($users)): ?>
-                <?php foreach ($users as $user): ?>
-                    <tr>
-                        <td><?= $user['id'] ?></td>
-                        <td><?= $user['name'] ?></td>
-                        <td><?= $user['email'] ?></td>
-                        <td><?= $user['role'] ?></td>
-                        <td>
-                            <a href="/admin/edit_user/<?= $user['id'] ?>" class="btn btn-edit"><i class="fas fa-edit"></i> Edit</a>
-                            <a href="/admin/delete_user/<?= $user['id'] ?>" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this user?');"><i class="fas fa-trash"></i> Delete</a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php else: ?>
+            <?php foreach ($products as $product): ?>
                 <tr>
-                    <td colspan="5">No users found.</td>
+                    <td><?= esc($product['name']) ?></td>
+                    <td><?= esc($product['description']) ?></td>
+                    <td><?= esc($product['price']) ?></td>
+                    <td>
+                        <form action="/admin/activate/<?= $product['id'] ?>" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-success btn-sm">Activate</button>
+                        </form>
+                    </td>
                 </tr>
-            <?php endif; ?>
+            <?php endforeach; ?>
         </tbody>
     </table>
 
