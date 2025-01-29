@@ -169,7 +169,7 @@
                 <div>
                     <h5 class="card-title">Total Products</h5>
                     <h3 class="card-text">
-                        <?= array_sum(array_column($products, 'stock_in')) ?>
+                        <?= array_sum(array_column($products, 'id')) ?>
                     </h3>
                 </div>
                 <span class="material-icons">inventory</span>
