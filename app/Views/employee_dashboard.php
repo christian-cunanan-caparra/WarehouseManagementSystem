@@ -158,7 +158,7 @@
 
     <!-- Main Content -->
     <div class="content" id="main-content">
-        <h1>Dashboard</h1>
+        <h1 class="text-center">Dashboard</h1>
        
 
         <!-- Product Count -->
