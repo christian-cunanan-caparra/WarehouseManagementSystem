@@ -185,10 +185,10 @@
                         <th>Quantity</th>
                         <th>Price</th>
                         <th>Status</th>
-                        <th>Actions</th>
+                          
                         <th>Stock In</th>
 <th>Stock Out</th>
-<th>Remaining Stock</th>
+<th>Remaining Stock</th><th>Actions</th>
                     </tr>
                 </thead>
                 <tbody id="productTable">
