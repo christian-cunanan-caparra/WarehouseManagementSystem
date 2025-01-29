@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventory Management</title>
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
         /* Styles for responsive sidebar */
         .sidebar {
     position: fixed;
@@ -190,67 +190,68 @@
         </div>
     </div>
 
-    
-    <script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+     <script>
    
      
-   const toggleBtn = document.getElementById('toggle-btn');
-   const closeBtn = document.getElementById('close-btn');
-   const sidebar = document.getElementById('sidebar');
-   const mainContent = document.getElementById('main-content');
+    const toggleBtn = document.getElementById('toggle-btn');
+    const closeBtn = document.getElementById('close-btn');
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('main-content');
 
-   // Automatically open sidebar on larger screens
-   window.onload = function() {
-       if (window.innerWidth > 768) {
-           sidebar.classList.add('active');
-           mainContent.classList.add('active');
-           toggleBtn.style.display = 'block'; // Ensure toggle button is visible on desktop
-       } else {
-           sidebar.classList.remove('active');
-           mainContent.classList.remove('active');
-           toggleBtn.style.display = 'block'; // Show toggle button on mobile
-       }
-   };
+    // Automatically open sidebar on larger screens
+    window.onload = function() {
+        if (window.innerWidth > 768) {
+            sidebar.classList.add('active');
+            mainContent.classList.add('active');
+            toggleBtn.style.display = 'block'; // Ensure toggle button is visible on desktop
+        } else {
+            sidebar.classList.remove('active');
+            mainContent.classList.remove('active');
+            toggleBtn.style.display = 'block'; // Show toggle button on mobile
+        }
+    };
 
-   // Toggle the sidebar on smaller screens
-   toggleBtn.addEventListener('click', function() {
-       sidebar.classList.toggle('active');
-       mainContent.classList.toggle('active');
-   });
+    // Toggle the sidebar on smaller screens
+    toggleBtn.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+        mainContent.classList.toggle('active');
+    });
 
-   // Close the sidebar when clicking the close button
-   closeBtn.addEventListener('click', function() {
-       sidebar.classList.remove('active');
-       mainContent.classList.remove('active');
-   });
+    // Close the sidebar when clicking the close button
+    closeBtn.addEventListener('click', function() {
+        sidebar.classList.remove('active');
+        mainContent.classList.remove('active');
+    });
 
-   // Optional: Close sidebar if user clicks outside
-   document.addEventListener('click', function(event) {
-       if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target) && !closeBtn.contains(event.target)) {
-           sidebar.classList.remove('active');
-           mainContent.classList.remove('active');
-       }
-   });
+    // Optional: Close sidebar if user clicks outside
+    document.addEventListener('click', function(event) {
+        if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target) && !closeBtn.contains(event.target)) {
+            sidebar.classList.remove('active');
+            mainContent.classList.remove('active');
+        }
+    });
 
-   // Window resize to handle screen size change dynamically
-   window.onresize = function() {
-       if (window.innerWidth > 768) {
-           sidebar.classList.add('active');
-           mainContent.classList.add('active');
-           toggleBtn.style.display = 'block'; // Ensure toggle button is always visible on desktop
-       } else {
-           sidebar.classList.remove('active');
-           mainContent.classList.remove('active');
-           toggleBtn.style.display = 'block'; // Show toggle button on mobile
-       }
-   };
-
-
+    // Window resize to handle screen size change dynamically
+    window.onresize = function() {
+        if (window.innerWidth > 768) {
+            sidebar.classList.add('active');
+            mainContent.classList.add('active');
+            toggleBtn.style.display = 'block'; // Ensure toggle button is always visible on desktop
+        } else {
+            sidebar.classList.remove('active');
+            mainContent.classList.remove('active');
+            toggleBtn.style.display = 'block'; // Show toggle button on mobile
+        }
+    };
 
 
-       
-       
-   </script>
+
+
+        
+        
+    </script>
 
 </body>
 </html>
