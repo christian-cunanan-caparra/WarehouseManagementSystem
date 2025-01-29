@@ -94,9 +94,6 @@ class DashboardController extends Controller
         return redirect()->to('/employee_dashboard');
     }
 
-
-    
-
     // Inventory: Add Stock
     public function addStock($id)
     {
@@ -153,7 +150,6 @@ class DashboardController extends Controller
 
             return redirect()->to('/inventory')->with('success', 'Stock reduced successfully.');
         }
-
 
 
         
