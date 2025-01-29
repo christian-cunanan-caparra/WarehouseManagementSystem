@@ -160,6 +160,9 @@
     <div class="content" id="main-content">
         <!-- Product Table -->
         <h2>Product List</h2>
+        
+        <!-- Add Product Button -->
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">Add New Product</button>
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
@@ -200,8 +203,6 @@
             </table>
         </div>
 
-        <!-- Add Product Button -->
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">Add New Product</button>
 
         <!-- Add Product Modal -->
                 <div class="modal fade" id="addProductModal">
