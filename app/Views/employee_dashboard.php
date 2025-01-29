@@ -266,52 +266,53 @@
         
 
      // Edit product button click event
-document.querySelectorAll('.edit-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        const productId = this.getAttribute('data-id');
-        const productName = this.getAttribute('data-name');
-        const productDescription = this.getAttribute('data-description');
-        const productQuantity = this.getAttribute('data-quantity');
-        const productPrice = this.getAttribute('data-price');
+// Script for handling the edit button and populating the modal fields
+$(document).on('click', '.edit-btn', function() {
+    // Get data from the button
+    var productId = $(this).data('id');
+    var productName = $(this).data('name');
+    var productDescription = $(this).data('description');
+    var productQuantity = $(this).data('quantity');
+    var productPrice = $(this).data('price');
 
-        // Populate the modal fields with the product data
-        document.getElementById('editProductId').value = productId;
-        document.getElementById('editProductName').value = productName;
-        document.getElementById('editProductDescription').value = productDescription;
-        document.getElementById('editProductQuantity').value = productQuantity;
-        document.getElementById('editProductPrice').value = productPrice;
-    });
+    // Set the values in the modal form fields
+    $('#editProductId').val(productId);
+    $('#editProductName').val(productName);
+    $('#editProductDescription').val(productDescription);
+    $('#editProductQuantity').val(productQuantity);
+    $('#editProductPrice').val(productPrice);
 });
 
-// Handle form submission with AJAX
-document.getElementById('editProductForm').addEventListener('submit', function(e) {
-    e.preventDefault(); // Prevent the default form submission
+// AJAX to update the product when the form is submitted
+$('#editProductForm').submit(function(event) {
+    event.preventDefault(); // Prevent the form from submitting normally
 
-    const formData = new FormData(this);
-    
-    fetch('/dashboard/update/' + formData.get('id'), {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === 'success') {
-            // Close the modal
-            const modal = new bootstrap.Modal(document.getElementById('editProductModal'));
-            modal.hide();
+    var formData = $(this).serialize(); // Serialize the form data
 
-            // Optionally, update the product row on the page without reloading
-            // You can update the product row here if necessary
-            alert('Product updated successfully');
-        } else {
-            alert('Failed to update product');
+    $.ajax({
+        url: '/dashboard/update/' + $('#editProductId').val(),
+        type: 'POST',
+        data: formData,
+        success: function(response) {
+            if (response.status === 'success') {
+                // Close the modal
+                $('#editProductModal').modal('hide');
+
+                // Update the table row with new values
+                var productRow = $('tr[data-id="' + $('#editProductId').val() + '"]');
+                productRow.find('.product-name').text($('#editProductName').val());
+                productRow.find('.product-description').text($('#editProductDescription').val());
+                productRow.find('.product-quantity').text($('#editProductQuantity').val());
+                productRow.find('.product-price').text($('#editProductPrice').val());
+
+                alert(response.message); // Show success message
+            } else {
+                alert('Error updating product. Please try again.');
+            }
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred');
     });
 });
+
 
 
 
