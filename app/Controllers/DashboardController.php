@@ -13,6 +13,24 @@ class DashboardController extends Controller
     {
         $this->productModel = new ProductModel();
     }
+     // Product View
+     public function index1()
+     {
+         if (!session()->get('is_logged_in')) {
+             return redirect()->to('/login');
+         }
+ 
+         $role = session()->get('role');
+ 
+         if ($role === 'Admin') {
+             return view('admin_dashboard');
+         } elseif ($role === 'Employee') {
+             $data['products'] = $this->productModel->where('status', 1)->findAll();
+             return view('productList', $data);
+         }
+ 
+         return redirect()->to('/login');
+     }
 
     // Dashboard View
     public function index()
