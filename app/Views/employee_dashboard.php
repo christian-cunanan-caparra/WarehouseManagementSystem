@@ -101,7 +101,7 @@
     </aside>
 
     <div class="content" id="main-content">
-        <h1>Dashboard</h1>
+        <h1 class="text-center">Dashboard</h1>
         <div class="row mb-4">
             <div class="col-md-4">
                 <div class="card shadow-sm border-0 bg-primary text-white">
