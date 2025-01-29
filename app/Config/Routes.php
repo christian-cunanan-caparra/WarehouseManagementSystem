@@ -71,13 +71,3 @@ $routes->get('/logout', 'DashboardController::logout');
 
 
 
-$routes->get('/inventory', 'InventoryController::index'); // View Inventory Page
-
-// Stock Request Routes
-$routes->post('/inventory/request-add-stock/(:num)', 'InventoryController::requestAddStock/$1');
-$routes->post('/inventory/request-remove-stock/(:num)', 'InventoryController::requestRemoveStock/$1');
-
-// Stock Approval Routes
-$routes->get('/inventory/requests', 'InventoryController::viewStockRequests'); // View Requests Page
-$routes->post('/inventory/approve-request/(:num)', 'InventoryController::approveStockRequest/$1');
-$routes->post('/inventory/reject-request/(:num)', 'InventoryController::rejectStockRequest/$1');
