@@ -323,12 +323,13 @@
 
     // Toggle the sidebar on smaller screens
     toggleBtn.addEventListener('click', function() {
-        sidebar.classList.toggle('active');
-        mainContent.classList.toggle('active');
+        sidebar.classList.toggle('active'); // Toggle the sidebar open/close
+        mainContent.classList.toggle('active'); // Adjust the main content accordingly
     });
 
     // Optional: Close sidebar if user clicks outside
     document.addEventListener('click', function(event) {
+        // Check if the click is outside the sidebar and toggle button
         if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target)) {
             sidebar.classList.remove('active');
             mainContent.classList.remove('active');
@@ -349,7 +350,7 @@
     };
 
 
-
+        
         
     </script>
 
