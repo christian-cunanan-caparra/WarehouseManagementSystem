@@ -9,11 +9,19 @@
     <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        /* Styles for responsive sidebar */
-        .sidebar {
+        /* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+/* Sidebar Styles */
+.sidebar {
     position: fixed;
     top: 0;
-    left: -270px; /* Initially hidden */
+    left: -270px;
     width: 270px;
     height: 100%;
     background: rgba(22, 26, 45, 0.9);
@@ -27,54 +35,16 @@
 }
 
 .sidebar.active {
-    left: 0; /* Show the sidebar when active */
-}
-.toggle-btn {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    background: #161a2d;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 1.5rem;
-    transition: 0.3s;
-    border-radius: 5px;
-    display: none; /* Hide on desktop */
-}
-.toggle-btn:hover {
-    background: #4f52ba;
+    left: 0;
 }
 
-.content {
-    margin-left: 50px;
-    padding: 30px;
-    transition: margin-left 0.4s ease;
-    background: #f8f9fa;
-    min-height: 100vh;
-}
-.content.active {
-    margin-left: 270px; /* When the sidebar is active, shift content */
-}
-
-        .table-responsive { overflow-x: auto; }
-        .table th, .table td { white-space: nowrap; }
-
-        @media (max-width: 768px) {
-            .content { margin-left: 0; }
-            .sidebar.active { left: 0; }
-            .toggle-btn { display: block; }
-        }
-
-        .sidebar-header {
+.sidebar-header {
     font-size: 1.5rem;
     font-weight: bold;
     text-align: center;
     padding-bottom: 15px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
-
 
 .sidebar-links {
     list-style: none;
@@ -109,15 +79,109 @@
     background-color: rgba(255, 255, 255, 0.3);
 }
 
+/* Toggle Button Styles */
+.toggle-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: #161a2d;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: 0.3s;
+    border-radius: 5px;
+    display: none;
+    z-index: 1001;
+}
 
+.toggle-btn:hover {
+    background: #4f52ba;
+}
+
+/* Main Content Styles */
+.content {
+    margin-left: 50px;
+    padding: 30px;
+    transition: margin-left 0.4s ease;
+    background: #f8f9fa;
+    min-height: 100vh;
+}
+
+.content.active {
+    margin-left: 270px;
+}
+
+/* Table Styles */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.table th, .table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.table th {
+    background-color: #161a2d;
+    color: white;
+}
+
+.table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Form Styles */
+.form-control {
+    width: 100px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.btn {
+    padding: 5px 10px;
+    font-size: 0.875rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: white;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Responsive Styles */
 @media (max-width: 768px) {
-    /* Adjust sidebar to slide in on smaller screens */
     .sidebar {
-        left: -270px; /* Initially hidden */
+        left: -270px;
     }
 
     .sidebar.active {
-        left: 0; /* Show the sidebar when active */
+        left: 0;
     }
 
     .content {
@@ -125,14 +189,13 @@
     }
 
     .content.active {
-        margin-left: 270px; /* Push content to the right when sidebar is active */
+        margin-left: 270px;
     }
 
     .toggle-btn {
-        display: block; /* Show toggle button on mobile */
+        display: block;
     }
 }
-
     </style>
 </head>
 <body>
@@ -154,104 +217,93 @@
     <div class="content" id="main-content">
         <div class="container">
             <h2 class="my-4">Inventory Management</h2>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Product Name</th>
-                        <th>Stock In</th>
-                        <th>Stock Out</th>
-                        <th>Remaining Stock</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($products as $product): ?>
-                        <?php if ($product['status'] == 1): // Only show active products ?>
-                            <tr>
-                                <td><?= esc($product['name']) ?></td>
-                                <td><?= esc($product['stock_in']) ?></td>
-                                <td><?= esc($product['stock_out']) ?></td>
-                                <td><?= esc($product['remaining_stock']) ?></td>
-                                <td class="actions">
-                                    <form action="/inventory/add-stock/<?= $product['id'] ?>" method="post" class="d-inline">
-                                        <input type="number" name="quantity" min="1" required class="form-control form-control-sm">
-                                        <button type="submit" class="btn btn-success btn-sm">Add Stock</button>
-                                    </form>
-                                    <form action="/inventory/remove-stock/<?= $product['id'] ?>" method="post" class="d-inline">
-                                        <input type="number" name="quantity" min="1" required class="form-control form-control-sm">
-                                        <button type="submit" class="btn btn-danger btn-sm">Remove Stock</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Stock In</th>
+                            <th>Stock Out</th>
+                            <th>Remaining Stock</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($products as $product): ?>
+                            <?php if ($product['status'] == 1): // Only show active products ?>
+                                <tr>
+                                    <td><?= esc($product['name']) ?></td>
+                                    <td><?= esc($product['stock_in']) ?></td>
+                                    <td><?= esc($product['stock_out']) ?></td>
+                                    <td><?= esc($product['remaining_stock']) ?></td>
+                                    <td class="actions">
+                                        <form action="/inventory/add-stock/<?= $product['id'] ?>" method="post" class="d-inline">
+                                            <input type="number" name="quantity" min="1" required class="form-control form-control-sm">
+                                            <button type="submit" class="btn btn-success btn-sm">Add Stock</button>
+                                        </form>
+                                        <form action="/inventory/remove-stock/<?= $product['id'] ?>" method="post" class="d-inline">
+                                            <input type="number" name="quantity" min="1" required class="form-control form-control-sm">
+                                            <button type="submit" class="btn btn-danger btn-sm">Remove Stock</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-     <script>
-   
-     
-    const toggleBtn = document.getElementById('toggle-btn');
-    const closeBtn = document.getElementById('close-btn');
-    const sidebar = document.getElementById('sidebar');
-    const mainContent = document.getElementById('main-content');
+    <script>
+        // JavaScript for sidebar toggle
+        const toggleBtn = document.getElementById('toggle-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('main-content');
 
-    // Automatically open sidebar on larger screens
-    window.onload = function() {
-        if (window.innerWidth > 768) {
-            sidebar.classList.add('active');
-            mainContent.classList.add('active');
-            toggleBtn.style.display = 'block'; // Ensure toggle button is visible on desktop
-        } else {
+        window.onload = function() {
+            if (window.innerWidth > 768) {
+                sidebar.classList.add('active');
+                mainContent.classList.add('active');
+                toggleBtn.style.display = 'block';
+            } else {
+                sidebar.classList.remove('active');
+                mainContent.classList.remove('active');
+                toggleBtn.style.display = 'block';
+            }
+        };
+
+        toggleBtn.addEventListener('click', function() {
+            sidebar.classList.toggle('active');
+            mainContent.classList.toggle('active');
+        });
+
+        closeBtn.addEventListener('click', function() {
             sidebar.classList.remove('active');
             mainContent.classList.remove('active');
-            toggleBtn.style.display = 'block'; // Show toggle button on mobile
-        }
-    };
+        });
 
-    // Toggle the sidebar on smaller screens
-    toggleBtn.addEventListener('click', function() {
-        sidebar.classList.toggle('active');
-        mainContent.classList.toggle('active');
-    });
+        document.addEventListener('click', function(event) {
+            if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target) && !closeBtn.contains(event.target)) {
+                sidebar.classList.remove('active');
+                mainContent.classList.remove('active');
+            }
+        });
 
-    // Close the sidebar when clicking the close button
-    closeBtn.addEventListener('click', function() {
-        sidebar.classList.remove('active');
-        mainContent.classList.remove('active');
-    });
-
-    // Optional: Close sidebar if user clicks outside
-    document.addEventListener('click', function(event) {
-        if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target) && !closeBtn.contains(event.target)) {
-            sidebar.classList.remove('active');
-            mainContent.classList.remove('active');
-        }
-    });
-
-    // Window resize to handle screen size change dynamically
-    window.onresize = function() {
-        if (window.innerWidth > 768) {
-            sidebar.classList.add('active');
-            mainContent.classList.add('active');
-            toggleBtn.style.display = 'block'; // Ensure toggle button is always visible on desktop
-        } else {
-            sidebar.classList.remove('active');
-            mainContent.classList.remove('active');
-            toggleBtn.style.display = 'block'; // Show toggle button on mobile
-        }
-    };
-
-
-
-
-        
-        
+        window.onresize = function() {
+            if (window.innerWidth > 768) {
+                sidebar.classList.add('active');
+                mainContent.classList.add('active');
+                toggleBtn.style.display = 'block';
+            } else {
+                sidebar.classList.remove('active');
+                mainContent.classList.remove('active');
+                toggleBtn.style.display = 'block';
+            }
+        };
     </script>
-
 </body>
 </html>
