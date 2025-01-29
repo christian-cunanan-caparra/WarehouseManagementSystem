@@ -80,12 +80,22 @@ class DashboardController extends Controller
 
     public function update()
     {
+        // Restrict access if the user is not logged in
+        if (!session()->get('is_logged_in')) {
+            return redirect()->to('/login')->with('error', 'You must be logged in to access this page.');
+        }
+    
         // Check if the request is an AJAX call
         if ($this->request->isAJAX()) {
-            $id = $this->request->getPost('id');
-            $data = $this->request->getPost();
+            $id = $this->request->getPost('id'); // Get the product ID from the form data
+            $data = [
+                'name' => $this->request->getPost('name'),
+                'description' => $this->request->getPost('description'),
+                'quantity' => $this->request->getPost('quantity'),
+                'price' => $this->request->getPost('price'),
+            ];
     
-            // Update the product
+            // Update the product in the database
             if ($this->productModel->update($id, $data)) {
                 return $this->response->setJSON(['success' => true, 'message' => 'Product updated successfully.']);
             } else {
@@ -93,6 +103,7 @@ class DashboardController extends Controller
             }
         }
     }
+    
     
     public function delete($id)
     {

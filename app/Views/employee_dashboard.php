@@ -254,7 +254,9 @@
             </div>
             <div class="modal-body">
                 <form id="editProductForm">
-                    <input type="hidden" id="id" name="id">
+                  <!-- Hidden ID field to pass the product ID -->
+<input type="hidden" id="id" name="id">
+
                     <div class="mb-3">
                         <label for="name" class="form-label">Product Name</label>
                         <input type="text" class="form-control" id="name" name="name" required>
