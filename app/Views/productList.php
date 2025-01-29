@@ -186,10 +186,12 @@
 
     <!-- Main Content -->
     <div class="content" id="main-content">
-        <h2>Product List</h2>
+        <h2 class="text-center">Product List</h2>
         
         <!-- Add Product Button -->
+         <div>
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">Add New Product</button>
+        </div>
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
