@@ -70,4 +70,17 @@ $routes->post('/inventory/remove-stock/(:num)', 'DashboardController::removeStoc
 $routes->get('/logout', 'DashboardController::logout');
 
 
+$routes->group('admin', function($routes) {
+    // Admin Dashboard Route
+    $routes->get('dashboard', 'DashboardController::index', ['filter' => 'role:admin']);
+
+    // Activate Product Route
+    $routes->post('activate/(:num)', 'DashboardController::activate/$1');
+    
+    // Add other admin-related routes here, if needed.
+});
+
+$routes->get('logout', 'DashboardController::logout');
+
+
 
