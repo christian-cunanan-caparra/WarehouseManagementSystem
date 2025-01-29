@@ -198,13 +198,7 @@
                             <td><?= esc($product['price']) ?></td>
                             <td><?= $product['status'] == 1 ? 'Active' : 'Inactive' ?></td>
                             <td>
-                            <button class="btn btn-warning btn-sm edit-btn" 
-    data-id="<?= esc($product['id']) ?>" 
-    data-name="<?= esc($product['name']) ?>" 
-    data-description="<?= esc($product['description']) ?>" 
-    data-quantity="<?= esc($product['quantity']) ?>" 
-    data-price="<?= esc($product['price']) ?>" 
-    data-bs-toggle="modal" 
+                            <button class="btn btn-warning btn-sm edit-btn"<?= esc($product['id']) ?> data-bs-toggle="modal" 
     data-bs-target="#editProductModal">Edit</button>
 
 
