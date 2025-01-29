@@ -270,14 +270,20 @@
     <script>
         // Script for editing products
        // Script for editing products
-document.querySelectorAll('.edit-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        // Ensure the modal fields are populated correctly
-        document.getElementById('id').value = this.dataset.id;
-        document.getElementById('name').value = this.dataset.name;
-        document.getElementById('description').value = this.dataset.description;
-        document.getElementById('quantity').value = this.dataset.quantity;
-        document.getElementById('price').value = this.dataset.price;
+       document.addEventListener('DOMContentLoaded', function() {
+    // Loop through all edit buttons and set up the event listener
+    document.querySelectorAll('.edit-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            // Log the dataset to see if the values are available
+            console.log(this.dataset); // Logs data-id, data-name, etc.
+
+            // Populate the modal fields with the data attributes
+            document.getElementById('id').value = this.dataset.id;
+            document.getElementById('name').value = this.dataset.name;
+            document.getElementById('description').value = this.dataset.description;
+            document.getElementById('quantity').value = this.dataset.quantity;
+            document.getElementById('price').value = this.dataset.price;
+        });
     });
 });
 
