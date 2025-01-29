@@ -133,6 +133,19 @@ class DashboardController extends Controller
         session()->setFlashdata('success', 'Product activated successfully.');
         return redirect()->to('/admin/dashboard');  // Redirect to the admin dashboard
     }
+
+
+    public function reject($id)
+    {
+        // Delete product by ID
+        if ($this->productModel->delete($id)) {
+            session()->setFlashdata('success', 'Product rejected and deleted successfully.');
+        } else {
+            session()->setFlashdata('error', 'Failed to delete product.');
+        }
+
+        return redirect()->to('/admin/dashboard');
+    }
     
 
     // Logout

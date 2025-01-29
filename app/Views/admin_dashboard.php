@@ -106,7 +106,12 @@
                     <td>
                         <form action="/admin/activate/<?= $product['id'] ?>" method="post" class="d-inline">
                             <button type="submit" class="btn btn-activate btn-sm">
-                                <i class="fas fa-check"></i> Activate
+                                <i class="fas fa-check"></i> Accept
+                            </button>
+                        </form>
+                        <form action="/admin/reject/<?= $product['id'] ?>" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-reject btn-sm">
+                                <i class="fas fa-times"></i> Reject
                             </button>
                         </form>
                     </td>
