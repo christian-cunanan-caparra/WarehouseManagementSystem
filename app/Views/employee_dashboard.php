@@ -252,11 +252,12 @@
             </div>
             <div class="modal-body">
                 <form id="editProductForm">
-                    <input type="hidden" id="id" name="id">
-                    <input type="text" class="form-control mb-2" id="name" name="name" required>
-                    <textarea class="form-control mb-2" id="description" name="description" required></textarea>
-                    <input type="number" class="form-control mb-2" id="quantity" name="quantity" required>
-                    <input type="number" class="form-control mb-2" id="price" name="price" required>
+                <input type="hidden" id="id" name="id">
+<input type="text" class="form-control mb-2" id="name" name="name" required>
+<textarea class="form-control mb-2" id="description" name="description" required></textarea>
+<input type="number" class="form-control mb-2" id="quantity" name="quantity" required>
+<input type="number" class="form-control mb-2" id="price" name="price" required>
+
                     <button type="submit" class="btn btn-primary w-100">Update</button>
                 </form>
             </div>
@@ -274,18 +275,19 @@
     // Loop through all edit buttons and set up the event listener
     document.querySelectorAll('.edit-btn').forEach(button => {
         button.addEventListener('click', function() {
-            // Log the dataset to see if the values are available
-            console.log(this.dataset); // Logs data-id, data-name, etc.
-
-            // Populate the modal fields with the data attributes
+            // Ensure the modal fields are populated correctly
             document.getElementById('id').value = this.dataset.id;
             document.getElementById('name').value = this.dataset.name;
             document.getElementById('description').value = this.dataset.description;
             document.getElementById('quantity').value = this.dataset.quantity;
             document.getElementById('price').value = this.dataset.price;
+
+            // Log the dataset to help debug
+            console.log('Edit button clicked, dataset:', this.dataset);
         });
     });
 });
+
 
 
         // AJAX for adding product
