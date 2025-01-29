@@ -191,24 +191,14 @@
                 <tbody id="productTable">
                     <?php foreach ($products as $product): ?>
                         <tr>
-                        <tr data-id="<?= esc($product['id']) ?>">
-    <td><?= esc($product['id']) ?></td>
-    <td class="product-name"><?= esc($product['name']) ?></td>
-    <td class="product-description"><?= esc($product['description']) ?></td>
-    <td class="product-quantity"><?= esc($product['quantity']) ?></td>
-    <td class="product-price"><?= esc($product['price']) ?></td>
-    <td><?= $product['status'] == 1 ? 'Active' : 'Inactive' ?></td>
-    <td>
-        <button class="btn btn-warning btn-sm edit-btn" 
-            data-id="<?= esc($product['id']) ?>" 
-            data-name="<?= esc($product['name']) ?>" 
-            data-description="<?= esc($product['description']) ?>" 
-            data-quantity="<?= esc($product['quantity']) ?>" 
-            data-price="<?= esc($product['price']) ?>" 
-            data-bs-toggle="modal" 
-            data-bs-target="#editProductModal">Edit</button>
-
-
+                            <td><?= esc($product['id']) ?></td>
+                            <td><?= esc($product['name']) ?></td>
+                            <td><?= esc($product['description']) ?></td>
+                            <td><?= esc($product['quantity']) ?></td>
+                            <td><?= esc($product['price']) ?></td>
+                            <td><?= $product['status'] == 1 ? 'Active' : 'Inactive' ?></td>
+                            <td>
+                                <button class="btn btn-warning btn-sm edit-btn" data-id="<?= $product['id'] ?>" data-name="<?= esc($product['name']) ?>" data-description="<?= esc($product['description']) ?>" data-quantity="<?= esc($product['quantity']) ?>" data-price="<?= esc($product['price']) ?>" data-bs-toggle="modal" data-bs-target="#editProductModal">Edit</button>
                                 <a href="/employee_dashboard/delete/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Deactivate</a>
                             </td>
                         </tr>
@@ -242,85 +232,78 @@
         </div>
 
         <!-- Edit Product Modal -->
-        <!-- Edit Product Modal -->
-            <!-- Edit Product Modal -->
-            <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="editProductForm">
-                                <input type="hidden" id="editProductId" name="id">
-                                <input type="text" class="form-control mb-2" id="editProductName" name="name" required>
-                                <textarea class="form-control mb-2" id="editProductDescription" name="description" required></textarea>
-                                <input type="number" class="form-control mb-2" id="editProductQuantity" name="quantity" required>
-                                <input type="number" class="form-control mb-2" id="editProductPrice" name="price" required>
-                                <button type="submit" class="btn btn-primary w-100">Update</button>
-                            </form>
-                        </div>
+        <div class="modal fade" id="editProductModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Product</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editProductForm">
+                            <input type="hidden" id="editProductId" name="id">
+                            <input type="text" class="form-control mb-2" id="editProductName" name="name" required>
+                            <textarea class="form-control mb-2" id="editProductDescription" name="description" required></textarea>
+                            <input type="number" class="form-control mb-2" id="editProductQuantity" name="quantity" required>
+                            <input type="number" class="form-control mb-2" id="editProductPrice" name="price" required>
+                            <button type="submit" class="btn btn-primary w-100">Update</button>
+                        </form>
                     </div>
                 </div>
             </div>
-
-
+        </div>
     </div>
 
     <script>
         // Script for editing products
-        
+        document.querySelectorAll('.edit-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                document.getElementById('editProductId').value = this.dataset.id;
+                document.getElementById('editProductName').value = this.dataset.name;
+                document.getElementById('editProductDescription').value = this.dataset.description;
+                document.getElementById('editProductQuantity').value = this.dataset.quantity;
+                document.getElementById('editProductPrice').value = this.dataset.price;
+            });
+        });
 
-     // Edit product button click event
-// Script for handling the edit button and populating the modal fields
-$(document).on('click', '.edit-btn', function() {
-    // Get data from the button
-    var productId = $(this).data('id');
-    var productName = $(this).data('name');
-    var productDescription = $(this).data('description');
-    var productQuantity = $(this).data('quantity');
-    var productPrice = $(this).data('price');
+        // AJAX for adding product
+        document.getElementById('addProductForm').addEventListener('submit', function(e) {
+            e.preventDefault();
 
-    // Set the values in the modal form fields
-    $('#editProductId').val(productId);
-    $('#editProductName').val(productName);
-    $('#editProductDescription').val(productDescription);
-    $('#editProductQuantity').val(productQuantity);
-    $('#editProductPrice').val(productPrice);
-});
+            let data = new FormData(this);
+            fetch('/employee_dashboard/addProduct', {
+                method: 'POST',
+                body: data
+            })
+            .then(response => response.json())
+            .then(result => {
+                if(result.success) {
+                    alert(result.message);
+                    window.location.reload(); // Reload the page to update the list
+                }
+            });
+        });
 
-// AJAX to update the product when the form is submitted
-$('#editProductForm').submit(function(event) {
-    event.preventDefault(); // Prevent the form from submitting normally
+        // AJAX for updating product
+        document.getElementById('editProductForm').addEventListener('submit', function(e) {
+            e.preventDefault();
 
-    var formData = $(this).serialize(); // Serialize the form data
-
-    $.ajax({
-        url: '/dashboard/update/' + $('#editProductId').val(),
-        type: 'POST',
-        data: formData,
-        success: function(response) {
-            if (response.status === 'success') {
-                // Close the modal
-                $('#editProductModal').modal('hide');
-
-                // Update the table row with new values
-                var productRow = $('tr[data-id="' + $('#editProductId').val() + '"]');
-                productRow.find('.product-name').text($('#editProductName').val());
-                productRow.find('.product-description').text($('#editProductDescription').val());
-                productRow.find('.product-quantity').text($('#editProductQuantity').val());
-                productRow.find('.product-price').text($('#editProductPrice').val());
-
-                alert(response.message); // Show success message
-            } else {
-                alert('Error updating product. Please try again.');
-            }
-        }
-    });
-});
+            let data = new FormData(this);
+            fetch('/employee_dashboard/updateProduct', {
+                method: 'POST',
+                body: data
+            })
+            .then(response => response.json())
+            .then(result => {
+                if(result.success) {
+                    alert(result.message);
+                    window.location.reload(); // Reload the page to update the list
+                }
+            });
+        });
 
 
+     
 
 
 
