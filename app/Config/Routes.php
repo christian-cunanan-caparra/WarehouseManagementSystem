@@ -49,3 +49,10 @@ $routes->get('/employee_dashboard/activate/(:num)', 'DashboardController::activa
 $routes->get('/inventory', 'InventoryController::index');
 $routes->post('/inventory/add-stock/(:num)', 'InventoryController::addStock/$1');
 $routes->post('/inventory/remove-stock/(:num)', 'InventoryController::removeStock/$1');
+
+
+
+
+
+
+$routes->get('/product', 'ProductController::index');
