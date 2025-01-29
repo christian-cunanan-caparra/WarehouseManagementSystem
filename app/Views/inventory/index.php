@@ -248,11 +248,11 @@
                                 <td><?= esc($product['remaining_stock']) ?></td>
                                 <td class="actions">
                                     <form action="/inventory/add-stock/<?= $product['id'] ?>" method="post" class="d-inline">
-                                        <input type="number" name="quantity" min="1" required class="form-control form-control-sm">
+                                       
                                         <button type="submit" class="btn btn-success btn-sm">Add Stock</button>
                                     </form>
                                     <form action="/inventory/remove-stock/<?= $product['id'] ?>" method="post" class="d-inline">
-                                        <input type="number" name="quantity" min="1" required class="form-control form-control-sm">
+                                     
                                         <button type="submit" class="btn btn-danger btn-sm">Remove Stock</button>
                                     </form>
                                 </td>
@@ -274,7 +274,7 @@
                         <form id="addProductForm">
                             <input type="text" class="form-control mb-2" id="productName" name="name" placeholder="Product Name" required>
                             <textarea class="form-control mb-2" id="productDescription" name="description" placeholder="Description" required></textarea>
-                            <input type="number" class="form-control mb-2" id="productQuantity" name="quantity" placeholder="Quantity" required>
+                            
                             <input type="number" class="form-control mb-2" id="productPrice" name="price" placeholder="Price" required>
                             <button type="submit" class="btn btn-primary w-100">Save</button>
                         </form>
