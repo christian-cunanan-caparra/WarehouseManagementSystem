@@ -314,9 +314,11 @@
         if (window.innerWidth > 768) {
             sidebar.classList.add('active');
             mainContent.classList.add('active');
+            toggleBtn.style.display = 'none'; // Hide toggle button on desktop
         } else {
             sidebar.classList.remove('active');
             mainContent.classList.remove('active');
+            toggleBtn.style.display = 'block'; // Show toggle button on mobile
         }
     };
 
@@ -330,6 +332,7 @@
     closeBtn.addEventListener('click', function() {
         sidebar.classList.remove('active');
         mainContent.classList.remove('active');
+        toggleBtn.style.display = 'block'; // Show the toggle button when sidebar is closed
     });
 
     // Optional: Close sidebar if user clicks outside
@@ -337,6 +340,9 @@
         if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target) && !closeBtn.contains(event.target)) {
             sidebar.classList.remove('active');
             mainContent.classList.remove('active');
+            if (window.innerWidth <= 768) {
+                toggleBtn.style.display = 'block'; // Show toggle button again on mobile
+            }
         }
     });
 
@@ -345,9 +351,11 @@
         if (window.innerWidth > 768) {
             sidebar.classList.add('active');
             mainContent.classList.add('active');
+            toggleBtn.style.display = 'none'; // Hide toggle button on desktop
         } else {
             sidebar.classList.remove('active');
             mainContent.classList.remove('active');
+            toggleBtn.style.display = 'block'; // Show toggle button on mobile
         }
     };
 
