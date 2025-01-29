@@ -94,69 +94,6 @@ class DashboardController extends Controller
         return redirect()->to('/employee_dashboard');
     }
 
-    // Inventory: Add Stock
-    public function addStock($id)
-    {
-        $product = $this->productModel->find($id);
-        $quantity = $this->request->getPost('quantity');
-
-        if ($product && $quantity > 0) {
-            $newStock = $product['stock_in'] + $quantity;
-            $remainingStock = $newStock - $product['stock_out'];
-
-            $this->productModel->update($id, [
-                'stock_in' => $newStock,
-                'remaining_stock' => $remainingStock
-            ]);
-
-            // Log stock addition
-            $db = \Config\Database::connect();
-            $db->table('inventory_logs')->insert([
-                'product_id' => $id,
-                'action' => 'Added',
-                'quantity' => $quantity
-            ]);
-
-            return redirect()->to('/inventory')->with('success', 'Stock added successfully.');
-        }
-
-        return redirect()->to('/inventory')->with('error', 'Invalid quantity or product not found.');
-    }
-
-    // Inventory: Remove Stock
-    public function removeStock($id)
-    {
-        $product = $this->productModel->find($id);
-        $quantity = $this->request->getPost('quantity');
-
-        if ($product && $product['remaining_stock'] >= $quantity && $quantity > 0) {
-            $newStockOut = $product['stock_out'] + $quantity;
-            $remainingStock = $product['stock_in'] - $newStockOut;
-
-            $this->productModel->update($id, [
-                'stock_out' => $newStockOut,
-                'remaining_stock' => $remainingStock
-            ]);
-
-
-
-            // Log stock removal
-            $db = \Config\Database::connect();
-            $db->table('inventory_logs')->insert([
-                'product_id' => $id,
-                'action' => 'Removed',
-                'quantity' => $quantity
-            ]);
-
-            return redirect()->to('/inventory')->with('success', 'Stock reduced successfully.');
-        }
-
-
-        
-
-        return redirect()->to('/inventory')->with('error', 'Insufficient stock or invalid request.');
-    }
-
     // Logout
     public function logout()
     {
