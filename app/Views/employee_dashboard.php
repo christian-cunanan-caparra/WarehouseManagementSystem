@@ -208,7 +208,6 @@
     data-bs-target="#editProductModal">Edit</button>
 
 
-
                                 <a href="/employee_dashboard/delete/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Deactivate</a>
                             </td>
                         </tr>
@@ -243,71 +242,40 @@
 
         <!-- Edit Product Modal -->
         <!-- Edit Product Modal -->
-                        <!-- Edit Product Modal -->
-                        <!-- Edit Product Modal -->
-<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+<div class="modal fade" id="editProductModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">Edit Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 <form id="editProductForm">
-                  <!-- Hidden ID field to pass the product ID -->
-<input type="hidden" id="id" name="id">
-
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Product Name</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="description" class="form-label">Product Description</label>
-                        <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="quantity" class="form-label">Quantity</label>
-                        <input type="number" class="form-control" id="quantity" name="quantity" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="price" class="form-label">Price</label>
-                        <input type="number" class="form-control" id="price" name="price" step="0.01" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Update Product</button>
+                    <input type="hidden" id="editProductId" name="id">
+                    <input type="text" class="form-control mb-2" id="editProductName" name="name" required>
+                    <textarea class="form-control mb-2" id="editProductDescription" name="description" required></textarea>
+                    <input type="number" class="form-control mb-2" id="editProductQuantity" name="quantity" required>
+                    <input type="number" class="form-control mb-2" id="editProductPrice" name="price" required>
+                    <button type="submit" class="btn btn-primary w-100">Update</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-
     </div>
 
     <script>
         // Script for editing products
-        document.addEventListener('DOMContentLoaded', function() {
-    // Select all edit buttons and add event listeners
-    document.querySelectorAll('.edit-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            // Get the data-* attributes from the clicked button
-            const id = this.dataset.id;
-            const name = this.dataset.name;
-            const description = this.dataset.description;
-            const quantity = this.dataset.quantity;
-            const price = this.dataset.price;
-
-            // Populate the modal form fields
-            document.getElementById('id').value = id;
-            document.getElementById('name').value = name;
-            document.getElementById('description').value = description;
-            document.getElementById('quantity').value = quantity;
-            document.getElementById('price').value = price;
-        });
+        document.querySelectorAll('.edit-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        document.getElementById('editProductId').value = this.dataset.id;
+        document.getElementById('editProductName').value = this.dataset.name;
+        document.getElementById('editProductDescription').value = this.dataset.description;
+        document.getElementById('editProductQuantity').value = this.dataset.quantity;
+        document.getElementById('editProductPrice').value = this.dataset.price;
     });
 });
-
-
-
 
         // AJAX for adding product
        
