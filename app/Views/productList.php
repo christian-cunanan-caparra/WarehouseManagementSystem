@@ -189,9 +189,10 @@
         <h2 class="text-center">Product List</h2>
         
         <!-- Add Product Button -->
-         <div style="padding-bottom: 10px;" >
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">Add New Product</button>
+        <div class="d-flex justify-content-end" style="padding-bottom: 10px;">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">Add New Product</button>
         </div>
+        
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
