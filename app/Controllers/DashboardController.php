@@ -82,21 +82,24 @@ class DashboardController extends Controller
     }
 
     // Store Product
+  
+
     public function inventoryLogs()
-    {
-        if (!session()->get('is_logged_in')) {
-            return redirect()->to('/login');
-        }
-    
-        // Get all logs with product information
-        $logs = (new InventoryLogModel())->join('products', 'products.id = inventory_logs.product_id')
-                                         ->join('users', 'users.id = inventory_logs.user_id') // Assuming user_id is stored in the logs table
-                                         ->select('inventory_logs.*, products.name as product_name, users.name as user_name')
-                                         ->findAll();
-    
-        return view('inventory_logs', ['logs' => $logs]);
+{
+    if (!session()->get('is_logged_in')) {
+        return redirect()->to('/login');
     }
-    
+
+    // Get all logs with product and user information
+    $logs = (new InventoryLogModel())->join('products', 'products.id = inventory_logs.product_id')
+                                     ->join('users', 'users.id = inventory_logs.user_id') // Assuming user_id is stored in the logs table
+                                     ->select('inventory_logs.*, products.name as product_name, users.name as user_name')
+                                     ->findAll();
+
+    // Pass the logs data to the view
+    return view('inventory_logs', ['logs' => $logs]);
+}
+
 
 public function store()
 {
