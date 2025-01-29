@@ -47,20 +47,24 @@ class DashboardController extends Controller
     }
 
     public function store()
-    {
+{
+    // Check if the request is an AJAX call
+    if ($this->request->isAJAX()) {
         // Get the form data
         $data = $this->request->getPost();
-    
+
         // Set the status to 1 (active) for the new product
         $data['status'] = 1;
-    
+
         // Insert the product into the database
         if ($this->productModel->insert($data)) {
-            return $this->response->setJSON(['status' => 'success', 'message' => 'Product added successfully.']);
+            return $this->response->setJSON(['success' => true, 'message' => 'Product added successfully.']);
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'Failed to add product.']);
         }
-    
-        return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to add product.']);
     }
+}
+
     
     
 
@@ -74,12 +78,22 @@ class DashboardController extends Controller
         return view('edit_product', ['product' => $this->productModel->find($id)]);
     }
 
-    public function update($id)
+    public function update()
     {
-        $this->productModel->update($id, $this->request->getPost());
-        return redirect()->to('/employee_dashboard')->with('message', 'Product updated successfully.');
+        // Check if the request is an AJAX call
+        if ($this->request->isAJAX()) {
+            $id = $this->request->getPost('id');
+            $data = $this->request->getPost();
+    
+            // Update the product
+            if ($this->productModel->update($id, $data)) {
+                return $this->response->setJSON(['success' => true, 'message' => 'Product updated successfully.']);
+            } else {
+                return $this->response->setJSON(['success' => false, 'message' => 'Failed to update product.']);
+            }
+        }
     }
-
+    
     public function delete($id)
     {
         // Update the status to 0 (inactive) instead of deleting the record
