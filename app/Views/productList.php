@@ -203,7 +203,7 @@
                         <th>Description</th>
                        
                         <th>Price</th>
-                        <th>Status</th>
+                       
                         <th>Stock In</th>
                         <th>Stock Out</th>
                         <th>Remaining Stock</th>
@@ -218,7 +218,7 @@
                             <td><?= esc($product['description']) ?></td>
                         
                             <td><?= esc($product['price']) ?></td>
-                            <td><?= $product['status'] == 1 ? 'Active' : 'Inactive' ?></td>
+                          
                             <td><?= esc($product['stock_in']) ?></td>
                             <td><?= esc($product['stock_out']) ?></td>
                             <td><?= esc($product['remaining_stock']) ?></td>
