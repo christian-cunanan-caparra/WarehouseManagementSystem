@@ -53,6 +53,18 @@ $routes->post('/inventory/remove-stock/(:num)', 'InventoryController::removeStoc
 
 
 
+$routes->get('/create-product', 'DashboardController::create');
+$routes->post('/store-product', 'DashboardController::store');
+$routes->get('/edit-product/(:num)', 'DashboardController::edit/$1');
+$routes->post('/update-product/(:num)', 'DashboardController::update/$1');
+$routes->get('/delete-product/(:num)', 'DashboardController::delete/$1');
+$routes->get('/activate-product/(:num)', 'DashboardController::activate/$1');
+
+// Inventory Management
+$routes->post('/inventory/add-stock/(:num)', 'DashboardController::addStock/$1');
+$routes->post('/inventory/remove-stock/(:num)', 'DashboardController::removeStock/$1');
+
+// Logout
+$routes->get('/logout', 'DashboardController::logout');
 
 
-$routes->get('/product', 'ProductController::index');
