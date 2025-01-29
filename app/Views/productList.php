@@ -207,7 +207,7 @@
                         <th>Stock In</th>
                         <th>Stock Out</th>
                         <th>Inventory Stock</th>
-                        <th>Actions</th>
+                        <!-- <th>Actions</th> -->
                     </tr>
                 </thead>
                 <tbody id="productTable">
@@ -223,9 +223,9 @@
                             <td><?= esc($product['stock_out']) ?></td>
                             <td><?= esc($product['remaining_stock']) ?></td>
                             <td>
-                                <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addStockModal" data-id="<?= $product['id'] ?>">Add Stock</button>
+                                <!-- <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addStockModal" data-id="<?= $product['id'] ?>">Add Stock</button>
                                 <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#removeStockModal" data-id="<?= $product['id'] ?>">Reduce Stock</button>
-                            </td>
+                            </td> -->
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
