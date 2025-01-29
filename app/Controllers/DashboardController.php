@@ -97,6 +97,11 @@ class DashboardController extends Controller
         return redirect()->to('/employee_dashboard');
     }
 
+
+
+
+
+    
     public function activate($id)
     {
         // Update the status to 1 (active)

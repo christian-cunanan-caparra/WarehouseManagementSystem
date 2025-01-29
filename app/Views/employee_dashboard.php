@@ -186,6 +186,9 @@
                         <th>Price</th>
                         <th>Status</th>
                         <th>Actions</th>
+                        <th>Stock In</th>
+<th>Stock Out</th>
+<th>Remaining Stock</th>
                     </tr>
                 </thead>
                 <tbody id="productTable">
@@ -196,10 +199,14 @@
                             <td><?= esc($product['description']) ?></td>
                             <td><?= esc($product['quantity']) ?></td>
                             <td><?= esc($product['price']) ?></td>
+                            <td><?= esc($product['stock_in']) ?></td>
+                            <td><?= esc($product['stock_out']) ?></td>
+                            <td><?= esc($product['remaining_stock']) ?></td>
                             <td><?= $product['status'] == 1 ? 'Active' : 'Inactive' ?></td>
                             <td>
-                                <button class="btn btn-warning btn-sm edit-btn" data-id="<?= $product['id'] ?>" data-name="<?= esc($product['name']) ?>" data-description="<?= esc($product['description']) ?>" data-quantity="<?= esc($product['quantity']) ?>" data-price="<?= esc($product['price']) ?>" data-bs-toggle="modal" data-bs-target="#editProductModal">Edit</button>
-                                <a href="/employee_dashboard/delete/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Deactivate</a>
+                            <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addStockModal" data-id="<?= $product['id'] ?>">Add Stock</button>
+<button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#removeStockModal" data-id="<?= $product['id'] ?>">Reduce Stock</button>
+
                             </td>
                         </tr>
                     <?php endforeach; ?>

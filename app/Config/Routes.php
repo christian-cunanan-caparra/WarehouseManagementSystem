@@ -46,3 +46,6 @@ $routes->get('/employee_dashboard/delete/(:num)', 'DashboardController::delete/$
 $routes->get('/employee_dashboard/activate/(:num)', 'DashboardController::activate/$1');
 
 
+$routes->get('/inventory', 'InventoryController::index');
+$routes->post('/inventory/add-stock/(:num)', 'InventoryController::addStock/$1');
+$routes->post('/inventory/remove-stock/(:num)', 'InventoryController::removeStock/$1');
