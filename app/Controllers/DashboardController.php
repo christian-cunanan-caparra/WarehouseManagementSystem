@@ -131,7 +131,7 @@ class DashboardController extends Controller
     {
         $this->productModel->update($id, ['status' => 1]);
         session()->setFlashdata('success', 'Product activated successfully.');
-        return redirect()->to('/admin_dashboard');  // Redirect to the admin dashboard
+        return redirect()->to('/admin/dashboard');  // Redirect to the admin dashboard
     }
     
 
