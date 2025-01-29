@@ -33,6 +33,7 @@ $routes->post('/register/save', 'RegisterController::save');
 $routes->get('/dashboard', 'DashboardController::index');
 $routes->get('/admin/dashboard', 'DashboardController::index');
 $routes->get('/product', 'DashboardController::index1');
+$routes->get('/inventory_logs', 'DashboardController::index2');
 $routes->get('/employee/dashboard', 'DashboardController::index');
 
 $routes->get('/employee_dashboard', 'DashboardController::index');

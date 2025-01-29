@@ -147,8 +147,8 @@
             <li><a href="/employee_dashboard"><span class="material-icons">dashboard</span> Dashboard</a></li>
             <li><a href="/product"><span class="material-icons">inventory</span> Products</a></li>
             <li><a href="/inventory"><span class="material-icons">storage</span> Inventory</a></li>
-            <!-- <a href="/inventory/logs" class="btn btn-primary">View Inventory Logs</a> -->
-
+            <li><a href="/inventory_logs"><span class="material-icons">storage</span> Inventory Logs</a></li>
+       
 
         </ul>
     </aside>
