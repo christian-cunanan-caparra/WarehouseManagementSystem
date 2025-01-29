@@ -1,7 +1,9 @@
+<h2>Inventory Logs</h2>
+
 <table class="table">
     <thead>
         <tr>
-            <th>Product</th>
+            <th>Product Name</th>
             <th>Action</th>
             <th>Quantity</th>
             <th>Date</th>
@@ -10,8 +12,8 @@
     <tbody>
         <?php foreach ($logs as $log): ?>
         <tr>
-            <td><?= esc($log['product_id']) ?></td>
-            <td><?= esc($log['action']) ?></td>
+            <td><?= esc($log['name']) ?></td>
+            <td><?= ($log['action'] == 'Added') ? '<span class="text-success">Stock In</span>' : '<span class="text-danger">Stock Out</span>' ?></td>
             <td><?= esc($log['quantity']) ?></td>
             <td><?= esc($log['created_at']) ?></td>
         </tr>

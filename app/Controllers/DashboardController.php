@@ -94,6 +94,26 @@ class DashboardController extends Controller
         return redirect()->to('/employee_dashboard');
     }
 
+
+    public function logs()
+{
+    if (!session()->get('is_logged_in')) {
+        return redirect()->to('/login')->with('error', 'You must be logged in to access this page.');
+    }
+
+    $db = \Config\Database::connect();
+
+    // Fetch logs with product names
+    $logs = $db->table('inventory_logs')
+               ->select('inventory_logs.*, products.name')
+               ->join('products', 'products.id = inventory_logs.product_id')
+               ->orderBy('inventory_logs.created_at', 'DESC')
+               ->get()->getResultArray();
+
+    return view('inventory_logs', ['logs' => $logs]);
+}
+
+
     // Inventory: Add Stock
     public function addStock($id)
     {
@@ -138,6 +158,8 @@ class DashboardController extends Controller
                 'remaining_stock' => $remainingStock
             ]);
 
+
+
             // Log stock removal
             $db = \Config\Database::connect();
             $db->table('inventory_logs')->insert([
@@ -148,6 +170,10 @@ class DashboardController extends Controller
 
             return redirect()->to('/inventory')->with('success', 'Stock reduced successfully.');
         }
+
+
+
+        
 
         return redirect()->to('/inventory')->with('error', 'Insufficient stock or invalid request.');
     }

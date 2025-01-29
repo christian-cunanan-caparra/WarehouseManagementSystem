@@ -67,4 +67,5 @@ $routes->post('/inventory/remove-stock/(:num)', 'DashboardController::removeStoc
 // Logout
 $routes->get('/logout', 'DashboardController::logout');
 
+$routes->get('/inventory/logs', 'InventoryController::logs');
 
