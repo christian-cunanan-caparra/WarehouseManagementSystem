@@ -1,5 +1,3 @@
-<?= $this->extend('layouts/main') ?>
-<?= $this->section('content') ?>
 
 <h2>Inventory Management</h2>
 
@@ -36,4 +34,3 @@
     </tbody>
 </table>
 
-<?= $this->endSection() ?>
