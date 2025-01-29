@@ -194,7 +194,7 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <div style="padding-bottom: 10px;" class="form-group">
                 <label for="mobile_number">Mobile Number</label>
                 <input type="text" class="form-control" id="mobile_number" name="mobile_number" value="<?= old('mobile_number') ?>" placeholder="Enter your mobile number" required>
             </div>
