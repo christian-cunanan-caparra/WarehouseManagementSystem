@@ -43,7 +43,7 @@ class DashboardController extends Controller
          if ($role === 'Admin') {
              return view('admin_dashboard');
          } elseif ($role === 'Employee') {
-            $data['products'] = $this->productModel->where('quantity >=', 1)->findAll();
+            $data['products'] = $this->productModel->where('stock_in >=', 1)->findAll();
 
              return view('productList', $data);
          }
