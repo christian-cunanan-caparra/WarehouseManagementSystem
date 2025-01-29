@@ -226,7 +226,7 @@
     <!-- Main Content -->
     <div class="content" id="main-content">
         <div class="container">
-            <h2 class="my-4">Inventory Management</h2>
+            <h2 class="my-4 text-center">Inventory Management</h2>
             <div class="table-responsive">
                 <table class="table">
                     <thead>
