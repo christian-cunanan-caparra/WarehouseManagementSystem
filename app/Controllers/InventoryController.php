@@ -12,7 +12,7 @@ class InventoryController extends Controller
     public function __construct()
     {
         $this->productModel = new ProductModel();
-        $this->stockRequestModel = new StockRequestModel();
+      
     }
 
     // Display all products with stock details
