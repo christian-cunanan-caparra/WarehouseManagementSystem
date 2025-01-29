@@ -242,26 +242,28 @@
 
         <!-- Edit Product Modal -->
         <!-- Edit Product Modal -->
-<div class="modal fade" id="editProductModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Edit Product</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            <!-- Edit Product Modal -->
+            <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="editProductForm">
+                                <input type="hidden" id="editProductId" name="id">
+                                <input type="text" class="form-control mb-2" id="editProductName" name="name" required>
+                                <textarea class="form-control mb-2" id="editProductDescription" name="description" required></textarea>
+                                <input type="number" class="form-control mb-2" id="editProductQuantity" name="quantity" required>
+                                <input type="number" class="form-control mb-2" id="editProductPrice" name="price" required>
+                                <button type="submit" class="btn btn-primary w-100">Update</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-                <form id="editProductForm">
-                    <input type="hidden" id="editProductId" name="id">
-                    <input type="text" class="form-control mb-2" id="editProductName" name="name" required>
-                    <textarea class="form-control mb-2" id="editProductDescription" name="description" required></textarea>
-                    <input type="number" class="form-control mb-2" id="editProductQuantity" name="quantity" required>
-                    <input type="number" class="form-control mb-2" id="editProductPrice" name="price" required>
-                    <button type="submit" class="btn btn-primary w-100">Update</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+
 
     </div>
 
@@ -269,7 +271,54 @@
         // Script for editing products
         
 
-     
+     // Edit product button click event
+document.querySelectorAll('.edit-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const productId = this.getAttribute('data-id');
+        const productName = this.getAttribute('data-name');
+        const productDescription = this.getAttribute('data-description');
+        const productQuantity = this.getAttribute('data-quantity');
+        const productPrice = this.getAttribute('data-price');
+
+        // Populate the modal fields with the product data
+        document.getElementById('editProductId').value = productId;
+        document.getElementById('editProductName').value = productName;
+        document.getElementById('editProductDescription').value = productDescription;
+        document.getElementById('editProductQuantity').value = productQuantity;
+        document.getElementById('editProductPrice').value = productPrice;
+    });
+});
+
+// Handle form submission with AJAX
+document.getElementById('editProductForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevent the default form submission
+
+    const formData = new FormData(this);
+    
+    fetch('/dashboard/update/' + formData.get('id'), {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            // Close the modal
+            const modal = new bootstrap.Modal(document.getElementById('editProductModal'));
+            modal.hide();
+
+            // Optionally, update the product row on the page without reloading
+            // You can update the product row here if necessary
+            alert('Product updated successfully');
+        } else {
+            alert('Failed to update product');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred');
+    });
+});
+
 
 
 

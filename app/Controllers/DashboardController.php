@@ -47,21 +47,21 @@ class DashboardController extends Controller
     }
 
     public function store()
-    {
-        // Get the form data
-        $data = $this->request->getPost();
+{
+    // Get the form data
+    $data = $this->request->getPost();
     
-        // Set the status to 1 (active) for the new product
-        $data['status'] = 1;
+    // Set the status to 1 (active) for the new product
+    $data['status'] = 1;
     
-        // Insert the product into the database
-        if ($this->productModel->insert($data)) {
-            return $this->response->setJSON(['status' => 'success', 'message' => 'Product added successfully.']);
-        }
-    
-        return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to add product.']);
+    // Insert the product into the database
+    if ($this->productModel->insert($data)) {
+        return $this->response->setJSON(['status' => 'success', 'message' => 'Product added successfully.']);
     }
     
+    return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to add product.']);
+}
+
     
 
     public function edit($id)
@@ -76,9 +76,19 @@ class DashboardController extends Controller
 
     public function update($id)
     {
-        $this->productModel->update($id, $this->request->getPost());
-        return redirect()->to('/employee_dashboard')->with('message', 'Product updated successfully.');
+        // Get the data from the POST request
+        $data = $this->request->getPost();
+    
+        // Update the product in the database
+        if ($this->productModel->update($id, $data)) {
+            // Return a JSON response indicating success
+            return $this->response->setJSON(['status' => 'success', 'message' => 'Product updated successfully.']);
+        }
+    
+        // Return a JSON response indicating failure
+        return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to update product.']);
     }
+    
 
     public function delete($id)
     {
