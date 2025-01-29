@@ -220,7 +220,7 @@
             <li><a href="/inventory_logs"><span class="material-icons">storage</span> Inventory Logs</a></li>
         </ul>
     </aside>
-
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">Add New Product</button>
     <!-- Toggle Button -->
     <button class="toggle-btn" id="toggle-btn">&#9776;</button>
 
