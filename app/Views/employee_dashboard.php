@@ -198,7 +198,8 @@
                             <td><?= esc($product['price']) ?></td>
                             <td><?= $product['status'] == 1 ? 'Active' : 'Inactive' ?></td>
                             <td>
-                                <button class="btn btn-warning btn-sm edit-btn" data-id="<?= $product['id'] ?>" data-name="<?= esc($product['name']) ?>" data-description="<?= esc($product['description']) ?>" data-quantity="<?= esc($product['quantity']) ?>" data-price="<?= esc($product['price']) ?>" data-bs-toggle="modal" data-bs-target="#editProductModal">Edit</button>
+                            <button class="btn btn-warning btn-sm edit-btn" data-id="<?= esc($product['id']) ?>" data-name="<?= esc($product['name']) ?>" data-description="<?= esc($product['description']) ?>" data-quantity="<?= esc($product['quantity']) ?>" data-price="<?= esc($product['price']) ?>" data-bs-toggle="modal" data-bs-target="#editProductModal">Edit</button>
+
                                 <a href="/employee_dashboard/delete/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Deactivate</a>
                             </td>
                         </tr>
@@ -232,26 +233,28 @@
         </div>
 
         <!-- Edit Product Modal -->
-        <div class="modal fade" id="editProductModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Edit Product</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="editProductForm">
-                            <input type="hidden" id="editProductId" name="id">
-                            <input type="text" class="form-control mb-2" id="editProductName" name="name" required>
-                            <textarea class="form-control mb-2" id="editProductDescription" name="description" required></textarea>
-                            <input type="number" class="form-control mb-2" id="editProductQuantity" name="quantity" required>
-                            <input type="number" class="form-control mb-2" id="editProductPrice" name="price" required>
-                            <button type="submit" class="btn btn-primary w-100">Update</button>
-                        </form>
-                    </div>
-                </div>
+        <!-- Edit Product Modal -->
+<div class="modal fade" id="editProductModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editProductForm">
+                    <input type="hidden" id="editProductId" name="id">
+                    <input type="text" class="form-control mb-2" id="editProductName" name="name" required>
+                    <textarea class="form-control mb-2" id="editProductDescription" name="description" required></textarea>
+                    <input type="number" class="form-control mb-2" id="editProductQuantity" name="quantity" required>
+                    <input type="number" class="form-control mb-2" id="editProductPrice" name="price" required>
+                    <button type="submit" class="btn btn-primary w-100">Update</button>
+                </form>
             </div>
         </div>
+    </div>
+</div>
+
     </div>
 
     <script>
