@@ -265,38 +265,51 @@
         </div>
     </div>
 
-   
- 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-    // JavaScript for sidebar toggle
-    const toggleBtn = document.getElementById('toggle-btn');
-    const sidebar = document.getElementById('sidebar');
-    const mainContent = document.getElementById('main-content');
+        // JavaScript for sidebar toggle
+        const toggleBtn = document.getElementById('toggle-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('main-content');
 
-    toggleBtn.addEventListener('click', function () {
-        sidebar.classList.toggle('active');
-        mainContent.classList.toggle('active');
-    });
+        window.onload = function() {
+            if (window.innerWidth > 768) {
+                sidebar.classList.add('active');
+                mainContent.classList.add('active');
+            } else {
+                sidebar.classList.remove('active');
+                mainContent.classList.remove('active');
+            }
+        };
 
-    // Close sidebar if clicked outside (for mobile screens)
-    document.addEventListener('click', function (event) {
-        if (window.innerWidth <= 768 && !sidebar.contains(event.target) && !toggleBtn.contains(event.target)) {
+        toggleBtn.addEventListener('click', function() {
+            sidebar.classList.toggle('active');
+            mainContent.classList.toggle('active');
+        });
+
+        closeBtn.addEventListener('click', function() {
             sidebar.classList.remove('active');
             mainContent.classList.remove('active');
-        }
-    });
+        });
 
-    // Ensure sidebar remains open on larger screens
-    window.addEventListener('resize', function () {
-        if (window.innerWidth > 768) {
-            sidebar.classList.add('active');
-            mainContent.classList.add('active');
-        } else {
-            sidebar.classList.remove('active');
-            mainContent.classList.remove('active');
-        }
-    });
-</script>
+        document.addEventListener('click', function(event) {
+            if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target) && !closeBtn.contains(event.target)) {
+                sidebar.classList.remove('active');
+                mainContent.classList.remove('active');
+            }
+        });
 
+        window.onresize = function() {
+            if (window.innerWidth > 768) {
+                sidebar.classList.add('active');
+                mainContent.classList.add('active');
+            } else {
+                sidebar.classList.remove('active');
+                mainContent.classList.remove('active');
+            }
+        };
+    </script>
 </body>
 </html>
