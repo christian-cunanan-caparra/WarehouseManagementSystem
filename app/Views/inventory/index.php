@@ -240,25 +240,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($products as $product): ?>
-                           <tr>
-                                <td><?= esc($product['name']) ?></td>
-                                <td><?= esc($product['stock_in']) ?></td>
-                                <td><?= esc($product['stock_out']) ?></td>
-                                <td><?= esc($product['remaining_stock']) ?></td>
-                                <td class="actions">
-                                    <form action="/inventory/add-stock/<?= $product['id'] ?>" method="post" class="d-inline">
-                                       
-                                        <button type="submit" class="btn btn-success btn-sm">Add Stock</button>
-                                    </form>
-                                    <form action="/inventory/remove-stock/<?= $product['id'] ?>" method="post" class="d-inline">
-                                     
-                                        <button type="submit" class="btn btn-danger btn-sm">Remove Stock</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
+    <?php foreach ($products as $product): ?>
+        <?php if ($product['status'] == 1): ?>
+            <tr>
+                <td><?= esc($product['name']) ?></td>
+                <td><?= esc($product['stock_in']) ?></td>
+                <td><?= esc($product['stock_out']) ?></td>
+                <td><?= esc($product['remaining_stock']) ?></td>
+                <td class="actions">
+                    <form action="/inventory/add-stock/<?= $product['id'] ?>" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-success btn-sm">Add Stock</button>
+                    </form>
+                    <form action="/inventory/remove-stock/<?= $product['id'] ?>" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-danger btn-sm">Remove Stock</button>
+                    </form>
+                </td>
+            </tr>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</tbody>
+
                 </table>
             </div>
         </div>
