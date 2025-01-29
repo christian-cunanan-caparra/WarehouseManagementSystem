@@ -83,10 +83,10 @@
     <h1>Welcome, Admin <?= session()->get('user_name') ?>!</h1>
     <p>You are logged in as an Admin.</p>
 
-    <button class="btn btn-create" onclick="location.href='/admin/create_user'"><i class="fas fa-user-plus"></i> Add New User</button>
+    <!-- <button class="btn btn-create" onclick="location.href='/admin/create_user'"><i class="fas fa-user-plus"></i> Add New User</button> -->
 
-    <h3>User List</h3>
-    <h3>Inactive Products</h3>
+    
+    <h3>Requesting New Products</h3>
 
     <table>
         <thead>
