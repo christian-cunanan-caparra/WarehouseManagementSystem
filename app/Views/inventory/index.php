@@ -241,33 +241,27 @@
                     </thead>
                     <tbody>
                         <?php foreach ($products as $product): ?>
-                          
-                                <tr>
-                                    <td><?= esc($product['name']) ?></td>
-                                    <td><?= esc($product['stock_in']) ?></td>
-                                    <td><?= esc($product['stock_out']) ?></td>
-                                    <td><?= esc($product['remaining_stock']) ?></td>
-                                    <td class="actions">
-                                        <form action="/inventory/add-stock/<?= $product['id'] ?>" method="post" class="d-inline">
-                                            <input type="number" name="quantity" min="1" required class="form-control form-control-sm">
-                                            <button type="submit" class="btn btn-success btn-sm">Add Stock</button>
-                                        </form>
-                                        <form action="/inventory/remove-stock/<?= $product['id'] ?>" method="post" class="d-inline">
-                                            <input type="number" name="quantity" min="1" required class="form-control form-control-sm">
-                                            <button type="submit" class="btn btn-danger btn-sm">Remove Stock</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                         
+                           <tr>
+                                <td><?= esc($product['name']) ?></td>
+                                <td><?= esc($product['stock_in']) ?></td>
+                                <td><?= esc($product['stock_out']) ?></td>
+                                <td><?= esc($product['remaining_stock']) ?></td>
+                                <td class="actions">
+                                    <form action="/inventory/add-stock/<?= $product['id'] ?>" method="post" class="d-inline">
+                                        <input type="number" name="quantity" min="1" required class="form-control form-control-sm">
+                                        <button type="submit" class="btn btn-success btn-sm">Add Stock</button>
+                                    </form>
+                                    <form action="/inventory/remove-stock/<?= $product['id'] ?>" method="post" class="d-inline">
+                                        <input type="number" name="quantity" min="1" required class="form-control form-control-sm">
+                                        <button type="submit" class="btn btn-danger btn-sm">Remove Stock</button>
+                                    </form>
+                                </td>
+                            </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
         </div>
-
-
-
-
 
         <div class="modal fade" id="addProductModal">
             <div class="modal-dialog">
@@ -288,9 +282,6 @@
                 </div>
             </div>
         </div>
-
-
-
     </div>
 
     <!-- Bootstrap JS -->
@@ -339,8 +330,7 @@
             }
         };
 
-
-
+        // Reset the product quantity field to 0 after submission
         document.getElementById('addProductForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -364,9 +354,12 @@
             .catch(error => {
                 console.error('Error:', error);
                 alert('An error occurred while adding the product.');
+            })
+            .finally(() => {
+                // Reset the quantity field to 0
+                document.getElementById('productQuantity').value = 0;
             });
         });
-
     </script>
 </body>
 </html>
