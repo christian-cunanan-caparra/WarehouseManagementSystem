@@ -1,397 +1,220 @@
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Employee Dashboard - Warehouse Management System</title>
-        
-        <!-- Bootstrap 5 -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        
-        <!-- Google Icons -->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        
-        <style>
-            /* ---- Sidebar Styling ---- */
-            .sidebar {
-                position: fixed;
-                top: 0;
-                left: -270px;
-                width: 270px;
-                height: 100%;
-                background: rgba(22, 26, 45, 0.9);
-                backdrop-filter: blur(10px);
-                color: white;
-                padding: 20px;
-                transition: 0.4s ease-in-out;
-                box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3);
-                z-index: 1000;
-                border-right: 2px solid rgba(255, 255, 255, 0.1);
-            }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard - Warehouse Management System</title>
 
-            .sidebar.active {
-                left: 0;
-            }
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        /* Styles for responsive sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -270px;
+            width: 270px;
+            height: 100%;
+            background: rgba(22, 26, 45, 0.9);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 20px;
+            transition: 0.4s;
+            z-index: 1000;
+        }
 
-            .sidebar-header {
-                font-size: 1.5rem;
-                font-weight: bold;
-                text-align: center;
-                padding-bottom: 15px;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            }
+        .sidebar.active { left: 0; }
+        .toggle-btn { position: fixed; top: 20px; left: 20px; background: #161a2d; color: white; padding: 10px; cursor: pointer; border-radius: 5px; }
+        .toggle-btn:hover { background: #4f52ba; }
 
-            .sidebar-links {
-                list-style: none;
-                padding: 0;
-                margin-top: 20px;
-            }
+        .content {
+            margin-left: 50px;
+            padding: 30px;
+            transition: margin-left 0.4s;
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
 
-            .sidebar-links li {
-                margin-bottom: 15px;
-            }
+        .content.active { margin-left: 270px; }
 
-            .sidebar-links li a {
-                color: white;
-                font-size: 1.1rem;
-                text-decoration: none;
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                padding: 10px;
-                transition: 0.3s ease;
-                border-radius: 6px;
-            }
+        .table-responsive { overflow-x: auto; }
+        .table th, .table td { white-space: nowrap; }
 
-            .sidebar-links li a:hover {
-                background: rgba(255, 255, 255, 0.2);
-                padding-left: 15px;
-            }
+        @media (max-width: 768px) {
+            .content { margin-left: 0; }
+            .sidebar.active { left: 0; }
+            .toggle-btn { display: block; }
+        }
+    </style>
+</head>
+<body>
 
-            .menu-separator {
-                margin: 15px 0;
-                height: 1px;
-                background-color: rgba(255, 255, 255, 0.3);
-            }
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <button class="close-btn" id="close-btn">&times;</button>
+        <div class="sidebar-header">Warehouse Management</div>
+        <ul class="sidebar-links">
+            <li><a href="#"><span class="material-icons">dashboard</span> Dashboard</a></li>
+            <li><a href="#"><span class="material-icons">inventory</span> Products</a></li>
+            <li><a href="#"><span class="material-icons">settings</span> Settings</a></li>
+        </ul>
+    </aside>
 
-            /* ---- Sidebar Toggle Button ---- */
-            .toggle-btn {
-                position: fixed;
-                top: 20px;
-                left: 20px;
-                background: #161a2d;
-                color: white;
-                border: none;
-                padding: 10px;
-                cursor: pointer;
-                font-size: 1.5rem;
-                transition: 0.3s;
-                border-radius: 5px;
-                display: none;
-            }
+    <!-- Toggle Button -->
+    <button class="toggle-btn" id="toggle-btn">&#9776;</button>
 
-            .toggle-btn:hover {
-                background: #4f52ba;
-            }
+    <!-- Main Content -->
+    <div class="content" id="main-content">
+        <h1>Dashboard</h1>
+        <p>Manage your inventory here.</p>
 
-            /* ---- Main Content ---- */
-            .content {
-                margin-left: 50px;
-                padding: 30px;
-                transition: margin-left 0.4s ease;
-                background: #f8f9fa;
-                min-height: 100vh;
-            }
-
-            .content.active {
-                margin-left: 270px;
-            }
-
-            /* ---- Product Count Card ---- */
-            .card {
-                border-radius: 12px;
-                transition: 0.3s ease-in-out;
-                text-align: center;
-            }
-
-            .card:hover {
-                transform: scale(1.05);
-            }
-
-            .card .material-icons {
-                font-size: 4rem;
-                opacity: 0.8;
-            }
-
-            /* ---- Responsive Design ---- */
-            @media (max-width: 768px) {
-                .sidebar {
-                    left: -270px;
-                }
-
-                .sidebar.active {
-                    left: 0;
-                }
-
-                .content {
-                    margin-left: 0;
-                }
-
-                .content.active {
-                    margin-left: 270px;
-                }
-
-                .toggle-btn {
-                    display: block;
-                }
-            }
-        </style>
-    </head>
-    <body>
-
-        <!-- Sidebar -->
-        <aside class="sidebar" id="sidebar">
-            <button class="close-btn" id="close-btn">&times;</button>
-            <div class="sidebar-header">Warehouse Management System</div>
-            <ul class="sidebar-links">
-                <h4>Main Menu</h4>
-                <li><a href="#"><span class="material-icons">dashboard</span> Dashboard</a></li>
-                <li><a href="#"><span class="material-icons">inventory</span> Products</a></li>
-                <li><a href="#"><span class="material-icons">settings</span> Settings</a></li>
-                <!-- Logout Button in the sidebar -->
-<!-- <li><a href="/dashboard/logout"><span class="material-icons">exit_to_app</span> Logout</a></li> -->
-
-                
-            
-            </ul>
-        </aside>
-
-        <!-- Toggle Button -->
-        <button class="toggle-btn" id="toggle-btn">&#9776;</button>
-
-        <!-- Main Content -->
-        <div class="content" id="main-content">
-            <h1>Dashboard</h1>
-            <p>Welcome to the Warehouse Management System. Here you can manage inventory, view products, and more.</p>
-
-            <!-- Product Count Card -->
-            <div class="row mb-4">
-                <div class="col-md-4">
-                    <div class="card shadow-sm border-0 bg-primary text-white">
-                        <div class="card-body d-flex justify-content-between align-items-center">
-                            <div>
-                                <h5 class="card-title">Total Products</h5>
-                                <h3 class="card-text"><?= count($products) ?></h3>
-                            </div>
-                            <span class="material-icons">inventory</span>
+        <!-- Product Count -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 bg-primary text-white">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Total Products</h5>
+                            <h3 class="card-text"><?= count($products) ?></h3>
                         </div>
+                        <span class="material-icons">inventory</span>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Product Table -->
-            <h2>Product List</h2>
-            <?php if (!empty($products)): ?>
-                <table class="table table-striped">
-                    <thead>
+        <!-- Product Table -->
+        <h2>Product List</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="productTable">
+                    <?php foreach ($products as $product): ?>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <td><?= esc($product['id']) ?></td>
+                            <td><?= esc($product['name']) ?></td>
+                            <td><?= esc($product['description']) ?></td>
+                            <td><?= esc($product['quantity']) ?></td>
+                            <td><?= esc($product['price']) ?></td>
+                            <td><?= $product['status'] == 1 ? 'Active' : 'Inactive' ?></td>
+                            <td>
+                                <button class="btn btn-warning btn-sm edit-btn" data-id="<?= $product['id'] ?>" data-name="<?= esc($product['name']) ?>" data-description="<?= esc($product['description']) ?>" data-quantity="<?= esc($product['quantity']) ?>" data-price="<?= esc($product['price']) ?>" data-bs-toggle="modal" data-bs-target="#editProductModal">Edit</button>
+                                <a href="/employee_dashboard/delete/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Deactivate</a>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($products as $product): ?>
-                            <?php if ($product['status'] == 1): ?>
-                                <tr>
-                                    <td><?= esc($product['id']) ?></td>
-                                    <td><?= esc($product['name']) ?></td>
-                                    <td><?= esc($product['description']) ?></td>
-                                    <td><?= esc($product['quantity']) ?></td>
-                                    <td><?= esc($product['price']) ?></td>
-                                    <td><?= $product['status'] == 1 ? 'Active' : 'Inactive' ?></td>
-                                    <td>
-                                        <a href="/employee_dashboard/edit/<?= $product['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                                        <a href="/employee_dashboard/delete/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Deactivate</a>
-                                    </td>
-                                </tr>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            <?php else: ?>
-                <p>No active products available.</p>
-            <?php endif; ?>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
 
-        <!-- Add New Product Button -->
-    <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">Add New Product</a>
+        <!-- Add Product Button -->
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">Add New Product</button>
 
-    <!-- Modal for Adding Product -->
-    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <!-- Add Product Modal -->
+        <div class="modal fade" id="addProductModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add New Product</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addProductForm">
+                            <input type="text" class="form-control mb-2" id="productName" name="name" placeholder="Product Name" required>
+                            <textarea class="form-control mb-2" id="productDescription" name="description" placeholder="Description" required></textarea>
+                            <input type="number" class="form-control mb-2" id="productQuantity" name="quantity" placeholder="Quantity" required>
+                            <input type="number" class="form-control mb-2" id="productPrice" name="price" placeholder="Price" required>
+                            <button type="submit" class="btn btn-primary w-100">Save</button>
+                        </form>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <!-- Product Creation Form -->
-                    <form id="addProductForm" method="POST" action="/employee_dashboard/store">
-                        <div class="mb-3">
-                            <label for="productName" class="form-label">Product Name</label>
-                            <input type="text" class="form-control" id="productName" name="name" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="productDescription" class="form-label">Description</label>
-                            <textarea class="form-control" id="productDescription" name="description" required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="productQuantity" class="form-label">Quantity</label>
-                            <input type="number" class="form-control" id="productQuantity" name="quantity" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="productPrice" class="form-label">Price</label>
-                            <input type="number" class="form-control" id="productPrice" name="price" required>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save Product</button>
-                        </div>
-                    </form>
+            </div>
+        </div>
+
+        <!-- Edit Product Modal -->
+        <div class="modal fade" id="editProductModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Product</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editProductForm">
+                            <input type="hidden" id="editProductId" name="id">
+                            <input type="text" class="form-control mb-2" id="editProductName" name="name" required>
+                            <textarea class="form-control mb-2" id="editProductDescription" name="description" required></textarea>
+                            <input type="number" class="form-control mb-2" id="editProductQuantity" name="quantity" required>
+                            <input type="number" class="form-control mb-2" id="editProductPrice" name="price" required>
+                            <button type="submit" class="btn btn-primary w-100">Update</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal for Editing Product -->
-    <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Product Edit Form -->
-                    <form id="editProductForm" method="POST" action="/employee_dashboard/update/<?= $product['id'] ?>">
-                        <input type="hidden" id="editProductId" name="id" value="<?= $product['id'] ?>" />
-                        <div class="mb-3">
-                            <label for="editProductName" class="form-label">Product Name</label>
-                            <input type="text" class="form-control" id="editProductName" name="name" value="<?= esc($product['name']) ?>" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="editProductDescription" class="form-label">Description</label>
-                            <textarea class="form-control" id="editProductDescription" name="description" required><?= esc($product['description']) ?></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="editProductQuantity" class="form-label">Quantity</label>
-                            <input type="number" class="form-control" id="editProductQuantity" name="quantity" value="<?= esc($product['quantity']) ?>" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="editProductPrice" class="form-label">Price</label>
-                            <input type="number" class="form-control" id="editProductPrice" name="price" value="<?= esc($product['price']) ?>" required>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save Changes</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-        </div>
-
-        <script>
-            const sidebar = document.getElementById('sidebar');
-            const closeBtn = document.getElementById('close-btn');
-            const toggleBtn = document.getElementById('toggle-btn');
-            const mainContent = document.getElementById('main-content');
-
-            window.onload = () => { sidebar.classList.add('active'); mainContent.classList.add('active'); };
-            closeBtn.onclick = () => { sidebar.classList.remove('active'); mainContent.classList.remove('active'); toggleBtn.style.display = 'block'; };
-            toggleBtn.onclick = () => { sidebar.classList.add('active'); mainContent.classList.add('active'); toggleBtn.style.display = 'none'; };
-
-            // Handle form submission via AJAX
-        
-        
-        
-        
-            document.getElementById('addProductForm').addEventListener('submit', function(event) {
-                event.preventDefault();
-
-                const formData = new FormData(this);
-                
-                fetch('/employee_dashboard/store', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        // Close the modal
-                        const modal = new bootstrap.Modal(document.getElementById('addProductModal'));
-                        modal.hide();
-
-                        // Optionally, refresh the product list or show a success message
-                        alert(data.message);
-                        window.location.reload();  // Refresh the page to show the new product
-                    } else {
-                        alert(data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error("Error adding product:", error);
-                    alert("There was an error adding the product.");
-                });
+    <script>
+        // Script for editing products
+        document.querySelectorAll('.edit-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                document.getElementById('editProductId').value = this.dataset.id;
+                document.getElementById('editProductName').value = this.dataset.name;
+                document.getElementById('editProductDescription').value = this.dataset.description;
+                document.getElementById('editProductQuantity').value = this.dataset.quantity;
+                document.getElementById('editProductPrice').value = this.dataset.price;
             });
+        });
 
+        // AJAX for adding product
+        document.getElementById('addProductForm').addEventListener('submit', function(e) {
+            e.preventDefault();
 
-
-
-            document.getElementById('editProductForm').addEventListener('submit', function(event) {
-                event.preventDefault();
-
-                const formData = new FormData(this);
-                
-                fetch('/employee_dashboard/store', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        // Close the modal
-                        const modal = new bootstrap.Modal(document.getElementById('addProductModal'));
-                        modal.hide();
-
-                        // Optionally, refresh the product list or show a success message
-                        alert(data.message);
-                        window.location.reload();  // Refresh the page to show the new product
-                    } else {
-                        alert(data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error("Error adding product:", error);
-                    alert("There was an error adding the product.");
-                });
+            let data = new FormData(this);
+            fetch('/employee_dashboard/addProduct', {
+                method: 'POST',
+                body: data
+            })
+            .then(response => response.json())
+            .then(result => {
+                if(result.success) {
+                    alert(result.message);
+                    window.location.reload(); // Reload the page to update the list
+                }
             });
+        });
 
+        // AJAX for updating product
+        document.getElementById('editProductForm').addEventListener('submit', function(e) {
+            e.preventDefault();
 
+            let data = new FormData(this);
+            fetch('/employee_dashboard/updateProduct', {
+                method: 'POST',
+                body: data
+            })
+            .then(response => response.json())
+            .then(result => {
+                if(result.success) {
+                    alert(result.message);
+                    window.location.reload(); // Reload the page to update the list
+                }
+            });
+        });
+    </script>
 
-
-
-
-        </script>
-
-    </body>
-    </html>
+</body>
+</html>
