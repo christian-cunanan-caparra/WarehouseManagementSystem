@@ -76,16 +76,21 @@ class DashboardController extends Controller
 
     public function update($id)
     {
-        // Get the data from the POST request
+        // Check if the user is logged in
+        if (!session()->get('is_logged_in')) {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'You must be logged in to perform this action.']);
+        }
+    
+        // Get the product data from the POST request
         $data = $this->request->getPost();
     
-        // Update the product in the database
+        // Attempt to update the product
         if ($this->productModel->update($id, $data)) {
-            // Return a JSON response indicating success
+            // Return a success message
             return $this->response->setJSON(['status' => 'success', 'message' => 'Product updated successfully.']);
         }
     
-        // Return a JSON response indicating failure
+        // Return an error message if the update fails
         return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to update product.']);
     }
     

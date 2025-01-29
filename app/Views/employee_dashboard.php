@@ -191,15 +191,22 @@
                 <tbody id="productTable">
                     <?php foreach ($products as $product): ?>
                         <tr>
-                            <td><?= esc($product['id']) ?></td>
-                            <td><?= esc($product['name']) ?></td>
-                            <td><?= esc($product['description']) ?></td>
-                            <td><?= esc($product['quantity']) ?></td>
-                            <td><?= esc($product['price']) ?></td>
-                            <td><?= $product['status'] == 1 ? 'Active' : 'Inactive' ?></td>
-                            <td>
-                            <button class="btn btn-warning btn-sm edit-btn"<?= esc($product['id']) ?> data-bs-toggle="modal" 
-    data-bs-target="#editProductModal">Edit</button>
+                        <tr data-id="<?= esc($product['id']) ?>">
+    <td><?= esc($product['id']) ?></td>
+    <td class="product-name"><?= esc($product['name']) ?></td>
+    <td class="product-description"><?= esc($product['description']) ?></td>
+    <td class="product-quantity"><?= esc($product['quantity']) ?></td>
+    <td class="product-price"><?= esc($product['price']) ?></td>
+    <td><?= $product['status'] == 1 ? 'Active' : 'Inactive' ?></td>
+    <td>
+        <button class="btn btn-warning btn-sm edit-btn" 
+            data-id="<?= esc($product['id']) ?>" 
+            data-name="<?= esc($product['name']) ?>" 
+            data-description="<?= esc($product['description']) ?>" 
+            data-quantity="<?= esc($product['quantity']) ?>" 
+            data-price="<?= esc($product['price']) ?>" 
+            data-bs-toggle="modal" 
+            data-bs-target="#editProductModal">Edit</button>
 
 
                                 <a href="/employee_dashboard/delete/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Deactivate</a>
