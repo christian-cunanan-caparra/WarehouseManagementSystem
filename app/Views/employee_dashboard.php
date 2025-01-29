@@ -144,7 +144,7 @@
         <button class="close-btn" id="close-btn">&times;</button>
         <div class="sidebar-header">Warehouse Management</div>
         <ul class="sidebar-links">
-            <li><a href="#"><span class="material-icons">dashboard</span> Dashboard</a></li>
+            <li><a href="/employee_dashboard"><span class="material-icons">dashboard</span> Dashboard</a></li>
             <li><a href="#"><span class="material-icons">inventory</span> Products</a></li>
             <li><a href="/inventory"><span class="material-icons">storage</span> Inventory</a></li>
             <!-- <a href="/inventory/logs" class="btn btn-primary">View Inventory Logs</a> -->
