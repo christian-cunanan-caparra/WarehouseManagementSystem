@@ -186,7 +186,7 @@
 
     <!-- Main Content -->
     <div class="content" id="main-content">
-        <h2 class="">Product List</h2>
+        <h2 class="text-center">Product List</h2>
         
         <!-- Add Product Button -->
          <div style="padding-bottom: 10px;" >
