@@ -214,6 +214,26 @@
                 }
             });
         });
+
+
+        const toggleBtn = document.getElementById('toggle-btn');
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('main-content');
+
+    // Add event listener to toggle sidebar on/off
+    toggleBtn.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+        mainContent.classList.toggle('active'); // Adjust main content position when sidebar is active
+    });
+
+    // Optional: Close sidebar if the user clicks outside
+    document.addEventListener('click', function(event) {
+        if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target)) {
+            sidebar.classList.remove('active');
+            mainContent.classList.remove('active');
+        }
+    });
+
     </script>
 
 </body>
