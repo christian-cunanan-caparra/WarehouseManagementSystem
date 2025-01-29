@@ -95,24 +95,7 @@ class DashboardController extends Controller
     }
 
 
-    public function logs()
-{
-    if (!session()->get('is_logged_in')) {
-        return redirect()->to('/login')->with('error', 'You must be logged in to access this page.');
-    }
-
-    $db = \Config\Database::connect();
-
-    // Fetch logs with product names
-    $logs = $db->table('inventory_logs')
-               ->select('inventory_logs.*, products.name')
-               ->join('products', 'products.id = inventory_logs.product_id')
-               ->orderBy('inventory_logs.created_at', 'DESC')
-               ->get()->getResultArray();
-
-    return view('inventory_logs', ['logs' => $logs]);
-}
-
+    
 
     // Inventory: Add Stock
     public function addStock($id)
