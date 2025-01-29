@@ -69,9 +69,3 @@ $routes->post('/inventory/remove-stock/(:num)', 'DashboardController::removeStoc
 // Logout
 $routes->get('/logout', 'DashboardController::logout');
 
-//request to remove stock 
-
-$routes->post('inventory/requestStockRemoval/(:num)', 'InventoryController::requestStockRemoval/$1');
-$routes->get('inventory/stock_removal_requests', 'InventoryController::stockRemovalRequests');
-$routes->get('inventory/approveRemoval/(:num)', 'InventoryController::approveRemoval/$1');
-$routes->get('inventory/rejectRemoval/(:num)', 'InventoryController::rejectRemoval/$1');
