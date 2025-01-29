@@ -241,7 +241,7 @@
                     </thead>
                     <tbody>
                         <?php foreach ($products as $product): ?>
-                            <?php if ($product['status'] == 1): // Only show active products ?>
+                          
                                 <tr>
                                     <td><?= esc($product['name']) ?></td>
                                     <td><?= esc($product['stock_in']) ?></td>
@@ -258,7 +258,7 @@
                                         </form>
                                     </td>
                                 </tr>
-                            <?php endif; ?>
+                         
                         <?php endforeach; ?>
                     </tbody>
                 </table>
