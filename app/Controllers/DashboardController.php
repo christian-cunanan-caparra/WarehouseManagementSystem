@@ -47,24 +47,20 @@ class DashboardController extends Controller
     }
 
     public function store()
-{
-    // Check if the request is an AJAX call
-    if ($this->request->isAJAX()) {
+    {
         // Get the form data
         $data = $this->request->getPost();
-
+    
         // Set the status to 1 (active) for the new product
         $data['status'] = 1;
-
+    
         // Insert the product into the database
         if ($this->productModel->insert($data)) {
-            return $this->response->setJSON(['success' => true, 'message' => 'Product added successfully.']);
-        } else {
-            return $this->response->setJSON(['success' => false, 'message' => 'Failed to add product.']);
+            return $this->response->setJSON(['status' => 'success', 'message' => 'Product added successfully.']);
         }
+    
+        return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to add product.']);
     }
-}
-
     
     
 
@@ -78,33 +74,12 @@ class DashboardController extends Controller
         return view('edit_product', ['product' => $this->productModel->find($id)]);
     }
 
-    public function update()
+    public function update($id)
     {
-        // Restrict access if the user is not logged in
-        if (!session()->get('is_logged_in')) {
-            return redirect()->to('/login')->with('error', 'You must be logged in to access this page.');
-        }
-    
-        // Check if the request is an AJAX call
-        if ($this->request->isAJAX()) {
-            $id = $this->request->getPost('id'); // Get the product ID from the form data
-            $data = [
-                'name' => $this->request->getPost('name'),
-                'description' => $this->request->getPost('description'),
-                'quantity' => $this->request->getPost('quantity'),
-                'price' => $this->request->getPost('price'),
-            ];
-    
-            // Update the product in the database
-            if ($this->productModel->update($id, $data)) {
-                return $this->response->setJSON(['success' => true, 'message' => 'Product updated successfully.']);
-            } else {
-                return $this->response->setJSON(['success' => false, 'message' => 'Failed to update product.']);
-            }
-        }
+        $this->productModel->update($id, $this->request->getPost());
+        return redirect()->to('/employee_dashboard')->with('message', 'Product updated successfully.');
     }
-    
-    
+
     public function delete($id)
     {
         // Update the status to 0 (inactive) instead of deleting the record
