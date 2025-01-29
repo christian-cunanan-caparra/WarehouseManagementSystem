@@ -305,17 +305,16 @@
 
      
         const toggleBtn = document.getElementById('toggle-btn');
+    const closeBtn = document.getElementById('close-btn'); // Close button reference
     const sidebar = document.getElementById('sidebar');
     const mainContent = document.getElementById('main-content');
 
-    // Check screen width to automatically open the sidebar on larger screens
+    // Automatically open sidebar on larger screens
     window.onload = function() {
         if (window.innerWidth > 768) {
-            // Automatically open the sidebar on larger screens (desktop/tablet)
             sidebar.classList.add('active');
             mainContent.classList.add('active');
         } else {
-            // Ensure sidebar is closed on smaller screens (mobile)
             sidebar.classList.remove('active');
             mainContent.classList.remove('active');
         }
@@ -323,14 +322,19 @@
 
     // Toggle the sidebar on smaller screens
     toggleBtn.addEventListener('click', function() {
-        sidebar.classList.toggle('active'); // Toggle the sidebar open/close
-        mainContent.classList.toggle('active'); // Adjust the main content accordingly
+        sidebar.classList.toggle('active');
+        mainContent.classList.toggle('active');
+    });
+
+    // Close the sidebar when clicking the close button
+    closeBtn.addEventListener('click', function() {
+        sidebar.classList.remove('active');
+        mainContent.classList.remove('active');
     });
 
     // Optional: Close sidebar if user clicks outside
     document.addEventListener('click', function(event) {
-        // Check if the click is outside the sidebar and toggle button
-        if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target)) {
+        if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target) && !closeBtn.contains(event.target)) {
             sidebar.classList.remove('active');
             mainContent.classList.remove('active');
         }
@@ -339,11 +343,9 @@
     // Window resize to handle screen size change dynamically
     window.onresize = function() {
         if (window.innerWidth > 768) {
-            // Automatically open the sidebar on larger screens
             sidebar.classList.add('active');
             mainContent.classList.add('active');
         } else {
-            // Ensure sidebar is hidden on mobile
             sidebar.classList.remove('active');
             mainContent.classList.remove('active');
         }
