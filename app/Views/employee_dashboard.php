@@ -88,16 +88,7 @@
 
 
         <!-- User Activity -->
-        <div class="card mt-4">
-            <div class="card-body">
-                <h5 class="card-title">Recent User Activity</h5>
-                <ul>
-                    <?php foreach ($userActivities as $activity): ?>
-                        <li><?= $activity['user_name'] ?> - <?= $activity['action'] ?> on <?= $activity['timestamp'] ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        </div>
+      
 
     </div>
 
