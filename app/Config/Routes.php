@@ -105,7 +105,6 @@ $routes->post('/process-reset-password', 'PasswordResetController::processResetP
 
 
 $routes->get('/account-management', 'DashboardController::accountManagement');
-$routes->get('/account-management', 'DashboardController::accountManagement');
 $routes->get('/create-account', 'DashboardController::createAccount');
 $routes->post('/store-account', 'DashboardController::storeAccount');
 $routes->get('/edit-account/(:num)', 'DashboardController::editAccount/$1');
