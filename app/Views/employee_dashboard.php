@@ -276,10 +276,10 @@
     const miniBarChart = new Chart(miniBarCtx, {
         type: 'bar',
         data: {
-            labels: ['Product A', 'Product B', 'Product C', 'Product D', 'Product E'], // Sample labels
+            labels: ['Stock In', 'Stock Out', 'Low Stock Alerts', 'Products', 'Catche'], // Sample labels
             datasets: [{
                 label: 'Stock Usage',
-                data: [50, 80,  <?= count($lowStockProducts) ?>, 90, 70], // Sample data
+                data: [ <?= count($totalStockIn) ?>, <?= count($totalStockOut) ?>,  <?= count($lowStockProducts) ?>, 90, 70], // Sample data
                 backgroundColor: [
                     'rgba(23, 162, 184, 0.8)',
                     'rgba(220, 53, 69, 0.8)',
