@@ -148,9 +148,12 @@
             height: 400px;
         }
 
-        /* Pie Chart */
+        /* Mini Pie Chart */
         #pieChart {
-            height: 300px;
+            height: 200px;
+            max-width: 250px;
+            margin: 0 auto; /* Center the chart */
+            border-radius: 10px;
         }
 
         /* Responsive Design */
@@ -254,7 +257,7 @@
             </div>
         </div>
 
-        <!-- Pie Chart -->
+        <!-- Mini Pie Chart -->
         <div class="row">
             <div class="col-md-12">
                 <canvas id="pieChart"></canvas>
@@ -262,7 +265,7 @@
         </div>
 
         <script>
-            // Pie Chart for Stock Distribution
+            // Mini Pie Chart for Stock Distribution
             const ctx = document.getElementById('pieChart').getContext('2d');
             const pieChart = new Chart(ctx, {
                 type: 'pie',
@@ -273,15 +276,24 @@
                         data: [<?= $totalStockIn ?>, <?= $totalStockOut ?>, <?= count($lowStockProducts) ?>],
                         backgroundColor: ['#17a2b8', '#dc3545', '#ffc107'],
                         borderColor: ['#ffffff', '#ffffff', '#ffffff'],
-                        borderWidth: 1
+                        borderWidth: 2
                     }]
                 },
                 options: {
                     responsive: true,
+                    animation: {
+                        animateScale: true, // Add scaling animation for the chart
+                        animateRotate: true // Add rotation animation
+                    },
                     plugins: {
                         legend: {
                             position: 'top',
-                        },
+                            labels: {
+                                fontSize: 12,
+                                fontColor: '#343a40',
+                                boxWidth: 10
+                            }
+                        }
                     }
                 }
             });
