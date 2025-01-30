@@ -153,7 +153,7 @@
 
     <!-- Main Content -->
     <div class="content" id="main-content">
-        <h2>Inventory Logs</h2>
+        <h2 class="text-center">Inventory Logs</h2>
 
         <div class="table-responsive">
             <table class="table table-striped table-bordered">
