@@ -249,4 +249,30 @@ public function deleteAccount($id)
 
     return redirect()->to('/account-management')->with('error', 'Failed to update account status.');
 }
+
+
+
+
+public function archiveAccounts()
+{
+    if (!session()->get('is_logged_in') || session()->get('role') !== 'Admin') {
+        return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
+    }
+
+    $data['users'] = $this->userModel->where('role', 'Inactive')->findAll();
+    return view('archive_accounts', $data);
+}
+
+
+public function restoreAccount($id)
+{
+    if (!session()->get('is_logged_in') || session()->get('role') !== 'Admin') {
+        return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
+    }
+
+    $this->userModel->update($id, ['role' => 'Employee']);
+    return redirect()->to('/archive-accounts')->with('success', 'Account restored successfully.');
+}
+
+
 }
