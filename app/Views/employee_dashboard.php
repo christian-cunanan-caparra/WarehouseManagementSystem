@@ -140,14 +140,9 @@
             font-size: 2rem;
         }
 
-        /* Modal Styling */
-        .modal-content {
-            background-color: #f8f9fa;
-        }
-
-        .modal-header {
-            background-color: #343a40;
-            color: white;
+        /* Stock Trends Chart */
+        #stockTrendChart {
+            height: 400px;
         }
 
         /* Responsive Design */
@@ -205,6 +200,36 @@
 
         <!-- Analytics Cards -->
         <div class="row mb-4">
+            <!-- Total Stock In -->
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 bg-info text-white">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Total Stock In</h5>
+                            <h3 class="card-text" id="totalStockIn">
+                                <?= $totalStockIn ?> <!-- Dynamically inserted PHP data -->
+                            </h3>
+                        </div>
+                        <span class="material-icons">arrow_downward</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Stock Out -->
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 bg-danger text-white">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Total Stock Out</h5>
+                            <h3 class="card-text" id="totalStockOut">
+                                <?= $totalStockOut ?> <!-- Dynamically inserted PHP data -->
+                            </h3>
+                        </div>
+                        <span class="material-icons">arrow_upward</span>
+                    </div>
+                </div>
+            </div>
+
             <!-- Low Stock Alerts -->
             <div class="col-md-4">
                 <div class="card shadow-sm border-0 bg-warning text-white" data-bs-toggle="modal" data-bs-target="#lowStockModal">
@@ -212,7 +237,7 @@
                         <div>
                             <h5 class="card-title">Low Stock Alerts</h5>
                             <h3 class="card-text" id="lowStockCount">
-                                <?= count($lowStockProducts) ?> <!-- Dynamically inserted PHP data -->
+                                <?= count($lowStockProducts) ?>
                             </h3>
                         </div>
                         <span class="material-icons">warning</span>
@@ -221,34 +246,13 @@
             </div>
         </div>
 
-        <!-- Low Stock Modal -->
-        <div class="modal fade" id="lowStockModal" tabindex="-1" aria-labelledby="lowStockModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="lowStockModalLabel">Low Stock Products</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <h5>Products with stock below 50:</h5>
-                        <ul id="lowStockList">
-                            <!-- Dynamically filled list -->
-                            <?php if (!empty($lowStockProducts)): ?>
-                                <?php foreach ($lowStockProducts as $product): ?>
-                                    <li><?= esc($product['name']) ?> - <?= esc($product['remaining_stock']) ?> remaining</li>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <li>No low-stock products found.</li>
-                            <?php endif; ?>
-                        </ul>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
+        <!-- Stock Trends Chart -->
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title">Stock Trends</h5>
+                <canvas id="stockTrendChart"></canvas>
             </div>
         </div>
-
     </div>
 
     <script>
