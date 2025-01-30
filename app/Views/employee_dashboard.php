@@ -10,6 +10,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Circle Progress Bar -->
+    <script src="https://cdn.jsdelivr.net/npm/circle-progress@1.2.3/dist/circle-progress.min.js"></script>
 
     <style>
         /* Custom styles for responsive sidebar and other components */
@@ -85,6 +87,35 @@
             font-size: 2rem;
         }
 
+        /* Circle Analytics Styles */
+        .circle-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .circle {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #f1f1f1;
+        }
+
+        .circle .circle-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .circle span {
+            display: block;
+            font-size: 14px;
+        }
+
         /* Hide sidebar */
         .sidebar.closed {
             transform: translateX(-250px);
@@ -116,6 +147,33 @@
     <!-- Main Content -->
     <div class="content" id="main-content">
         <h1 class="text-center">Dashboard</h1>
+
+        <!-- Circle Analytics for Low Stock, Out of Stock, Stock In / Stock Out -->
+        <div class="circle-container mb-4">
+            <!-- Low Stock (Yellow) -->
+            <div class="circle" id="lowStockCircle">
+                <div class="circle-inner" id="lowStockText">
+                    <span>Low Stock</span>
+                    <div id="lowStockProgress"></div>
+                </div>
+            </div>
+
+            <!-- Out of Stock (Red) -->
+            <div class="circle" id="outOfStockCircle">
+                <div class="circle-inner" id="outOfStockText">
+                    <span>Out of Stock</span>
+                    <div id="outOfStockProgress"></div>
+                </div>
+            </div>
+
+            <!-- Stock In / Stock Out (Green) -->
+            <div class="circle" id="stockInOutCircle">
+                <div class="circle-inner" id="stockInOutText">
+                    <span>Stock In/Out</span>
+                    <div id="stockInOutProgress"></div>
+                </div>
+            </div>
+        </div>
 
         <!-- Analytics Cards -->
         <div class="row mb-4">
@@ -208,6 +266,31 @@
             sidebar.classList.toggle('closed');
             content.classList.toggle('open-sidebar');
         });
+
+        // Circle Progress Bars
+        $(document).ready(function () {
+            // Low Stock Progress
+            $('#lowStockProgress').circleProgress({
+                value: <?= count($lowStockProducts) ?> / 50, // Adjust value
+                size: 100,
+                fill: { color: '#FFC107' }, // Yellow for low stock
+            });
+
+            // Out of Stock Progress
+            $('#outOfStockProgress').circleProgress({
+                value: <?= count($outOfStockProducts) ?> / 50, // Adjust value
+                size: 100,
+                fill: { color: '#DC3545' }, // Red for out of stock
+            });
+
+            // Stock In/Out Progress
+            $('#stockInOutProgress').circleProgress({
+                value: <?= $totalStockInOut ?> / 50, // Adjust value
+                size: 100,
+                fill: { color: '#28A745' }, // Green for stock in/out
+            });
+        });
     </script>
+
 </body>
 </html>
