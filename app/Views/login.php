@@ -107,7 +107,7 @@
 
         .forgot-password {
             text-decoration: none;
-            align-items: center;
+            text-align: center;
         }
     </style>
 </head>
