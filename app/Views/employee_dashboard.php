@@ -3,14 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory Logs</title>
+    <title>Employee Dashboard - Warehouse Management System</title>
+
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Chart.js for Data Visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style>
-        /* General Styles */
+        /* Custom styles for responsive sidebar and other components */
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
@@ -18,7 +23,6 @@
             padding: 0;
         }
 
-        /* Sidebar Styling */
         .sidebar {
             width: 250px;
             background-color: #343a40;
@@ -62,11 +66,42 @@
             border-radius: 5px;
         }
 
-        /* Toggle Button */
-        .toggle-btn {
+        .content {
+            margin-left: 270px;
+            padding: 20px;
+            transition: margin-left 0.3s ease-in-out;
+        }
+
+        .card-title {
+            font-size: 18px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 2rem;
+        }
+
+        /* Hide sidebar */
+        .sidebar.closed {
+            transform: translateX(-250px);
+        }
+
+        .content.open-sidebar {
+            margin-left: 0;
+        }
+
+        /* Toggle Sidebar Button */
+        #sidebarToggle {
             position: fixed;
-            left: 260px; /* Same starting position as sidebar when open */
             top: 15px;
+            left: 260px; /* Initially placed to the side of the sidebar */
             background-color: #343a40;
             color: white;
             border: none;
@@ -74,68 +109,22 @@
             cursor: pointer;
             font-size: 20px;
             border-radius: 5px;
-            transition: 0.3s left ease-in-out; /* Smooth transition for button */
+            transition: left 0.3s ease-in-out;
+            z-index: 10;
         }
 
-        .toggle-btn:hover {
-            background-color: #495057;
-        }
-
-        /* Content Styling */
-        .content {
-            margin-left: 270px;
-            padding: 20px;
-            transition: margin-left 0.3s;
-        }
-
-        h2 {
-            font-weight: bold;
-            color: #343a40;
-        }
-
-        /* Table Styling */
-        .table {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .table thead {
-            background-color: #343a40;
-            color: white;
-        }
-
-        .table th, .table td {
-            padding: 12px;
-            text-align: center;
-        }
-
-        /* Responsive Design */
-        @media screen and (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-250px);
-            }
-            
-            .content {
-                margin-left: 0;
-            }
-
-            .toggle-btn {
-                left: 15px; /* Keep button at the left side in small screens */
-            }
-        }
-
-        .sidebar.hidden {
-            transform: translateX(-250px); /* Hide sidebar when closed */
-        }
-
-        .content.full-width {
-            margin-left: 0; /* Full width content when sidebar is hidden */
+        /* When Sidebar is closed, move the button to the left */
+        .sidebar.closed + #sidebarToggle {
+            left: 15px;
         }
     </style>
 </head>
 <body>
+
+    <!-- Toggle Sidebar Button -->
+    <button id="sidebarToggle" class="btn btn-dark position-fixed top-0 start-0 ms-3 mt-3">
+        <span class="material-icons">menu</span>
+    </button>
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
@@ -148,65 +137,101 @@
         </ul>
     </aside>
 
-    <!-- Toggle Button -->
-    <button class="toggle-btn" id="toggle-btn">&#9776;</button>
-
     <!-- Main Content -->
     <div class="content" id="main-content">
-        <h2 class="text-center">Inventory Logs</h2>
+        <h1 class="text-center">Dashboard</h1>
 
-        <div class="table-responsive">
-            <table class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>Product Name</th>
-                        <th>Quantity</th>
-                        <th>Date</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if (!empty($inventory_logs)): ?>
-                        <?php foreach ($inventory_logs as $log): ?>
-                            <tr>
-                                <td><?= esc($log['product_id']) ?></td> <!-- Replace with product name if available -->
-                                <td><?= esc($log['quantity']) ?></td>
-                                <td><?= esc($log['created_at']) ?></td>
-                                <td><?= esc($log['action']) ?></td>
-                            </tr>
+        <!-- Analytics Cards -->
+        <div class="row mb-4">
+            <!-- Total Products -->
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 bg-primary text-white">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Total Products</h5>
+                            <h3 class="card-text">
+                                <?= count(array_column($products, 'stock_in')) ?>
+                            </h3>
+                        </div>
+                        <span class="material-icons">inventory</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Low Stock Alerts -->
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 bg-warning text-white" data-bs-toggle="modal" data-bs-target="#lowStockModal">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Low Stock Alerts</h5>
+                            <h3 class="card-text">
+                                <?php if (!empty($lowStockProducts)): ?>
+                                    <?= count($lowStockProducts) ?>
+                                <?php else: ?>
+                                    0
+                                <?php endif; ?>
+                            </h3>
+                        </div>
+                        <span class="material-icons">warning</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for Low Stock Products -->
+        <div class="modal fade" id="lowStockModal" tabindex="-1" aria-labelledby="lowStockModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="lowStockModalLabel">Low Stock Products</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <?php if (!empty($lowStockProducts)): ?>
+                            <ul>
+                                <?php foreach ($lowStockProducts as $product): ?>
+                                    <li>
+                                        <strong><?= $product['name'] ?></strong> - 
+                                        <span><?= $product['remaining_stock'] ?> units left</span>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php else: ?>
+                            <p>No products are low on stock.</p>
+                        <?php endif; ?>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Most Used Products -->
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title">Most Used Products</h5>
+                <ul>
+                    <?php if (!empty($mostUsedProducts)): ?>
+                        <?php foreach ($mostUsedProducts as $product): ?>
+                            <li><?= $product['name'] ?> - <?= $product['stock_in'] + $product['stock_out'] ?> times used</li>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <tr>
-                            <td colspan="4" class="text-center">No inventory logs found.</td>
-                        </tr>
+                        <li>No products have been used yet.</li>
                     <?php endif; ?>
-                </tbody>
-            </table>
+                </ul>
+            </div>
         </div>
     </div>
 
+    <!-- Script for sidebar toggle -->
     <script>
-        // Sidebar Toggle Functionality
-        const sidebar = document.getElementById("sidebar");
-        const toggleBtn = document.getElementById("toggle-btn");
-        const content = document.getElementById("main-content");
-
-        let isSidebarOpen = true; // Track sidebar state
-
-        toggleBtn.addEventListener("click", () => {
-            isSidebarOpen = !isSidebarOpen; // Toggle state
-
-            if (isSidebarOpen) {
-                sidebar.classList.remove("hidden");
-                content.classList.remove("full-width");
-                toggleBtn.style.left = "260px"; // Move button to the side when sidebar is open
-            } else {
-                sidebar.classList.add("hidden");
-                content.classList.add("full-width");
-                toggleBtn.style.left = "15px"; // Move button closer when sidebar is closed
-            }
+        document.getElementById('sidebarToggle').addEventListener('click', function () {
+            const sidebar = document.getElementById('sidebar');
+            const content = document.getElementById('main-content');
+            sidebar.classList.toggle('closed');
+            content.classList.toggle('open-sidebar');
         });
     </script>
-
 </body>
 </html>
