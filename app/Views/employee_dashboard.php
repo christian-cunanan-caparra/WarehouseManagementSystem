@@ -247,14 +247,32 @@
         </div>
 
         <!-- Stock Trends Chart -->
-       
-</div>
+    
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-   
-   
-</script>
+    <script>
+        // Sidebar Toggle Functionality
+        const sidebar = document.getElementById("sidebar");
+        const toggleBtn = document.getElementById("toggle-btn");
+        const content = document.getElementById("main-content");
+
+        let isSidebarOpen = true; // Track sidebar state
+
+        toggleBtn.addEventListener("click", () => {
+            isSidebarOpen = !isSidebarOpen; // Toggle state
+
+            if (isSidebarOpen) {
+                sidebar.classList.remove("hidden");
+                content.classList.remove("full-width");
+                toggleBtn.classList.remove("move");
+                toggleBtn.style.left = "260px"; // Adjust button position
+            } else {
+                sidebar.classList.add("hidden");
+                content.classList.add("full-width");
+                toggleBtn.classList.add("move");
+                toggleBtn.style.left = "15px"; // Move button closer when sidebar is closed
+            }
+        });
+    </script>
 
 </body>
 </html>
