@@ -127,20 +127,25 @@
     
 
         <!-- Low Stock Alerts -->
-        <div class="card mt-4">
-            <div class="card-body">
+       <!-- Low Stock Alerts Card -->
+<div class="col-md-4">
+    <div class="card shadow-sm border-0 bg-warning text-white">
+        <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
                 <h5 class="card-title">Low Stock Alerts</h5>
-                <ul>
+                <h3 class="card-text">
                     <?php if (!empty($lowStockProducts)): ?>
-                        <?php foreach ($lowStockProducts as $product): ?>
-                            <li><?= $product['name'] ?> - <?= $product['remaining_stock'] ?> units left</li>
-                        <?php endforeach; ?>
+                        <?= count($lowStockProducts) ?>
                     <?php else: ?>
-                        <li>No products are low on stock.</li>
+                        0
                     <?php endif; ?>
-                </ul>
+                </h3>
             </div>
+            <span class="material-icons">warning</span>
         </div>
+    </div>
+</div>
+
 
         <!-- Most Used Products -->
         <div class="card mt-4">
