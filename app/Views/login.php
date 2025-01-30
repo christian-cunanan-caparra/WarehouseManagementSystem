@@ -105,8 +105,9 @@
             padding: 15px;
         }
 
-        a {
+        .forgot-password {
             text-decoration: none;
+            align-items: center;
         }
     </style>
 </head>
@@ -150,7 +151,7 @@
 </div>
 
             <button type="submit" class="btn btn-primary">Login</button>
-            <a href="/request-reset" class="text-primary text-center">Forgot Password?</a>
+            <a href="/request-reset" class="text-primary forgot-password">Forgot Password?</a>
         </form>
 
         <!-- Link to register page if the user doesn't have an account -->
