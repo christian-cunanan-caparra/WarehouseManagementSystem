@@ -300,7 +300,7 @@ public function inventoryLogsPage()
     if ($role === 'Admin') {
         // Fetch products where status = 0 (inactive products)
         $data['products'] = $this->productModel->where('status', 0)->findAll();
-        return view('inventory_log', $data); // Redirect to admin dashboard for Admin
+        return view('admin_dashboard', $data); // Redirect to admin dashboard for Admin
     } elseif ($role === 'Employee') {
         // Load the InventoryLog model
         $InventoryLogModel = new \App\Models\InventoryLogModel();
