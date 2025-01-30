@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+
+use App\Models\InventoryLogModel;
 use App\Models\ProductModel;
 use CodeIgniter\Controller;
 
