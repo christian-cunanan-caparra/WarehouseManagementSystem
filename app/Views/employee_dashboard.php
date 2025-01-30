@@ -276,10 +276,12 @@
     const miniBarChart = new Chart(miniBarCtx, {
         type: 'bar',
         data: {
-            labels: ['Stock In', 'Stock Out', 'Low Stock Alerts', 'Products', 'Catche'], // Sample labels
+            labels: ['Stock In', 'Stock Out', 'Products', 'Catche'], // Sample labels
+
             datasets: [{
                 label: 'Stock Usage',
                 data: [ <?= $totalStockIn ?>, <?= $totalStockOut ?>, 5000, 3000 ],
+
 
                 backgroundColor: [
                     'rgba(23, 162, 184, 0.8)',
@@ -290,7 +292,7 @@
                 ],
                 borderRadius: 8, // Rounded bars
                 borderWidth: 1,
-                barPercentage: 0.5, // Make bars thinner
+                barPercentage: 0.5, // Make bsssssars thinner
             }]
         },
         options: {
