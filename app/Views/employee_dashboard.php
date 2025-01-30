@@ -234,7 +234,7 @@
     const sidebar = document.getElementById('sidebar');
     const mainContent = document.getElementById('main-content');
 
-    // Automatically open sidebar on larger screens
+    // Automatiscally open sidebar on larger screens
     window.onload = function() {
         if (window.innerWidth > 768) {
             sidebar.classList.add('active');
