@@ -13,6 +13,8 @@
     <style>
         /* Stjyles for responsive sidebar */
         .sidebar {
+    display: flex;
+    flex-direction: column;
     position: fixed;
     top: 0;
     left: -270px; /* Initially hidden */
@@ -82,7 +84,13 @@
     list-style: none;
     padding: 0;
     margin-top: 20px;
+    flex-grow: 1;
 }
+
+.logout-link {
+    margin-top: auto;
+}
+
 
 .sidebar-links li {
     margin-bottom: 15px;
@@ -141,19 +149,17 @@
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
-        
-        <div class="sidebar-header">Warehouse Management</div>
-        <ul class="sidebar-links">
-            <li><a href="/employee_dashboard"><span class="material-icons">dashboard</span> Dashboard</a></li>
-            <li><a href="/product"><span class="material-icons">inventory</span> Products</a></li>
-            <li><a href="/inventory"><span class="material-icons">storage</span> Inventory</a></li>
-            <li><a href="/inventory_logs"><span class="material-icons">storage</span> Inventory Logs</a></li>
-            <li><a class="pt-50px" href="/logout"><span class="material-icons">logout</span> Log out</a></li>
-            
-       
-
-        </ul>
-    </aside>
+    <div class="sidebar-header">Warehouse Management</div>
+    <ul class="sidebar-links">
+        <li><a href="/employee_dashboard"><span class="material-icons">dashboard</span> Dashboard</a></li>
+        <li><a href="/product"><span class="material-icons">inventory</span> Products</a></li>
+        <li><a href="/inventory"><span class="material-icons">storage</span> Inventory</a></li>
+        <li><a href="/inventory_logs"><span class="material-icons">storage</span> Inventory Logs</a></li>
+    </ul>
+    <ul class="sidebar-links logout-link">
+        <li><a href="/logout"><span class="material-icons">logout</span> Log out</a></li>
+    </ul>
+</aside>
 
     <!-- Toggle Button -->
     <button class="toggle-btn" id="toggle-btn">&#9776;</button>
