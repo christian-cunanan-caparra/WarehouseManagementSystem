@@ -94,7 +94,7 @@ $routes->get('/account-management', 'DashboardController::accountManagement');
 
 
 
-
+$routes->get('/admin_dashboard', 'DashboardController::index');
 
 $routes->get('/request-reset', 'PasswordResetController::requestReset');
 $routes->post('/send-reset-code', 'PasswordResetController::sendResetCode');

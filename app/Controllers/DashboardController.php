@@ -49,15 +49,16 @@ class DashboardController extends Controller
         if (!session()->get('is_logged_in')) {
             return redirect()->to('/login');
         }
-
+    
         $role = session()->get('role');
-
+    
         if ($role === 'Admin') {
-            return view('admin_dashboard');
+            // Fetch products where status = 0 (inactive products)
+            $data['products'] = $this->productModel->where('status', 0)->findAll();
+            return view('admin_dashboard', $data);
         } elseif ($role === 'Employee') {
-            $data['products'] = $this->productModel->where('remaining_stock >=', 1)->findAll();
-            return view('productList', $data);
-        }
+            $data['products'] = $this->productModel->where('status', 1)->findAll();
+            return
 
         return redirect()->to('/login');
     }
