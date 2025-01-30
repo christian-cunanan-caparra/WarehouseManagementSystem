@@ -11,7 +11,7 @@
     <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        /* Styles for responsive sidebar */
+        /* Stjyles for responsive sidebar */
         .sidebar {
     position: fixed;
     top: 0;
