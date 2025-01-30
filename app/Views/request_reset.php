@@ -18,10 +18,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-image: url("https://scontent.fmnl4-3.fna.fbcdn.net/v/t39.30808-1/468287479_575638201716744_3622098773697684960_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=110&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeEnrv0TqXGrDxHQ0oGtNBcqBKKRuklQ9ugEopG6SVD26BbvOako34yv_yPKgwIcU0r5fK9UISSsBi07udPF7Q4D&_nc_ohc=YRjxzFGMTAIQ7kNvgGbouGS&_nc_zt=24&_nc_ht=scontent.fmnl4-3.fna&_nc_gid=A5QuXKEz3Nmb4TVFpviigaF&oh=00_AYDONZV_VueDoTXw_Esu1SpSc8ZXDCHzDBKn_a3-HnX96A&oe=67A0EF65");
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: fixed;
+            background-color: whitesmoke;
             padding: 20px;
         }
 
@@ -125,7 +122,7 @@
 
 <form action="/send-reset-code" method="post">
     <h1>Reset Password</h1>
-    <p>Please enter your email or mobile number to reset your password.</p>
+    <p>Please enter your email to reset your password.</p>
     
     <label for="email">Email:</label>
     <input type="email" name="email" required>  
