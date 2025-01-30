@@ -140,9 +140,18 @@
             font-size: 2rem;
         }
 
-        /* Stock Trends Chart */
-        #stockTrendChart {
-            height: 400px;
+        /* Loading Animation */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+        }
+
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+            border-width: 0.3rem;
         }
 
         /* Responsive Design */
@@ -158,27 +167,6 @@
             .toggle-btn {
                 left: 15px;
             }
-        }
-
-        /* Animation for data analytics */
-        .data-analytics {
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
-            animation: moveDataAnalytics 10s ease-in-out infinite;
-        }
-
-        .card-animate {
-            min-width: 200px;
-            transition: transform 0.3s;
-        }
-
-        @keyframes moveDataAnalytics {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-250px); }
-            50% { transform: translateX(-500px); }
-            75% { transform: translateX(-250px); }
-            100% { transform: translateX(0); }
         }
 
     </style>
@@ -208,41 +196,54 @@
     <div class="content" id="main-content">
         <h2 class="text-center">Dashboard</h2>
 
-        <!-- Fake Data Analytics with Animation -->
-        <div class="data-analytics mb-4">
-            <!-- Total Stock In -->
-            <div class="card shadow-sm border-0 bg-info text-white card-animate">
-                <div class="card-body d-flex justify-content-between align-items-center">
-                    <div>
-                        <h5 class="card-title">Total Stock In</h5>
-                        <h3 class="card-text" id="totalStockIn">50,000</h3>
+        <!-- New Fake Analytics Section -->
+        <div class="row mb-4">
+            <!-- Sales Analytics -->
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 bg-info text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Sales Analytics</h5>
+                        <div class="loading" id="salesLoading">
+                            <div class="spinner-border text-light" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                        <h3 class="card-text" id="salesData" style="display:none;">$150,000</h3>
                     </div>
-                    <span class="material-icons">arrow_downward</span>
                 </div>
             </div>
 
-            <!-- Total Stock Out -->
-            <div class="card shadow-sm border-0 bg-danger text-white card-animate">
-                <div class="card-body d-flex justify-content-between align-items-center">
-                    <div>
-                        <h5 class="card-title">Total Stock Out</h5>
-                        <h3 class="card-text" id="totalStockOut">30,000</h3>
+            <!-- Customer Feedback -->
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 bg-success text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Customer Feedback</h5>
+                        <div class="loading" id="feedbackLoading">
+                            <div class="spinner-border text-light" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                        <h3 class="card-text" id="feedbackData" style="display:none;">4.8/5</h3>
                     </div>
-                    <span class="material-icons">arrow_upward</span>
                 </div>
             </div>
 
-            <!-- Low Stock Alerts -->
-            <div class="card shadow-sm border-0 bg-warning text-white card-animate">
-                <div class="card-body d-flex justify-content-between align-items-center">
-                    <div>
-                        <h5 class="card-title">Low Stock Alerts</h5>
-                        <h3 class="card-text" id="lowStockCount">12</h3>
+            <!-- Website Traffic -->
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 bg-warning text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Website Traffic</h5>
+                        <div class="loading" id="trafficLoading">
+                            <div class="spinner-border text-light" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                        <h3 class="card-text" id="trafficData" style="display:none;">350,000 visitors</h3>
                     </div>
-                    <span class="material-icons">warning</span>
                 </div>
             </div>
         </div>
+
     </div>
 
     <script>
@@ -268,6 +269,20 @@
                 toggleBtn.style.left = "15px"; // Move button closer when sidebar is closed
             }
         });
+
+        // Fake Loading Data Simulation
+        window.onload = function() {
+            setTimeout(function() {
+                document.getElementById('salesLoading').style.display = 'none';
+                document.getElementById('salesData').style.display = 'block';
+
+                document.getElementById('feedbackLoading').style.display = 'none';
+                document.getElementById('feedbackData').style.display = 'block';
+
+                document.getElementById('trafficLoading').style.display = 'none';
+                document.getElementById('trafficData').style.display = 'block';
+            }, 2000); // Simulate a 2-second load time for data
+        }
     </script>
 
 </body>
