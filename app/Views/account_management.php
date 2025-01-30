@@ -33,7 +33,7 @@
         }
 
         .sidebar.active {
-            left: 0; /* Show the sidebar when active */
+            left: 0; /* Show the sssidebar when active */
         }
 
         .toggle-btn {
