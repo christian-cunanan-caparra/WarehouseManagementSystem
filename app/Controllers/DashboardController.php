@@ -37,7 +37,7 @@ class DashboardController extends Controller
             $data['inventory_logs'] = $InventoryLogModel->findAll();
 
             // Pass the data to the view
-            return view('employee_dashboard', $data);
+            return view('inventory_logs', $data);
         }
 
         return redirect()->to('/login');
