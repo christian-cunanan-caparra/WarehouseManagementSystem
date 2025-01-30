@@ -13,6 +13,10 @@
     <style>
         /* Styles for responsive sidebar */
         .sidebar {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* This will push the logout button to the bottom */
+            height: 100vh; /* Ensure the sidebar takes full height */
             position: fixed;
             top: 0;
             left: -270px; /* Initially hidden */
@@ -26,6 +30,29 @@
             box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3);
             z-index: 1000;
             border-right: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-links-container {
+             flex-grow: 1; /* This allows the links to take up available space */
+                }
+
+        .logout-container {
+            padding: 15px; /* Add some padding for the logout button */
+        }
+
+        .logout-button {
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            padding: 12px 15px;
+            border-radius: 5px;
+        }
+
+        .logout-button:hover {
+            background-color: #495057; /* Change background on hover */
         }
 
         .sidebar.active {
@@ -172,15 +199,19 @@
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
-        <button class="close-btn" id="close-btn">&times;</button>
-        <div class="sidebar-header">Warehouse Management</div>
+    <div class="sidebar-header">Warehouse Management</div>
+    <div class="sidebar-links-container">
         <ul class="sidebar-links">
             <li><a href="/employee_dashboard"><span class="material-icons">dashboard</span> Dashboard</a></li>
             <li><a href="/product"><span class="material-icons">inventory</span> Products</a></li>
             <li><a href="/inventory"><span class="material-icons">storage</span> Inventory</a></li>
-            <li><a href="/inventory_logs"><span class="material-icons">storage</span> Inventory Logs</a></li>
+            <li><a href="/inventory_logs"><span class="material-icons">history</span> Inventory Logs</a></li>
         </ul>
-    </aside>
+    </div>
+    <div class="logout-container">
+        <a href="/logout" class="logout-button"><span class="material-icons">logout</span> Log out</a>
+    </div>
+</aside>
 
     <!-- Toggle Button -->
     <button class="toggle-btn" id="toggle-btn">&#9776;</button>
