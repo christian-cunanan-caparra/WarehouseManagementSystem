@@ -37,7 +37,7 @@ class RegisterController extends BaseController
             'address' => $this->request->getPost('address'),
             'gender' => $this->request->getPost('gender'),
             'mobile_number' => $this->request->getPost('mobile_number'),
-            'role' => 'Employee',  // Set the role to Employee by default
+            'role' => 'Inactive',  // Set the role to Employee by default
         ];
 
         // Save the user data into the database
