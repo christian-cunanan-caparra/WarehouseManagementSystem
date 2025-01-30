@@ -122,7 +122,7 @@
 
 <form action="/send-reset-code" method="post">
     <h1>Reset Password</h1>
-    <p>Please enter your email or mobile number to reset your password.</p>
+    <p>Please enter your email to reset your password.</p>
     
     <label for="email">Email:</label>
     <input type="email" name="email" required>  
