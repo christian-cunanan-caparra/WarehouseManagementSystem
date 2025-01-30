@@ -111,6 +111,7 @@
             flex-direction: column;
             justify-content: center;
             text-align: center;
+            padding-top: 10px;
         }
       
 
