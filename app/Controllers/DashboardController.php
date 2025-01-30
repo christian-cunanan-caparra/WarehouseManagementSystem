@@ -226,7 +226,7 @@ public function updateAccount($id)
     if (!empty($data['password'])) {
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
     } else {
-        unset($data['password']); // Remove password from data if not updated
+        unset($data['password']);
     }
 
     if ($this->userModel->update($id, $data)) {
@@ -242,10 +242,11 @@ public function deleteAccount($id)
         return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
     }
 
-    if ($this->userModel->delete($id)) {
-        return redirect()->to('/account-management')->with('success', 'Account deleted successfully.');
+    // Set the role to 'Inactive' instead of deleting the account
+    if ($this->userModel->update($id, ['role' => 'Inactive'])) {
+        return redirect()->to('/account-management')->with('success', 'Account status set to Inactive.');
     }
 
-    return redirect()->to('/account-management')->with('error', 'Failed to delete account.');
+    return redirect()->to('/account-management')->with('error', 'Failed to update account status.');
 }
 }
