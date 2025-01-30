@@ -169,7 +169,7 @@
                                 <td><?= esc($user['email']) ?></td>
                                 <td><?= esc($user['role']) ?></td>
                                 <td>
-                                    <a href="/restore-account/<?= $user['id'] ?>" class="btn btn-success btn-sm">Restore</a>
+                                    <a href="/restore-account/<?= $user['id'] ?>" class="btn btn-success btn-sm">Accept</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
