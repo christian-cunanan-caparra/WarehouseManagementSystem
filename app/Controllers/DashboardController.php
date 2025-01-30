@@ -15,7 +15,7 @@ class DashboardController extends Controller
         $this->productModel = new ProductModel();
     }
 
-    //inventory logs
+    //inventory logs ano bago
     public function index2() {
         if (!session()->get('is_logged_in')) {
             return redirect()->to('/login');
