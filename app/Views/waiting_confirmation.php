@@ -1,4 +1,3 @@
-// app/Views/waiting_confirmation.php
 <!DOCTYPE html>
 <html lang="en">
 <head>
