@@ -133,10 +133,7 @@
     .toggle-btn {
         display: block; /* Show toggle button on mobile */
     }
-
-    .logout-link {
-        padding-top: 50px;
-    }
+    
 }
 
     </style>
