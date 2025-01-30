@@ -106,24 +106,9 @@
         <h1 class="text-center">Dashboard</h1>
 
         <!-- Analytics Cards -->
-        <div class="row mb-4">
-            <div class="col-md-4">
-                <div class="card shadow-sm border-0 bg-primary text-white">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <div>
-                            <h5 class="card-title">Total Products</h5>
-                            <h3 class="card-text">
-                                <?= count(array_column($products, 'stock_in')) ?>
-                            </h3>
-                        </div>
-                        <span class="material-icons">inventory</span>
-                    </div>
-                </div>
-            </div>
-            <!-- More cards for Total Stocks, Stocks In/Out -->
-        </div>
+       
 
-        <!-- Stock Trends Chart -->
+        <!-- Stock Trenssds Chart -->
     
 
         <!-- Low Stock Alerts -->
