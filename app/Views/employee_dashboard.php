@@ -141,7 +141,7 @@
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
-        <button class="close-btn" id="close-btn">&times;</button>
+        <button class="close-btn" id="close-btn">&#9776;</button>
         <div class="sidebar-header">Warehouse Management</div>
         <ul class="sidebar-links">
             <li><a href="/employee_dashboard"><span class="material-icons">dashboard</span> Dashboard</a></li>
