@@ -20,10 +20,6 @@
                 <input type="email" class="form-control" id="email" name="email" value="<?= esc($user['email']) ?>" required>
             </div>
 
-            <div class="mb-3">
-                <label for="password" class="form-label">New Password (leave blank to keep current)</label>
-                <input type="password" class="form-control" id="password" name="password">
-            </div>
 
             <div class="mb-3">
                 <label for="role" class="form-label">Role</label>
