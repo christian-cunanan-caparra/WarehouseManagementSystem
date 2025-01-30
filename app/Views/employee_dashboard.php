@@ -280,7 +280,7 @@
 
             datasets: [{
                 label: 'Stock Usage',
-                data: [ <?= $totalStockIn ?>, <?= $totalStockOut ?>, 5000, 3000 ],
+                data: [ <?= $totalStockIn ?>, <?= $totalStockOut ?>, 30000, 20000 ],
 
 
                 backgroundColor: [
