@@ -12,6 +12,9 @@
     <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style>
         /* General Styles */
         body {
@@ -145,6 +148,11 @@
             height: 400px;
         }
 
+        /* Pie Chart */
+        #pieChart {
+            height: 300px;
+        }
+
         /* Responsive Design */
         @media screen and (max-width: 768px) {
             .sidebar {
@@ -246,8 +254,39 @@
             </div>
         </div>
 
-        <!-- Stock Trends Chart -->
-    
+        <!-- Pie Chart -->
+        <div class="row">
+            <div class="col-md-12">
+                <canvas id="pieChart"></canvas>
+            </div>
+        </div>
+
+        <script>
+            // Pie Chart for Stock Distribution
+            const ctx = document.getElementById('pieChart').getContext('2d');
+            const pieChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Total Stock In', 'Total Stock Out', 'Low Stock'],
+                    datasets: [{
+                        label: 'Stock Distribution',
+                        data: [<?= $totalStockIn ?>, <?= $totalStockOut ?>, <?= count($lowStockProducts) ?>],
+                        backgroundColor: ['#17a2b8', '#dc3545', '#ffc107'],
+                        borderColor: ['#ffffff', '#ffffff', '#ffffff'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                    }
+                }
+            });
+        </script>
+    </div>
 
     <script>
         // Sidebar Toggle Functionality
