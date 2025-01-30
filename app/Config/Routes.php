@@ -110,3 +110,7 @@ $routes->post('/store-account', 'DashboardController::storeAccount');
 $routes->get('/edit-account/(:num)', 'DashboardController::editAccount/$1');
 $routes->post('/update-account/(:num)', 'DashboardController::updateAccount/$1');
 $routes->get('/delete-account/(:num)', 'DashboardController::deleteAccount/$1');
+
+
+$routes->get('/archive-accounts', 'DashboardController::archiveAccounts');  // To view the archive (inactive) accounts
+$routes->get('/restore-account/(:num)', 'DashboardController::restoreAccount/$1');  // To restore a specific account

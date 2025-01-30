@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account Management</title>
-    <!-- Include Bootstrap and other styles -->
+    <title>Archived Accounts</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        /* Include your sidebar and other styles here */
+        /* Sidebar styles (copied from account_management.php) */
         body {
             background-color: #f0f4f8;
             font-family: 'Poppins', sans-serif;
@@ -19,7 +18,7 @@
         .sidebar {
             position: fixed;
             top: 0;
-            left: -270px; /* Initjially hidden */
+            left: -270px;
             width: 270px;
             height: 100%;
             background: rgba(22, 26, 45, 0.9);
@@ -33,7 +32,7 @@
         }
 
         .sidebar.active {
-            left: 0; /* Show the sssidebar when active */
+            left: 0;
         }
 
         .toggle-btn {
@@ -48,7 +47,7 @@
             font-size: 1.5rem;
             transition: 0.3s;
             border-radius: 5px;
-            display: none; /* Hide on desktop */
+            display: none;
         }
 
         .toggle-btn:hover {
@@ -64,7 +63,7 @@
         }
 
         .content.active {
-            margin-left: 270px; /* When the sidebar is active, shift content */
+            margin-left: 270px;
         }
 
         .table-responsive {
@@ -132,6 +131,7 @@
     </style>
 </head>
 <body>
+
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <button class="close-btn" id="close-btn">&times;</button>
@@ -139,7 +139,7 @@
         <ul class="sidebar-links">
             <li><a href="/admin_dashboard"><span class="material-icons">dashboard</span> Dashboard</a></li>
             <li><a href="/account-management"><span class="material-icons">inventory</span> Account Management</a></li>
-            <li><a href="/archive-accounts"><span class="material-icons">storage</span> Account Archive</a></li>
+            <li><a href="/archive-accounts"><span class="material-icons">archive</span> Account Archive</a></li>
         </ul>
     </aside>
 
@@ -149,7 +149,7 @@
     <!-- Main Content -->
     <div class="content" id="main-content">
         <div class="container mt-4">
-            <h1>Account Management</h1>
+            <h1>Archived Accounts</h1>
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -169,15 +169,13 @@
                                 <td><?= esc($user['email']) ?></td>
                                 <td><?= esc($user['role']) ?></td>
                                 <td>
-                                    <a href="/edit-account/<?= $user['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                                    <a href="/delete-account/<?= $user['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to set this account to Inactive?')">Delete</a>
-
+                                    <a href="/restore-account/<?= $user['id'] ?>" class="btn btn-success btn-sm">Restore</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="5" class="text-center">No accounts found.</td>
+                            <td colspan="5" class="text-center">No archived accounts found.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
@@ -191,32 +189,26 @@
         const sidebar = document.getElementById('sidebar');
         const mainContent = document.getElementById('main-content');
 
-        // Automatically open sidebar on larger screens
         window.onload = function() {
             if (window.innerWidth > 768) {
                 sidebar.classList.add('active');
                 mainContent.classList.add('active');
-                toggleBtn.style.display = 'block'; // Ensure toggle button is visible on desktop
             } else {
                 sidebar.classList.remove('active');
                 mainContent.classList.remove('active');
-                toggleBtn.style.display = 'block'; // Show toggle button on mobile
             }
         };
 
-        // Toggle the sidebar on smaller screens
         toggleBtn.addEventListener('click', function() {
             sidebar.classList.toggle('active');
             mainContent.classList.toggle('active');
         });
 
-        // Close the sidebar when clicking the close button
         closeBtn.addEventListener('click', function() {
             sidebar.classList.remove('active');
             mainContent.classList.remove('active');
         });
 
-        // Optional: Close sidebar if user clicks outside
         document.addEventListener('click', function(event) {
             if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target) && !closeBtn.contains(event.target)) {
                 sidebar.classList.remove('active');
@@ -224,16 +216,13 @@
             }
         });
 
-        // Window resize to handle screen size change dynamically
         window.onresize = function() {
             if (window.innerWidth > 768) {
                 sidebar.classList.add('active');
                 mainContent.classList.add('active');
-                toggleBtn.style.display = 'block'; // Ensure toggle button is always visible on desktop
             } else {
                 sidebar.classList.remove('active');
                 mainContent.classList.remove('active');
-                toggleBtn.style.display = 'block'; // Show toggle button on mobile
             }
         };
     </script>
