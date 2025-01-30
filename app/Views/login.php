@@ -112,10 +112,11 @@
             justify-content: center;
             text-align: center;
         }
-
-        .sign-up:hover {
+        a :hover {
             text-decoration: none;
         }
+
+        
     </style>
 </head>
 <body>
