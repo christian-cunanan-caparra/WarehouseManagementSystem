@@ -195,8 +195,8 @@
         </table>
     </div>
 
-
-    <div class="modal fade" id="addStockModal" tabindex="-1" aria-labelledby="addStockLabel" aria-hidden="true">
+<!-- Add Stock Modal -->
+<div class="modal fade" id="addStockModal" tabindex="-1" aria-labelledby="addStockLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -206,18 +206,11 @@
             <div class="modal-body">
                 <form id="addStockForm" method="post">
                     <input type="hidden" name="product_id" id="addStockProductId">
-                    
+                    <input type="hidden" name="type" value="Restock"> <!-- Hidden field for stock type -->
+
                     <div class="mb-3">
                         <label class="form-label">Product</label>
                         <input type="text" id="addStockProductName" class="form-control" readonly>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Stock Type</label>
-                        <select name="type" class="form-control">
-                            <option value="Restock">Add Stock</option>
-                           
-                        </select>
                     </div>
 
                     <div class="mb-3">
@@ -231,6 +224,38 @@
         </div>
     </div>
 </div>
+
+<!-- Remove Stock Modal -->
+<div class="modal fade" id="removeStockModal" tabindex="-1" aria-labelledby="removeStockLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="removeStockLabel">Remove Stock</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="removeStockForm" method="post">
+                    <input type="hidden" name="product_id" id="removeStockProductId">
+                    <input type="hidden" name="type" value="Remove"> <!-- Hidden field for stock type -->
+
+                    <div class="mb-3">
+                        <label class="form-label">Product</label>
+                        <input type="text" id="removeStockProductName" class="form-control" readonly>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Quantity</label>
+                        <input type="number" name="quantity" min="1" class="form-control" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-danger">Confirm Remove Stock</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 
 </div>
