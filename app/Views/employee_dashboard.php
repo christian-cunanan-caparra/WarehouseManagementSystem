@@ -28,13 +28,12 @@
         .sidebar {
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* This will push the logout button to the bottom */
-            height: 100vh; /* Ensure the sidebar takes full height */
+            justify-content: space-between; 
+            height: 100vh; 
             width: 250px;
             background-color: #343a40;
             color: white;
             position: fixed;
-            height: 100vh;
             top: 0;
             left: 0;
             padding-top: 15px;
@@ -42,11 +41,11 @@
         }
 
         .sidebar-links-container {
-            flex-grow: 1; /* This allows the links to take up available space */
+            flex-grow: 1;
         }
 
         .logout-container {
-            padding: 15px; /* Add some padding for the logout button */
+            padding: 15px; 
         }
 
         .logout-button {
@@ -61,7 +60,7 @@
         }
 
         .logout-button:hover {
-            background-color: #495057; /* Change background on hover */
+            background-color: #495057;
         }
 
         .sidebar-header {
@@ -119,6 +118,7 @@
             margin-left: 270px;
             padding: 20px;
             transition: margin-left 0.3s;
+            margin-top: 50px; /* Increased top margin for space */
         }
 
         h2 {
@@ -150,10 +150,11 @@
 
         /* Mini Pie Chart */
         #pieChart {
-            height: 200px;
-            max-width: 250px;
-            margin: 0 auto; /* Center the chart */
+            height: 300px;
+            max-width: 350px;
+            margin: 0 auto;
             border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow to the chart */
         }
 
         /* Responsive Design */
@@ -183,13 +184,11 @@
             left: 15px;
         }
 
-
-        #pieChart {
-    height: 300px; /* Increased height */
-    max-width: 350px; /* Increased max-width */
-    margin: 0 auto; /* Center the chart */
-    border-radius: 10px;
-}
+        /* Advanced Chart Styles */
+        #miniBarChart, #pieChart {
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+            border-radius: 10px; /* Round the chart corners */
+        }
     </style>
 </head>
 <body>
@@ -212,8 +211,7 @@
 
     <!-- Toggle Button -->
     <button class="toggle-btn" id="toggle-btn">&#9776;</button>
-<br><br>
-<br>
+
     <!-- Main Content -->
     <div class="content" id="main-content">
         <h2 class="text-center">Dashboard</h2>
@@ -267,105 +265,65 @@
         </div>
 
         <div class="row mt-4">
-    <!-- Mini Bar Chart -->
-    <div class="col-md-6">
-        <canvas id="miniBarChart"></canvas>
-    </div>
+            <!-- Mini Bar Chart -->
+            <div class="col-md-6">
+                <canvas id="miniBarChart"></canvas>
+            </div>
 
-    <!-- Pie Chart -->
-    <div class="col-md-6">
-        <canvas id="pieChart"></canvas>
-    </div>
-
-    <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                        <th>Stock In</th>
-                        <th>Stock Out</th>
-                        <th>Inventory Stock</th>
-                    </tr>
-                </thead>
-                <tbody id="productTable">
-                    <?php foreach ($products as $product): ?>
-                        <tr>
-                            <td><?= esc($product['id']) ?></td>
-                            <td><?= esc($product['name']) ?></td>
-                            <td><?= esc($product['description']) ?></td>
-                            <td><?= esc($product['price']) ?></td>
-                            <td><?= esc($product['stock_in']) ?></td>
-                            <td><?= esc($product['stock_out']) ?></td>
-                            <td><?= esc($product['remaining_stock']) ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+            <!-- Pie Chart -->
+            <div class="col-md-6">
+                <canvas id="pieChart"></canvas>
+            </div>
         </div>
-
-    
-</div>
 
         <script>
             // Mini Pie Chart for Stock Distribution
-           
             const miniBarCtx = document.getElementById('miniBarChart').getContext('2d');
-    const miniBarChart = new Chart(miniBarCtx, {
-        type: 'bar',
-        data: {
-            labels: ['Stock In', 'Stock Out', 'Products', 'Catche'], // Sample labels
-
-            datasets: [{
-                label: 'Stock Usage',
-                data: [ <?= $totalStockIn ?>, <?= $totalStockOut ?>, 30000, 20000 ],
-
-
-                backgroundColor: [
-                    'rgba(23, 162, 184, 0.8)',
-                    'rgba(220, 53, 69, 0.8)',
-                  
-                    'rgba(40, 167, 69, 0.8)',
-                    'rgba(102, 16, 242, 0.8)'
-                ],
-                borderRadius: 8, // Rounded bars
-                borderWidth: 1,
-                barPercentage: 0.5, // Make bsssssars thinner
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false, // Allow chart to fit in a small space
-            animation: {
-                duration: 1200,
-                easing: 'easeOutElastic' // Smooth animation
-            },
-            plugins: {
-                legend: {
-                    display: false // Hide legend to save space
-                }
-            },
-            scales: {
-                x: {
-                    ticks: { color: '#343a40', font: { size: 12 } },
-                    grid: { display: false }
+            const miniBarChart = new Chart(miniBarCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Stock In', 'Stock Out', 'Products', 'Catche'],
+                    datasets: [{
+                        label: 'Stock Usage',
+                        data: [ <?= $totalStockIn ?>, <?= $totalStockOut ?>, 30000, 20000 ],
+                        backgroundColor: [
+                            'rgba(23, 162, 184, 0.8)',
+                            'rgba(220, 53, 69, 0.8)',
+                            'rgba(40, 167, 69, 0.8)',
+                            'rgba(102, 16, 242, 0.8)'
+                        ],
+                        borderRadius: 8,
+                        borderWidth: 1,
+                        barPercentage: 0.5,
+                    }]
                 },
-                y: {
-                    beginAtZero: true,
-                    ticks: { color: '#343a40', font: { size: 12 } },
-                    grid: { color: 'rgba(0, 0, 0, 0.1)' }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: {
+                        duration: 1200,
+                        easing: 'easeOutElastic'
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: { color: '#343a40', font: { size: 12 } },
+                            grid: { display: false }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            ticks: { color: '#343a40', font: { size: 12 } },
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' }
+                        }
+                    }
                 }
-            }
-        }
-    });
-           
-           
-           
-           
-           
-           
+            });
+
+            // Pie Chart
             const ctx = document.getElementById('pieChart').getContext('2d');
             const pieChart = new Chart(ctx, {
                 type: 'pie',
@@ -382,8 +340,8 @@
                 options: {
                     responsive: true,
                     animation: {
-                        animateScale: true, // Add scaling animation for the chart
-                        animateRotate: true // Add rotation animation
+                        animateScale: true,
+                        animateRotate: true
                     },
                     plugins: {
                         legend: {
@@ -399,31 +357,5 @@
             });
         </script>
     </div>
-
-    <script>
-        // Sidebar Toggle Functionality
-        const sidebar = document.getElementById("sidebar");
-        const toggleBtn = document.getElementById("toggle-btn");
-        const content = document.getElementById("main-content");
-
-        let isSidebarOpen = true; // Track sidebar state
-
-        toggleBtn.addEventListener("click", () => {
-            isSidebarOpen = !isSidebarOpen; // Toggle state
-
-            if (isSidebarOpen) {
-                sidebar.classList.remove("hidden");
-                content.classList.remove("full-width");
-                toggleBtn.classList.remove("move");
-                toggleBtn.style.left = "260px"; // Adjust button position
-            } else {
-                sidebar.classList.add("hidden");
-                content.classList.add("full-width");
-                toggleBtn.classList.add("move");
-                toggleBtn.style.left = "15px"; // Move button closer when sidebar is closed
-            }
-        });
-    </script>
-
 </body>
 </html>
