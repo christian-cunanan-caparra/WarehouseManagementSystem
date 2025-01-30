@@ -87,7 +87,7 @@ public function index()
         $data['totalRemainingStock'] = array_sum(array_column($data['products'], 'remaining_stock'));
 
         // Low Stock Alert: Set threshold (e.g., 10 units)
-        $lowStockThreshold = 10;
+        $lowStockThreshold = 50;
         $data['lowStockProducts'] = array_filter($data['products'], function($product) use ($lowStockThreshold) {
             return $product['remaining_stock'] <= $lowStockThreshold;
         });
