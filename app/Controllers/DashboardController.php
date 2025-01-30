@@ -2,21 +2,25 @@
 
 namespace App\Controllers;
 
-use App\Models\ProductModel;
+use App\Models\UserModel;
 use CodeIgniter\Controller;
-
 
 class DashboardController extends Controller
 {
     protected $productModel;
+    protected $userModel;
 
     public function __construct()
     {
         $this->productModel = new ProductModel();
+        $this->userModel = new UserModel(); // Initialize UserModel
     }
 
-    //inventory logs
-    public function index2() {
+    // ... (existing methods)
+
+    // Account Management View
+    public function accountManagement()
+    {
         if (!session()->get('is_logged_in')) {
             return redirect()->to('/login');
         }
@@ -24,134 +28,85 @@ class DashboardController extends Controller
         $role = session()->get('role');
 
         if ($role === 'Admin') {
-            return view('admin_dashboard');
-        } elseif ($role === 'Employee') {
-            $data['products'] = $this->productModel->where('status', 1)->findAll();
-            return view('inventory_logs', $data);
+            $data['users'] = $this->userModel->findAll(); // Fetch all users
+            return view('account_management', $data);
         }
 
-        return redirect()->to('/login');
-    }
-     // Product View
-     public function index1()
-     {
-         if (!session()->get('is_logged_in')) {
-             return redirect()->to('/login');
-         }
- 
-         $role = session()->get('role');
- 
-         if ($role === 'Admin') {
-             return view('admin_dashboard');
-         } elseif ($role === 'Employee') {
-            $data['products'] = $this->productModel->where('remaining_stock >=', 1)->findAll();
-
-             return view('productList', $data);
-         }
- 
-         return redirect()->to('/login');
-     }
-
-    // Dashboard View
-    public function index()
-    {
-        if (!session()->get('is_logged_in')) {
-            return redirect()->to('/login');
-        }
-    
-        $role = session()->get('role');
-    
-        if ($role === 'Admin') {
-            // Fetch products where status = 0 (inactive products)
-            $data['products'] = $this->productModel->where('status', 0)->findAll();
-            return view('admin_dashboard', $data);
-        } elseif ($role === 'Employee') {
-            $data['products'] = $this->productModel->where('status', 1)->findAll();
-            return view('employee_dashboard', $data);
-        }
-    
-        return redirect()->to('/login');
-    }
-    
-    // Create Product View
-    public function create()
-    {
-        if (!session()->get('is_logged_in')) {
-            return redirect()->to('/login')->with('error', 'You must be logged in to access this page.');
-        }
-
-        return view('create_product');
+        return redirect()->to('/login')->with('error', 'You do not have permission to access this page.');
     }
 
-    // Store Product
-    public function store()
+    // Create Account View
+    public function createAccount()
     {
+        if (!session()->get('is_logged_in') || session()->get('role') !== 'Admin') {
+            return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
+        }
+
+        return view('create_account');
+    }
+
+    // Store Account
+    public function storeAccount()
+    {
+        if (!session()->get('is_logged_in') || session()->get('role') !== 'Admin') {
+            return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
+        }
+
         $data = $this->request->getPost();
-        $data['status'] = 0;
+        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT); // Hash the password
 
-        if ($this->productModel->insert($data)) {
-            return $this->response->setJSON(['status' => 'success', 'message' => 'Product added successfully.']);
+        if ($this->userModel->insert($data)) {
+            return redirect()->to('/account-management')->with('success', 'Account created successfully.');
         }
 
-        return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to add product.']);
+        return redirect()->back()->withInput()->with('errors', $this->userModel->errors());
     }
 
-    // Edit Product View
-    public function edit($id)
+    // Edit Account View
+    public function editAccount($id)
     {
-        if (!session()->get('is_logged_in')) {
-            return redirect()->to('/login')->with('error', 'You must be logged in to access this page.');
+        if (!session()->get('is_logged_in') || session()->get('role') !== 'Admin') {
+            return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
         }
 
-        return view('edit_product', ['product' => $this->productModel->find($id)]);
+        $data['user'] = $this->userModel->find($id);
+        return view('edit_account', $data);
     }
 
-    // Update Product
-    public function update($id)
+    // Update Account
+    public function updateAccount($id)
     {
+        if (!session()->get('is_logged_in') || session()->get('role') !== 'Admin') {
+            return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
+        }
+
         $data = $this->request->getPost();
 
-        if ($this->productModel->update($id, $data)) {
-            return $this->response->setJSON(['message' => 'Product updated successfully.']);
-        }
-
-        return $this->response->setJSON(['message' => 'Failed to update product.']);
-    }
-
-    // Deactivate Product
-    public function delete($id)
-    {
-        $this->productModel->update($id, ['status' => 0]);
-        session()->setFlashdata('success', 'Product deactivated successfully.');
-        return redirect()->to('/employee_dashboard');
-    }
-
-    // Activate Product
-    public function activate($id)
-    {
-        $this->productModel->update($id, ['status' => 1]);
-        session()->setFlashdata('success', 'Product activated successfully.');
-        return redirect()->to('/admin/dashboard');  // Redirect to the admin dashboard
-    }
-
-
-    public function reject($id)
-    {
-        // Delete product by ID
-        if ($this->productModel->delete($id)) {
-            session()->setFlashdata('success', 'Product rejected and deleted successfully.');
+        // Hash the password if it's being updated
+        if (!empty($data['password'])) {
+            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
         } else {
-            session()->setFlashdata('error', 'Failed to delete product.');
+            unset($data['password']); // Remove password from data if not updated
         }
 
-        return redirect()->to('/admin/dashboard');
-    }
-    
+        if ($this->userModel->update($id, $data)) {
+            return redirect()->to('/account-management')->with('success', 'Account updated successfully.');
+        }
 
-    // Logout
-    public function logout()
+        return redirect()->back()->withInput()->with('errors', $this->userModel->errors());
+    }
+
+    // Delete Account
+    public function deleteAccount($id)
     {
-        session()->destroy();
-        return redirect()->to('/login');
+        if (!session()->get('is_logged_in') || session()->get('role') !== 'Admin') {
+            return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
+        }
+
+        if ($this->userModel->delete($id)) {
+            return redirect()->to('/account-management')->with('success', 'Account deleted successfully.');
+        }
+
+        return redirect()->to('/account-management')->with('error', 'Failed to delete account.');
     }
 }
