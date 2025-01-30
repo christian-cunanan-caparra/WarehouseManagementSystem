@@ -241,7 +241,7 @@
 
     <!-- Main Content -->
     <div class="content" id="main-content">
-        <div class="dashboard-container">
+       
             <h1>Welcome, Admin <?= session()->get('user_name') ?>!</h1>
             <p>You are logged in as an Admin.</p>
 
@@ -387,7 +387,7 @@
 
             <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </div>
-    </div>
+   
 
     <script>
         const toggleBtn = document.getElementById('toggle-btn');
