@@ -171,7 +171,8 @@
                                 <td><?= esc($user['role']) ?></td>
                                 <td>
                                     <a href="/edit-account/<?= $user['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                                    <a href="/delete-account/<?= $user['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this account?')">Delete</a>
+                                    <a href="/delete-account/<?= $user['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to set this account to Inactive?')">Delete</a>
+
                                 </td>
                             </tr>
                         <?php endforeach; ?>
