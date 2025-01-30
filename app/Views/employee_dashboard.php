@@ -100,13 +100,8 @@
             margin-left: 0;
         }
 
-        #stockTrendChart {
-            height: 400px;
-        }
-
-        /* Low Stock Alert Modal */
-        .modal-body ul {
-            padding-left: 20px;
+        .trend-select {
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -145,11 +140,9 @@
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <div>
                             <h5 class="card-title">Total Stock In</h5>
-                            <h3 class="card-text" id="totalStockIn">
-                                <?= $totalStockIn ?> <!-- Dynamically inserted PHP data -->
-                            </h3>
+                            <h3 class="card-text" id="totalStockIn">0</h3>
                         </div>
-                        <span class="material-icons">arrow_downward</span>
+                        <span class="material-icons" id="totalStockInTrend">arrow_downward</span>
                     </div>
                 </div>
             </div>
@@ -160,11 +153,9 @@
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <div>
                             <h5 class="card-title">Total Stock Out</h5>
-                            <h3 class="card-text" id="totalStockOut">
-                                <?= $totalStockOut ?> <!-- Dynamically inserted PHP data -->
-                            </h3>
+                            <h3 class="card-text" id="totalStockOut">0</h3>
                         </div>
-                        <span class="material-icons">arrow_upward</span>
+                        <span class="material-icons" id="totalStockOutTrend">arrow_upward</span>
                     </div>
                 </div>
             </div>
@@ -175,9 +166,7 @@
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <div>
                             <h5 class="card-title">Low Stock Alerts</h5>
-                            <h3 class="card-text" id="lowStockCount">
-                                <?= count($lowStockProducts) ?>
-                            </h3>
+                            <h3 class="card-text" id="lowStockCount">0</h3>
                         </div>
                         <span class="material-icons">warning</span>
                     </div>
@@ -185,41 +174,14 @@
             </div>
         </div>
 
-        <!-- Modal for Low Stock Products -->
-        <div class="modal fade" id="lowStockModal" tabindex="-1" aria-labelledby="lowStockModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="lowStockModalLabel">Low Stock Products</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <ul id="lowStockList">
-                            <?php if (!empty($lowStockProducts)): ?>
-                                <?php foreach ($lowStockProducts as $product): ?>
-                                    <li>
-                                        <strong><?= $product['name'] ?></strong> - 
-                                        <span><?= $product['remaining_stock'] ?> Stocks left</span>
-                                    </li>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <p>No products are low on stock.</p>
-                            <?php endif; ?>
-                        </ul>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Stock Trends Chart -->
-        <div class="card mt-4">
-            <div class="card-body">
-                <h5 class="card-title">Stock Trends</h5>
-                <canvas id="stockTrendChart"></canvas>
-            </div>
+        <!-- Time Interval Selector -->
+        <div class="trend-select">
+            <label for="timeInterval">Select Time Interval: </label>
+            <select id="timeInterval" class="form-select" style="width: auto; display: inline;">
+                <option value="day">Today</option>
+                <option value="week">This Week</option>
+                <option value="month">This Month</option>
+            </select>
         </div>
 
     </div>
@@ -234,76 +196,51 @@
         });
 
         // Fetching data and updating dynamic elements via AJAX
-        function fetchStockData() {
+        function fetchStockData(timeInterval) {
             $.ajax({
                 url: '/path/to/your/data/endpoint',  // Endpoint that returns JSON data
                 method: 'GET',
+                data: { interval: timeInterval }, // Send selected time interval to backend
                 success: function(data) {
-                    $('#totalStockIn').text(data.stockIn);
-                    $('#totalStockOut').text(data.stockOut);
-                    $('#lowStockCount').text(data.lowStock);
+                    // Update Total Stock In, Stock Out, and Low Stock Alerts
+                    $('#totalStockIn').text(data.stockIn.total);
+                    $('#totalStockOut').text(data.stockOut.total);
+                    $('#lowStockCount').text(data.lowStockCount);
 
-                    // Update Low Stock Modal
-                    let lowStockHTML = '';
-                    data.lowStockProducts.forEach(product => {
-                        lowStockHTML += `<li><strong>${product.name}</strong> - ${product.remainingStock} stocks left</li>`;
-                    });
-                    $('#lowStockList').html(lowStockHTML);
-
-                    // Update Stock Trend Chart
-                    updateStockChart(data.trends);
+                    // Update the trends for each section
+                    updateTrends(data.stockIn.trend, 'totalStockInTrend');
+                    updateTrends(data.stockOut.trend, 'totalStockOutTrend');
                 }
             });
         }
 
-        function updateStockChart(trends) {
-            stockTrendChart.data.labels = trends.labels;
-            stockTrendChart.data.datasets[0].data = trends.stockInData;
-            stockTrendChart.data.datasets[1].data = trends.stockOutData;
-            stockTrendChart.update();
+        function updateTrends(trendData, trendElementId) {
+            const trendElement = document.getElementById(trendElementId);
+            if (trendData > 0) {
+                trendElement.textContent = 'arrow_upward'; // Uptrend
+                trendElement.style.color = 'green';
+            } else if (trendData < 0) {
+                trendElement.textContent = 'arrow_downward'; // Downtrend
+                trendElement.style.color = 'red';
+            } else {
+                trendElement.textContent = ''; // No change
+            }
         }
 
-        // Initialize chart
-        var ctx = document.getElementById('stockTrendChart').getContext('2d');
-        var stockTrendChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: [],  // Initially empty, will be updated dynamically
-                datasets: [{
-                    label: 'Stock In',
-                    data: [],
-                    borderColor: '#007bff',
-                    fill: false,
-                    tension: 0.1
-                },
-                {
-                    label: 'Stock Out',
-                    data: [],
-                    borderColor: '#dc3545',
-                    fill: false,
-                    tension: 0.1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                },
-                scales: {
-                    x: {
-                        beginAtZero: true
-                    },
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
+        // Callmhj the function to fetch data when time interval is changed
+        $('#timeInterval').change(function () {
+            const selectedInterval = $(this).val();
+            fetchStockData(selectedInterval);  // Fetch data for selected time interval
         });
 
-        // Call the function to fetch data and update every 10 seconds
-        setInterval(fetchStockData, 10000);
+        // Call the function to fetch data initially (today)
+        fetchStockData('day');
+
+        // Optional: Refresh ssdata every 10 seconds
+        setInterval(function () {
+            const selectedInterval = $('#timeInterval').val();
+            fetchStockData(selectedInterval);
+        }, 10000);
     </script>
 
 </body>
