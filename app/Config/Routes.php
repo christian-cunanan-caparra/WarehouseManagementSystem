@@ -85,7 +85,7 @@ $routes->group('admin', function($routes) {
 
 $routes->get('logout', 'DashboardController::logout');
 
-
+$routes->get('/account-management', 'DashboardController::accountManagement');
 $routes->get('/account-management', 'DashboardController::accountManagement');
 // wala psa toh $routsses->get('/account-archive', 'DashboardController::accountArchive'); // Add this if you have an archive method
 
