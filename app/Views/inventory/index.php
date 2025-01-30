@@ -179,10 +179,10 @@
                     <td><?= esc($product['stock_out']) ?></td>
                     <td><?= esc($product['remaining_stock']) ?></td>
                     <td>
-                        <form action="/inventory/add-stock/<?= $product['id'] ?>" method="post" class="d-inline">
-                            <input type="number" name="quantity" min="1" required>
-                            <button type="submit" class="btn btn-success btn-sm">Add Stock</button>
-                        </form>
+                    <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addStockModal" 
+                        data-id="<?= $product['id'] ?>" data-name="<?= esc($product['name']) ?>">
+                        Add Stock
+                    </button>
 
                         <form action="/inventory/remove-stock/<?= $product['id'] ?>" method="post" class="d-inline">
                             <input type="number" name="quantity" min="1" required>
@@ -194,9 +194,62 @@
             </tbody>
         </table>
     </div>
+
+
+    <div class="modal fade" id="addStockModal" tabindex="-1" aria-labelledby="addStockLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addStockLabel">Add Stock</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addStockForm" method="post">
+                    <input type="hidden" name="product_id" id="addStockProductId">
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Product</label>
+                        <input type="text" id="addStockProductName" class="form-control" readonly>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Stock Type</label>
+                        <select name="type" class="form-control">
+                            <option value="Restock">Add Stock</option>
+                           
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Quantity</label>
+                        <input type="number" name="quantity" min="1" class="form-control" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Confirm Add Stock</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </div>
 
 <script>
+
+
+ // Fill Add Stock Modal
+ document.querySelectorAll('[data-bs-target="#addStockModal"]').forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = this.getAttribute('data-id');
+            const productName = this.getAttribute('data-name');
+            document.getElementById('addStockProductId').value = productId;
+            document.getElementById('addStockProductName').value = productName;
+            document.getElementById('addStockForm').action = `/inventory/add-stock/${productId}`;
+        });
+    });
+
+
     const toggleBtn = document.getElementById('toggle-btn');
     const closeBtn = document.getElementById('close-btn');
     const sidebar = document.getElementById('sidebar');
