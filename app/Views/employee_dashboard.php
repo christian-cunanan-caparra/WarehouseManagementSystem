@@ -230,7 +230,7 @@
     
     <!-- Main Content -->
 
-    <BR>
+    </BR>
     <div class="content" id="main-content">
         <h2 class="text-center">Dashboard</h2>
 <BR>
@@ -296,7 +296,7 @@
                 </div>
             </div>
         </div>
-<BR>
+    </BR>
         <h2 class="text-center">Product List</h2>
         <!-- Product Table -->
          <BR>
