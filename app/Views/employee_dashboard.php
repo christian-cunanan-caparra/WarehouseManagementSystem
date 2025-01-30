@@ -240,7 +240,7 @@
                 value: 1,  // Full circle (we will divide it into sections)
                 size: 150,
                 fill: {
-                    gradient: ['#FFC107', '#DC3545', '#28A745'],
+                    gradient: ['#007bff', '#ffc107', '#dc3545'],
                     gradientAngle: Math.PI / 4,
                 },
                 lineCap: 'round',
