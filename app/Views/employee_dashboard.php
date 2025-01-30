@@ -25,8 +25,8 @@
         .sidebar {
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* This will push the logout button to the bottom */
-            height: 100vh; /* Ensure the sidebar takes full height */
+            justify-content: space-between;
+            height: 100vh;
             width: 250px;
             background-color: #343a40;
             color: white;
@@ -39,11 +39,11 @@
         }
 
         .sidebar-links-container {
-            flex-grow: 1; /* This allows the links to take up available space */
+            flex-grow: 1;
         }
 
         .logout-container {
-            padding: 15px; /* Add some padding for the logout button */
+            padding: 15px;
         }
 
         .logout-button {
@@ -58,7 +58,7 @@
         }
 
         .logout-button:hover {
-            background-color: #495057; /* Change background on hover */
+            background-color: #495057;
         }
 
         .sidebar-header {
@@ -237,7 +237,7 @@
                         <div>
                             <h5 class="card-title">Low Stock Alerts</h5>
                             <h3 class="card-text" id="lowStockCount">
-                                <?= count($lowStockProducts) ?>
+                                <?= count($lowStockProducts) ?> <!-- Dynamically inserted PHP data -->
                             </h3>
                         </div>
                         <span class="material-icons">warning</span>
