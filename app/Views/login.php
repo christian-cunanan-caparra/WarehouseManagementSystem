@@ -146,7 +146,7 @@
 </div>
 
             <button type="submit" class="btn btn-primary">Login</button>
-            <a href="/request-reset" class="text-primary">Forgot Password?</a>
+            <a href="/request-reset" class="text-primary text-center">Forgot Password?</a>
         </form>
 
         <!-- Link to register page if the user doesn't have an account -->
