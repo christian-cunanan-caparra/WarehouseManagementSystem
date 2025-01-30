@@ -62,26 +62,52 @@ class DashboardController extends Controller
         return redirect()->to('/login');
     }
 
-    // Dashboard View
-    public function index()
-    {
-        if (!session()->get('is_logged_in')) {
-            return redirect()->to('/login');
-        }
-
-        $role = session()->get('role');
-
-        if ($role === 'Admin') {
-            // Fetch products where status = 0 (inactive products)
-            $data['products'] = $this->productModel->where('status', 0)->findAll();
-            return view('admin_dashboard', $data);
-        } elseif ($role === 'Employee') {
-            $data['products'] = $this->productModel->where('status', 1)->findAll();
-            return view('employee_dashboard', $data);
-        }
-
+    // Dashboard View with Analytics
+    // Dashboard View with Analytics
+public function index()
+{
+    if (!session()->get('is_logged_in')) {
         return redirect()->to('/login');
     }
+
+    $role = session()->get('role');
+
+    if ($role === 'Admin') {
+        // Fetch products where status = 0 (inactive products)
+        $data['products'] = $this->productModel->where('status', 0)->findAll();
+        return view('admin_dashboard', $data);
+    } elseif ($role === 'Employee') {
+        // Fetch products where status = 1 (active products)
+        $data['products'] = $this->productModel->where('status', 1)->findAll();
+
+        // Dashboard Analytics - Total Products, Total Stock In, Total Stock Out
+        $data['totalProducts'] = count($data['products']);
+        $data['totalStockIn'] = array_sum(array_column($data['products'], 'stock_in'));
+        $data['totalStockOut'] = array_sum(array_column($data['products'], 'stock_out'));
+        $data['totalRemainingStock'] = array_sum(array_column($data['products'], 'remaining_stock'));
+
+        // Low Stock Alert: Set threshold (e.g., 10 units)
+        $lowStockThreshold = 50;
+        $data['lowStockProducts'] = array_filter($data['products'], function($product) use ($lowStockThreshold) {
+            return $product['remaining_stock'] <= $lowStockThreshold;
+        });
+
+        // Most Used Products: You can define "most used" as the sum of stock in and stock out.
+        usort($data['products'], function($a, $b) {
+            $usageA = $a['stock_in'] + $a['stock_out'];
+            $usageB = $b['stock_in'] + $b['stock_out'];
+            return $usageB - $usageA; // Sort in descending order (most used first)
+        });
+        $data['mostUsedProducts'] = array_slice($data['products'], 0, 5); // Top 5 most used products
+
+        // Additional analytics can be added here
+
+        return view('employee_dashboard', $data);
+    }
+
+    return redirect()->to('/login');
+}
+
 
     // Create Product View
     public function create()
@@ -157,144 +183,111 @@ class DashboardController extends Controller
         return redirect()->to('/admin/dashboard');
     }
 
-    // Logout
-    public function logout()
-    {
-        session()->destroy();
-        return redirect()->to('/login');
-    }
-
     // ==================== Account Management CRUD ====================
 
     // Account Management View
     public function accountManagement()
-{
-    if (!session()->get('is_logged_in') || session()->get('role') !== 'Admin') {
-        return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
+    {
+        if (!session()->get('is_logged_in') || session()->get('role') !== 'Admin') {
+            return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
+        }
+
+        // Fetch only employees
+        $data['users'] = $this->userModel->where('role', 'Employee')->findAll();
+
+        return view('account_management', $data);
     }
 
-    // Fetch only employees
-    $data['users'] = $this->userModel->where('role', 'Employee')->findAll();
+    public function createAccount()
+    {
+        if (!session()->get('is_logged_in') || session()->get('role') !== 'Admin') {
+            return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
+        }
 
-    return view('account_management', $data);
-}
-
-public function createAccount()
-{
-    if (!session()->get('is_logged_in') || session()->get('role') !== 'Admin') {
-        return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
+        return view('create_account');
     }
 
-    return view('create_account');
-}
+    public function storeAccount()
+    {
+        if (!session()->get('is_logged_in') || session()->get('role') !== 'Admin') {
+            return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
+        }
 
-public function storeAccount()
-{
-    if (!session()->get('is_logged_in') || session()->get('role') !== 'Admin') {
-        return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
+        $data = $this->request->getPost();
+        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT); // Hash the password
+
+        if ($this->userModel->insert($data)) {
+            return redirect()->to('/account-management')->with('success', 'Account created successfully.');
+        }
+
+        return redirect()->back()->withInput()->with('errors', $this->userModel->errors());
     }
 
-    $data = $this->request->getPost();
-    $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT); // Hash the password
+    public function editAccount($id)
+    {
+        if (!session()->get('is_logged_in') || session()->get('role') !== 'Admin') {
+            return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
+        }
 
-    if ($this->userModel->insert($data)) {
-        return redirect()->to('/account-management')->with('success', 'Account created successfully.');
+        $data['user'] = $this->userModel->find($id);
+        return view('edit_account', $data);
     }
 
-    return redirect()->back()->withInput()->with('errors', $this->userModel->errors());
-}
+    public function updateAccount($id)
+    {
+        if (!session()->get('is_logged_in') || session()->get('role') !== 'Admin') {
+            return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
+        }
 
-public function editAccount($id)
-{
-    if (!session()->get('is_logged_in') || session()->get('role') !== 'Admin') {
-        return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
+        $data = $this->request->getPost();
+
+        // Hash the password if it's being updated
+        if (!empty($data['password'])) {
+            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+        } else {
+            unset($data['password']);
+        }
+
+        if ($this->userModel->update($id, $data)) {
+            return redirect()->to('/account-management')->with('success', 'Account updated successfully.');
+        }
+
+        return redirect()->back()->withInput()->with('errors', $this->userModel->errors());
     }
 
-    $data['user'] = $this->userModel->find($id);
-    return view('edit_account', $data);
-}
+    public function deleteAccount($id)
+    {
+        if (!session()->get('is_logged_in') || session()->get('role') !== 'Admin') {
+            return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
+        }
 
-public function updateAccount($id)
-{
-    if (!session()->get('is_logged_in') || session()->get('role') !== 'Admin') {
-        return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
+        // Set the role to 'Inactive' instead of deleting the account
+        if ($this->userModel->update($id, ['role' => 'Inactive'])) {
+            return redirect()->to('/account-management')->with('success', 'Account status set to Inactive.');
+        }
+
+        return redirect()->to('/account-management')->with('error', 'Failed to update account status.');
     }
 
-    $data = $this->request->getPost();
+    public function archiveAccounts()
+    {
+        if (!session()->get('is_logged_in') || session()->get('role') !== 'Admin') {
+            return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
+        }
 
-    // Hash the password if it's being updated
-    if (!empty($data['password'])) {
-        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-    } else {
-        unset($data['password']);
+        $data['users'] = $this->userModel->where('role', 'Inactive')->findAll();
+        return view('archive_accounts', $data);
     }
 
-    if ($this->userModel->update($id, $data)) {
-        return redirect()->to('/account-management')->with('success', 'Account updated successfully.');
-    }
-
-    return redirect()->back()->withInput()->with('errors', $this->userModel->errors());
-}
-
-public function deleteAccount($id)
-{
-    if (!session()->get('is_logged_in') || session()->get('role') !== 'Admin') {
-        return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
-    }
-
-    // Set the role to 'Inactive' instead of deleting the account
-    if ($this->userModel->update($id, ['role' => 'Inactive'])) {
-        return redirect()->to('/account-management')->with('success', 'Account status set to Inactive.');
-    }
-
-    return redirect()->to('/account-management')->with('error', 'Failed to update account status.');
-}
-
-
-
-
-public function archiveAccounts()
-{
-    if (!session()->get('is_logged_in') || session()->get('role') !== 'Admin') {
-        return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
-    }
-
-    $data['users'] = $this->userModel->where('role', 'Inactive')->findAll();
-    return view('archive_accounts', $data);
-}
-
-
-public function restoreAccount($id)
-{
-    if (!session()->get('is_logged_in') || session()->get('role') !== 'Admin') {
-        return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
-    }
+    public function restoreAccount($id)
+    {
+        if (!session()->get('is_logged_in') || session()->get('role') !== 'Admin') {
+            return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
+        }
 
     $this->userModel->update($id, ['role' => 'Employee']);
     return redirect()->to('/archive-accounts')->with('success', 'Account restored successfully.');
 }
 
-public function inventoryLogs()
-{
-    if (!session()->get('is_logged_in')) {
-        return redirect()->to('/login');
-    }
 
-    $role = session()->get('role');
-
-    if ($role === 'Admin') {
-        return view('admin_dashboard'); // Redirect to admin dashboard for Admin
-    } elseif ($role === 'Employee') {
-        // Load the InventoryLog model
-        $InventoryLogModel = new \App\Models\InventoryLogModel();
-
-        // Fetch all inventory logs
-        $data['inventory_log'] = $InventoryLogModel->findAll();
-
-        // Pass the data to the view
-        return view('inventory_log', $data);
-    }
-
-    return redirect()->to('/login');
-}
 }
