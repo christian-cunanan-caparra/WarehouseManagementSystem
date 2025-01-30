@@ -10,8 +10,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Circle Progress Bar -->
-    <script src="https://cdn.jsdelivr.net/npm/circle-progress@1.2.3/dist/circle-progress.min.js"></script>
 
     <style>
         /* Custom styles for responsive sidebar and other components */
@@ -87,35 +85,6 @@
             font-size: 2rem;
         }
 
-        /* Circle Analytics Styles */
-        .circle-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .circle {
-            position: relative;
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background-color: #f1f1f1;
-        }
-
-        .circle .circle-inner {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .circle span {
-            display: block;
-            font-size: 14px;
-        }
-
         /* Hide sidebar */
         .sidebar.closed {
             transform: translateX(-250px);
@@ -123,6 +92,20 @@
 
         .content.open-sidebar {
             margin-left: 0;
+        }
+
+        /* Circle Progress Styling */
+        #combinedProgress {
+            text-align: center;
+            margin: 0 auto;
+            margin-top: 30px;
+        }
+
+        #combinedProgress strong {
+            font-size: 20px;
+            font-weight: bold;
+            display: block;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -141,40 +124,12 @@
             <li><a href="/product"><span class="material-icons">inventory</span> Products</a></li>
             <li><a href="/inventory"><span class="material-icons">storage</span> Inventory</a></li>
             <li><a href="/inventory_logs"><span class="material-icons">history</span> Inventory Logs</a></li>
-            <li><a href="/logout"><span class="material-icons">logout</span> Log out</a></li>
         </ul>
     </aside>
 
     <!-- Main Content -->
     <div class="content" id="main-content">
         <h1 class="text-center">Dashboard</h1>
-
-        <!-- Circle Analytics for Low Stock, Out of Stock, Stock In / Stock Out -->
-        <div class="circle-container mb-4">
-            <!-- Low Stock (Yellow) -->
-            <div class="circle" id="lowStockCircle">
-                <div class="circle-inner" id="lowStockText">
-                    <span>Low Stock</span>
-                    <div id="lowStockProgress"></div>
-                </div>
-            </div>
-
-            <!-- Out of Stock (Red) -->
-            <div class="circle" id="outOfStockCircle">
-                <div class="circle-inner" id="outOfStockText">
-                    <span>Out of Stock</span>
-                    <div id="outOfStockProgress"></div>
-                </div>
-            </div>
-
-            <!-- Stock In / Stock Out (Green) -->
-            <div class="circle" id="stockInOutCircle">
-                <div class="circle-inner" id="stockInOutText">
-                    <span>Stock In/Out</span>
-                    <div id="stockInOutProgress"></div>
-                </div>
-            </div>
-        </div>
 
         <!-- Analytics Cards -->
         <div class="row mb-4">
@@ -257,6 +212,9 @@
                 </ul>
             </div>
         </div>
+
+        <!-- Circle Progress for Combined Analytics -->
+        <div id="combinedProgress"></div> <!-- The container for the combined circle -->
     </div>
 
     <!-- Script for sidebar toggle -->
@@ -268,31 +226,37 @@
             content.classList.toggle('open-sidebar');
         });
 
-      // Circle Progress Bars
-$(document).ready(function () {
-    // Low Stock Progress
-    $('#lowStockProgress').circleProgress({
-        value: <?= !empty($lowStockProducts) ? count($lowStockProducts) : 0 ?> / 50, // Adjust value
-        size: 100,
-        fill: { color: '#FFC107' }, // Yellow for low stock
-    });
+        $(document).ready(function () {
+            // Calculate the combined value based on your logic
+            let lowStockCount = <?= !empty($lowStockProducts) ? count($lowStockProducts) : 0 ?>;
+            let outOfStockCount = <?= !empty($outOfStockProducts) ? count($outOfStockProducts) : 0 ?>;
+            let stockInOutCount = <?= !empty($totalStockInOut) ? $totalStockInOut : 0 ?>;
 
-    // Out of Stock Progress
-    $('#outOfStockProgress').circleProgress({
-        value: <?= !empty($outOfStockProducts) ? count($outOfStockProducts) : 0 ?> / 50, // Adjust value
-        size: 100,
-        fill: { color: '#DC3545' }, // Red for out of stock
-    });
+            // Calculate the total value (you can adjust this logic based on what you want)
+            let totalValue = lowStockCount + outOfStockCount + stockInOutCount;
 
-    // Stock In/Out Progress
-    $('#stockInOutProgress').circleProgress({
-        value: <?= !empty($totalStockInOut) ? $totalStockInOut : 0 ?> / 50, // Adjust value
-        size: 100,
-        fill: { color: '#28A745' }, // Green for stock in/out
-    });
-});
+            // Set up the progress circle chart
+            $('#combinedProgress').circleProgress({
+                value: totalValue / 150, // The divisor (150) can be adjusted based on your max value (for 50 per category, total 150)
+                size: 150, // Adjust the size of the circle
+                fill: {
+                    gradient: ['#FFC107', '#DC3545', '#28A745'], // Gradient to represent different categories (Yellow for low stock, Red for out of stock, Green for stock in/out)
+                    gradientAngle: Math.PI / 4, // Angle of the gradient
+                },
+                lineCap: 'round', // Rounded line ends
+                thickness: 10, // The thickness of the circle line
+                emptyFill: '#e0e0e0', // Empty fill for the unfilled part of the circle
+            });
 
+            // Optional: Display the values within the circle
+            $('#combinedProgress').on('circle-animation-progress', function (event, progress, stepValue) {
+                $(this).find('strong').text((stepValue * totalValue).toFixed(0));
+            });
+        });
     </script>
+
+    <!-- Include the Circle Progress JS -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery.circleprogress@1.2.2/dist/circle-progress.min.js"></script>
 
 </body>
 </html>
