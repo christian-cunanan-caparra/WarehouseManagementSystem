@@ -207,8 +207,7 @@
             </div>
         </div>
     </div>
-    <br>
-<br>
+   
     <div class="col-md-4">
         <div class="card shadow-sm border-0 bg-primary text-white">
             <div class="card-body d-flex justify-content-between align-items-center">
