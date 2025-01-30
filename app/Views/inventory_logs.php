@@ -126,12 +126,16 @@
             }
         }
 
-        .sidebar.active {
-            transform: translateX(0);
+        .sidebar.hidden {
+            transform: translateX(-250px);
         }
 
-        .content.active {
-            margin-left: 270px;
+        .content.full-width {
+            margin-left: 0;
+        }
+
+        .toggle-btn.move {
+            left: 15px;
         }
     </style>
 </head>
@@ -191,9 +195,22 @@
         const toggleBtn = document.getElementById("toggle-btn");
         const content = document.getElementById("main-content");
 
+        let isSidebarOpen = true; // Track sidebar state
+
         toggleBtn.addEventListener("click", () => {
-            sidebar.classList.toggle("active");
-            content.classList.toggle("active");
+            isSidebarOpen = !isSidebarOpen; // Toggle state
+
+            if (isSidebarOpen) {
+                sidebar.classList.remove("hidden");
+                content.classList.remove("full-width");
+                toggleBtn.classList.remove("move");
+                toggleBtn.style.left = "260px"; // Adjust button position
+            } else {
+                sidebar.classList.add("hidden");
+                content.classList.add("full-width");
+                toggleBtn.classList.add("move");
+                toggleBtn.style.left = "15px"; // Move button closer when sidebar is closed
+            }
         });
     </script>
 
