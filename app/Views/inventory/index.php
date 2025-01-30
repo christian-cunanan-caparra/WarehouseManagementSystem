@@ -209,7 +209,7 @@
     </style>
 </head>
 <body>
-    <!-- Sidebar -->
+    <!-- Sisdebar -->
     <aside class="sidebar" id="sidebar">
         <button class="close-btn" id="close-btn">&times;</button>
         <div class="sidebar-header">Warehouse Management</div>
