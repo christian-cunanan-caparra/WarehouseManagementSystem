@@ -214,7 +214,7 @@
     <button class="toggle-btn" id="toggle-btn">&#9776;</button>
 
     <!-- Main Content -->
-    <div class="content" id="main-content">
+    <class="content" id="main-content">
         <h2 class="text-center">Dashboard</h2>
 
         <!-- Analytics Cards -->
@@ -277,6 +277,42 @@
     </div>
 </div>
 
+
+
+
+<div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Stock In</th>
+                        <th>Stock Out</th>
+                        <th>Inventory Stock</th>
+                    </tr>
+                </thead>
+                <tbody id="productTable">
+                    <?php foreach ($products as $product): ?>
+                        <tr>
+                            <td><?= esc($product['id']) ?></td>
+                            <td><?= esc($product['name']) ?></td>
+                            <td><?= esc($product['description']) ?></td>
+                            <td><?= esc($product['price']) ?></td>
+                            <td><?= esc($product['stock_in']) ?></td>
+                            <td><?= esc($product['stock_out']) ?></td>
+                            <td><?= esc($product['remaining_stock']) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+
+
+
+
+</div>
         <script>
             // Mini Pie Chart for Stock Distribution
            
@@ -366,7 +402,7 @@
                 }
             });
         </script>
-    </div>
+    
 
     <script>
         // Sidebar Toggle Functionality
