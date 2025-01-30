@@ -230,10 +230,10 @@
     
     <!-- Main Content -->
 
-    <BR></BR>
+    <BR>
     <div class="content" id="main-content">
         <h2 class="text-center">Dashboard</h2>
-
+<BR>
         <!-- Analytics Cards -->
         <div class="row mb-4">
             <!-- Total Stock In -->
