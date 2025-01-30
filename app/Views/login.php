@@ -104,6 +104,10 @@
             font-size: 14px;
             padding: 15px;
         }
+
+        a {
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
