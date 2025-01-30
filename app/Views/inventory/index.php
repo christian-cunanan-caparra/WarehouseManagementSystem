@@ -179,10 +179,10 @@
                     <td><?= esc($product['stock_out']) ?></td>
                     <td><?= esc($product['remaining_stock']) ?></td>
                     <td>
-                        <form action="/inventory/add-stock/<?= $product['id'] ?>" method="post" class="d-inline">
-                            <input type="number" name="quantity" min="1" required>
-                            <button type="submit" class="btn btn-success btn-sm">Add Stock</button>
-                        </form>
+                    <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addStockModal" 
+                        data-id="<?= $product['id'] ?>" data-name="<?= esc($product['name']) ?>">
+                        Add Stock
+                    </button>
 
                         <form action="/inventory/remove-stock/<?= $product['id'] ?>" method="post" class="d-inline">
                             <input type="number" name="quantity" min="1" required>
