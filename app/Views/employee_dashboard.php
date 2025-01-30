@@ -124,12 +124,7 @@
         </div>
 
         <!-- Stock Trends Chart -->
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Stock Trends</h5>
-                <canvas id="stockTrendsChart"></canvas>
-            </div>
-        </div>
+    
 
         <!-- Low Stock Alerts -->
         <div class="card mt-4">
