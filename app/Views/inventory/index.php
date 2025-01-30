@@ -196,6 +196,9 @@
     </div>
 
 <!-- Add Stock Modal -->
+
+
+<!-- Add Stock Modal -->
 <div class="modal fade" id="addStockModal" tabindex="-1" aria-labelledby="addStockLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -206,18 +209,11 @@
             <div class="modal-body">
                 <form id="addStockForm" method="post">
                     <input type="hidden" name="product_id" id="addStockProductId">
-                    
+                    <input type="hidden" name="type" id="addStockType" value="Restock"> <!-- Hidden stock type -->
+
                     <div class="mb-3">
                         <label class="form-label">Product</label>
                         <input type="text" id="addStockProductName" class="form-control" readonly>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Stock Type</label>
-                        <select name="type" class="form-control">
-                            <option value="Restock">Restock</option>
-                            <option value="Returned">Returned</option>
-                        </select>
                     </div>
 
                     <div class="mb-3">
@@ -243,19 +239,11 @@
             <div class="modal-body">
                 <form id="removeStockForm" method="post">
                     <input type="hidden" name="product_id" id="removeStockProductId">
-                    
+                    <input type="hidden" name="type" id="removeStockType" value="Sold"> <!-- Hidden stock type -->
+
                     <div class="mb-3">
                         <label class="form-label">Product</label>
                         <input type="text" id="removeStockProductName" class="form-control" readonly>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Stock Type</label>
-                        <select name="type" class="form-control">
-                            <option value="Sold">Sold</option>
-                            <option value="Damaged">Damaged</option>
-                            <option value="Transferred">Transferred</option>
-                        </select>
                     </div>
 
                     <div class="mb-3">
