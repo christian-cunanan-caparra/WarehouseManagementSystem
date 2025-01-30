@@ -128,20 +128,67 @@
 
         <!-- Low Stock Alerts -->
        <!-- Low Stock Alerts Card -->
-<div class="col-md-4">
-    <div class="card shadow-sm border-0 bg-warning text-white">
-        <div class="card-body d-flex justify-content-between align-items-center">
-            <div>
-                <h5 class="card-title">Low Stock Alerts</h5>
-                <h3 class="card-text">
-                    <?php if (!empty($lowStockProducts)): ?>
-                        <?= count($lowStockProducts) ?>
-                    <?php else: ?>
-                        0
-                    <?php endif; ?>
-                </h3>
+       <div class="row mb-4">
+    <!-- Total Products -->
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0 bg-primary text-white">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 class="card-title">Total Products</h5>
+                    <h3 class="card-text">
+                        <?= count(array_column($products, 'stock_in')) ?>
+                    </h3>
+                </div>
+                <span class="material-icons">inventory</span>
             </div>
-            <span class="material-icons">warning</span>
+        </div>
+    </div>
+
+    <!-- Low Stock Alerts -->
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0 bg-warning text-white" data-bs-toggle="modal" data-bs-target="#lowStockModal">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 class="card-title">Low Stock Alerts</h5>
+                    <h3 class="card-text">
+                        <?php if (!empty($lowStockProducts)): ?>
+                            <?= count($lowStockProducts) ?>
+                        <?php else: ?>
+                            0
+                        <?php endif; ?>
+                    </h3>
+                </div>
+                <span class="material-icons">warning</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Low Stock Products -->
+<div class="modal fade" id="lowStockModal" tabindex="-1" aria-labelledby="lowStockModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="lowStockModalLabel">Low Stock Products</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <?php if (!empty($lowStockProducts)): ?>
+                    <ul>
+                        <?php foreach ($lowStockProducts as $product): ?>
+                            <li>
+                                <strong><?= $product['name'] ?></strong> - 
+                                <span><?= $product['remaining_stock'] ?> units left</span>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php else: ?>
+                    <p>No products are low on stock.</p>
+                <?php endif; ?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>
