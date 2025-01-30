@@ -29,7 +29,7 @@ class DashboardController extends Controller
             return view('admin_dashboard');
         } elseif ($role === 'Employee') {
             // Load the InventoryLogs model
-            $inventoryLogModel = new \App\Models\InventoryLogs();
+            $InventoryLogModel = new \App\Models\InventoryLogs();
     
             // Fetch all inventory logs
             $data['inventory_logs'] = $InventoryLogModel->findAll();
