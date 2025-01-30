@@ -154,8 +154,7 @@
         </ul>
     </aside>
 
-    <!-- Toggle Button -->
-    <button class="toggle-btn" id="toggle-btn">&#9776;</button>
+   
 
     <!-- Main Content -->
     <div class="content" id="main-content">
