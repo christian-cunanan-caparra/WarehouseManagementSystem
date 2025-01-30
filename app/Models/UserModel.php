@@ -25,6 +25,8 @@ class UserModel extends Model
         'role' => 'required|max_length[50]'
     ];
 
+
+    
     // Validation error messages
     protected $validationMessages = [
         'name' => ['required' => 'Name is required'],

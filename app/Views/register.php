@@ -59,23 +59,26 @@
         }
 
         .btn-primary {
-            background-color: #007bff;
+            background: linear-gradient(90deg, #007bff, #0056b3);
             border: none;
             padding: 14px;
             width: 100%;
             border-radius: 8px;
             font-size: 16px;
             font-weight: bold;
-            transition: background-color 0.3s, transform 0.3s;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
         }
 
         .btn-primary:hover {
-            background-color: #0056b3;
+            background: linear-gradient(90deg, #0056b3, #007bff);
             transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
         }
 
         .btn-primary:active {
             transform: translateY(0);
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
         }
 
         .alert {
@@ -191,7 +194,7 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <div style="padding-bottom: 10px;" class="form-group">
                 <label for="mobile_number">Mobile Number</label>
                 <input type="text" class="form-control" id="mobile_number" name="mobile_number" value="<?= old('mobile_number') ?>" placeholder="Enter your mobile number" required>
             </div>

@@ -2,15 +2,12 @@
 
 namespace App\Controllers;
 
-
-
 use App\Models\ProductModel;
 use CodeIgniter\Controller;
 
+
 class DashboardController extends Controller
 {
-
-
     protected $productModel;
 
     public function __construct()
@@ -18,31 +15,142 @@ class DashboardController extends Controller
         $this->productModel = new ProductModel();
     }
 
+    //inventory logs
+    public function index2() {
+        if (!session()->get('is_logged_in')) {
+            return redirect()->to('/login');
+        }
 
-    public function index()
-{
-    // Ensure user is logged in
-    if (!session()->get('is_logged_in')) {
+        $role = session()->get('role');
+
+        if ($role === 'Admin') {
+            return view('admin_dashboard');
+        } elseif ($role === 'Employee') {
+            $data['products'] = $this->productModel->where('status', 1)->findAll();
+            return view('inventory_logs', $data);
+        }
+
         return redirect()->to('/login');
     }
+     // Product View
+     public function index1()
+     {
+         if (!session()->get('is_logged_in')) {
+             return redirect()->to('/login');
+         }
+ 
+         $role = session()->get('role');
+ 
+         if ($role === 'Admin') {
+             return view('admin_dashboard');
+         } elseif ($role === 'Employee') {
+            $data['products'] = $this->productModel->where('remaining_stock >=', 1)->findAll();
 
-    // Retrieve user role from the session
-    $role = session()->get('role');
+             return view('productList', $data);
+         }
+ 
+         return redirect()->to('/login');
+     }
 
-    // Redirect to the respective dashboard based on the role
-    if ($role === 'Admin') {
-        return view('admin_dashboard');
-    } elseif ($role === 'Employee') {
-        return view('employee_dashboard', ['products' => $this->productModel->findAll()]);
+    // Dashboard View
+    public function index()
+    {
+        if (!session()->get('is_logged_in')) {
+            return redirect()->to('/login');
+        }
+    
+        $role = session()->get('role');
+    
+        if ($role === 'Admin') {
+            // Fetch products where status = 0 (inactive products)
+            $data['products'] = $this->productModel->where('status', 0)->findAll();
+            return view('admin_dashboard', $data);
+        } elseif ($role === 'Employee') {
+            $data['products'] = $this->productModel->where('status', 1)->findAll();
+            return view('employee_dashboard', $data);
+        }
+    
+        return redirect()->to('/login');
+    }
+    
+    // Create Product View
+    public function create()
+    {
+        if (!session()->get('is_logged_in')) {
+            return redirect()->to('/login')->with('error', 'You must be logged in to access this page.');
+        }
+
+        return view('create_product');
     }
 
-    // If no valid role is set, redirect to login
-    return redirect()->to('/login');
-}
+    // Store Product
+    public function store()
+    {
+        $data = $this->request->getPost();
+        $data['status'] = 0;
 
+        if ($this->productModel->insert($data)) {
+            return $this->response->setJSON(['status' => 'success', 'message' => 'Product added successfully.']);
+        }
+
+        return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to add product.']);
+    }
+
+    // Edit Product View
+    public function edit($id)
+    {
+        if (!session()->get('is_logged_in')) {
+            return redirect()->to('/login')->with('error', 'You must be logged in to access this page.');
+        }
+
+        return view('edit_product', ['product' => $this->productModel->find($id)]);
+    }
+
+    // Update Product
+    public function update($id)
+    {
+        $data = $this->request->getPost();
+
+        if ($this->productModel->update($id, $data)) {
+            return $this->response->setJSON(['message' => 'Product updated successfully.']);
+        }
+
+        return $this->response->setJSON(['message' => 'Failed to update product.']);
+    }
+
+    // Deactivate Product
+    public function delete($id)
+    {
+        $this->productModel->update($id, ['status' => 0]);
+        session()->setFlashdata('success', 'Product deactivated successfully.');
+        return redirect()->to('/employee_dashboard');
+    }
+
+    // Activate Product
+    public function activate($id)
+    {
+        $this->productModel->update($id, ['status' => 1]);
+        session()->setFlashdata('success', 'Product activated successfully.');
+        return redirect()->to('/admin/dashboard');  // Redirect to the admin dashboard
+    }
+
+
+    public function reject($id)
+    {
+        // Delete product by ID
+        if ($this->productModel->delete($id)) {
+            session()->setFlashdata('success', 'Product rejected and deleted successfully.');
+        } else {
+            session()->setFlashdata('error', 'Failed to delete product.');
+        }
+
+        return redirect()->to('/admin/dashboard');
+    }
+    
+
+    // Logout
     public function logout()
     {
-        // Destroy session and redirect to login page
         session()->destroy();
         return redirect()->to('/login');
     }

@@ -4,149 +4,137 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Dashboard - Warehouse Management System</title>
-    
+
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    
     <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
     <style>
-        /* ---- Sidebar Styling ---- */
+        /* Styles for responsive sidebar */
         .sidebar {
-            position: fixed;
-            top: 0;
-            left: -270px;
-            width: 270px;
-            height: 100%;
-            background: rgba(22, 26, 45, 0.9);
-            backdrop-filter: blur(10px);
-            color: white;
-            padding: 20px;
-            transition: 0.4s ease-in-out;
-            box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-            border-right: 2px solid rgba(255, 255, 255, 0.1);
-        }
+    position: fixed;
+    top: 0;
+    left: -270px; /* Initially hidden */
+    width: 270px;
+    height: 100%;
+    background: rgba(22, 26, 45, 0.9);
+    backdrop-filter: blur(10px);
+    color: white;
+    padding: 20px;
+    transition: 0.4s ease-in-out;
+    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    border-right: 2px solid rgba(255, 255, 255, 0.1);
+}
 
-        .sidebar.active {
-            left: 0;
+.sidebar.active {
+    left: 0; /* Show the sidebar when active */
+}
+.toggle-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: #161a2d;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: 0.3s;
+    border-radius: 5px;
+    display: none; /* Hide on desktop */
+}
+.toggle-btn:hover {
+    background: #4f52ba;
+}
+
+.content {
+    margin-left: 50px;
+    padding: 30px;
+    transition: margin-left 0.4s ease;
+    background: #f8f9fa;
+    min-height: 100vh;
+}
+.content.active {
+    margin-left: 270px; /* When the sidebar is active, shift content */
+}
+
+        .table-responsive { overflow-x: auto; }
+        .table th, .table td { white-space: nowrap; }
+
+        @media (max-width: 768px) {
+            .content { margin-left: 0; }
+            .sidebar.active { left: 0; }
+            .toggle-btn { display: block; }
         }
 
         .sidebar-header {
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-align: center;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
 
-        .sidebar-links {
-            list-style: none;
-            padding: 0;
-            margin-top: 20px;
-        }
 
-        .sidebar-links li {
-            margin-bottom: 15px;
-        }
+.sidebar-links {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
 
-        .sidebar-links li a {
-            color: white;
-            font-size: 1.1rem;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px;
-            transition: 0.3s ease;
-            border-radius: 6px;
-        }
+.sidebar-links li {
+    margin-bottom: 15px;
+}
 
-        .sidebar-links li a:hover {
-            background: rgba(255, 255, 255, 0.2);
-            padding-left: 15px;
-        }
+.sidebar-links li a {
+    color: white;
+    font-size: 1.1rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    transition: 0.3s ease;
+    border-radius: 6px;
+}
 
-        .menu-separator {
-            margin: 15px 0;
-            height: 1px;
-            background-color: rgba(255, 255, 255, 0.3);
-        }
+.sidebar-links li a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    padding-left: 15px;
+}
 
-        /* ---- Close Button ---- */
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: transparent;
-            color: white;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+.menu-separator {
+    margin: 15px 0;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.3);
+}
 
-        .close-btn:hover {
-            color: #f00;
-        }
 
-        /* ---- Sidebar Toggle Button ---- */
-        .toggle-btn {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: #161a2d;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            font-size: 1.5rem;
-            transition: 0.3s;
-            border-radius: 5px;
-            display: none;
-        }
+@media (max-width: 768px) {
+    /* Adjust sidebar to slide in on smaller screens */
+    .sidebar {
+        left: -270px; /* Initially hidden */
+    }
 
-        .toggle-btn:hover {
-            background: #4f52ba;
-        }
+    .sidebar.active {
+        left: 0; /* Show the sidebar when active */
+    }
 
-        /* ---- Main Content ---- */
-        .content {
-            margin-left: 50px;  /* Start with no margin */
-            padding: 30px;
-            transition: margin-left 0.4s ease;
-            background: #f8f9fa;
-            min-height: 100vh;
-        }
+    .content {
+        margin-left: 0;
+    }
 
-        .content.active {
-            margin-left: 270px;  /* Push content when sidebar is active */
-        }
+    .content.active {
+        margin-left: 270px; /* Push content to the right when sidebar is active */
+    }
 
-        /* ---- Responsive Design ---- */
-        @media (max-width: 768px) {
-            .sidebar {
-                left: -270px;
-            }
+    .toggle-btn {
+        display: block; /* Show toggle button on mobile */
+    }
+}
 
-            .sidebar.active {
-                left: 0;
-            }
-
-            .content {
-                margin-left: 0;
-            }
-
-            .content.active {
-                margin-left: 270px;
-            }
-
-            .toggle-btn {
-                display: block;
-            }
-        }
     </style>
 </head>
 <body>
@@ -154,16 +142,15 @@
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <button class="close-btn" id="close-btn">&times;</button>
-        <div class="sidebar-header">Warehouse Dashboard</div>
+        <div class="sidebar-header">Warehouse Management</div>
         <ul class="sidebar-links">
-            <h4>Main Menu</h4>
-            <li><a href="#"><span class="material-icons">dashboard</span> Dashboard</a></li>
-            <li><a href="#"><span class="material-icons">inventory</span> Products</a></li>
-            <li><a href="#"><span class="material-icons">settings</span> Settings</a></li>
-            <div class="menu-separator"></div>
-            <h4>Resume</h4>
-            <li><a href="index.html"><span class="material-icons">account_circle</span> Christian Caparra</a></li>
-            <li><a href="jhuniel.html"><span class="material-icons">account_circle</span> Jhuniel Galang</a></li>
+            <li><a href="/employee_dashboard"><span class="material-icons">dashboard</span> Dashboard</a></li>
+            <li><a href="/product"><span class="material-icons">inventory</span> Products</a></li>
+            <li><a href="/inventory"><span class="material-icons">storage</span> Inventory</a></li>
+            <li><a href="/inventory_logs"><span class="material-icons">storage</span> Inventory Logs</a></li>
+            
+       
+
         </ul>
     </aside>
 
@@ -172,76 +159,86 @@
 
     <!-- Main Content -->
     <div class="content" id="main-content">
-        <h1>Employee Dashboard</h1>
-        <p>Welcome to the Warehouse Management System. Here you can manage inventory, view products, and more.</p>
+        <h1 class="text-center">Dashboard</h1>
+       
 
-        <!-- Product Table -->
-        <h2>Product List</h2>
-        <?php if (!empty($products)): ?>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($products as $product): ?>
-                <?php if ($product['status'] == 1): ?> <!-- Only show active products -->
-                    <tr>
-                        <td><?= esc($product['id']) ?></td>
-                        <td><?= esc($product['name']) ?></td>
-                        <td><?= esc($product['description']) ?></td>
-                        <td><?= esc($product['quantity']) ?></td>
-                        <td><?= esc($product['price']) ?></td>
-                        <td><?= $product['status'] == 1 ? 'Active' : 'Inactive' ?></td>
-                        <td>
-                            <a href="/employee_dashboard/edit/<?= $product['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="/employee_dashboard/delete/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to deactivate this product?')">Deactivate</a>
-                        </td>
-                    </tr>
-                <?php endif; ?>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-<?php else: ?>
-    <p>No active products available. Please add some products.</p>
-<?php endif; ?>
-
-        <a href="/employee_dashboard/create" class="btn btn-primary">Add New Product</a>
+        <!-- Product Count -->
+        <div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0 bg-primary text-white">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 class="card-title">Total Products</h5>
+                    <h3 class="card-text">
+                        <?= count(array_column($products, 'stock_in')) ?>
+                    </h3>
+                </div>
+                <span class="material-icons">inventory</span>
+            </div>
+        </div>
     </div>
+</div>
+
 
     <script>
-        // Sidebar Toggle Script
-        const sidebar = document.getElementById('sidebar');
-        const closeBtn = document.getElementById('close-btn');
-        const toggleBtn = document.getElementById('toggle-btn');
-        const mainContent = document.getElementById('main-content');
+   
+     
+    const toggleBtn = document.getElementById('toggle-btn');
+    const closeBtn = document.getElementById('close-btn');
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('main-content');
 
-        // Automatically show the sidebar when the page loads
-        window.onload = () => {
+    // Automatically open sidebar on larger screens
+    window.onload = function() {
+        if (window.innerWidth > 768) {
             sidebar.classList.add('active');
-            mainContent.classList.add('active');  // Ensure content takes full space when sidebar is active
-        };
-
-        // Close the sidebar when the close button is clicked
-        closeBtn.addEventListener('click', () => {
+            mainContent.classList.add('active');
+            toggleBtn.style.display = 'block'; // Ensure toggle button is visible on desktop
+        } else {
             sidebar.classList.remove('active');
-            mainContent.classList.remove('active');  // Adjust content margin when sidebar is closed
-            toggleBtn.style.display = 'block';
-        });
+            mainContent.classList.remove('active');
+            toggleBtn.style.display = 'block'; // Show toggle button on mobile
+        }
+    };
 
-        // Show the sidebar when the toggle button is clicked
-        toggleBtn.addEventListener('click', () => {
+    // Toggle the sidebar on smaller screens
+    toggleBtn.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+        mainContent.classList.toggle('active');
+    });
+
+    // Close the sidebar when clicking the close button
+    closeBtn.addEventListener('click', function() {
+        sidebar.classList.remove('active');
+        mainContent.classList.remove('active');
+    });
+
+    // Optional: Close sidebar if user clicks outside
+    document.addEventListener('click', function(event) {
+        if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target) && !closeBtn.contains(event.target)) {
+            sidebar.classList.remove('active');
+            mainContent.classList.remove('active');
+        }
+    });
+
+    // Window resize to handle screen size change dynamically
+    window.onresize = function() {
+        if (window.innerWidth > 768) {
             sidebar.classList.add('active');
-            mainContent.classList.add('active');  // Ensure content is pushed to the side when sidebar is opened
-            toggleBtn.style.display = 'none';
-        });
+            mainContent.classList.add('active');
+            toggleBtn.style.display = 'block'; // Ensure toggle button is always visible on desktop
+        } else {
+            sidebar.classList.remove('active');
+            mainContent.classList.remove('active');
+            toggleBtn.style.display = 'block'; // Show toggle button on mobile
+        }
+    };
+
+
+
+
+        
+        
     </script>
 
 </body>

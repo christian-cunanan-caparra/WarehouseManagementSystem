@@ -48,22 +48,21 @@
         }
 
         .btn {
-            margin: 5px;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            transition: all 0.3s ease;
         }
 
-        .btn-create {
-            background-color: #28a745;
+        .btn-activate {
+            background: linear-gradient(45deg, #28a745, #218838);
             color: white;
+            border: none;
         }
 
-        .btn-edit {
-            background-color: #ffc107;
-            color: black;
-        }
-
-        .btn-delete {
-            background-color: #dc3545;
-            color: white;
+        .btn-activate:hover {
+            background: linear-gradient(45deg, #218838, #28a745);
+            transform: scale(1.05);
         }
 
         .btn-logout {
@@ -75,6 +74,10 @@
             display: block;
             margin-top: 20px;
         }
+
+        .btn-logout:hover {
+            background-color: #c82333;
+        }
     </style>
 </head>
 <body>
@@ -83,38 +86,37 @@
     <h1>Welcome, Admin <?= session()->get('user_name') ?>!</h1>
     <p>You are logged in as an Admin.</p>
 
-    <button class="btn btn-create" onclick="location.href='/admin/create_user'"><i class="fas fa-user-plus"></i> Add New User</button>
+    <h3>Requesting New Products</h3>
 
-    <h3>User List</h3>
     <table>
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Price</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <?php if (!empty($users)): ?>
-                <?php foreach ($users as $user): ?>
-                    <tr>
-                        <td><?= $user['id'] ?></td>
-                        <td><?= $user['name'] ?></td>
-                        <td><?= $user['email'] ?></td>
-                        <td><?= $user['role'] ?></td>
-                        <td>
-                            <a href="/admin/edit_user/<?= $user['id'] ?>" class="btn btn-edit"><i class="fas fa-edit"></i> Edit</a>
-                            <a href="/admin/delete_user/<?= $user['id'] ?>" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this user?');"><i class="fas fa-trash"></i> Delete</a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php else: ?>
+            <?php foreach ($products as $product): ?>
                 <tr>
-                    <td colspan="5">No users found.</td>
+                    <td><?= esc($product['name']) ?></td>
+                    <td><?= esc($product['description']) ?></td>
+                    <td><?= esc($product['price']) ?></td>
+                    <td>
+                        <form action="/admin/activate/<?= $product['id'] ?>" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-activate btn-sm">
+                                <i class="fas fa-check"></i> Accept
+                            </button>
+                        </form>
+                        <form action="/admin/reject/<?= $product['id'] ?>" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-reject btn-sm">
+                                <i class="fas fa-times"></i> Reject
+                            </button>
+                        </form>
+                    </td>
                 </tr>
-            <?php endif; ?>
+            <?php endforeach; ?>
         </tbody>
     </table>
 
