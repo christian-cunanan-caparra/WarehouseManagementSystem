@@ -120,5 +120,5 @@ $routes->get('/restore-account/(:num)', 'DashboardController::restoreAccount/$1'
 $routes->get('/waiting-confirmation', 'LoginController::waitingConfirmation');
 
 
-$routes->get('/inventory-log', 'DashboardController::inventoryLogs');
+$routes->get('/inventory-log', 'DashboardController::index2');
 
