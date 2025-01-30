@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+
+use App\Models\InventoryLogModel;
 use App\Models\ProductModel;
 use CodeIgniter\Controller;
 
@@ -27,10 +29,11 @@ class DashboardController extends Controller
             return view('admin_dashboard');
         } elseif ($role === 'Employee') {
             // Load the InventoryLogs model
-            $inventoryLogModel = new \App\Models\InventoryLogs();
+            $InventoryLogModel = new \App\Models\InventoryLogModel();
+
     
             // Fetch all inventory logs
-            $data['inventory_logs'] = $inventoryLogModel->findAll();
+            $data['inventory_logs'] = $InventoryLogModel->findAll();
     
             // Pass the data to the view
             return view('inventory_logs', $data);
