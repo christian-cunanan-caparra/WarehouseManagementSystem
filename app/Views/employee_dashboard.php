@@ -124,6 +124,7 @@
             <li><a href="/product"><span class="material-icons">inventory</span> Products</a></li>
             <li><a href="/inventory"><span class="material-icons">storage</span> Inventory</a></li>
             <li><a href="/inventory_logs"><span class="material-icons">history</span> Inventory Logs</a></li>
+            <li><a href="/logout"><span class="material-icons">logout</span>Log out</a></li>
         </ul>
     </aside>
 
