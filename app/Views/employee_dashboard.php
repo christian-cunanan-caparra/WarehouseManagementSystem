@@ -185,8 +185,8 @@
 
 
         #pieChart {
-    height: 250px; /* Increased height */
-    max-width: 300px; /* Increased max-width */
+    height: 350px; /* Increased height */
+    max-width: 400px; /* Increased max-width */
     margin: 0 auto; /* Center the chart */
     border-radius: 10px;
 }
