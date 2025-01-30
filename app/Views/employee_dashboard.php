@@ -168,7 +168,7 @@
                                 <?php foreach ($lowStockProducts as $product): ?>
                                     <li>
                                         <strong><?= $product['name'] ?></strong> - 
-                                        <span><?= $product['remaining_stock'] ?> units left</span>
+                                        <span><?= $product['remaining_stock'] ?> Stocks left</span>
                                     </li>
                                 <?php endforeach; ?>
                             </ul>
