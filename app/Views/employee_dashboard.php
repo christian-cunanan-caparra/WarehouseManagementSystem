@@ -248,37 +248,57 @@
 
         <!-- Stock Trends Chart -->
         <div class="card mt-4">
-            <div class="card-body">
-                <h5 class="card-title">Stock Trends</h5>
-                <canvas id="stockTrendChart"></canvas>
-            </div>
-        </div>
+    <div class="card-body">
+        <h5 class="card-title">Stock Trends</h5>
+        <canvas id="stockTrendChart"></canvas>
     </div>
+</div>
 
-    <script>
-        // Sidebar Toggle Functionality
-        const sidebar = document.getElementById("sidebar");
-        const toggleBtn = document.getElementById("toggle-btn");
-        const content = document.getElementById("main-content");
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const stockData = <?= json_encode($stockData) ?>;  // Pass PHP data to JS
+    const labels = stockData.map(data => data.date || data.week || data.month);  // Depending on the timeframe (day/week/month)
+    const stockInData = stockData.map(data => data.total_stock_in);
+    const stockOutData = stockData.map(data => data.total_stock_out);
 
-        let isSidebarOpen = true; // Track sidebar state
-
-        toggleBtn.addEventListener("click", () => {
-            isSidebarOpen = !isSidebarOpen; // Toggle state
-
-            if (isSidebarOpen) {
-                sidebar.classList.remove("hidden");
-                content.classList.remove("full-width");
-                toggleBtn.classList.remove("move");
-                toggleBtn.style.left = "260px"; // Adjust button position
-            } else {
-                sidebar.classList.add("hidden");
-                content.classList.add("full-width");
-                toggleBtn.classList.add("move");
-                toggleBtn.style.left = "15px"; // Move button closer when sidebar is closed
+    const ctx = document.getElementById('stockTrendChart').getContext('2d');
+    const stockTrendChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,  // Days, weeks, or months
+            datasets: [{
+                label: 'Stock In',
+                data: stockInData,
+                borderColor: '#28a745',  // Green for stock in
+                backgroundColor: 'rgba(40, 167, 69, 0.2)',
+                fill: true,
+            }, {
+                label: 'Stock Out',
+                data: stockOutData,
+                borderColor: '#dc3545',  // Red for stock out
+                backgroundColor: 'rgba(220, 53, 69, 0.2)',
+                fill: true,
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Date/Week/Month'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Quantity'
+                    }
+                }
             }
-        });
-    </script>
+        }
+    });
+</script>
 
 </body>
 </html>
