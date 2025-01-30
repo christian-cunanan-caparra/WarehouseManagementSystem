@@ -263,9 +263,95 @@
                 <canvas id="pieChart"></canvas>
             </div>
         </div>
+        <div class="row mt-4">
+    <div class="col-md-12">
+        <canvas id="barChart"></canvas>
+    </div>
+</div>
 
         <script>
             // Mini Pie Chart for Stock Distribution
+           
+           // Bar Chart for Product Usage
+    const barCtx = document.getElementById('barChart').getContext('2d');
+    const barChart = new Chart(barCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Product A', 'Product B', 'Product C', 'Product D', 'Product E'], // Sample product names
+            datasets: [{
+                label: 'Units Used',
+                data: [120, 150, 100, 200, 170], // Sample data
+                backgroundColor: [
+                    'rgba(23, 162, 184, 0.8)',
+                    'rgba(220, 53, 69, 0.8)',
+                    'rgba(255, 193, 7, 0.8)',
+                    'rgba(40, 167, 69, 0.8)',
+                    'rgba(102, 16, 242, 0.8)'
+                ],
+                borderColor: [
+                    'rgba(23, 162, 184, 1)',
+                    'rgba(220, 53, 69, 1)',
+                    'rgba(255, 193, 7, 1)',
+                    'rgba(40, 167, 69, 1)',
+                    'rgba(102, 16, 242, 1)'
+                ],
+                borderWidth: 1,
+                borderRadius: 10, // Rounded bars
+                barPercentage: 0.6, // Adjust bar width
+                hoverBackgroundColor: 'rgba(0, 0, 0, 0.2)'
+            }]
+        },
+        options: {
+            responsive: true,
+            animation: {
+                duration: 1000, // Animation duration
+                easing: 'easeOutBounce', // Smooth bounce effect
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    labels: {
+                        color: '#343a40',
+                        font: {
+                            size: 14
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#343a40',
+                        font: {
+                            size: 12
+                        }
+                    },
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: '#343a40',
+                        font: {
+                            size: 12
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.1)'
+                    }
+                }
+            }
+        }
+    });
+           
+           
+           
+           
+           
+           
             const ctx = document.getElementById('pieChart').getContext('2d');
             const pieChart = new Chart(ctx, {
                 type: 'pie',
