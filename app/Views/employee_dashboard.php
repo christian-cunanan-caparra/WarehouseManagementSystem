@@ -221,7 +221,7 @@
                                 <?= $totalStockIn ?> <!-- Dynamically inserted PHP data -->
                             </h3>
                         </div>
-                        <span class="material-icons">arrow_downward</span>
+                        <span class="material-icons">arrow_upward</span>
                     </div>
                 </div>
             </div>
@@ -272,6 +272,16 @@
         <script>
             // Mini Pie Chart for Stock Distribution
            
+
+
+            document.getElementById('toggleSidebar').addEventListener('click', function() {
+    // Toggle sidebar visibility (depending on your layout, adjust this part)
+    document.getElementById('sidebar').classList.toggle('hidden');
+    
+    // Resize the chart to adapt to the new layout
+    myPieChart.resize();
+});
+
             const miniBarCtx = document.getElementById('miniBarChart').getContext('2d');
     const miniBarChart = new Chart(miniBarCtx, {
         type: 'bar',
@@ -324,39 +334,31 @@
            
            
            
+    const pieChartCtx = document.getElementById('myPieChart').getContext('2d');
+const myPieChart = new Chart(pieChartCtx, {
+    type: 'pie',
+    data: {
+        labels: ['Category 1', 'Category 2', 'Category 3'],
+        datasets: [{
+            data: [10, 20, 30],
+            backgroundColor: ['#ff9999', '#66b3ff', '#99ff99'],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,  // Ensure the chart resizes correctly
+        plugins: {
+            legend: {
+                position: 'top'
+            }
+        }
+    }
+});
+       
            
-           
-            const ctx = document.getElementById('pieChart').getContext('2d');
-            const pieChart = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: ['Total Stock In', 'Total Stock Out', 'Low Stock'],
-                    datasets: [{
-                        label: 'Stock Distribution',
-                        data: [<?= $totalStockIn ?>, <?= $totalStockOut ?>, <?= count($lowStockProducts) ?>],
-                        backgroundColor: ['#17a2b8', '#dc3545', '#ffc107'],
-                        borderColor: ['#ffffff', '#ffffff', '#ffffff'],
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    animation: {
-                        animateScale: true, // Add scaling animation for the chart
-                        animateRotate: true // Add rotation animation
-                    },
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                            labels: {
-                                fontSize: 12,
-                                fontColor: '#343a40',
-                                boxWidth: 10
-                            }
-                        }
-                    }
-                }
-            });
+
+
         </script>
     </div>
 
