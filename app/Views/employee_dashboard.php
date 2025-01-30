@@ -53,17 +53,22 @@
             </div>
         </div>
 
-        <!-- Low Stock Alerts -->
-        <div class="card mt-4">
-            <div class="card-body">
-                <h5 class="card-title">Low Stock Alerts</h5>
-                <ul>
-                    <?php foreach ($lowStockProducts as $product): ?>
-                        <li><?= $product['name'] ?> - <?= $product['remaining_stock'] ?> units left</li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        </div>
+       <!-- Low Stock Alerts -->
+<div class="card mt-4">
+    <div class="card-body">
+        <h5 class="card-title">Low Stock Alerts</h5>
+        <ul>
+            <?php if (!empty($lowStockProducts)): ?>
+                <?php foreach ($lowStockProducts as $product): ?>
+                    <li><?= $product['name'] ?> - <?= $product['remaining_stock'] ?> units left</li>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <li>No products are low on stock.</li>
+            <?php endif; ?>
+        </ul>
+    </div>
+</div>
+
 
         <!-- Most Used Products -->
         <div class="card mt-4">
