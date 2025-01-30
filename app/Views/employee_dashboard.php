@@ -217,34 +217,67 @@
 
             <!-- Total Stock Out -->
             <div class="col-md-4">
-                <div class="card shadow-sm border-0 bg-danger text-white">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <div>
-                            <h5 class="card-title">Total Stock Out</h5>
-                            <h3 class="card-text" id="totalStockOut">
-                                <?= $totalStockOut ?> <!-- Dynamically inserted PHP data -->
-                            </h3>
-                        </div>
-                        <span class="material-icons">arrow_upward</span>
-                    </div>
-                </div>
+    <div class="card shadow-sm border-0 bg-danger text-white">
+        <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+                <h5 class="card-title">Total Stock Out</h5>
+                <h3 class="card-text" id="totalStockOut">
+                    <?= $totalStockOut ?> <!-- Dynamically inserted PHP data for out-of-stock count -->
+                </h3>
             </div>
+            <span class="material-icons">arrow_upward</span>
+        </div>
+    </div>
+</div>
 
             <!-- Low Stock Alerts -->
-            <div class="col-md-4">
-                <div class="card shadow-sm border-0 bg-warning text-white" data-bs-toggle="modal" data-bs-target="#lowStockModal">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <div>
-                            <h5 class="card-title">Low Stock Alerts</h5>
-                            <h3 class="card-text" id="lowStockCount">
-                                <?= count($lowStockProducts) ?>
-                            </h3>
-                        </div>
-                        <span class="material-icons">warning</span>
-                    </div>
-                </div>
+          <!-- Low Stock Alerts -->
+<div class="col-md-4">
+    <div class="card shadow-sm border-0 bg-warning text-white" data-bs-toggle="modal" data-bs-target="#lowStockModal">
+        <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+                <h5 class="card-title">Low Stock Alerts</h5>
+                <h3 class="card-text" id="lowStockCount">
+                    <?= count($lowStockProducts) ?>
+                </h3>
+            </div>
+            <span class="material-icons">warning</span>
+        </div>
+    </div>
+</div>
+
+
+<!-- Low Stock Modal -->
+<div class="modal fade" id="lowStockModal" tabindex="-1" aria-labelledby="lowStockModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="lowStockModalLabel">Low Stock Products (1 to 50)</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Remaining Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($lowStockProducts as $product): ?>
+                            <tr>
+                                <td><?= $product['product_name'] ?></td>
+                                <td><?= $product['remaining_stock'] ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
+</div>
+
+
 
         <!-- Stock Trends Chart -->
     
