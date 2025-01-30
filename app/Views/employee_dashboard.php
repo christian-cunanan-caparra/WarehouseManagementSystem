@@ -296,8 +296,7 @@
                 </div>
             </div>
         </div>
-    </BR>
-        <h2 class="text-center">Product List</h2>
+
         <!-- Product Table -->
       
         <div class="table-container">
