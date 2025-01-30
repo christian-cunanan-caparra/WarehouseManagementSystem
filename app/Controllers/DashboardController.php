@@ -37,7 +37,7 @@ class DashboardController extends Controller
             $data['inventory_logs'] = $InventoryLogModel->findAll();
 
             // Pass the data to the view
-            return view('inventory_logs', $data);
+            return view('employee_dashboard', $data);
         }
 
         return redirect()->to('/login');
@@ -78,6 +78,7 @@ public function index()
         return view('admin_dashboard', $data);
     } elseif ($role === 'Employee') {
         // Fetch products where status = 1 (active products)
+        
         $data['products'] = $this->productModel->where('status', 1)->findAll();
 
         // Dashboard Analytics - Total Products, Total Stock In, Total Stock Out
