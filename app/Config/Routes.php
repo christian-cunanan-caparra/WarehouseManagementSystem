@@ -87,8 +87,19 @@ $routes->get('logout', 'DashboardController::logout');
 
 
 $routes->get('/account-management', 'DashboardController::accountManagement');
-// wala pa toh $routsses->get('/account-archive', 'DashboardController::accountArchive'); // Add this if you have an archive method
+// wala psa toh $routsses->get('/account-archive', 'DashboardController::accountArchive'); // Add this if you have an archive method
 
 //reset pass
 
+
+
+
+
+
+$routes->get('/request-reset', 'PasswordResetController::requestReset');
+$routes->post('/send-reset-code', 'PasswordResetController::sendResetCode');
+$routes->get('/verify-reset-code', 'PasswordResetController::verifyResetCode');
+$routes->post('/process-verification', 'PasswordResetController::processVerification');
+$routes->get('/reset-password', 'PasswordResetController::resetPassword');
+$routes->post('/process-reset-password', 'PasswordResetController::processResetPassword');
 
