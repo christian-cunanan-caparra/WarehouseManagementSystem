@@ -247,57 +247,13 @@
         </div>
 
         <!-- Stock Trends Chart -->
-        <div class="card mt-4">
-    <div class="card-body">
-        <h5 class="card-title">Stock Trends</h5>
-        <canvas id="stockTrendChart"></canvas>
-    </div>
+       
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
    
-    const labels = stockData.map(data => data.date || data.week || data.month);  // Depending on the timeframe (day/week/month)
-    const stockInData = stockData.map(data => data.total_stock_in);
-    const stockOutData = stockData.map(data => data.total_stock_out);
-
-    const ctx = document.getElementById('stockTrendChart').getContext('2d');
-    const stockTrendChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,  // Days, weeks, or months
-            datasets: [{
-                label: 'Stock In',
-                data: stockInData,
-                borderColor: '#28a745',  // Green for stock in
-                backgroundColor: 'rgba(40, 167, 69, 0.2)',
-                fill: true,
-            }, {
-                label: 'Stock Out',
-                data: stockOutData,
-                borderColor: '#dc3545',  // Red for stock out
-                backgroundColor: 'rgba(220, 53, 69, 0.2)',
-                fill: true,
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Date/Week/Month'
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Quantity'
-                    }
-                }
-            }
-        }
-    });
+   
 </script>
 
 </body>
