@@ -279,7 +279,7 @@
             labels: ['Product A', 'Product B', 'Product C', 'Product D', 'Product E'], // Sample labels
             datasets: [{
                 label: 'Stock Usage',
-                data: [50, 80, 60, 90, 70], // Sample data
+                data: [50, 80,  <?= count($lowStockProducts) ?>, 90, 70], // Sample data
                 backgroundColor: [
                     'rgba(23, 162, 184, 0.8)',
                     'rgba(220, 53, 69, 0.8)',
