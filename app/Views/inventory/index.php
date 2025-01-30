@@ -86,26 +86,20 @@
           </tr>
         </thead>
         <tbody>
-          <?php foreach ($products as $product): ?>
-          <tr>
-            <td><?= esc($product['name']) ?></td>
-            <td><?= esc($product['stock_in']) ?></td>
-            <td><?= esc($product['stock_out']) ?></td>
-            <td><?= esc($product['remaining_stock']) ?></td>
-            <td>
-              <!-- Add Stock Button -->
-              <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addStockModal" data-product-name="<?= esc($product['name']) ?>" data-product-id="<?= $product['id'] ?>">
-                Add Stock
-              </button>
+  <?php foreach ($products as $product): ?>
+  <tr>
+    <td><?= esc($product['name']) ?></td>
+    <td><?= esc($product['stock_in']) ?></td>
+    <td><?= esc($product['stock_out']) ?></td>
+    <td id="remainingStock<?= $product['id'] ?>"><?= esc($product['remaining_stock']) ?></td>
+    <td>
+      <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addStockModal" data-product-name="<?= esc($product['name']) ?>" data-product-id="<?= $product['id'] ?>">Add Stock</button>
+      <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#removeStockModal" data-product-name="<?= esc($product['name']) ?>" data-product-id="<?= $product['id'] ?>">Remove Stock</button>
+    </td>
+  </tr>
+  <?php endforeach; ?>
+</tbody>
 
-              <!-- Remove Stock Button -->
-              <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#removeStockModal" data-product-name="<?= esc($product['name']) ?>" data-product-id="<?= $product['id'] ?>">
-                Remove Stock
-              </button>
-            </td>
-          </tr>
-          <?php endforeach; ?>
-        </tbody>
       </table>
     </div>
   </div>
@@ -180,19 +174,70 @@
     });
 
     // Pass product data to modals
-    const addStockModal = document.getElementById('addStockModal');
-    addStockModal.addEventListener('show.bs.modal', function (event) {
-      const button = event.relatedTarget;
-      document.getElementById('addStockProductName').value = button.getAttribute('data-product-name');
-      document.getElementById('addStockProductId').value = button.getAttribute('data-product-id');
-    });
+   
 
-    const removeStockModal = document.getElementById('removeStockModal');
-    removeStockModal.addEventListener('show.bs.modal', function (event) {
-      const button = event.relatedTarget;
-      document.getElementById('removeStockProductName').value = button.getAttribute('data-product-name');
-      document.getElementById('removeStockProductId').value = button.getAttribute('data-product-id');
-    });
+// Handle the add stock form submission
+document.querySelector('#addStockModal form').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const productId = document.getElementById('addStockProductId').value;
+  const quantity = document.getElementById('addStockQuantity').value;
+
+  if (quantity <= 0) {
+    alert('Please enter a valid quantity.');
+    return;
+  }
+
+  fetch(`/inventory/add-stock/${productId}`, {
+    method: 'POST',
+    body: new URLSearchParams({ quantity }),
+    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.status === 'success') {
+        alert(data.message);
+        document.getElementById('remainingStock' + productId).innerText = data.remaining_stock;
+        bootstrap.Modal.getInstance(document.getElementById('addStockModal')).hide();
+      } else {
+        alert(data.message);
+      }
+    })
+    .catch(err => console.error(err));
+});
+
+// Handle the remove stock form submission
+document.querySelector('#removeStockModal form').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const productId = document.getElementById('removeStockProductId').value;
+  const quantity = document.getElementById('removeStockQuantity').value;
+
+  if (quantity <= 0) {
+    alert('Please enter a valid quantity.');
+    return;
+  }
+
+  fetch(`/inventory/remove-stock/${productId}`, {
+    method: 'POST',
+    body: new URLSearchParams({ quantity }),
+    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.status === 'success') {
+        alert(data.message);
+        document.getElementById('remainingStock' + productId).innerText = data.remaining_stock;
+        bootstrap.Modal.getInstance(document.getElementById('removeStockModal')).hide();
+      } else {
+        alert(data.message);
+      }
+    })
+    .catch(err => console.error(err));
+});
+
+
+
   </script>
 </body>
 </html>
