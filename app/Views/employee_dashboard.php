@@ -69,6 +69,7 @@
         .content {
             margin-left: 270px;
             padding: 20px;
+            transition: margin-left 0.3s ease-in-out;
         }
 
         .card-title {
@@ -86,9 +87,23 @@
         .card h3 {
             font-size: 2rem;
         }
+
+        /* Hide sidebar */
+        .sidebar.closed {
+            transform: translateX(-250px);
+        }
+
+        .content.open-sidebar {
+            margin-left: 0;
+        }
     </style>
 </head>
 <body>
+
+    <!-- Toggle Sidebar Button -->
+    <button id="sidebarToggle" class="btn btn-dark position-fixed top-0 start-0 ms-3 mt-3" style="z-index: 10;">
+        <span class="material-icons">menu</span>
+    </button>
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
@@ -106,78 +121,70 @@
         <h1 class="text-center">Dashboard</h1>
 
         <!-- Analytics Cards -->
-       
-
-        <!-- Stock Trenssds Chart -->
-    
-
-        <!-- Low Stock Alerts -->
-       <!-- Low Stock Alerts Card -->
-       <div class="row mb-4">
-    <!-- Total Products -->
-    <div class="col-md-4">
-        <div class="card shadow-sm border-0 bg-primary text-white">
-            <div class="card-body d-flex justify-content-between align-items-center">
-                <div>
-                    <h5 class="card-title">Total Products</h5>
-                    <h3 class="card-text">
-                        <?= count(array_column($products, 'stock_in')) ?>
-                    </h3>
+        <div class="row mb-4">
+            <!-- Total Products -->
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 bg-primary text-white">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Total Products</h5>
+                            <h3 class="card-text">
+                                <?= count(array_column($products, 'stock_in')) ?>
+                            </h3>
+                        </div>
+                        <span class="material-icons">inventory</span>
+                    </div>
                 </div>
-                <span class="material-icons">inventory</span>
+            </div>
+
+            <!-- Low Stock Alerts -->
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 bg-warning text-white" data-bs-toggle="modal" data-bs-target="#lowStockModal">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Low Stock Alerts</h5>
+                            <h3 class="card-text">
+                                <?php if (!empty($lowStockProducts)): ?>
+                                    <?= count($lowStockProducts) ?>
+                                <?php else: ?>
+                                    0
+                                <?php endif; ?>
+                            </h3>
+                        </div>
+                        <span class="material-icons">warning</span>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Low Stock Alerts -->
-    <div class="col-md-4">
-        <div class="card shadow-sm border-0 bg-warning text-white" data-bs-toggle="modal" data-bs-target="#lowStockModal">
-            <div class="card-body d-flex justify-content-between align-items-center">
-                <div>
-                    <h5 class="card-title">Low Stock Alerts</h5>
-                    <h3 class="card-text">
+        <!-- Modal for Low Stock Products -->
+        <div class="modal fade" id="lowStockModal" tabindex="-1" aria-labelledby="lowStockModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="lowStockModalLabel">Low Stock Products</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
                         <?php if (!empty($lowStockProducts)): ?>
-                            <?= count($lowStockProducts) ?>
+                            <ul>
+                                <?php foreach ($lowStockProducts as $product): ?>
+                                    <li>
+                                        <strong><?= $product['name'] ?></strong> - 
+                                        <span><?= $product['remaining_stock'] ?> units left</span>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
                         <?php else: ?>
-                            0
+                            <p>No products are low on stock.</p>
                         <?php endif; ?>
-                    </h3>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
                 </div>
-                <span class="material-icons">warning</span>
             </div>
         </div>
-    </div>
-</div>
-
-<!-- Modal for Low Stock Products -->
-<div class="modal fade" id="lowStockModal" tabindex="-1" aria-labelledby="lowStockModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="lowStockModalLabel">Low Stock Products</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <?php if (!empty($lowStockProducts)): ?>
-                    <ul>
-                        <?php foreach ($lowStockProducts as $product): ?>
-                            <li>
-                                <strong><?= $product['name'] ?></strong> - 
-                                <span><?= $product['remaining_stock'] ?> units left</span>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
-                <?php else: ?>
-                    <p>No products are low on stock.</p>
-                <?php endif; ?>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 
         <!-- Most Used Products -->
         <div class="card mt-4">
@@ -194,40 +201,15 @@
                 </ul>
             </div>
         </div>
-
-        <!-- User Activity (can be added if needed) -->
-        <!-- Similar layout can be used to display recent user activities -->
     </div>
 
-    <!-- Script for charts -->
+    <!-- Script for sidebar toggle -->
     <script>
-        // Stock Trends Chart using Chart.js
-        var ctx = document.getElementById('stockTrendsChart').getContext('2d');
-        var stockTrendsChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: [/* Date labels */],
-                datasets: [{
-                    label: 'Stock In',
-                    data: [/* Stock in data */],
-                    borderColor: 'blue',
-                    fill: false
-                }, {
-                    label: 'Stock Out',
-                    data: [/* Stock out data */],
-                    borderColor: 'red',
-                    fill: false
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Stock Trends (In vs. Out)'
-                    }
-                }
-            }
+        document.getElementById('sidebarToggle').addEventListener('click', function () {
+            const sidebar = document.getElementById('sidebar');
+            const content = document.getElementById('main-content');
+            sidebar.classList.toggle('closed');
+            content.classList.toggle('open-sidebar');
         });
     </script>
 </body>
