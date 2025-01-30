@@ -168,14 +168,14 @@ class DashboardController extends Controller
 
     // Account Management View
     public function accountManagement()
-    {
-        if (!session()->get('is_logged_in') || session()->get('role') !== 'Admin') {
-            return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
-        }
-
-        $data['users'] = $this->userModel->findAll(); // Fetch all users
-        return view('account_management', $data);
+{
+    if (!session()->get('is_logged_in') || session()->get('role') !== 'Admin') {
+        return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
     }
+
+    $data['users'] = $this->userModel->findAll(); // Fetch all users
+    return view('account_management', $data);
+}
 
     // Create Account View
     public function createAccount()
