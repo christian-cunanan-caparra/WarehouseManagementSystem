@@ -279,7 +279,7 @@
             labels: ['Stock In', 'Stock Out', 'Low Stock Alerts', 'Products', 'Catche'], // Sample labels
             datasets: [{
                 label: 'Stock Usage',
-                data: [ <?= $totalStockIn ?>, <?= $totalStockOut ?>, <?= count($lowStockProducts) ?>, 90, 70 ],
+                data: [ <?= $totalStockIn ?>, <?= $totalStockOut ?>, <?= count($lowStockProducts) ?>, 5000, 3000 ],
 
                 backgroundColor: [
                     'rgba(23, 162, 184, 0.8)',
@@ -331,7 +331,7 @@
                     labels: ['Total Stock In', 'Total Stock Out', 'Low Stock'],
                     datasets: [{
                         label: 'Stock Distribution',
-                        data: [<?= $totalStockIn ?>, <?= $totalStockOut ?>, <?= count($lowStockProducts) ?>, 5000, 3000],
+                        data: [<?= $totalStockIn ?>, <?= $totalStockOut ?>, <?= count($lowStockProducts) ?>],
                         backgroundColor: ['#17a2b8', '#dc3545', '#ffc107'],
                         borderColor: ['#ffffff', '#ffffff', '#ffffff'],
                         borderWidth: 2
