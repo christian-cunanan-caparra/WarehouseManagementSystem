@@ -256,7 +256,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    const stockData = <?= json_encode($stockData) ?>;  // Pass PHP data to JS
+   
     const labels = stockData.map(data => data.date || data.week || data.month);  // Depending on the timeframe (day/week/month)
     const stockInData = stockData.map(data => data.total_stock_in);
     const stockOutData = stockData.map(data => data.total_stock_out);
