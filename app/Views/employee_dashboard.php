@@ -227,31 +227,44 @@
         });
 
         $(document).ready(function () {
-            // Calculate the combined value based on your logic
+            // Low Stock Count
             let lowStockCount = <?= !empty($lowStockProducts) ? count($lowStockProducts) : 0 ?>;
             let outOfStockCount = <?= !empty($outOfStockProducts) ? count($outOfStockProducts) : 0 ?>;
             let stockInOutCount = <?= !empty($totalStockInOut) ? $totalStockInOut : 0 ?>;
 
-            // Calculate the total value (you can adjust this logic based on what you want)
-            let totalValue = lowStockCount + outOfStockCount + stockInOutCount;
+            // Maximum value (Adjust based on your system)
+            let maxValue = 50; // Adjust the max value as needed (if you want to represent it with 50 as the max for each category)
 
-            // Set up the progress circle chart
+            // Create combined circle with multiple sections (each for one category)
             $('#combinedProgress').circleProgress({
-                value: totalValue / 150, // The divisor (150) can be adjusted based on your max value (for 50 per category, total 150)
-                size: 150, // Adjust the size of the circle
+                value: 1,  // Full circle (we will divide it into sections)
+                size: 150,
                 fill: {
-                    gradient: ['#FFC107', '#DC3545', '#28A745'], // Gradient to represent different categories (Yellow for low stock, Red for out of stock, Green for stock in/out)
-                    gradientAngle: Math.PI / 4, // Angle of the gradient
+                    gradient: ['#FFC107', '#DC3545', '#28A745'],
+                    gradientAngle: Math.PI / 4,
                 },
-                lineCap: 'round', // Rounded line ends
-                thickness: 10, // The thickness of the circle line
-                emptyFill: '#e0e0e0', // Empty fill for the unfilled part of the circle
-                reverse: true, // Reverse the progress animation direction
+                lineCap: 'round',
+                thickness: 10,
+                emptyFill: '#e0e0e0',
+                reverse: true,
+                animation: {
+                    duration: 1500,
+                    easing: 'circleProgressEasing',
+                }
             });
 
-            // Optional: Display the values within the circle
+            // After circle is initialized, update the progress values based on low stock, out of stock, stock in/out
+            $('#combinedProgress').circleProgress({
+                value: lowStockCount / maxValue, // Calculate percentage for low stock
+            }).circleProgress({
+                value: (lowStockCount + outOfStockCount) / maxValue, // Add out of stock
+            }).circleProgress({
+                value: (lowStockCount + outOfStockCount + stockInOutCount) / maxValue, // Add stock in/out
+            });
+
+            // Optional: Display the value inside the circle
             $('#combinedProgress').on('circle-animation-progress', function (event, progress, stepValue) {
-                $(this).find('strong').text((stepValue * totalValue).toFixed(0));
+                $(this).find('strong').text((stepValue * 100).toFixed(2) + "%");
             });
         });
     </script>
