@@ -22,12 +22,8 @@ class InventoryController extends Controller
     }
 
     // Add stock to a product
-   
-
-
     public function addStock($id)
-{
-    if ($this->request->isAJAX()) {
+    {
         $product = $this->productModel->find($id);
         $quantity = $this->request->getPost('quantity');
 
@@ -48,15 +44,15 @@ class InventoryController extends Controller
                 'quantity' => $quantity
             ]);
 
-            return $this->response->setJSON(['status' => 'success', 'message' => 'Stock added successfully.', 'remaining_stock' => $remainingStock]);
+            return redirect()->to('/inventory')->with('success', 'Stock added successfully.');
         }
-        return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid quantity or product not found.']);
-    }
-}
 
-public function removeStock($id)
-{
-    if ($this->request->isAJAX()) {
+        return redirect()->to('/inventory')->with('error', 'Invalid quantity or product not found.');
+    }
+
+    // Remove stock from a product
+    public function removeStock($id)
+    {
         $product = $this->productModel->find($id);
         $quantity = $this->request->getPost('quantity');
 
@@ -77,10 +73,9 @@ public function removeStock($id)
                 'quantity' => $quantity
             ]);
 
-            return $this->response->setJSON(['status' => 'success', 'message' => 'Stock removed successfully.', 'remaining_stock' => $remainingStock]);
+            return redirect()->to('/inventory')->with('success', 'Stock reduced successfully.');
         }
-        return $this->response->setJSON(['status' => 'error', 'message' => 'Insufficient stock or invalid request.']);
-    }
-}
 
+        return redirect()->to('/inventory')->with('error', 'Insufficient stock or invalid request.');
+    }
 }
