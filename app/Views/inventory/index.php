@@ -184,10 +184,10 @@
                         Add Stock
                     </button>
 
-                        <form action="/inventory/remove-stock/<?= $product['id'] ?>" method="post" class="d-inline">
-                            <input type="number" name="quantity" min="1" required>
-                            <button type="submit" class="btn btn-danger btn-sm">Remove Stock</button>
-                        </form>
+                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#removeStockModal" 
+                        data-id="<?= $product['id'] ?>" data-name="<?= esc($product['name']) ?>">
+                        Remove Stock
+                    </button>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -206,11 +206,18 @@
             <div class="modal-body">
                 <form id="addStockForm" method="post">
                     <input type="hidden" name="product_id" id="addStockProductId">
-                    <input type="hidden" name="type" value="Restock"> <!-- Hidden field for stock type -->
-
+                    
                     <div class="mb-3">
                         <label class="form-label">Product</label>
                         <input type="text" id="addStockProductName" class="form-control" readonly>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Stock Type</label>
+                        <select name="type" class="form-control">
+                            <option value="Restock">Restock</option>
+                            <option value="Returned">Returned</option>
+                        </select>
                     </div>
 
                     <div class="mb-3">
@@ -236,11 +243,19 @@
             <div class="modal-body">
                 <form id="removeStockForm" method="post">
                     <input type="hidden" name="product_id" id="removeStockProductId">
-                    <input type="hidden" name="type" value="Remove"> <!-- Hidden field for stock type -->
-
+                    
                     <div class="mb-3">
                         <label class="form-label">Product</label>
                         <input type="text" id="removeStockProductName" class="form-control" readonly>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Stock Type</label>
+                        <select name="type" class="form-control">
+                            <option value="Sold">Sold</option>
+                            <option value="Damaged">Damaged</option>
+                            <option value="Transferred">Transferred</option>
+                        </select>
                     </div>
 
                     <div class="mb-3">
@@ -274,6 +289,17 @@
         });
     });
 
+
+    // Fill Remove Stock Modal
+    document.querySelectorAll('[data-bs-target="#removeStockModal"]').forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = this.getAttribute('data-id');
+            const productName = this.getAttribute('data-name');
+            document.getElementById('removeStockProductId').value = productId;
+            document.getElementById('removeStockProductName').value = productName;
+            document.getElementById('removeStockForm').action = `/inventory/remove-stock/${productId}`;
+        });
+    });
 
     const toggleBtn = document.getElementById('toggle-btn');
     const closeBtn = document.getElementById('close-btn');
