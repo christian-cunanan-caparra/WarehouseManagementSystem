@@ -112,6 +112,10 @@
             justify-content: center;
             text-align: center;
         }
+
+        .sign-up :hover {
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -159,7 +163,7 @@
 
         <!-- Link to register page if the user doesn't have an account -->
         <div class="signup-link">
-            <p>Don't have an account yet? <a href="/register">Sign up here</a></p>
+            <p>Don't have an account yet? <a href="/register" class="sign-up">Sign up here</a></p>
         </div>
     </div>
 
