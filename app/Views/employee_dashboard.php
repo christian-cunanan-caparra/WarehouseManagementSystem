@@ -331,7 +331,7 @@
                     labels: ['Total Stock In', 'Total Stock Out', 'Low Stock'],
                     datasets: [{
                         label: 'Stock Distribution',
-                        data: [<?= $totalStockIn ?>, <?= $totalStockOut ?>, <?= count($lowStockProducts) ?>],
+                        data: [<?= $totalStockIn ?>, <?= $totalStockOut ?>, <?= count($lowStockProducts) ?>, 5000, 3000],
                         backgroundColor: ['#17a2b8', '#dc3545', '#ffc107'],
                         borderColor: ['#ffffff', '#ffffff', '#ffffff'],
                         borderWidth: 2
