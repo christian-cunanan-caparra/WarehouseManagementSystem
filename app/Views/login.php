@@ -104,6 +104,11 @@
             font-size: 14px;
             padding: 15px;
         }
+
+        .forgot-password {
+            text-decoration: none;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -143,10 +148,10 @@
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
             </div>
             <div class="text-end">
-    <a href="/request-reset" class="text-primary">Forgot Password?</a>
 </div>
 
             <button type="submit" class="btn btn-primary">Login</button>
+            <a href="/request-reset" class="text-primary forgot-password">Forgot Password?</a>
         </form>
 
         <!-- Link to register page if the user doesn't have an account -->
