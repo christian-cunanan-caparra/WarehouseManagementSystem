@@ -173,7 +173,9 @@ class DashboardController extends Controller
         return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
     }
 
-    $data['users'] = $this->userModel->findAll(); // Fetch all users
+    // Fetch only employees
+    $data['users'] = $this->userModel->where('role', 'Employee')->findAll();
+
     return view('account_management', $data);
 }
 
