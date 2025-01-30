@@ -30,6 +30,7 @@ class DashboardController extends Controller
         } elseif ($role === 'Employee') {
             // Load the InventoryLogs model
             $InventoryLogModel = new \App\Models\InventoryLogModel();
+
     
             // Fetch all inventory logs
             $data['inventory_logs'] = $InventoryLogModel->findAll();
