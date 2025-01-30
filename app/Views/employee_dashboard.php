@@ -11,6 +11,9 @@
     <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style>
         /* Custom styles for responsive sidebar and other components */
         body {
@@ -32,32 +35,8 @@
             transition: transform 0.3s ease-in-out;
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* This will push the logout button to the bottom */
-            height: 100vh; /* Ensure the sidebar takes full height */
+            justify-content: space-between;
         }
-
-        .sidebar-links-container {
-            flex-grow: 1; /* This allows the links to take up available space */
-        }
-
-        .logout-container {
-            padding: 15px; /* Add some padding for the logout button */
-        }
-        .logout-button {
-            text-decoration: none;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 16px;
-            padding: 12px 15px;
-            border-radius: 5px;
-        }
-
-        .logout-button:hover {
-            background-color: #495057; /* Change background on hover */
-        }   
-
 
         .sidebar-header {
             font-size: 20px;
@@ -121,18 +100,13 @@
             margin-left: 0;
         }
 
-        /* Circle Progress Styling */
-        #combinedProgress {
-            text-align: center;
-            margin: 0 auto;
-            margin-top: 30px;
+        #stockTrendChart {
+            height: 400px;
         }
 
-        #combinedProgress strong {
-            font-size: 20px;
-            font-weight: bold;
-            display: block;
-            margin-top: 20px;
+        /* Low Stock Alert Modal */
+        .modal-body ul {
+            padding-left: 20px;
         }
     </style>
 </head>
@@ -145,19 +119,19 @@
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
-    <div class="sidebar-header">Warehouse Management</div>
-    <div class="sidebar-links-container">
-        <ul class="sidebar-links">
-            <li><a href="/employee_dashboard"><span class="material-icons">dashboard</span> Dashboard</a></li>
-            <li><a href="/product"><span class="material-icons">inventory</span> Products</a></li>
-            <li><a href="/inventory"><span class="material-icons">storage</span> Inventory</a></li>
-            <li><a href="/inventory_logs"><span class="material-icons">history</span> Inventory Logs</a></li>
-        </ul>
-    </div>
-    <div class="logout-container">
-        <a href="/logout" class="logout-button"><span class="material-icons">logout</span> Log out</a>
-    </div>
-</aside>
+        <div class="sidebar-header">Warehouse Management</div>
+        <div class="sidebar-links-container">
+            <ul class="sidebar-links">
+                <li><a href="/employee_dashboard"><span class="material-icons">dashboard</span> Dashboard</a></li>
+                <li><a href="/product"><span class="material-icons">inventory</span> Products</a></li>
+                <li><a href="/inventory"><span class="material-icons">storage</span> Inventory</a></li>
+                <li><a href="/inventory_logs"><span class="material-icons">history</span> Inventory Logs</a></li>
+            </ul>
+        </div>
+        <div class="logout-container">
+            <a href="/logout" class="logout-button"><span class="material-icons">logout</span> Log out</a>
+        </div>
+    </aside>
 
     <!-- Main Content -->
     <div class="content" id="main-content">
@@ -165,17 +139,32 @@
 
         <!-- Analytics Cards -->
         <div class="row mb-4">
-            <!-- Total Products -->
+            <!-- Total Stock In -->
             <div class="col-md-4">
-                <div class="card shadow-sm border-0 bg-primary text-white">
+                <div class="card shadow-sm border-0 bg-info text-white">
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <div>
-                            <h5 class="card-title">Total Products</h5>
-                            <h3 class="card-text">
-                                <?= count(array_column($products, 'stock_in')) ?>
+                            <h5 class="card-title">Total Stock In</h5>
+                            <h3 class="card-text" id="totalStockIn">
+                                <?= $totalStockIn ?> <!-- Dynamically inserted PHP data -->
                             </h3>
                         </div>
-                        <span class="material-icons">inventory</span>
+                        <span class="material-icons">arrow_downward</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Stock Out -->
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 bg-danger text-white">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Total Stock Out</h5>
+                            <h3 class="card-text" id="totalStockOut">
+                                <?= $totalStockOut ?> <!-- Dynamically inserted PHP data -->
+                            </h3>
+                        </div>
+                        <span class="material-icons">arrow_upward</span>
                     </div>
                 </div>
             </div>
@@ -186,12 +175,8 @@
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <div>
                             <h5 class="card-title">Low Stock Alerts</h5>
-                            <h3 class="card-text">
-                                <?php if (!empty($lowStockProducts)): ?>
-                                    <?= count($lowStockProducts) ?>
-                                <?php else: ?>
-                                    0
-                                <?php endif; ?>
+                            <h3 class="card-text" id="lowStockCount">
+                                <?= count($lowStockProducts) ?>
                             </h3>
                         </div>
                         <span class="material-icons">warning</span>
@@ -209,18 +194,18 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <?php if (!empty($lowStockProducts)): ?>
-                            <ul>
+                        <ul id="lowStockList">
+                            <?php if (!empty($lowStockProducts)): ?>
                                 <?php foreach ($lowStockProducts as $product): ?>
                                     <li>
                                         <strong><?= $product['name'] ?></strong> - 
                                         <span><?= $product['remaining_stock'] ?> Stocks left</span>
                                     </li>
                                 <?php endforeach; ?>
-                            </ul>
-                        <?php else: ?>
-                            <p>No products are low on stock.</p>
-                        <?php endif; ?>
+                            <?php else: ?>
+                                <p>No products are low on stock.</p>
+                            <?php endif; ?>
+                        </ul>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -229,24 +214,14 @@
             </div>
         </div>
 
-        <!-- Most Used Products -->
+        <!-- Stock Trends Chart -->
         <div class="card mt-4">
             <div class="card-body">
-                <h5 class="card-title">Most Used Products</h5>
-                <ul>
-                    <?php if (!empty($mostUsedProducts)): ?>
-                        <?php foreach ($mostUsedProducts as $product): ?>
-                            <li><?= $product['name'] ?> - <?= $product['stock_in'] + $product['stock_out'] ?> times used</li>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <li>No products have been used yet.</li>
-                    <?php endif; ?>
-                </ul>
+                <h5 class="card-title">Stock Trends</h5>
+                <canvas id="stockTrendChart"></canvas>
             </div>
         </div>
 
-        <!-- Circle Progress for Combined Analytics -->
-        <div id="combinedProgress"></div> <!-- The container for the combined circle -->
     </div>
 
     <!-- Script for sidebar toggle -->
@@ -258,51 +233,78 @@
             content.classList.toggle('open-sidebar');
         });
 
-        $(document).ready(function () {
-            // Low Stock Count
-            let lowStockCount = <?= !empty($lowStockProducts) ? count($lowStockProducts) : 0 ?>;
-            let outOfStockCount = <?= !empty($outOfStockProducts) ? count($outOfStockProducts) : 0 ?>;
-            let stockInOutCount = <?= !empty($totalStockInOut) ? $totalStockInOut : 0 ?>;
+        // Fetching data and updating dynamic elements via AJAX
+        function fetchStockData() {
+            $.ajax({
+                url: '/path/to/your/data/endpoint',  // Endpoint that returns JSON data
+                method: 'GET',
+                success: function(data) {
+                    $('#totalStockIn').text(data.stockIn);
+                    $('#totalStockOut').text(data.stockOut);
+                    $('#lowStockCount').text(data.lowStock);
 
-            // Maximum value (Adjust based on your system)
-            let maxValue = 50; // Adjust the max value as needed (if you want to represent it with 50 as the max for each category)
+                    // Update Low Stock Modal
+                    let lowStockHTML = '';
+                    data.lowStockProducts.forEach(product => {
+                        lowStockHTML += `<li><strong>${product.name}</strong> - ${product.remainingStock} stocks left</li>`;
+                    });
+                    $('#lowStockList').html(lowStockHTML);
 
-            // Create combined circle with multiple sections (each for one category)
-            $('#combinedProgress').circleProgress({
-                value: 1,  // Full circle (we will divide it into sections)
-                size: 150,
-                fill: {
-                    gradient: ['#007bff', '#ffc107', '#dc3545'],
-                    gradientAngle: Math.PI / 4,
-                },
-                lineCap: 'round',
-                thickness: 10,
-                emptyFill: '#e0e0e0',
-                reverse: true,
-                animation: {
-                    duration: 1500,
-                    easing: 'circleProgressEasing',
+                    // Update Stock Trend Chart
+                    updateStockChart(data.trends);
                 }
             });
+        }
 
-            // After circle is initialized, update the progress values based on low stock, out of stock, stock in/out
-            $('#combinedProgress').circleProgress({
-                value: lowStockCount / maxValue, // Calculate percentage for low stock
-            }).circleProgress({
-                value: (lowStockCount + outOfStockCount) / maxValue, // Add out of stock
-            }).circleProgress({
-                value: (lowStockCount + outOfStockCount + stockInOutCount) / maxValue, // Add stock in/out
-            });
+        function updateStockChart(trends) {
+            stockTrendChart.data.labels = trends.labels;
+            stockTrendChart.data.datasets[0].data = trends.stockInData;
+            stockTrendChart.data.datasets[1].data = trends.stockOutData;
+            stockTrendChart.update();
+        }
 
-            // Optional: Display the value inside the circle
-            $('#combinedProgress').on('circle-animation-progress', function (event, progress, stepValue) {
-                $(this).find('strong').text((stepValue * 100).toFixed(2) + "%");
-            });
+        // Initialize chart
+        var ctx = document.getElementById('stockTrendChart').getContext('2d');
+        var stockTrendChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],  // Initially empty, will be updated dynamically
+                datasets: [{
+                    label: 'Stock In',
+                    data: [],
+                    borderColor: '#007bff',
+                    fill: false,
+                    tension: 0.1
+                },
+                {
+                    label: 'Stock Out',
+                    data: [],
+                    borderColor: '#dc3545',
+                    fill: false,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
         });
-    </script>
 
-    <!-- Include the Circle Progress JS -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery.circleprogress@1.2.2/dist/circle-progress.min.js"></script>
+        // Call the function to fetch data and update every 10 seconds
+        setInterval(fetchStockData, 10000);
+    </script>
 
 </body>
 </html>
