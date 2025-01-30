@@ -25,8 +25,8 @@
         .sidebar {
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* This will push the logout button to the bottom */
-            height: 100vh; /* Ensure the sidebar takes full height */
+            justify-content: space-between;
+            height: 100vh;
             width: 250px;
             background-color: #343a40;
             color: white;
@@ -39,11 +39,11 @@
         }
 
         .sidebar-links-container {
-            flex-grow: 1; /* This allows the links to take up available space */
+            flex-grow: 1;
         }
 
         .logout-container {
-            padding: 15px; /* Add some padding for the logout button */
+            padding: 15px;
         }
 
         .logout-button {
@@ -58,7 +58,7 @@
         }
 
         .logout-button:hover {
-            background-color: #495057; /* Change background on hover */
+            background-color: #495057;
         }
 
         .sidebar-header {
@@ -123,26 +123,22 @@
             color: #343a40;
         }
 
-        /* Dashboard Cards */
-        .card {
-            margin-bottom: 20px;
+        /* Table Styling */
+        .table {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        .card-title {
-            font-size: 16px;
+        .table thead {
+            background-color: #343a40;
+            color: white;
         }
 
-        .card-body {
-            padding: 20px;
-        }
-
-        .card h3 {
-            font-size: 2rem;
-        }
-
-        /* Stock Trends Chart */
-        #stockTrendChart {
-            height: 400px;
+        .table th, .table td {
+            padding: 12px;
+            text-align: center;
         }
 
         /* Responsive Design */
@@ -206,9 +202,7 @@
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <div>
                             <h5 class="card-title">Total Stock In</h5>
-                            <h3 class="card-text" id="totalStockIn">
-                                <?= $totalStockIn ?> <!-- Dynamically inserted PHP data -->
-                            </h3>
+                            <h3 class="card-text" id="totalStockIn"><?= $totalStockIn ?></h3>
                         </div>
                         <span class="material-icons">arrow_downward</span>
                     </div>
@@ -221,9 +215,7 @@
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <div>
                             <h5 class="card-title">Total Stock Out</h5>
-                            <h3 class="card-text" id="totalStockOut">
-                                <?= $totalStockOut ?> <!-- Dynamically inserted PHP data -->
-                            </h3>
+                            <h3 class="card-text" id="totalStockOut"><?= $totalStockOut ?></h3>
                         </div>
                         <span class="material-icons">arrow_upward</span>
                     </div>
@@ -232,13 +224,11 @@
 
             <!-- Low Stock Alerts -->
             <div class="col-md-4">
-                <div class="card shadow-sm border-0 bg-warning text-white" data-bs-toggle="modal" data-bs-target="#lowStockModal">
-                    <div class="card-body d-flex justify-content-between align-items-center">
+                <div class="card shadow-sm border-0 bg-warning text-white">
+                    <div class="card-body d-flex justify-content-between align-items-center" data-bs-toggle="modal" data-bs-target="#lowStockModal">
                         <div>
                             <h5 class="card-title">Low Stock Alerts</h5>
-                            <h3 class="card-text" id="lowStockCount">
-                                <?= count($lowStockProducts) ?>
-                            </h3>
+                            <h3 class="card-text" id="lowStockCount"><?= count($lowStockProducts) ?></h3>
                         </div>
                         <span class="material-icons">warning</span>
                     </div>
@@ -246,8 +236,37 @@
             </div>
         </div>
 
-        <!-- Stock Trends Chart -->
-    
+        <!-- Inventory Logs Table -->
+        <h3>Inventory Logs</h3>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (!empty($inventory_logs)): ?>
+                        <?php foreach ($inventory_logs as $log): ?>
+                            <tr>
+                                <td><?= esc($log['product_id']) ?></td> <!-- Replace with product name if available -->
+                                <td><?= esc($log['quantity']) ?></td>
+                                <td><?= esc($log['created_at']) ?></td>
+                                <td><?= esc($log['action']) ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="4" class="text-center">No inventory logs found.</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <script>
         // Sidebar Toggle Functionality
@@ -255,21 +274,21 @@
         const toggleBtn = document.getElementById("toggle-btn");
         const content = document.getElementById("main-content");
 
-        let isSidebarOpen = true; // Track sidebar state
+        let isSidebarOpen = true;
 
         toggleBtn.addEventListener("click", () => {
-            isSidebarOpen = !isSidebarOpen; // Toggle state
+            isSidebarOpen = !isSidebarOpen;
 
             if (isSidebarOpen) {
                 sidebar.classList.remove("hidden");
                 content.classList.remove("full-width");
                 toggleBtn.classList.remove("move");
-                toggleBtn.style.left = "260px"; // Adjust button position
+                toggleBtn.style.left = "260px";
             } else {
                 sidebar.classList.add("hidden");
                 content.classList.add("full-width");
                 toggleBtn.classList.add("move");
-                toggleBtn.style.left = "15px"; // Move button closer when sidebar is closed
+                toggleBtn.style.left = "15px";
             }
         });
     </script>
