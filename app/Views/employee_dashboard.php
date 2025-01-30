@@ -182,6 +182,14 @@
         .toggle-btn.move {
             left: 15px;
         }
+
+
+        #pieChart {
+    height: 250px; /* Increased height */
+    max-width: 300px; /* Increased max-width */
+    margin: 0 auto; /* Center the chart */
+    border-radius: 10px;
+}
     </style>
 </head>
 <body>
