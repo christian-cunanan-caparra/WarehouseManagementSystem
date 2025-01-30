@@ -64,6 +64,7 @@ class DashboardController extends Controller
 
     // Dashboard View with Analytics
     // Dashboard View with Analytics
+// Dashboard View with Analytics
 public function index()
 {
     if (!session()->get('is_logged_in')) {
@@ -75,10 +76,6 @@ public function index()
     if ($role === 'Admin') {
         // Fetch products where status = 0 (inactive products)
         $data['products'] = $this->productModel->where('status', 0)->findAll();
-        return view('admin_dashboard', $data);
-    } elseif ($role === 'Employee') {
-        // Fetch products where status = 1 (active products)
-        $data['products'] = $this->productModel->where('status', 1)->findAll();
 
         // Dashboard Analytics - Total Products, Total Stock In, Total Stock Out
         $data['totalProducts'] = count($data['products']);
@@ -86,7 +83,7 @@ public function index()
         $data['totalStockOut'] = array_sum(array_column($data['products'], 'stock_out'));
         $data['totalRemainingStock'] = array_sum(array_column($data['products'], 'remaining_stock'));
 
-        // Low Stock Alert: Set threshold (e.g., 10 units)
+        // Low Stock Alert: Set threshold (e.g., 50 units)
         $lowStockThreshold = 50;
         $data['lowStockProducts'] = array_filter($data['products'], function($product) use ($lowStockThreshold) {
             return $product['remaining_stock'] <= $lowStockThreshold;
@@ -102,11 +99,11 @@ public function index()
 
         // Additional analytics can be added here
 
-        return view('employee_dashboard', $data);
+        return view('admin_dashboard', $data);
     }
-
-    return redirect()->to('/login');
+    // Employee role logic (if applicable)
 }
+
 
 
     // Create Product View
