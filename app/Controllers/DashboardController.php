@@ -24,22 +24,22 @@ class DashboardController extends Controller
         if (!session()->get('is_logged_in')) {
             return redirect()->to('/login');
         }
-
+    
         $role = session()->get('role');
-
+    
         if ($role === 'Admin') {
-            return view('admin_dashboard');
+            return view('admin_dashboard'); // Redirect to admin dashboard for Admin
         } elseif ($role === 'Employee') {
-            // Load the InventoryLogs model
+            // Load the InventoryLog model
             $InventoryLogModel = new \App\Models\InventoryLogModel();
-
+    
             // Fetch all inventory logs
             $data['inventory_logs'] = $InventoryLogModel->findAll();
-
+    
             // Pass the data to the view
             return view('inventory_logs', $data);
         }
-
+    
         return redirect()->to('/login');
     }
 
@@ -285,7 +285,11 @@ public function index()
             return redirect()->to('/login')->with('error', 'You must be logged in as Admin to access this page.');
         }
 
-        $this->userModel->update($id, ['role' => 'Employee']);
-        return redirect()->to('/archive-accounts')->with('success', 'Account restored successfully.');
-    }
+    $this->userModel->update($id, ['role' => 'Employee']);
+    return redirect()->to('/archive-accounts')->with('success', 'Account restored successfully.');
+}
+
+
+
+
 }
