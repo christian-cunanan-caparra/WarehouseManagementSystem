@@ -96,7 +96,7 @@
         }
 
         .signup-link a:hover {
-            text-decoration: underline;
+            text-decoration: none;
         }
 
         /* Flash error styling */
@@ -112,9 +112,7 @@
             justify-content: center;
             text-align: center;
         }
-        a :hover {
-            text-decoration: none;
-        }
+      
 
         
     </style>
