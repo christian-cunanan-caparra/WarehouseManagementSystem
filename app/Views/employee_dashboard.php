@@ -13,8 +13,6 @@
     <style>
         /* Stjyles for responsive sidebar */
         .sidebar {
-    display: flex;
-    flex-direction: column;
     position: fixed;
     top: 0;
     left: -270px; /* Initially hidden */
@@ -84,13 +82,7 @@
     list-style: none;
     padding: 0;
     margin-top: 20px;
-    flex-grow: 1;
 }
-
-.logout-link {
-    margin-top: auto;
-}
-
 
 .sidebar-links li {
     margin-bottom: 15px;
