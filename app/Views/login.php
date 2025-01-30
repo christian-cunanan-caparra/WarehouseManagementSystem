@@ -142,6 +142,9 @@
                 <label for="password">Password:</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
             </div>
+            <div class="text-end">
+    <a href="/request-reset" class="text-primary">Forgot Password?</a>
+</div>
 
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
