@@ -215,8 +215,8 @@
                     <div class="mb-3">
                         <label class="form-label">Stock Type</label>
                         <select name="type" class="form-control">
-                            <option value="Restock">Restock</option>
-                            <option value="Returned">Returned</option>
+                            <option value="Restock">Add Stock</option>
+                           
                         </select>
                     </div>
 
