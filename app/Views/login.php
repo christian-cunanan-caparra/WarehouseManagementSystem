@@ -96,7 +96,7 @@
         }
 
         .signup-link a:hover {
-            text-decoration: underline;
+            text-decoration: none;
         }
 
         /* Flash error styling */
@@ -107,8 +107,15 @@
 
         .forgot-password {
             text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             text-align: center;
+            padding-top: 10px;
         }
+      
+
+        
     </style>
 </head>
 <body>
@@ -156,7 +163,7 @@
 
         <!-- Link to register page if the user doesn't have an account -->
         <div class="signup-link">
-            <p>Don't have an account yet? <a href="/register">Sign up here</a></p>
+            <p>Don't have an account yet? <a href="/register" class="sign-up">Sign up here</a></p>
         </div>
     </div>
 
