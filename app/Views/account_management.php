@@ -150,7 +150,6 @@
     <div class="content" id="main-content">
         <div class="container mt-4">
             <h1>Account Management</h1>
-            <a href="/create-account" class="btn btn-primary mb-3">Create New Account</a>
             <table class="table table-bordered">
                 <thead>
                     <tr>
