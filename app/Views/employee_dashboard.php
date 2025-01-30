@@ -212,7 +212,8 @@
 
     <!-- Toggle Button -->
     <button class="toggle-btn" id="toggle-btn">&#9776;</button>
-
+<br><br>
+<br>
     <!-- Main Content -->
     <div class="content" id="main-content">
         <h2 class="text-center">Dashboard</h2>
