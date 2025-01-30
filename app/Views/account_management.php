@@ -19,7 +19,7 @@
         .sidebar {
             position: fixed;
             top: 0;
-            left: -270px; /* Initially hidden */
+            left: -270px; /* Initjially hidden */
             width: 270px;
             height: 100%;
             background: rgba(22, 26, 45, 0.9);
