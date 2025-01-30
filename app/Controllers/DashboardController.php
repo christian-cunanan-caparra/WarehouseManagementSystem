@@ -128,7 +128,7 @@ class DashboardController extends Controller
         return $this->response->setJSON(['message' => 'Failed to update product.']);
     }
 
-    // Deactivatse Product
+    // Deactivastse Product
     public function delete($id)
     {
         $this->productModel->update($id, ['status' => 0]);
