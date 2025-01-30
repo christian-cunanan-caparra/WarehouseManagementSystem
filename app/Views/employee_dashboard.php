@@ -229,6 +229,8 @@
     <button class="toggle-btn" id="toggle-btn">&#9776;</button>
     
     <!-- Main Content -->
+
+    <BR></BR><BR></BR>
     <div class="content" id="main-content">
         <h2 class="text-center">Dashboard</h2>
 
@@ -294,7 +296,7 @@
                 </div>
             </div>
         </div>
-
+<BR></BR><BR></BR>
         <h2 class="text-center">Product List</h2>
         <!-- Product Table -->
         <div class="table-container">
