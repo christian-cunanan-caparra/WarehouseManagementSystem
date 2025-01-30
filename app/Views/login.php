@@ -113,7 +113,7 @@
             text-align: center;
         }
 
-        .sign-up :hover {
+        .sign-up:hover {
             text-decoration: none;
         }
     </style>
