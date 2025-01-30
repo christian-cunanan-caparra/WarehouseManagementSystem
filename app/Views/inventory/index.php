@@ -240,24 +240,30 @@
                         </tr>
                     </thead>
                     <tbody>
-    <?php foreach ($products as $product): ?>
-        <?php if ($product['status'] == 1): ?>
-            <tr>
-                <td><?= esc($product['name']) ?></td>
-                <td><?= esc($product['stock_in']) ?></td>
-                <td><?= esc($product['stock_out']) ?></td>
-                <td><?= esc($product['remaining_stock']) ?></td>
-                <td class="actions">
-                    <form action="/inventory/add-stock/<?= $product['id'] ?>" method="post" class="d-inline">
-                        <button type="submit" class="btn btn-success btn-sm">Add Stock</button>
-                    </form>
-                    <form action="/inventory/remove-stock/<?= $product['id'] ?>" method="post" class="d-inline">
-                        <button type="submit" class="btn btn-danger btn-sm">Remove Stock</button>
-                    </form>
-                </td>
-            </tr>
-        <?php endif; ?>
-    <?php endforeach; ?>
+                    <?php foreach ($products as $product): ?>
+    <?php if ($product['status'] == 1): ?>
+        <tr>
+            <td><?= esc($product['name']) ?></td>
+            <td><?= esc($product['stock_in']) ?></td>
+            <td><?= esc($product['stock_out']) ?></td>
+            <td><?= esc($product['remaining_stock']) ?></td>
+            <td class="actions">
+                <!-- Form for Adding Stock -->
+                <form action="/inventory/add-stock/<?= $product['id'] ?>" method="post" class="d-inline">
+                    <input type="number" name="remaining_stock" min="1" placeholder="Qty" required class="form-control form-control-sm d-inline w-auto">
+                    <button type="submit" class="btn btn-success btn-sm">Add Stock</button>
+                </form>
+
+                <!-- Form for Removing Stock -->
+                <form action="/inventory/remove-stock/<?= $product['id'] ?>" method="post" class="d-inline">
+                    <input type="number" name="remaining_stock" min="1" placeholder="Qty" required class="form-control form-control-sm d-inline w-auto">
+                    <button type="submit" class="btn btn-danger btn-sm">Remove Stock</button>
+                </form>
+            </td>
+        </tr>
+    <?php endif; ?>
+<?php endforeach; ?>
+
 </tbody>
 
                 </table>
