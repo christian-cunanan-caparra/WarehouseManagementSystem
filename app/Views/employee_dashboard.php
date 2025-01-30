@@ -123,6 +123,7 @@
         h2 {
             font-weight: bold;
             color: #343a40;
+            margin-top: 30px; /* Slight margin top for the dashboard */
         }
 
         /* Dashboard Cards */
@@ -181,11 +182,29 @@
         .toggle-btn.move {
             left: 15px;
         }
-.main-content{
-    margin-top: 20px;
-}
 
-        
+        /* Container for the Charts */
+        .chart-container {
+            margin-top: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+
+        .table-container {
+            margin-top: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+
+        .table-responsive {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
     </style>
 </head>
 <body>
@@ -262,48 +281,51 @@
         </div>
 
         <!-- Charts Section -->
-        <div class="row mt-4">
-            <!-- Mini Bar Chart -->
-            <div class="col-md-6">
-                <canvas id="miniBarChart"></canvas>
-            </div>
+        <div class="chart-container">
+            <div class="row mt-4">
+                <!-- Mini Bar Chart -->
+                <div class="col-md-6">
+                    <canvas id="miniBarChart"></canvas>
+                </div>
 
-            <!-- Pie Chart -->
-            <div class="col-md-6">
-                <canvas id="pieChart"></canvas>
+                <!-- Pie Chart -->
+                <div class="col-md-6">
+                    <canvas id="pieChart"></canvas>
+                </div>
             </div>
         </div>
 
-
         <h2 class="text-center">Product List</h2>
         <!-- Product Table -->
-        <div class="table-responsive mt-4">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                        <th>Stock In</th>
-                        <th>Stock Out</th>
-                        <th>Inventory Stock</th>
-                    </tr>
-                </thead>
-                <tbody id="productTable">
-                    <?php foreach ($products as $product): ?>
+        <div class="table-container">
+            <div class="table-responsive mt-4">
+                <table class="table table-striped">
+                    <thead>
                         <tr>
-                            <td><?= esc($product['id']) ?></td>
-                            <td><?= esc($product['name']) ?></td>
-                            <td><?= esc($product['description']) ?></td>
-                            <td><?= esc($product['price']) ?></td>
-                            <td><?= esc($product['stock_in']) ?></td>
-                            <td><?= esc($product['stock_out']) ?></td>
-                            <td><?= esc($product['remaining_stock']) ?></td>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Stock In</th>
+                            <th>Stock Out</th>
+                            <th>Inventory Stock</th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody id="productTable">
+                        <?php foreach ($products as $product): ?>
+                            <tr>
+                                <td><?= esc($product['id']) ?></td>
+                                <td><?= esc($product['name']) ?></td>
+                                <td><?= esc($product['description']) ?></td>
+                                <td><?= esc($product['price']) ?></td>
+                                <td><?= esc($product['stock_in']) ?></td>
+                                <td><?= esc($product['stock_out']) ?></td>
+                                <td><?= esc($product['remaining_stock']) ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
