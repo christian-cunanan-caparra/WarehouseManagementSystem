@@ -96,7 +96,7 @@
         }
 
         .signup-link a:hover {
-            text-decoration: underline;
+            text-decoration: none;
         }
 
         /* Flash error styling */
@@ -104,6 +104,17 @@
             font-size: 14px;
             padding: 15px;
         }
+
+        .forgot-password {
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+      
+
+        
     </style>
 </head>
 <body>
@@ -143,15 +154,15 @@
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
             </div>
             <div class="text-end">
-    <a href="/request-reset" class="text-primary">Forgot Password?</a>
 </div>
 
             <button type="submit" class="btn btn-primary">Login</button>
+            <a href="/request-reset" class="text-primary forgot-password">Forgot Password?</a>
         </form>
 
         <!-- Link to register page if the user doesn't have an account -->
         <div class="signup-link">
-            <p>Don't have an account yet? <a href="/register">Sign up here</a></p>
+            <p>Don't have an account yet? <a href="/register" class="sign-up">Sign up here</a></p>
         </div>
     </div>
 
