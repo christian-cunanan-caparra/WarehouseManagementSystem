@@ -267,29 +267,30 @@
             content.classList.toggle('open-sidebar');
         });
 
-        // Circle Progress Bars
-        $(document).ready(function () {
-            // Low Stock Progress
-            $('#lowStockProgress').circleProgress({
-                value: <?= count($lowStockProducts) ?> / 50, // Adjust value
-                size: 100,
-                fill: { color: '#FFC107' }, // Yellow for low stock
-            });
+      // Circle Progress Bars
+$(document).ready(function () {
+    // Low Stock Progress
+    $('#lowStockProgress').circleProgress({
+        value: <?= !empty($lowStockProducts) ? count($lowStockProducts) : 0 ?> / 50, // Adjust value
+        size: 100,
+        fill: { color: '#FFC107' }, // Yellow for low stock
+    });
 
-            // Out of Stock Progress
-            $('#outOfStockProgress').circleProgress({
-                value: <?= count($outOfStockProducts) ?> / 50, // Adjust value
-                size: 100,
-                fill: { color: '#DC3545' }, // Red for out of stock
-            });
+    // Out of Stock Progress
+    $('#outOfStockProgress').circleProgress({
+        value: <?= !empty($outOfStockProducts) ? count($outOfStockProducts) : 0 ?> / 50, // Adjust value
+        size: 100,
+        fill: { color: '#DC3545' }, // Red for out of stock
+    });
 
-            // Stock In/Out Progress
-            $('#stockInOutProgress').circleProgress({
-                value: <?= $totalStockInOut ?> / 50, // Adjust value
-                size: 100,
-                fill: { color: '#28A745' }, // Green for stock in/out
-            });
-        });
+    // Stock In/Out Progress
+    $('#stockInOutProgress').circleProgress({
+        value: <?= !empty($totalStockInOut) ? $totalStockInOut : 0 ?> / 50, // Adjust value
+        size: 100,
+        fill: { color: '#28A745' }, // Green for stock in/out
+    });
+});
+
     </script>
 
 </body>
