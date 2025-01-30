@@ -115,6 +115,10 @@ class LoginController extends BaseController
 }
 
 
+public function waitingConfirmation()
+{
+    return view('waiting_confirmation');
+}
 
 
 }
