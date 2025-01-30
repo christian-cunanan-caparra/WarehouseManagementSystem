@@ -24,22 +24,22 @@ class DashboardController extends Controller
         if (!session()->get('is_logged_in')) {
             return redirect()->to('/login');
         }
-
+    
         $role = session()->get('role');
-
+    
         if ($role === 'Admin') {
-            return view('admin_dashboard');
+            return view('admin_dashboard'); // Redirect to admin dashboard for Admin
         } elseif ($role === 'Employee') {
-            // Load the InventoryLogs model
+            // Load the InventoryLog model
             $InventoryLogModel = new \App\Models\InventoryLogModel();
-
+    
             // Fetch all inventory logs
             $data['inventory_logs'] = $InventoryLogModel->findAll();
-
+    
             // Pass the data to the view
             return view('inventory_logs', $data);
         }
-
+    
         return redirect()->to('/login');
     }
 
@@ -291,28 +291,5 @@ public function index()
 
 
 
-public function inventoryLogs()
-{
-    if (!session()->get('is_logged_in')) {
-        return redirect()->to('/login');
-    }
-
-    $role = session()->get('role');
-
-    if ($role === 'Admin') {
-        return view('admin_dashboard'); // Redirect to admin dashboard for Admin
-    } elseif ($role === 'Employee') {
-        // Load the InventoryLog model
-        $InventoryLogModel = new \App\Models\InventoryLogModel();
-
-        // Fetch all inventory logs
-        $data['inventory_log'] = $InventoryLogModel->findAll();
-
-        // Pass the data to the view
-        return view('inventory_log', $data);
-    }
-
-    return redirect()->to('/login');
-}
 
 }
