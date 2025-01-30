@@ -30,7 +30,34 @@
             left: 0;
             padding-top: 15px;
             transition: transform 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* This will push the logout button to the bottom */
+            height: 100vh; /* Ensure the sidebar takes full height */
         }
+
+        .sidebar-links-container {
+            flex-grow: 1; /* This allows the links to take up available space */
+        }
+
+        .logout-container {
+            padding: 15px; /* Add some padding for the logout button */
+        }
+        .logout-button {
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            padding: 12px 15px;
+            border-radius: 5px;
+        }
+
+        .logout-button:hover {
+            background-color: #495057; /* Change background on hover */
+        }   
+
 
         .sidebar-header {
             font-size: 20px;
@@ -118,15 +145,19 @@
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">Warehouse Management</div>
+    <div class="sidebar-header">Warehouse Management</div>
+    <div class="sidebar-links-container">
         <ul class="sidebar-links">
             <li><a href="/employee_dashboard"><span class="material-icons">dashboard</span> Dashboard</a></li>
             <li><a href="/product"><span class="material-icons">inventory</span> Products</a></li>
             <li><a href="/inventory"><span class="material-icons">storage</span> Inventory</a></li>
             <li><a href="/inventory_logs"><span class="material-icons">history</span> Inventory Logs</a></li>
-            <li><a href="/logout"><span class="material-icons">logout</span>Log out</a></li>
         </ul>
-    </aside>
+    </div>
+    <div class="logout-container">
+        <a href="/logout" class="logout-button"><span class="material-icons">logout</span> Log out</a>
+    </div>
+</aside>
 
     <!-- Main Content -->
     <div class="content" id="main-content">
