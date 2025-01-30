@@ -4,63 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Dashboard - Warehouse Management System</title>
-
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-        /* Custom styles for responsive sidebar and other components */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
+            background-color: #f0f4f8;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
-            padding: 0;
+            padding: 20px;
+        }
+
+        .dashboard-container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h1 {
+            color: #007bff;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .btn-logout {
+            background-color: #dc3545;
+            color: white;
+            text-align: center;
+            width: 100%;
+            padding: 10px;
+            display: block;
+            margin-top: 20px;
+        }
+
+        .btn-logout:hover {
+            background-color: #c82333;
+        }
+
+        .card-title {
+            color: #007bff;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            font-size: 2rem;
         }
 
         .sidebar {
-            width: 250px;
-            background-color: #343a40;
-            color: white;
             position: fixed;
-            height: 100vh;
             top: 0;
             left: 0;
-            padding-top: 15px;
-            transition: transform 0.3s ease-in-out;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            width: 250px;
+            height: 100%;
+            background-color: #343a40;
+            padding-top: 20px;
+            color: white;
         }
 
-        .sidebar-header {
-            font-size: 20px;
+        .sidebar .sidebar-header {
             text-align: center;
-            padding: 15px;
-            font-weight: bold;
-            border-bottom: 1px solid #495057;
+            font-size: 20px;
+            margin-bottom: 20px;
         }
 
         .sidebar-links {
             list-style: none;
-            padding: 0;
+            padding-left: 0;
         }
 
         .sidebar-links li {
-            padding: 12px 15px;
+            padding: 12px 20px;
         }
 
         .sidebar-links li a {
-            text-decoration: none;
             color: white;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            text-decoration: none;
             font-size: 16px;
         }
 
@@ -69,241 +104,176 @@
             border-radius: 5px;
         }
 
-        .content {
-            margin-left: 270px;
-            padding: 20px;
-            transition: margin-left 0.3s ease-in-out;
+        .sidebar .logout-container {
+            margin-top: auto;
+            padding: 15px;
         }
 
-        .card-title {
-            font-size: 18px;
+        .sidebar .logout-container a {
+            text-decoration: none;
+            color: white;
         }
 
-        .card-body {
-            padding: 20px;
+        .toggle-btn {
+            font-size: 30px;
+            color: #343a40;
+            border: none;
+            background-color: transparent;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
         }
 
-        .card {
-            margin-bottom: 20px;
-        }
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 0;
+                transition: width 0.3s;
+            }
 
-        .card h3 {
-            font-size: 2rem;
-        }
+            .sidebar.active {
+                width: 250px;
+            }
 
-        /* Hide sidebar */
-        .sidebar.closed {
-            transform: translateX(-250px);
-        }
+            .content {
+                margin-left: 0;
+            }
 
-        .content.open-sidebar {
-            margin-left: 0;
-        }
+            .content.active {
+                margin-left: 250px;
+            }
 
-        #stockTrendChart {
-            height: 400px;
-        }
-
-        /* Low Stock Alert Modal */
-        .modal-body ul {
-            padding-left: 20px;
+            .toggle-btn {
+                display: block;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Toggle Sidebar Button -->
-    <button id="sidebarToggle" class="btn btn-dark position-fixed top-0 start-0 ms-3 mt-3" style="z-index: 10;">
-        <span class="material-icons">menu</span>
-    </button>
-
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">Warehouse Management</div>
-        <div class="sidebar-links-container">
-            <ul class="sidebar-links">
-                <li><a href="/employee_dashboard"><span class="material-icons">dashboard</span> Dashboard</a></li>
-                <li><a href="/product"><span class="material-icons">inventory</span> Products</a></li>
-                <li><a href="/inventory"><span class="material-icons">storage</span> Inventory</a></li>
-                <li><a href="/inventory_logs"><span class="material-icons">history</span> Inventory Logs</a></li>
-            </ul>
-        </div>
+        <ul class="sidebar-links">
+            <li><a href="/employee_dashboard"><span class="material-icons">dashboard</span> Dashboard</a></li>
+            <li><a href="/product"><span class="material-icons">inventory</span> Products</a></li>
+            <li><a href="/inventory"><span class="material-icons">storage</span> Inventory</a></li>
+            <li><a href="/inventory_logs"><span class="material-icons">history</span> Inventory Logs</a></li>
+        </ul>
         <div class="logout-container">
-            <a href="/logout" class="logout-button"><span class="material-icons">logout</span> Log out</a>
+            <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </div>
     </aside>
 
+    <!-- Toggle Button -->
+    <button class="toggle-btn" id="toggle-btn">&#9776;</button>
+
     <!-- Main Content -->
     <div class="content" id="main-content">
-        <h1 class="text-center">Dashboard</h1>
+        <div class="dashboard-container">
+            <h1>Employee Dashboard</h1>
 
-        <!-- Analytics Cards -->
-        <div class="row mb-4">
-            <!-- Total Stock In -->
-            <div class="col-md-4">
-                <div class="card shadow-sm border-0 bg-info text-white">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <div>
+            <!-- Dashboard Cards -->
+            <div class="row">
+                <!-- Total Stock In -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm bg-info text-white">
+                        <div class="card-body">
                             <h5 class="card-title">Total Stock In</h5>
-                            <h3 class="card-text" id="totalStockIn">
-                                <?= $totalStockIn ?> <!-- Dynamically inserted PHP data -->
-                            </h3>
+                            <p class="card-text">200</p>
                         </div>
-                        <span class="material-icons">arrow_downward</span>
                     </div>
                 </div>
-            </div>
 
-            <!-- Total Stock Out -->
-            <div class="col-md-4">
-                <div class="card shadow-sm border-0 bg-danger text-white">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <div>
+                <!-- Total Stock Out -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm bg-danger text-white">
+                        <div class="card-body">
                             <h5 class="card-title">Total Stock Out</h5>
-                            <h3 class="card-text" id="totalStockOut">
-                                <?= $totalStockOut ?> <!-- Dynamically inserted PHP data -->
-                            </h3>
+                            <p class="card-text">50</p>
                         </div>
-                        <span class="material-icons">arrow_upward</span>
                     </div>
                 </div>
-            </div>
 
-            <!-- Low Stock Alerts -->
-            <div class="col-md-4">
-                <div class="card shadow-sm border-0 bg-warning text-white" data-bs-toggle="modal" data-bs-target="#lowStockModal">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <div>
+                <!-- Low Stock Alerts -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm bg-warning text-white" data-bs-toggle="modal" data-bs-target="#lowStockModal">
+                        <div class="card-body">
                             <h5 class="card-title">Low Stock Alerts</h5>
-                            <h3 class="card-text" id="lowStockCount">
-                                <?= count($lowStockProducts) ?>
-                            </h3>
+                            <p class="card-text">5</p>
                         </div>
-                        <span class="material-icons">warning</span>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Modal for Low Stock Products -->
-        <div class="modal fade" id="lowStockModal" tabindex="-1" aria-labelledby="lowStockModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="lowStockModalLabel">Low Stock Products</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <ul id="lowStockList">
-                            <?php if (!empty($lowStockProducts)): ?>
-                                <?php foreach ($lowStockProducts as $product): ?>
-                                    <li>
-                                        <strong><?= $product['name'] ?></strong> - 
-                                        <span><?= $product['remaining_stock'] ?> Stocks left</span>
-                                    </li>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <p>No products are low on stock.</p>
-                            <?php endif; ?>
-                        </ul>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <!-- Modal for Low Stock Products -->
+            <div class="modal fade" id="lowStockModal" tabindex="-1" aria-labelledby="lowStockModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="lowStockModalLabel">Low Stock Products</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <ul>
+                                <li>Product A - 10 stocks left</li>
+                                <li>Product B - 15 stocks left</li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Stock Trends Chart -->
-        <div class="card mt-4">
-            <div class="card-body">
-                <h5 class="card-title">Stock Trends</h5>
-                <canvas id="stockTrendChart"></canvas>
+            <!-- Stock Trends Chart -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">Stock Trends</h5>
+                    <canvas id="stockTrendChart"></canvas>
+                </div>
             </div>
         </div>
-
     </div>
 
-    <!-- Script for sidebar toggle -->
     <script>
-        document.getElementById('sidebarToggle').addEventListener('click', function () {
-            const sidebar = document.getElementById('sidebar');
-            const content = document.getElementById('main-content');
-            sidebar.classList.toggle('closed');
-            content.classList.toggle('open-sidebar');
+        const toggleBtn = document.getElementById('toggle-btn');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('main-content');
+
+        // Toggle the sidebar
+        toggleBtn.addEventListener('click', function() {
+            sidebar.classList.toggle('active');
+            mainContent.classList.toggle('active');
         });
 
-        // Fetching data and updating dynamic elements via AJAX
-        function fetchStockData() {
-            $.ajax({
-                url: '/path/to/your/data/endpoint',  // Endpoint that returns JSON data
-                method: 'GET',
-                success: function(data) {
-                    $('#totalStockIn').text(data.stockIn);
-                    $('#totalStockOut').text(data.stockOut);
-                    $('#lowStockCount').text(data.lowStock);
-
-                    // Update Low Stock Modal
-                    let lowStockHTML = '';
-                    data.lowStockProducts.forEach(product => {
-                        lowStockHTML += `<li><strong>${product.name}</strong> - ${product.remainingStock} stocks left</li>`;
-                    });
-                    $('#lowStockList').html(lowStockHTML);
-
-                    // Update Stock Trend Chart
-                    updateStockChart(data.trends);
-                }
-            });
-        }
-
-        function updateStockChart(trends) {
-            stockTrendChart.data.labels = trends.labels;
-            stockTrendChart.data.datasets[0].data = trends.stockInData;
-            stockTrendChart.data.datasets[1].data = trends.stockOutData;
-            stockTrendChart.update();
-        }
-
-        // Initialize chart
+        // Initialize the chart
         var ctx = document.getElementById('stockTrendChart').getContext('2d');
         var stockTrendChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: [],  // Initially empty, will be updated dynamically
+                labels: ['January', 'February', 'March', 'April', 'May'],
                 datasets: [{
                     label: 'Stock In',
-                    data: [],
+                    data: [50, 60, 70, 80, 90],
                     borderColor: '#007bff',
-                    fill: false,
-                    tension: 0.1
-                },
-                {
+                    fill: false
+                }, {
                     label: 'Stock Out',
-                    data: [],
+                    data: [30, 40, 50, 60, 70],
                     borderColor: '#dc3545',
-                    fill: false,
-                    tension: 0.1
+                    fill: false
                 }]
             },
             options: {
                 responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                },
                 scales: {
-                    x: {
-                        beginAtZero: true
-                    },
-                    y: {
-                        beginAtZero: true
-                    }
+                    x: { beginAtZero: true },
+                    y: { beginAtZero: true }
                 }
             }
         });
-
-        // Call the function to fetch data and update every 10 seconds
-        setInterval(fetchStockData, 10000);
     </script>
 
 </body>
