@@ -12,7 +12,7 @@
     </style>
 </head>
 <body>
-    <!-- Sidebar -->
+    <!-- Include the sidebar -->
     <?= view('sidebar') ?>
 
     <!-- Main Content -->
@@ -31,23 +31,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($users as $user): ?>
+                    <?php if (!empty($users)): ?>
+                        <?php foreach ($users as $user): ?>
+                            <tr>
+                                <td><?= esc($user['id']) ?></td>
+                                <td><?= esc($user['name']) ?></td>
+                                <td><?= esc($user['email']) ?></td>
+                                <td><?= esc($user['role']) ?></td>
+                                <td>
+                                    <a href="/edit-account/<?= $user['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="/delete-account/<?= $user['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this account?')">Delete</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
                         <tr>
-                            <td><?= $user['id'] ?></td>
-                            <td><?= $user['name'] ?></td>
-                            <td><?= $user['email'] ?></td>
-                            <td><?= $user['role'] ?></td>
-                            <td>
-                                <a href="/edit-account/<?= $user['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                                <a href="/delete-account/<?= $user['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this account?')">Delete</a>
-                            </td>
+                            <td colspan="5" class="text-center">No accounts found.</td>
                         </tr>
-                    <?php endforeach; ?>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>
     </div>
-
-    <!-- Include your JavaScript for sidebar functionality -->
 </body>
 </html>
