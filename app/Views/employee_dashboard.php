@@ -246,6 +246,7 @@
                 lineCap: 'round', // Rounded line ends
                 thickness: 10, // The thickness of the circle line
                 emptyFill: '#e0e0e0', // Empty fill for the unfilled part of the circle
+                reverse: true, // Reverse the progress animation direction
             });
 
             // Optional: Display the values within the circle
