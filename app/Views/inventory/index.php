@@ -217,7 +217,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Quantity</label>
+                        <label class="form-label">Stock</label>
                         <input type="number" name="quantity" min="1" class="form-control" required>
                     </div>
 
@@ -247,7 +247,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Quantity</label>
+                        <label class="form-label">Stock</label>
                         <input type="number" name="quantity" min="1" class="form-control" required>
                     </div>
 
