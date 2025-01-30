@@ -214,7 +214,7 @@
     <button class="toggle-btn" id="toggle-btn">&#9776;</button>
 
     <!-- Main Content -->
-    <class="content" id="main-content">
+    <div class="content" id="main-content">
         <h2 class="text-center">Dashboard</h2>
 
         <!-- Analytics Cards -->
@@ -275,12 +275,8 @@
     <div class="col-md-6">
         <canvas id="pieChart"></canvas>
     </div>
-</div>
 
-
-
-
-<div class="table-responsive">
+    <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -309,10 +305,9 @@
             </table>
         </div>
 
-
-
-
+    
 </div>
+
         <script>
             // Mini Pie Chart for Stock Distribution
            
@@ -402,7 +397,7 @@
                 }
             });
         </script>
-    
+    </div>
 
     <script>
         // Sidebar Toggle Functionality
