@@ -70,17 +70,22 @@
 </div>
 
 
-        <!-- Most Used Products -->
-        <div class="card mt-4">
-            <div class="card-body">
-                <h5 class="card-title">Most Used Products</h5>
-                <ul>
-                    <?php foreach ($mostUsedProducts as $product): ?>
-                        <li><?= $product['name'] ?> - <?= $product['usage_count'] ?> times used</li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        </div>
+      <!-- Most Used Products -->
+<div class="card mt-4">
+    <div class="card-body">
+        <h5 class="card-title">Most Used Products</h5>
+        <ul>
+            <?php if (!empty($mostUsedProducts)): ?>
+                <?php foreach ($mostUsedProducts as $product): ?>
+                    <li><?= $product['name'] ?> - <?= $product['stock_in'] + $product['stock_out'] ?> times used</li>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <li>No products have been used yet.</li>
+            <?php endif; ?>
+        </ul>
+    </div>
+</div>
+
 
         <!-- User Activity -->
         <div class="card mt-4">

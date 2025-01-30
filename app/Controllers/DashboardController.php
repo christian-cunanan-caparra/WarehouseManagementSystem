@@ -63,7 +63,7 @@ class DashboardController extends Controller
     }
 
     // Dashboard View with Analytics
-  // Dashboard View with Analytics
+    // Dashboard View with Analytics
 public function index()
 {
     if (!session()->get('is_logged_in')) {
@@ -91,6 +91,14 @@ public function index()
         $data['lowStockProducts'] = array_filter($data['products'], function($product) use ($lowStockThreshold) {
             return $product['remaining_stock'] <= $lowStockThreshold;
         });
+
+        // Most Used Products: You can define "most used" as the sum of stock in and stock out.
+        usort($data['products'], function($a, $b) {
+            $usageA = $a['stock_in'] + $a['stock_out'];
+            $usageB = $b['stock_in'] + $b['stock_out'];
+            return $usageB - $usageA; // Sort in descending order (most used first)
+        });
+        $data['mostUsedProducts'] = array_slice($data['products'], 0, 5); // Top 5 most used products
 
         // Additional analytics can be added here
 
