@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory Logs</title>
+    <title>Employee Dashboard</title>
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -157,8 +157,9 @@
 
     <!-- Main Content -->
     <div class="content" id="main-content">
-        <h2 class="text-center">Inventory Logs</h2>
+        <h2 class="text-center">Employee Dashboard</h2>
 
+        <!-- Your Dynamic Content (e.g., tables, alerts) -->
         <div class="table-responsive">
             <table class="table table-striped table-bordered">
                 <thead>
@@ -173,7 +174,7 @@
                     <?php if (!empty($inventory_logs)): ?>
                         <?php foreach ($inventory_logs as $log): ?>
                             <tr>
-                                <td><?= esc($log['product_id']) ?></td> <!-- Replace with product name if available -->
+                                <td><?= esc($log['product_name']) ?></td>
                                 <td><?= esc($log['quantity']) ?></td>
                                 <td><?= esc($log['created_at']) ?></td>
                                 <td><?= esc($log['action']) ?></td>
