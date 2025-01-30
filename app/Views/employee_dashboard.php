@@ -150,8 +150,8 @@
 
         /* Mini Pie Chart */
         #pieChart {
-            height: 300px;
-            max-width: 350px;
+            height: 250px;
+            max-width: 300px;
             margin: 0 auto;
             border-radius: 10px;
         }
