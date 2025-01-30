@@ -245,6 +245,112 @@
             <h1>Welcome, Admin <?= session()->get('user_name') ?>!</h1>
             <p>You are logged in as an Admin.</p>
 
+
+
+
+<div class="container">
+    <h2 class="mt-4">Admin Dashboard</h2>
+
+    <!-- Total Products, Stock In, Stock Out, Remaining Stock -->
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h5>Total Products</h5>
+                    <h3><?= count($products) ?></h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <h5>Total Stock In</h5>
+                    <h3><?= array_sum(array_column($products, 'stock_in')) ?></h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-danger text-white">
+                <div class="card-body">
+                    <h5>Total Stock Out</h5>
+                    <h3><?= array_sum(array_column($products, 'stock_out')) ?></h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-warning text-dark">
+                <div class="card-body">
+                    <h5>Remaining Stock</h5>
+                    <h3><?= array_sum(array_column($products, 'remaining_stock')) ?></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Low Stock Products -->
+    <div class="mt-4">
+        <h4>⚠️ Low Stock Products (Threshold: 50)</h4>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Product Name</th>
+                    <th>Remaining Stock</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($products as $product): ?>
+                    <?php if ($product['remaining_stock'] <= 50): ?>
+                        <tr>
+                            <td><?= $product['name'] ?></td>
+                            <td><?= $product['remaining_stock'] ?></td>
+                            <td>
+                                <?= ($product['status'] == 1) ? "<span class='badge bg-success'>Active</span>" : "<span class='badge bg-danger'>Inactive</span>" ?>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Most Used Products -->
+    <div class="mt-4">
+        <h4>🔥 Most Used Products</h4>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Product Name</th>
+                    <th>Stock In</th>
+                    <th>Stock Out</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
+                usort($products, function($a, $b) {
+                    return ($b['stock_in'] + $b['stock_out']) - ($a['stock_in'] + $a['stock_out']);
+                });
+
+                foreach (array_slice($products, 0, 5) as $product): ?>
+                    <tr>
+                        <td><?= $product['name'] ?></td>
+                        <td><?= $product['stock_in'] ?></td>
+                        <td><?= $product['stock_out'] ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Inventory Log Button -->
+    <div class="mt-4">
+        <a href="<?= base_url('inventory-logs') ?>" class="btn btn-info">📜 View Inventory Logs</a>
+    </div>
+</div>
+
+
+
+
             <h3>Requesting New Products</h3>
 
             <table>
