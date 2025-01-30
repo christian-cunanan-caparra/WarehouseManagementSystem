@@ -103,3 +103,11 @@ $routes->post('/process-verification', 'PasswordResetController::processVerifica
 $routes->get('/reset-password', 'PasswordResetController::resetPassword');
 $routes->post('/process-reset-password', 'PasswordResetController::processResetPassword');
 
+
+$routes->get('/account-management', 'DashboardController::accountManagement');
+$routes->get('/account-management', 'DashboardController::accountManagement');
+$routes->get('/create-account', 'DashboardController::createAccount');
+$routes->post('/store-account', 'DashboardController::storeAccount');
+$routes->get('/edit-account/(:num)', 'DashboardController::editAccount/$1');
+$routes->post('/update-account/(:num)', 'DashboardController::updateAccount/$1');
+$routes->get('/delete-account/(:num)', 'DashboardController::deleteAccount/$1');
