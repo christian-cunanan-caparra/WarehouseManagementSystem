@@ -181,6 +181,11 @@
         .toggle-btn.move {
             left: 15px;
         }
+.main-content{
+    margin-top: 20px;
+}
+
+        
     </style>
 </head>
 <body>
@@ -269,6 +274,8 @@
             </div>
         </div>
 
+
+        <h2 class="text-center">Product List</h2>
         <!-- Product Table -->
         <div class="table-responsive mt-4">
             <table class="table table-striped">
