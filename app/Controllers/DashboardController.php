@@ -34,10 +34,10 @@ class DashboardController extends Controller
             $InventoryLogModel = new \App\Models\InventoryLogModel();
     
             // Fetch all inventory logs
-            $data['inventory_logs'] = $InventoryLogModel->findAll();
+            $data['inventory_log'] = $InventoryLogModel->findAll();
     
             // Pass the data to the view
-            return view('inventory_logs', $data);
+            return view('inventory_log', $data);
         }
     
         return redirect()->to('/login');
