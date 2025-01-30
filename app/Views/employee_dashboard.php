@@ -160,27 +160,17 @@
             }
         }
 
-        /* Animation for data analytics */
-        .data-analytics {
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
-            animation: moveDataAnalytics 10s ease-in-out infinite;
+        .sidebar.hidden {
+            transform: translateX(-250px);
         }
 
-        .card-animate {
-            min-width: 200px;
-            transition: transform 0.3s;
+        .content.full-width {
+            margin-left: 0;
         }
 
-        @keyframes moveDataAnalytics {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-250px); }
-            50% { transform: translateX(-500px); }
-            75% { transform: translateX(-250px); }
-            100% { transform: translateX(0); }
+        .toggle-btn.move {
+            left: 15px;
         }
-
     </style>
 </head>
 <body>
@@ -208,42 +198,56 @@
     <div class="content" id="main-content">
         <h2 class="text-center">Dashboard</h2>
 
-        <!-- Fake Data Analytics with Animation -->
-        <div class="data-analytics mb-4">
+        <!-- Analytics Cards -->
+        <div class="row mb-4">
             <!-- Total Stock In -->
-            <div class="card shadow-sm border-0 bg-info text-white card-animate">
-                <div class="card-body d-flex justify-content-between align-items-center">
-                    <div>
-                        <h5 class="card-title">Total Stock In</h5>
-                        <h3 class="card-text" id="totalStockIn">50,000</h3>
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 bg-info text-white">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Total Stock In</h5>
+                            <h3 class="card-text" id="totalStockIn">
+                                <?= $totalStockIn ?> <!-- Dynamically inserted PHP data -->
+                            </h3>
+                        </div>
+                        <span class="material-icons">arrow_downward</span>
                     </div>
-                    <span class="material-icons">arrow_downward</span>
                 </div>
             </div>
 
             <!-- Total Stock Out -->
-            <div class="card shadow-sm border-0 bg-danger text-white card-animate">
-                <div class="card-body d-flex justify-content-between align-items-center">
-                    <div>
-                        <h5 class="card-title">Total Stock Out</h5>
-                        <h3 class="card-text" id="totalStockOut">30,000</h3>
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 bg-danger text-white">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Total Stock Out</h5>
+                            <h3 class="card-text" id="totalStockOut">
+                                <?= $totalStockOut ?> <!-- Dynamically inserted PHP data -->
+                            </h3>
+                        </div>
+                        <span class="material-icons">arrow_upward</span>
                     </div>
-                    <span class="material-icons">arrow_upward</span>
                 </div>
             </div>
 
             <!-- Low Stock Alerts -->
-            <div class="card shadow-sm border-0 bg-warning text-white card-animate">
-                <div class="card-body d-flex justify-content-between align-items-center">
-                    <div>
-                        <h5 class="card-title">Low Stock Alerts</h5>
-                        <h3 class="card-text" id="lowStockCount">12</h3>
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 bg-warning text-white" data-bs-toggle="modal" data-bs-target="#lowStockModal">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Low Stock Alerts</h5>
+                            <h3 class="card-text" id="lowStockCount">
+                                <?= count($lowStockProducts) ?>
+                            </h3>
+                        </div>
+                        <span class="material-icons">warning</span>
                     </div>
-                    <span class="material-icons">warning</span>
                 </div>
             </div>
         </div>
-    </div>
+
+        <!-- Stock Trends Chart -->
+    
 
     <script>
         // Sidebar Toggle Functionality
