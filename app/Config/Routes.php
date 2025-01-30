@@ -85,7 +85,7 @@ $routes->group('admin', function($routes) {
 
 $routes->get('logout', 'DashboardController::logout');
 
-
+$routes->get('/account-management', 'DashboardController::accountManagement');
 $routes->get('/account-management', 'DashboardController::accountManagement');
 $routes->get('/create-account', 'DashboardController::createAccount');
 $routes->post('/store-account', 'DashboardController::storeAccount');
