@@ -230,7 +230,7 @@
     
     <!-- Main Content -->
 
-    <BR></BR><BR></BR>
+    <BR></BR>
     <div class="content" id="main-content">
         <h2 class="text-center">Dashboard</h2>
 
@@ -296,9 +296,10 @@
                 </div>
             </div>
         </div>
-<BR></BR><BR></BR>
+<BR>
         <h2 class="text-center">Product List</h2>
         <!-- Product Table -->
+         <BR>
         <div class="table-container">
             <div class="table-responsive mt-4">
                 <table class="table table-striped">
