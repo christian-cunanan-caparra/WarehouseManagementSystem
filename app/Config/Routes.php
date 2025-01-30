@@ -87,6 +87,9 @@ $routes->get('logout', 'DashboardController::logout');
 
 
 $routes->get('/account-management', 'DashboardController::accountManagement');
-// wala pa toh $routes->get('/account-archive', 'DashboardController::accountArchive'); // Add this if you have an archive method
-
+$routes->get('/create-account', 'DashboardController::createAccount');
+$routes->post('/store-account', 'DashboardController::storeAccount');
+$routes->get('/edit-account/(:num)', 'DashboardController::editAccount/$1');
+$routes->post('/update-account/(:num)', 'DashboardController::updateAccount/$1');
+$routes->get('/delete-account/(:num)', 'DashboardController::deleteAccount/$1');
 
