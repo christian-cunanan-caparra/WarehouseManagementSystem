@@ -35,7 +35,7 @@
         .sidebar {
             position: fixed;
             top: 0;
-            left: -270px;
+            left: -270px; /* Initially hidden */
             width: 270px;
             height: 100%;
             background: rgba(22, 26, 45, 0.9);
@@ -48,9 +48,51 @@
         }
 
         .sidebar.active {
-            left: 0;
+            left: 0; /* Show the sidebar when active */
         }
 
+        .sidebar-header {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .sidebar-links {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .sidebar-links li {
+            margin-bottom: 15px;
+        }
+
+        .sidebar-links li a {
+            color: white;
+            font-size: 1.1rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            transition: 0.3s ease;
+            border-radius: 6px;
+        }
+
+        .sidebar-links li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            padding-left: 15px;
+        }
+
+        .menu-separator {
+            margin: 15px 0;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Toggle Button for mobile */
         .toggle-btn {
             position: fixed;
             top: 20px;
@@ -63,13 +105,14 @@
             font-size: 1.5rem;
             transition: 0.3s;
             border-radius: 5px;
-            display: none;
+            display: none; /* Hide on desktop */
         }
 
         .toggle-btn:hover {
             background: #4f52ba;
         }
 
+        /* Content styles */
         .content {
             margin-left: 50px;
             padding: 30px;
@@ -79,7 +122,7 @@
         }
 
         .content.active {
-            margin-left: 270px;
+            margin-left: 270px; /* When the sidebar is active, shift content */
         }
 
         @media (max-width: 768px) {
@@ -90,7 +133,7 @@
                 left: 0;
             }
             .toggle-btn {
-                display: block;
+                display: block; /* Show toggle button on mobile */
             }
         }
     </style>
@@ -99,13 +142,13 @@
 
 <!-- Sidebar -->
 <aside class="sidebar" id="sidebar">
-    <button class="close-btn" id="close-btn">&times;</button>
     <div class="sidebar-header">Warehouse Management</div>
     <ul class="sidebar-links">
         <li><a href="/employee_dashboard"><span class="material-icons">dashboard</span> Dashboard</a></li>
         <li><a href="/product"><span class="material-icons">inventory</span> Products</a></li>
         <li><a href="/inventory"><span class="material-icons">storage</span> Inventory</a></li>
-        <li><a href="/inventory_logs"><span class="material-icons">storage</span> Inventory Logs</a></li>
+        <li><a href="/inventory_logs"><span class="material-icons">inventory_2</span> Inventory Logs</a></li>
+        <li><a href="/reports"><span class="material-icons">bar_chart</span> Reports</a></li>
     </ul>
 </aside>
 
