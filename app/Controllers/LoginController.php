@@ -114,10 +114,7 @@ class LoginController extends BaseController
         : redirect()->to('/employee/dashboard');
 }
 
-public function waitingConfirmation()
-{
-    return view('waiting_confirmation');
-}
+
 
 
 }
