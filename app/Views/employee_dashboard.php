@@ -98,9 +98,7 @@
 <body>
 
     <!-- Toggle Sidebar Button -->
-    <button id="sidebarToggle" class="btn btn-dark position-fixed top-0 start-0 ms-3 mt-3" style="z-index: 10;">
-        <span class="material-icons">menu</span>
-    </button>
+    <button class="toggle-btn" id="toggle-btn">&#9776;</button>
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
