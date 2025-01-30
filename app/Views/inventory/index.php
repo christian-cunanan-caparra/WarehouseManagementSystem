@@ -148,7 +148,7 @@
         <li><a href="/product"><span class="material-icons">inventory</span> Products</a></li>
         <li><a href="/inventory"><span class="material-icons">storage</span> Inventory</a></li>
         <li><a href="/inventory_logs"><span class="material-icons">inventory_2</span> Inventory Logs</a></li>
-        <li><a href="/reports"><span class="material-icons">bar_chart</span> Reports</a></li>
+       
     </ul>
 </aside>
 
