@@ -17,215 +17,248 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
    
     
-    
     <style>
-       /* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-    margin: 0;
-    padding: 20px;
-}
+    /* General Styles */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+    }
 
-/* Dashboard Container */
-.dashboard-container {
-    background-color: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    max-width: 1200px;
-    margin: auto;
-}
-
-/* Sidebar Styling */
-.sidebar {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100vh;
-    width: 250px;
-    background-color: #343a40;
-    color: white;
-    position: fixed;
-    top: 0;
-    left: -250px; /* Initially hidden */
-    padding-top: 15px;
-    transition: transform 0.3s ease-in-out;
-    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3);
-}
-
-.sidebar.active {
-    left: 0; /* Show the sidebar when active */
-}
-
-.sidebar-header {
-    font-size: 20px;
-    text-align: center;
-    padding: 15px;
-    font-weight: bold;
-    border-bottom: 1px solid #495057;
-}
-
-.sidebar-links {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar-links li {
-    padding: 12px 15px;
-}
-
-.sidebar-links li a {
-    text-decoration: none;
-    color: white;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 16px;
-}
-
-.sidebar-links li a:hover {
-    background-color: #495057;
-    border-radius: 5px;
-}
-
-.sidebar-links li a.active {
-    background-color: #007bff;
-}
-
-/* Sidebar Toggle Button */
-.toggle-btn {
-    position: fixed;
-    left: 20px;
-    top: 20px;
-    background: #161a2d;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 1.5rem;
-    border-radius: 5px;
-    transition: 0.3s;
-}
-
-.toggle-btn:hover {
-    background: #4f52ba;
-}
-
-.content {
-    margin-left: 270px;
-    padding: 30px;
-    transition: margin-left 0.3s;
-    background: #f8f9fa;
-}
-
-.content.active {
-    margin-left: 0; /* When the sidebar is active, shift content */
-}
-
-/* Accept & Reject Button Styles */
-.btn {
-    padding: 10px 20px;
-    border-radius: 50px;
-    font-size: 14px;
-    transition: all 0.3s ease;
-}
-
-.btn-activate {
-    background: linear-gradient(45deg, #28a745, #218838);
-    color: white;
-    border: none;
-}
-
-.btn-activate:hover {
-    background: linear-gradient(45deg, #218838, #28a745);
-    transform: scale(1.05);
-}
-
-.btn-reject {
-    background: linear-gradient(45deg, #dc3545, #c82333);
-    color: white;
-    border: none;
-}
-
-.btn-reject:hover {
-    background: linear-gradient(45deg, #c82333, #dc3545);
-    transform: scale(1.05);
-}
-
-/* Tables */
-.table-container {
-    margin-top: 30px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-}
-
-table {
-    width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
-}
-
-table th, table td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-}
-
-table th {
-    background-color: #007bff;
-    color: white;
-}
-
-.table-responsive {
-    overflow-x: auto;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
+    /* Sidebar Styling */
     .sidebar {
-        left: -250px; /* Initially hidden */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100vh;
+        width: 250px;
+        background-color: #343a40;
+        color: white;
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding-top: 15px;
+        transition: transform 0.3s ease-in-out;
     }
 
-    .sidebar.active {
-        left: 0; /* Show the sidebar when active */
+    .sidebar-links-container {
+        flex-grow: 1;
     }
 
+    .logout-container {
+        padding: 15px;
+    }
+
+    .logout-button {
+        text-decoration: none;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 16px;
+        padding: 12px 15px;
+        border-radius: 5px;
+    }
+
+    .logout-button:hover {
+        background-color: #495057;
+    }
+
+    .sidebar-header {
+        font-size: 20px;
+        text-align: center;
+        padding: 15px;
+        font-weight: bold;
+        border-bottom: 1px solid #495057;
+    }
+
+    .sidebar-links {
+        list-style: none;
+        padding: 0;
+    }
+
+    .sidebar-links li {
+        padding: 12px 15px;
+    }
+
+    .sidebar-links li a {
+        text-decoration: none;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 16px;
+    }
+
+    .sidebar-links li a:hover {
+        background-color: #495057;
+        border-radius: 5px;
+    }
+
+    /* Toggle Button */
+    .toggle-btn {
+        position: fixed;
+        left: 260px;
+        top: 15px;
+        background-color: #343a40;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        cursor: pointer;
+        font-size: 20px;
+        border-radius: 5px;
+        transition: 0.3s;
+    }
+
+    .toggle-btn:hover {
+        background-color: #495057;
+    }
+
+    /* Content Styling */
     .content {
+        margin-left: 270px;
+        padding: 20px;
+        transition: margin-left 0.3s;
+    }
+
+    h2 {
+        font-weight: bold;
+        color: #343a40;
+        margin-top: 30px;
+    }
+
+    /* Dashboard Cards */
+    .card {
+        margin-bottom: 20px;
+    }
+
+    .card-title {
+        font-size: 16px;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .card h3 {
+        font-size: 2rem;
+    }
+
+    /* Stock Trends Chart */
+    #stockTrendChart {
+        height: 400px;
+    }
+
+    /* Mini Pie Chart */
+    #pieChart {
+        height: 250px;
+        max-width: 300px;
+        margin: 0 auto;
+        border-radius: 10px;
+    }
+
+    /* Accept/Reject Button Styling */
+    .btn {
+        padding: 10px 20px;
+        border-radius: 50px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-activate {
+        background: linear-gradient(45deg, #28a745, #218838);
+        color: white;
+        border: none;
+    }
+
+    .btn-activate:hover {
+        background: linear-gradient(45deg, #218838, #28a745);
+        transform: scale(1.05);
+    }
+
+    .btn-reject {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 50px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-reject:hover {
+        background-color: #c82333;
+        transform: scale(1.05);
+    }
+
+    /* Responsive Design */
+    @media screen and (max-width: 768px) {
+        .sidebar {
+            transform: translateX(-250px);
+        }
+
+        .content {
+            margin-left: 0;
+        }
+
+        .toggle-btn {
+            left: 15px;
+        }
+    }
+
+    .sidebar.hidden {
+        transform: translateX(-250px);
+    }
+
+    .content.full-width {
         margin-left: 0;
     }
 
-    .content.active {
-        margin-left: 250px; /* Push content to the right when sidebar is active */
+    .toggle-btn.move {
+        left: 15px;
     }
 
-    .toggle-btn {
-        display: block;
+    /* Container for the Charts */
+    .chart-container {
+        margin-top: 30px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        padding: 20px;
     }
-}
 
-    </style>
+    .table-container {
+        margin-top: 30px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        padding: 20px;
+    }
+
+    .table-responsive {
+        max-height: 500px;
+        overflow-y: auto;
+    }
+
+    h1{
+        margin-left: 50px;
+    }
+</style>
+
 </head>
 <body>
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
+        <button class="close-btn" id="close-btn">&times;</button>
         <div class="sidebar-header">Warehouse Management</div>
-        <div class="sidebar-links-container">
-            <ul class="sidebar-links">
+        <ul class="sidebar-links">
             <li><a href="/admin_dashboard"><span class="material-icons">dashboard</span> Dashboard</a></li>
             <li><a href="/account-management"><span class="material-icons">inventory</span> Account Management </a></li>
             <li><a href="/archive-accounts"><span class="material-icons">storage</span> Account Archive</a></li>
-            <li><a href="/request-product"><span class="material-icons">add_box</span> Request Product</a></li>
-
-                  <!-- <li><a href="/inventory-log"><span class="material-icons">list</span> Inventory Logs</a></li> -->
-            </ul>
-        </div>
-        <div class="logout-container">
-            <a href="/logout" class="logout-button"><span class="material-icons">logout</span> Log out</a>
-        </div>
+            <li><a href="/inventory-log"><span class="material-icons">list</span> Inventory Logs</a></li>
+        </ul>
     </aside>
 
     <!-- Toggle Button -->
@@ -234,9 +267,10 @@ table th {
     <!-- Main Content -->
     <div class="content" id="main-content">
         <div class="dashboard-container">
-          
+            <h1>Welcome, Admin <?= session()->get('user_name') ?>!</h1>
+            <p>You are logged in as an Admin.</p>
 
-            <h3>Requesting Products</h3>
+            <h3>Requesting New Products</h3>
 
             <table>
                 <thead>
@@ -270,10 +304,9 @@ table th {
                 </tbody>
             </table>
 
-           
+            <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </div>
     </div>
-
     <script>
         // Sidebar Toggle Functionality
         const sidebar = document.getElementById("sidebar");
