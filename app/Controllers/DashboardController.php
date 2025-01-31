@@ -313,38 +313,6 @@ public function index()
     return redirect()->to('/archive-accounts')->with('success', 'Account restored successfully.');
 }
 
-public function inventoryLogsPage()
-{
-    if (!session()->get('is_logged_in')) {
-        return redirect()->to('/login');
-    }
-
-    $role = session()->get('role');
-
-    if ($role === 'Admin') {
-        // Fetch products where status = 0 (inactive products)
-        $data['products'] = $this->productModel->where('status', 0)->findAll();
-
-
-        
-        return view('admin_dashboard', $data); // Redirect to admin dashboard for Admin
-    } elseif ($role === 'Employee') {
-        // Load the InventoryLog model
-        $InventoryLogModel = new \App\Models\InventoryLogModel();
-
-        // Fetch all inventory logs
-        $data['inventory_log'] = $InventoryLogModel->findAll();
-
-
-
-
-        
-        // Pass the data to the view
-        return view('inventory_log', $data);
-    }
-
-    return redirect()->to('/login');
-}
 
 
 
