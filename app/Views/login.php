@@ -9,21 +9,15 @@
     <!-- Font Awesome for icon -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-   
-   
-   body {
-    background-image: url('https://source.unsplash.com/1600x900/?warehouse,storage');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
-    font-family: 'Arial', sans-serif;
-    height: 100vh;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+        body {
+            background-color: #f0f8ff; /* Light blue background */
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
         .container {
             background-color: #ffffff;

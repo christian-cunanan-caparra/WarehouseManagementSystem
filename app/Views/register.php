@@ -161,6 +161,25 @@
                 <?php endforeach ?>
             </div>
         <?php endif; ?>
+<!-- Loading Modal -->
+
+        <div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center p-4">
+            <div id="loadingSpinner">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Processing...</span>
+                </div>
+                <p class="mt-2">Processing your registration...</p>
+            </div>
+            <div id="successCheck" style="display: none;">
+                <i class="fas fa-check-circle text-success" style="font-size: 50px;"></i>
+                <p class="mt-2 text-success">Registration Successful!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 
         <!-- Registration form -->
         <form action="/register/save" method="POST">
@@ -231,6 +250,50 @@
                 window.location.href = '/login';
             }, 4000);
         });
+
+
+
+
+        document.querySelector("form").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        var form = this;
+        var formData = new FormData(form);
+        var loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+
+        // Show the loading modal
+        loadingModal.show();
+        
+        fetch(form.action, {
+            method: "POST",
+            body: formData,
+            headers: {
+                "X-Requested-With": "XMLHttpRequest"
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Hide the spinner and show the success checkmark
+                document.getElementById('loadingSpinner').style.display = "none";
+                document.getElementById('successCheck').style.display = "block";
+
+                // Redirect to login page after 2 seconds
+                setTimeout(() => {
+                    window.location.href = "/login";
+                }, 2000);
+            } else {
+                // Handle errors (e.g., show alert)
+                alert(data.message || "Registration failed, please try again.");
+                loadingModal.hide();
+            }
+        })
+        .catch(error => {
+            alert("An error occurred: " + error);
+            loadingModal.hide();
+        });
+    });
+
     </script>
     <?php endif; ?>
 
