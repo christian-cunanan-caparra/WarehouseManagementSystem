@@ -130,4 +130,3 @@ $routes->get('/request-product', 'RequestController::requestprod');
 
 //admin invent logs
 
-$routes->get('/inventory-log', 'DashboardController::index10');

@@ -9,7 +9,6 @@ use CodeIgniter\Controller;
 
 class DashboardController extends Controller
 {
-    protected $InventoryLogModel;
     protected $productModel;
     protected $userModel;
 
@@ -314,59 +313,40 @@ public function index()
     return redirect()->to('/archive-accounts')->with('success', 'Account restored successfully.');
 }
 
-// public function inventoryLogsPage()
-// {
-//     if (!session()->get('is_logged_in')) {
-//         return redirect()->to('/login');
-//     }
-
-//     $role = session()->get('role');
-
-//     if ($role === 'Admin') {
-//         // Fetch products where status = 0 (inactive products)
-      
-
-//  $InventoryLogModel = new \App\Models\InventoryLogModel();
-
-//         // Fetch all inventory logs
-//         $data['inventory_log'] = $InventoryLogModel->findAll();
-
-
-        
-//         return view('inventory_log', $data); // Redirect to admin dashboard for Admin
-//     } elseif ($role === 'Employee') {
-//         // Load the InventoryLog model
-       
-//   $data['products'] = $this->productModel->where('status', 0)->findAll();
-
-
-
-        
-//         // Pass the data to the view
-//         return view('employee_dashboard', $data);
-//     }
-
-//     return redirect()->to('/login');
-// }
-public function index10()
-    {
-        if (!session()->get('is_logged_in')) {
-            return redirect()->to('/login');
-        }
-
-        $role = session()->get('role');
-
-        if ($role === 'Admin') {
-            // Fetch all inventory logs
-            $data['inventory_logs'] = $this->InventoryLogModel->findAll();
-
-            // Pass the data to the view
-            return view('inventory_log', $data); // View for Admin inventory logs
-        } else {
-            // Handle unauthorized access or redirect to a default page
-            return redirect()->to('/login');
-        }
+public function inventoryLogsPage()
+{
+    if (!session()->get('is_logged_in')) {
+        return redirect()->to('/login');
     }
+
+    $role = session()->get('role');
+
+    if ($role === 'Admin') {
+        // Fetch products where status = 0 (inactive products)
+        $data['products'] = $this->productModel->where('status', 0)->findAll();
+        
+
+
+        
+        return view('admin_dashboard', $data); // Redirect to admin dashboard for Admin
+    } elseif ($role === 'Employee') {
+        // Load the InventoryLog model
+        $InventoryLogModel = new \App\Models\InventoryLogModel();
+
+        // Fetch all inventory logs
+        $data['inventory_log'] = $InventoryLogModel->findAll();
+
+
+
+
+        
+        // Pass the data to the view
+        return view('inventory_log', $data);
+    }
+
+    return redirect()->to('/login');
+}
+
 
 
 

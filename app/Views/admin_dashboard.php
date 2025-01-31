@@ -229,7 +229,7 @@
             <li><a href="/archive-accounts"><span class="material-icons">storage</span> Account Archive</a></li>
             <li><a href="/request-product"><span class="material-icons">add_box</span> Request Product</a></li>
 
-                  <li><a href="/inventory-log"><span class="material-icons">list</span> Inventory Logs</a></li>
+                  <!-- <li><a href="/inventory-log"><span class="material-icons">list</span> Inventory Logs</a></li> -->
             </ul>
         </div>
         <div class="logout-container">
