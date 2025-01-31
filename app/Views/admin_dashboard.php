@@ -264,7 +264,7 @@
                         <div>
                             <h5 class="card-title">Low Stock Alerts</h5>
                             <h3 class="card-text" id="lowStockCount">
-                                <?= count($lowStockProducts) ?>
+                                <?= $data [count($lowStockProducts)] ?>
                             </h3>
                         </div>
                         <span class="material-icons">warning</span>
