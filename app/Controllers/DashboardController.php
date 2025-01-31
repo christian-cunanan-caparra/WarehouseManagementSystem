@@ -9,6 +9,7 @@ use CodeIgniter\Controller;
 
 class DashboardController extends Controller
 {
+    protected $InventoryLogModel;
     protected $productModel;
     protected $userModel;
 
@@ -347,7 +348,25 @@ public function index()
 
 //     return redirect()->to('/login');
 // }
+public function index10()
+    {
+        if (!session()->get('is_logged_in')) {
+            return redirect()->to('/login');
+        }
 
+        $role = session()->get('role');
+
+        if ($role === 'Admin') {
+            // Fetch all inventory logs
+            $data['inventory_logs'] = $this->InventoryLogModel->findAll();
+
+            // Pass the data to the view
+            return view('inventory_log', $data); // View for Admin inventory logs
+        } else {
+            // Handle unauthorized access or redirect to a default page
+            return redirect()->to('/login');
+        }
+    }
 
 
 

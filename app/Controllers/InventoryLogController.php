@@ -18,7 +18,7 @@ class InventoryLogController extends BaseController
         $this->InventoryLogModel = new InventoryLogModel();
     }
 
-    public function inventlogs()
+    public function index10()
     {
         if (!session()->get('is_logged_in')) {
             return redirect()->to('/login');
