@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <!-- ssss 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Googssle Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
@@ -118,7 +116,7 @@
         h2 {
             font-weight: bold;
             color: #343a40;
-            margin-top: 30px; /* Slight margin top for the dashboard */
+            margin-top: 30px;
         }
 
         /* Dashboard Cards */
@@ -289,7 +287,6 @@
         </div>
 
         <!-- Product Table -->
-      
         <div class="table-container">
             <div class="table-responsive mt-4">
                 <table class="table table-striped">
@@ -321,179 +318,142 @@
             </div>
         </div>
 
-
-
-
-
-
-            <h3>Requesting New Products</h3>
-
-            <table>
-                <thead>
+        <h3>Requesting New Products</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($products as $product): ?>
                     <tr>
-                        <th>Product Name</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                        <th>Actions</th>
+                        <td><?= esc($product['name']) ?></td>
+                        <td><?= esc($product['description']) ?></td>
+                        <td><?= esc($product['price']) ?></td>
+                        <td>
+                            <form action="/admin/activate/<?= $product['id'] ?>" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-activate btn-sm">
+                                    <i class="fas fa-check"></i> Accept
+                                </button>
+                            </form>
+                            <form action="/admin/reject/<?= $product['id'] ?>" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-reject btn-sm">
+                                    <i class="fas fa-times"></i> Reject
+                                </button>
+                            </form>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($products as $product): ?>
-                        <tr>
-                            <td><?= esc($product['name']) ?></td>
-                            <td><?= esc($product['description']) ?></td>
-                            <td><?= esc($product['price']) ?></td>
-                            <td>
-                                <form action="/admin/activate/<?= $product['id'] ?>" method="post" class="d-inline">
-                                    <button type="submit" class="btn btn-activate btn-sm">
-                                        <i class="fas fa-check"></i> Accept
-                                    </button>
-                                </form>
-                                <form action="/admin/reject/<?= $product['id'] ?>" method="post" class="d-inline">
-                                    <button type="submit" class="btn btn-reject btn-sm">
-                                        <i class="fas fa-times"></i> Reject
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
 
-            <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
-        </div>
+        <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </div>
+</div>
 
-
-    <script>
-        // Mini Bar Chart
-        const miniBarCtx = document.getElementById('miniBarChart').getContext('2d');
-        const miniBarChart = new Chart(miniBarCtx, {
-            type: 'bar',
-            data: {
-                labels: ['Stock In', 'Stock Out', 'Products', 'Catche'],
-                datasets: [{
-                    label: 'Stock Usage',
-                    data: [ <?= $totalStockIn ?>, <?= $totalStockOut ?>, 30000, 20000 ],
-                    backgroundColor: ['rgba(23, 162, 184, 0.8)', 'rgba(220, 53, 69, 0.8)', 'rgba(40, 167, 69, 0.8)', 'rgba(102, 16, 242, 0.8)'],
-                    borderRadius: 8,
-                    borderWidth: 1,
-                    barPercentage: 0.5,
-                }]
+<script>
+    // Mini Bar Chart
+    const miniBarCtx = document.getElementById('miniBarChart').getContext('2d');
+    const miniBarChart = new Chart(miniBarCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Stock In', 'Stock Out', 'Products', 'Catche'],
+            datasets: [{
+                label: 'Stock Usage',
+                data: [ <?= $totalStockIn ?>, <?= $totalStockOut ?>, 30000, 20000 ],
+                backgroundColor: ['rgba(23, 162, 184, 0.8)', 'rgba(220, 53, 69, 0.8)', 'rgba(40, 167, 69, 0.8)', 'rgba(102, 16, 242, 0.8)'],
+                borderRadius: 8,
+                borderWidth: 1,
+                barPercentage: 0.5,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: {
+                duration: 1200,
+                easing: 'easeOutElastic'
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                animation: {
-                    duration: 1200,
-                    easing: 'easeOutElastic'
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x: {
+                    ticks: { color: '#343a40', font: { size: 12 } },
+                    grid: { display: false }
                 },
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
-                scales: {
-                    x: {
-                        ticks: { color: '#343a40', font: { size: 12 } },
-                        grid: { display: false }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        ticks: { color: '#343a40', font: { size: 12 } },
-                        grid: { color: 'rgba(0, 0, 0, 0.1)' }
+                y: {
+                    beginAtZero: true,
+                    ticks: { color: '#343a40', font: { size: 12 } },
+                    grid: { color: 'rgba(0, 0, 0, 0.1)' }
+                }
+            }
+        }
+    });
+
+    // Pie Chart
+    const ctx = document.getElementById('pieChart').getContext('2d');
+    const pieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Total Stock In', 'Total Stock Out', 'Low Stock'],
+            datasets: [{
+                label: 'Stock Distribution',
+                data: [<?= $totalStockIn ?>, <?= $totalStockOut ?>, <?= count($lowStockProducts) ?>],
+                backgroundColor: ['#17a2b8', '#dc3545', '#ffc107'],
+                borderColor: ['#ffffff', '#ffffff', '#ffffff'],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            animation: {
+                animateScale: true,
+                animateRotate: true
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        fontSize: 12,
+                        fontColor: '#343a40',
+                        boxWidth: 10
                     }
                 }
             }
-        });
+        }
+    });
+</script>
 
-        // Pie Chart
-        const ctx = document.getElementById('pieChart').getContext('2d');
-        const pieChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['Total Stock In', 'Total Stock Out', 'Low Stock'],
-                datasets: [{
-                    label: 'Stock Distribution',
-                    data: [<?= $totalStockIn ?>, <?= $totalStockOut ?>, <?= count($lowStockProducts) ?>],
-                    backgroundColor: ['#17a2b8', '#dc3545', '#ffc107'],
-                    borderColor: ['#ffffff', '#ffffff', '#ffffff'],
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                animation: {
-                    animateScale: true,
-                    animateRotate: true
-                },
-                plugins: {
-                    legend: {
-                        position: 'top',
-                        labels: {
-                            fontSize: 12,
-                            fontColor: '#343a40',
-                            boxWidth: 10
-                        }
-                    }
-                }
+<script>
+        // Sidebar Toggle Functionality
+        const sidebar = document.getElementById("sidebar");
+        const toggleBtn = document.getElementById("toggle-btn");
+        const content = document.getElementById("main-content");
+
+        let isSidebarOpen = true;
+
+        toggleBtn.addEventListener("click", () => {
+            isSidebarOpen = !isSidebarOpen;
+
+            if (isSidebarOpen) {
+                sidebar.classList.remove("hidden");
+                content.classList.remove("full-width");
+                toggleBtn.classList.remove("move");
+                toggleBtn.style.left = "260px";
+            } else {
+                sidebar.classList.add("hidden");
+                content.classList.add("full-width");
+                toggleBtn.classList.add("move");
+                toggleBtn.style.left = "15px";
             }
         });
     </script>
-
-
-    <script>
-        const toggleBtn = document.getElementById('toggle-btn');
-        const closeBtn = document.getElementById('close-btn');
-        const sidebar = document.getElementById('sidebar');
-        const mainContent = document.getElementById('main-content');
-
-        // Automatically open sidebar on larger screens
-        window.onload = function() {
-            if (window.innerWidth > 768) {
-                sidebar.classList.add('active');
-                mainContent.classList.add('active');
-                toggleBtn.style.display = 'block'; // Ensure toggle button is visible on desktop
-            } else {
-                sidebar.classList.remove('active');
-                mainContent.classList.remove('active');
-                toggleBtn.style.display = 'block'; // Show toggle button on mobile
-            }
-        };
-
-        // Toggle the sidebar on smaller screens
-        toggleBtn.addEventListener('click', function() {
-            sidebar.classList.toggle('active');
-            mainContent.classList.toggle('active');
-        });
-
-        // Close the sidebar when clicking the close button
-        closeBtn.addEventListener('click', function() {
-            sidebar.classList.remove('active');
-            mainContent.classList.remove('active');
-        });
-
-        // Optional: Close sidebar if user clicks outside
-        document.addEventListener('click', function(event) {
-            if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target) && !closeBtn.contains(event.target)) {
-                sidebar.classList.remove('active');
-                mainContent.classList.remove('active');
-            }
-        });
-
-        // Window resize to handle screen size change dynamically
-        window.onresize = function() {
-            if (window.innerWidth > 768) {
-                sidebar.classList.add('active');
-                mainContent.classList.add('active');
-                toggleBtn.style.display = 'block'; // Ensure toggle button is always visible on desktop
-            } else {
-                sidebar.classList.remove('active');
-                mainContent.classList.remove('active');
-                toggleBtn.style.display = 'block'; // Show toggle button on mobile
-            }
-        };
-    </script>
-
 </body>
 </html>
