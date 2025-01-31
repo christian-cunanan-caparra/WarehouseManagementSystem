@@ -251,14 +251,20 @@
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
-        <button class="close-btn" id="close-btn">&times;</button>
         <div class="sidebar-header">Warehouse Management</div>
-        <ul class="sidebar-links">
+        <div class="sidebar-links-container">
+            <ul class="sidebar-links">
             <li><a href="/admin_dashboard"><span class="material-icons">dashboard</span> Dashboard</a></li>
             <li><a href="/account-management"><span class="material-icons">inventory</span> Account Management </a></li>
             <li><a href="/archive-accounts"><span class="material-icons">storage</span> Account Archive</a></li>
-            <li><a href="/inventory-log"><span class="material-icons">list</span> Inventory Logs</a></li>
-        </ul>
+            <li><a href="/request-product"><span class="material-icons">add_box</span> Request Product</a></li>
+
+                  <!-- <li><a href="/inventory-log"><span class="material-icons">list</span> Inventory Logs</a></li> -->
+            </ul>
+        </div>
+        <div class="logout-container">
+            <a href="/logout" class="logout-button"><span class="material-icons">logout</span> Log out</a>
+        </div>
     </aside>
 
     <!-- Toggle Button -->
@@ -304,7 +310,6 @@
                 </tbody>
             </table>
 
-            <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </div>
     </div>
     <script>
