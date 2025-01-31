@@ -42,11 +42,10 @@ class RegisterController extends BaseController
 
         // Save the user data into the database
         $userModel = new UserModel();
-
         if ($userModel->save($userData)) {
             // If successful, store a success message in the session
             session()->setFlashdata('success', 'Registration successful! Please wait, redirecting...');
-        
+            
             // Send a welcome email to the user
             $email = \Config\Services::email();
             $email->setTo($this->request->getPost('email'));
@@ -54,31 +53,12 @@ class RegisterController extends BaseController
             $email->setSubject('Welcome!');
             $email->setMessage('Welcome to the Warehouse Management System! You have successfully registered.');
             $email->send();
-        
-            // Check if request is AJAX
-            if ($this->request->isAJAX()) {
-                return $this->response->setJSON([
-                    'success' => true,
-                    'message' => 'Registration successful!'
-                ]);
-            }
-        
-            // Redirect to register page to show success message
-            return redirect()->to('/register');
-        
         } else {
             // If saving the data fails, store an error message
             session()->setFlashdata('error', 'There was an error with your registration.');
-        
-            // Check if request is AJAX
-            if ($this->request->isAJAX()) {
-                return $this->response->setJSON([
-                    'success' => false,
-                    'message' => 'Registration failed. Please try again.'
-                ]);
-            }
-        
-            return redirect()->to('/register');
         }
-    }        
+
+        // Redirect to the register page to show the success modal
+        return redirect()->to('/register');
+    }
 }
