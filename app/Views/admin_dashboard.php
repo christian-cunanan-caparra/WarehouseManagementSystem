@@ -206,7 +206,7 @@
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
-        <button class="close-btn" id="close-btn">&times;</button>
+       
         <div class="sidebar-header">Warehouse Management</div>
         <ul class="sidebar-links">
             <li><a href="/admin_dashboard"><span class="material-icons">dashboard</span> Dashboard</a></li>
