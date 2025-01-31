@@ -324,18 +324,6 @@ public function inventoryLogsPage()
     if ($role === 'Admin') {
         // Fetch products where status = 0 (inactive products)
         $data['products'] = $this->productModel->where('status', 0)->findAll();
-
-
-        
-        return view('admin_dashboard', $data); // Redirect to admin dashboard for Admin
-    } elseif ($role === 'Employee') {
-        // Load the InventoryLog model
-        $InventoryLogModel = new \App\Models\InventoryLogModel();
-
-        // Fetch all inventory logs
-        $data['inventory_log'] = $InventoryLogModel->findAll();
-
-
         $data['products'] = $this->productModel->where('status', 1)->findAll();
 
         // Dashboard Analytics - Total Products, Total Stock In, Total Stock Out
@@ -359,7 +347,19 @@ public function inventoryLogsPage()
         $data['mostUsedProducts'] = array_slice($data['products'], 0, 5); // Top 5 most used products
 
 
+        
+        return view('inventory_log', $data); // Redirect to admin dashboard for Admin
+    } elseif ($role === 'Employee') {
+        // Load the InventoryLog model
+        $InventoryLogModel = new \App\Models\InventoryLogModel();
 
+        // Fetch all inventory logs
+        $data['inventory_log'] = $InventoryLogModel->findAll();
+
+
+
+
+        
         // Pass the data to the view
         return view('inventory_log', $data);
     }
