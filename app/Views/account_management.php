@@ -216,7 +216,7 @@
 </head>
 <body>
     <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
+    <aside class="sidebar" id="sidebar">
         
         <div class="sidebar-header">Warehouse Management</div>
         <div class="sidebar-links-container">
@@ -234,12 +234,12 @@
     <!-- Toggle Button -->
     <button class="toggle-btn" id="toggle-btn">&#9776;</button>
 
-  <h1>Account Management</h1>
+
     <!-- Main Content -->
-    <div class="table-container">
-        <div class="table-responsive mt-4">
-          
-            <table class="table table-striped">
+    <div class="content" id="main-content">
+        <div class="container mt-4">
+            <h1>Account Management</h1>
+            <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -274,7 +274,7 @@
         </div>
     </div>
 
-  
+ 
 
     <script>
         // Sidebar Toggle Functionality
