@@ -234,7 +234,7 @@
                         <div>
                             <h5 class="card-title">Total Stock In</h5>
                             <h3 class="card-text" id="totalStockIn">
-                                <? $data['totalStockIn'] ?>
+                                <?$totalStockIn ?>
                             </h3>
                         </div>
                         <span class="material-icons">arrow_upward</span>
@@ -249,7 +249,7 @@
                         <div>
                             <h5 class="card-title">Total Stock Out</h5>
                             <h3 class="card-text" id="totalStockOut">
-                            <? $data['totalStockOut'] ?>
+                                <?= $totalStockOut ?>
                             </h3>
                         </div>
                         <span class="material-icons">arrow_upward</span>
@@ -264,9 +264,7 @@
                         <div>
                             <h5 class="card-title">Low Stock Alerts</h5>
                             <h3 class="card-text" id="lowStockCount">
-                           
-                                <? $data['lowStockProducts']?>
-
+                                <?= count($lowStockProducts) ?>
                             </h3>
                         </div>
                         <span class="material-icons">warning</span>

@@ -324,6 +324,30 @@ public function inventoryLogsPage()
     if ($role === 'Admin') {
         // Fetch products where status = 0 (inactive products)
         $data['products'] = $this->productModel->where('status', 0)->findAll();
+
+        $data['products'] = $this->productModel->where('status', 1)->findAll();
+
+        // Dashboard Analytics - Total Products, Total Stock In, Total Stock Out
+        $data['totalProducts'] = count($data['products']);
+        $data['totalStockIn'] = array_sum(array_column($data['products'], 'stock_in'));
+        $data['totalStockOut'] = array_sum(array_column($data['products'], 'stock_out'));
+        $data['totalRemainingStock'] = array_sum(array_column($data['products'], 'remaining_stock'));
+
+        // Low Stock Alert: Set threshold (e.g., 10 units)
+        $lowStockThreshold = 50;
+        $data['lowStockProducts'] = array_filter($data['products'], function($product) use ($lowStockThreshold) {
+            return $product['remaining_stock'] <= $lowStockThreshold;
+        });
+
+        // Most Used Products: You can define "most used" as the sum of stock in and stock out.
+        usort($data['products'], function($a, $b) {
+            $usageA = $a['stock_in'] + $a['stock_out'];
+            $usageB = $b['stock_in'] + $b['stock_out'];
+            return $usageB - $usageA; // Sort in descending order (most used first)
+        });
+        $data['mostUsedProducts'] = array_slice($data['products'], 0, 5); // Top 5 most used products
+
+
         return view('admin_dashboard', $data); // Redirect to admin dashboard for Admin
     } elseif ($role === 'Employee') {
         // Load the InventoryLog model
