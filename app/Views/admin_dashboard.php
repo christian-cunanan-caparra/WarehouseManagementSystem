@@ -234,7 +234,7 @@
                         <div>
                             <h5 class="card-title">Total Stock In</h5>
                             <h3 class="card-text" id="totalStockIn">
-                                <?= $stock_in ?>
+                                <? $data['totalStockIn'] ?>
                             </h3>
                         </div>
                         <span class="material-icons">arrow_upward</span>
