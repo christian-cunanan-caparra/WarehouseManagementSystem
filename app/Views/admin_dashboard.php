@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+   <!-- Bootstrap 5 -->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
- 
     <style>
         /* General Styles */
         body {
@@ -202,6 +205,7 @@
 
     </style>
 </head>
+</head>
 <body>
 
     <!-- Sidebar -->
@@ -322,83 +326,83 @@
         </div>
     </div>
 
-<script>
-    // Mini Bar Chart
-    const miniBarCtx = document.getElementById('miniBarChart').getContext('2d');
-    const miniBarChart = new Chart(miniBarCtx, {
-        type: 'bar',
-        data: {
-            labels: ['Stock In', 'Stock Out', 'Products', 'Catche'],
-            datasets: [{
-                label: 'Stock Usage',
-                data: [ <?= $totalStockIn ?>, <?= $totalStockOut ?>, 30000, 20000 ],
-                backgroundColor: ['rgba(23, 162, 184, 0.8)', 'rgba(220, 53, 69, 0.8)', 'rgba(40, 167, 69, 0.8)', 'rgba(102, 16, 242, 0.8)'],
-                borderRadius: 8,
-                borderWidth: 1,
-                barPercentage: 0.5,
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            animation: {
-                duration: 1200,
-                easing: 'easeOutElastic'
+    <script>
+        // Mini Bar Chart
+        const miniBarCtx = document.getElementById('miniBarChart').getContext('2d');
+        const miniBarChart = new Chart(miniBarCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Stock In', 'Stock Out', 'Products', 'Catche'],
+                datasets: [{
+                    label: 'Stock Usage',
+                    data: [ <?= $totalStockIn ?>, <?= $totalStockOut ?>, 30000, 20000 ],
+                    backgroundColor: ['rgba(23, 162, 184, 0.8)', 'rgba(220, 53, 69, 0.8)', 'rgba(40, 167, 69, 0.8)', 'rgba(102, 16, 242, 0.8)'],
+                    borderRadius: 8,
+                    borderWidth: 1,
+                    barPercentage: 0.5,
+                }]
             },
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            scales: {
-                x: {
-                    ticks: { color: '#343a40', font: { size: 12 } },
-                    grid: { display: false }
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 1200,
+                    easing: 'easeOutElastic'
                 },
-                y: {
-                    beginAtZero: true,
-                    ticks: { color: '#343a40', font: { size: 12 } },
-                    grid: { color: 'rgba(0, 0, 0, 0.1)' }
-                }
-            }
-        }
-    });
-
-    // Pie Chart
-    const ctx = document.getElementById('pieChart').getContext('2d');
-    const pieChart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: ['Total Stock In', 'Total Stock Out', 'Low Stock'],
-            datasets: [{
-                label: 'Stock Distribution',
-                data: [<?= $totalStockIn ?>, <?= $totalStockOut ?>, <?= count($lowStockProducts) ?>],
-                backgroundColor: ['#17a2b8', '#dc3545', '#ffc107'],
-                borderColor: ['#ffffff', '#ffffff', '#ffffff'],
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            animation: {
-                animateScale: true,
-                animateRotate: true
-            },
-            plugins: {
-                legend: {
-                    position: 'top',
-                    labels: {
-                        fontSize: 12,
-                        fontColor: '#343a40',
-                        boxWidth: 10
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: '#343a40', font: { size: 12 } },
+                        grid: { display: false }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#343a40', font: { size: 12 } },
+                        grid: { color: 'rgba(0, 0, 0, 0.1)' }
                     }
                 }
             }
-        }
-    });
-</script>
+        });
 
-<script>
+        // Pie Chart
+        const ctx = document.getElementById('pieChart').getContext('2d');
+        const pieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Total Stock In', 'Total Stock Out', 'Low Stock'],
+                datasets: [{
+                    label: 'Stock Distribution',
+                    data: [<?= $totalStockIn ?>, <?= $totalStockOut ?>, <?= count($lowStockProducts) ?>],
+                    backgroundColor: ['#17a2b8', '#dc3545', '#ffc107'],
+                    borderColor: ['#ffffff', '#ffffff', '#ffffff'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            fontSize: 12,
+                            fontColor: '#343a40',
+                            boxWidth: 10
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+    <script>
         // Sidebar Toggle Functionality
         const sidebar = document.getElementById("sidebar");
         const toggleBtn = document.getElementById("toggle-btn");
