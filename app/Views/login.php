@@ -121,7 +121,7 @@
 </head>
 <body>
 
-<img src="<?= base_url('app/view/img/manila.jpeg') ?>" alt="Image Description">
+<img src="<?= base_url('img/manila.jpeg') ?>" alt="Image Description">
 
 
     <div class="container">
