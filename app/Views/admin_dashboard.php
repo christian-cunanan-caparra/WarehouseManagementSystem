@@ -212,7 +212,7 @@
             <li><a href="/admin_dashboard"><span class="material-icons">dashboard</span> Dashboard</a></li>
             <li><a href="/account-management"><span class="material-icons">inventory</span> Account Management </a></li>
             <li><a href="/archive-accounts"><span class="material-icons">storage</span> Account Archive</a></li>
-            <li><a href="/inventory-logs"><span class="material-icons">list</span> Inventory Logs</a></li>
+            <li><a href="/inventory-log"><span class="material-icons">list</span> Inventory Logs</a></li>
         </ul>
     </aside>
 
