@@ -78,6 +78,7 @@ public function index()
 
         $data['totalProducts'] = count($data['products']);
         $data['totalStockIn'] = array_sum(array_column($data['products'], 'stock_in'));
+
         $data['totalStockOut'] = array_sum(array_column($data['products'], 'stock_out'));
         $data['totalRemainingStock'] = array_sum(array_column($data['products'], 'remaining_stock'));
 
