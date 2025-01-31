@@ -234,12 +234,12 @@
     <!-- Toggle Button -->
     <button class="toggle-btn" id="toggle-btn">&#9776;</button>
 
-
+  <h1>Account Management</h1>
     <!-- Main Content -->
-    <div class="content" id="main-content">
-        <div class="container mt-4">
-            <h1>Account Management</h1>
-            <table class="table table-bordered">
+    <div class="table-container">
+        <div class="table-responsive mt-4">
+          
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -274,7 +274,83 @@
         </div>
     </div>
 
-   <script>
+    <script>
+        // Mini Bar Chart
+        const miniBarCtx = document.getElementById('miniBarChart').getContext('2d');
+        const miniBarChart = new Chart(miniBarCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Stock In', 'Stock Out', 'Products', 'Catche'],
+                datasets: [{
+                    label: 'Stock Usage',
+                    data: [ <?= $totalStockIn ?>, <?= $totalStockOut ?>, 30000, 20000 ],
+                    backgroundColor: ['rgba(23, 162, 184, 0.8)', 'rgba(220, 53, 69, 0.8)', 'rgba(40, 167, 69, 0.8)', 'rgba(102, 16, 242, 0.8)'],
+                    borderRadius: 8,
+                    borderWidth: 1,
+                    barPercentage: 0.5,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 1200,
+                    easing: 'easeOutElastic'
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: '#343a40', font: { size: 12 } },
+                        grid: { display: false }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#343a40', font: { size: 12 } },
+                        grid: { color: 'rgba(0, 0, 0, 0.1)' }
+                    }
+                }
+            }
+        });
+
+        // Pie Chart
+        const ctx = document.getElementById('pieChart').getContext('2d');
+        const pieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Total Stock In', 'Total Stock Out', 'Low Stock'],
+                datasets: [{
+                    label: 'Stock Distribution',
+                    data: [<?= $totalStockIn ?>, <?= $totalStockOut ?>, <?= count($lowStockProducts) ?>],
+                    backgroundColor: ['#17a2b8', '#dc3545', '#ffc107'],
+                    borderColor: ['#ffffff', '#ffffff', '#ffffff'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            fontSize: 12,
+                            fontColor: '#343a40',
+                            boxWidth: 10
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+    <script>
         // Sidebar Toggle Functionality
         const sidebar = document.getElementById("sidebar");
         const toggleBtn = document.getElementById("toggle-btn");
