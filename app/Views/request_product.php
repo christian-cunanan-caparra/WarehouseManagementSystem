@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Request Product</title>
    
-
-      <!-- Bootstrap 5 -->
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Google Icons -->
@@ -15,7 +14,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-   
     
     <style>
     /* General Styles */
@@ -128,34 +126,25 @@
         margin-top: 30px;
     }
 
-    /* Dashboard Cards */
-    .card {
-        margin-bottom: 20px;
-    }
-
-    .card-title {
-        font-size: 16px;
-    }
-
-    .card-body {
-        padding: 20px;
-    }
-
-    .card h3 {
-        font-size: 2rem;
-    }
-
-    /* Stock Trends Chart */
-    #stockTrendChart {
-        height: 400px;
-    }
-
-    /* Mini Pie Chart */
-    #pieChart {
-        height: 250px;
-        max-width: 300px;
-        margin: 0 auto;
+    /* Request Product Table */
+    table {
+        width: 100%;
+        margin-top: 30px;
+        border-collapse: collapse;
+        background-color: #fff;
         border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    table th, table td {
+        padding: 12px;
+        text-align: center;
+        border: 1px solid #ddd;
+    }
+
+    table th {
+        background-color: #007bff;
+        color: white;
     }
 
     /* Accept/Reject Button Styling */
@@ -218,33 +207,8 @@
     .toggle-btn.move {
         left: 15px;
     }
-
-    /* Container for the Charts */
-    .chart-container {
-        margin-top: 30px;
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        padding: 20px;
-    }
-
-    .table-container {
-        margin-top: 30px;
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        padding: 20px;
-    }
-
-    .table-responsive {
-        max-height: 500px;
-        overflow-y: auto;
-    }
-
-    h1{
-        margin-left: 50px;
-    }
-</style>
+    
+    </style>
 
 </head>
 <body>
@@ -258,8 +222,6 @@
             <li><a href="/account-management"><span class="material-icons">inventory</span> Account Management </a></li>
             <li><a href="/archive-accounts"><span class="material-icons">storage</span> Account Archive</a></li>
             <li><a href="/request-product"><span class="material-icons">add_box</span> Request Product</a></li>
-
-                  <!-- <li><a href="/inventory-log"><span class="material-icons">list</span> Inventory Logs</a></li> -->
             </ul>
         </div>
         <div class="logout-container">
@@ -312,6 +274,7 @@
 
         </div>
     </div>
+
     <script>
         // Sidebar Toggle Functionality
         const sidebar = document.getElementById("sidebar");
