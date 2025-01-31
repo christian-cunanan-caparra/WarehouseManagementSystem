@@ -219,6 +219,7 @@
     < class="sidebar" id="sidebar">
         <button class="close-btn" id="close-btn">&times;</button>
         <div class="sidebar-header">Warehouse Management</div>
+        <div class="sidebar-links-container">
         <ul class="sidebar-links">
             <li><a href="/admin_dashboard"><span class="material-icons">dashboard</span> Dashboard</a></li>
             <li><a href="/account-management"><span class="material-icons">inventory</span> Account Management</a></li>
