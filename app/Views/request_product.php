@@ -4,222 +4,208 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <!-- ssss 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+   
+
+      <!-- Bootstrap 5 -->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Googssle Icons -->
+
+    <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   
+    
+    
     <style>
-        body {
-            background-color: #f0f4f8;
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 20px;
-        }
+       /* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 20px;
+}
 
-        .dashboard-container {
-            background-color: #ffffff;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            max-width: 900px;
-            margin: auto;
-        }
+/* Dashboard Container */
+.dashboard-container {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 1200px;
+    margin: auto;
+}
 
-        h1 {
-            color: #007bff;
-            font-weight: 600;
-            text-align: center;
-            margin-bottom: 20px;
-        }
+/* Sidebar Styling */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    width: 250px;
+    background-color: #343a40;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: -250px; /* Initially hidden */
+    padding-top: 15px;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3);
+}
 
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
+.sidebar.active {
+    left: 0; /* Show the sidebar when active */
+}
 
-        table th, table td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-        }
+.sidebar-header {
+    font-size: 20px;
+    text-align: center;
+    padding: 15px;
+    font-weight: bold;
+    border-bottom: 1px solid #495057;
+}
 
-        table th {
-            background-color: #007bff;
-            color: white;
-        }
+.sidebar-links {
+    list-style: none;
+    padding: 0;
+}
 
-        .btn {
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
+.sidebar-links li {
+    padding: 12px 15px;
+}
 
-        .btn-activate {
-            background: linear-gradient(45deg, #28a745, #218838);
-            color: white;
-            border: none;
-        }
+.sidebar-links li a {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+}
 
-        .btn-activate:hover {
-            background: linear-gradient(45deg, #218838, #28a745);
-            transform: scale(1.05);
-        }
+.sidebar-links li a:hover {
+    background-color: #495057;
+    border-radius: 5px;
+}
 
-        .btn-logout {
-            background-color: #dc3545;
-            color: white;
-            text-align: center;
-            width: 100%;
-            padding: 10px;
-            display: block;
-            margin-top: 20px;
-        }
+.sidebar-links li a.active {
+    background-color: #007bff;
+}
 
-        .btn-logout:hover {
-            background-color: #c82333;
-        }
+/* Sidebar Toggle Button */
+.toggle-btn {
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    background: #161a2d;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    transition: 0.3s;
+}
 
-        /* Styles for responsive sidebar */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: -270px; /* Initially hidden */
-            width: 270px;
-            height: 100%;
-            background: rgba(22, 26, 45, 0.9);
-            backdrop-filter: blur(10px);
-            color: white;
-            padding: 20px;
-            transition: 0.4s ease-in-out;
-            box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-            border-right: 2px solid rgba(255, 255, 255, 0.1);
-        }
+.toggle-btn:hover {
+    background: #4f52ba;
+}
 
-        .sidebar.active {
-            left: 0; /* Show the sidebar when active */
-        }
+.content {
+    margin-left: 270px;
+    padding: 30px;
+    transition: margin-left 0.3s;
+    background: #f8f9fa;
+}
 
-        .toggle-btn {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: #161a2d;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            font-size: 1.5rem;
-            transition: 0.3s;
-            border-radius: 5px;
-            display: none; /* Hide on desktop */
-        }
+.content.active {
+    margin-left: 0; /* When the sidebar is active, shift content */
+}
 
-        .toggle-btn:hover {
-            background: #4f52ba;
-        }
+/* Accept & Reject Button Styles */
+.btn {
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
 
-        .content {
-            margin-left: 50px;
-            padding: 30px;
-            transition: margin-left 0.4s ease;
-            background: #f8f9fa;
-            min-height: 100vh;
-        }
+.btn-activate {
+    background: linear-gradient(45deg, #28a745, #218838);
+    color: white;
+    border: none;
+}
 
-        .content.active {
-            margin-left: 270px; /* When the sidebar is active, shift content */
-        }
+.btn-activate:hover {
+    background: linear-gradient(45deg, #218838, #28a745);
+    transform: scale(1.05);
+}
 
-        .table-responsive {
-            overflow-x: auto;
-        }
+.btn-reject {
+    background: linear-gradient(45deg, #dc3545, #c82333);
+    color: white;
+    border: none;
+}
 
-        .table th, .table td {
-            white-space: nowrap;
-        }
+.btn-reject:hover {
+    background: linear-gradient(45deg, #c82333, #dc3545);
+    transform: scale(1.05);
+}
 
-        @media (max-width: 768px) {
-            .content {
-                margin-left: 0;
-            }
+/* Tables */
+.table-container {
+    margin-top: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
 
-            .sidebar.active {
-                left: 0;
-            }
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
 
-            .toggle-btn {
-                display: block;
-            }
-        }
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
 
-        .sidebar-header {
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-align: center;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
+table th {
+    background-color: #007bff;
+    color: white;
+}
 
-        .sidebar-links {
-            list-style: none;
-            padding: 0;
-            margin-top: 20px;
-        }
+.table-responsive {
+    overflow-x: auto;
+}
 
-        .sidebar-links li {
-            margin-bottom: 15px;
-        }
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        left: -250px; /* Initially hidden */
+    }
 
-        .sidebar-links li a {
-            color: white;
-            font-size: 1.1rem;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px;
-            transition: 0.3s ease;
-            border-radius: 6px;
-        }
+    .sidebar.active {
+        left: 0; /* Show the sidebar when active */
+    }
 
-        .sidebar-links li a:hover {
-            background: rgba(255, 255, 255, 0.2);
-            padding-left: 15px;
-        }
+    .content {
+        margin-left: 0;
+    }
 
-        .menu-separator {
-            margin: 15px 0;
-            height: 1px;
-            background-color: rgba(255, 255, 255, 0.3);
-        }
+    .content.active {
+        margin-left: 250px; /* Push content to the right when sidebar is active */
+    }
 
-        @media (max-width: 768px) {
-            /* Adjust sidebar to slide in on smaller screens */
-            .sidebar {
-                left: -270px; /* Initially hidden */
-            }
+    .toggle-btn {
+        display: block;
+    }
+}
 
-            .sidebar.active {
-                left: 0; /* Show the sidebar when active */
-            }
-
-            .content {
-                margin-left: 0;
-            }
-
-            .content.active {
-                margin-left: 270px; /* Push content to the right when sidebar is active */
-            }
-
-            .toggle-btn {
-                display: block; /* Show toggle button on mobile */
-            }
-        }
     </style>
 </head>
 <body>
