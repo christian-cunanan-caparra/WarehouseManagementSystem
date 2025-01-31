@@ -122,3 +122,6 @@ $routes->get('/waiting-confirmation', 'LoginController::waitingConfirmation');
 
 $routes->get('/inventory-log', 'DashboardController::inventoryLogsPage');
 
+
+
+$routes->get('/request-product', 'RequestController::requestprod');

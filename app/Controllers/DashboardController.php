@@ -20,7 +20,7 @@ class DashboardController extends Controller
 
     // Inventory Logs
     public function index2()
-    {
+    {   
         if (!session()->get('is_logged_in')) {
             return redirect()->to('/login');
         }
