@@ -243,7 +243,108 @@
     <div class="content" id="main-content">
         <div class="dashboard-container">
             <h1>Welcome, Admin <?= session()->get('user_name') ?>!</h1>
-            <p>You are logged in as an Admin.</p>
+            <h2 class="text-center">Dashboard</h2>
+        <BR>
+        <!-- Analytics Cards -->
+        <div class="row mb-4">
+            <!-- Total Stock In -->
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 bg-info text-white">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Total Stock In</h5>
+                            <h3 class="card-text" id="totalStockIn">
+                                <?= $totalStockIn ?>
+                            </h3>
+                        </div>
+                        <span class="material-icons">arrow_upward</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Stock Out -->
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 bg-danger text-white">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Total Stock Out</h5>
+                            <h3 class="card-text" id="totalStockOut">
+                                <?= $totalStockOut ?>
+                            </h3>
+                        </div>
+                        <span class="material-icons">arrow_upward</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Low Stock Alerts -->
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 bg-warning text-white" data-bs-toggle="modal" data-bs-target="#lowStockModal">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Low Stock Alerts</h5>
+                            <h3 class="card-text" id="lowStockCount">
+                                <?= count($lowStockProducts) ?>
+                            </h3>
+                        </div>
+                        <span class="material-icons">warning</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="chart-container">
+            <div class="row mt-4">
+                <!-- Mini Bar Chart -->
+                <div class="col-md-6">
+                    <canvas id="miniBarChart"></canvas>
+                </div>
+
+                <!-- Pie Chart -->
+                <div class="col-md-6">
+                    <canvas id="pieChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Table -->
+      
+        <div class="table-container">
+            <div class="table-responsive mt-4">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Stock In</th>
+                            <th>Stock Out</th>
+                            <th>Inventory Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productTable">
+                        <?php foreach ($products as $product): ?>
+                            <tr>
+                                <td><?= esc($product['id']) ?></td>
+                                <td><?= esc($product['name']) ?></td>
+                                <td><?= esc($product['description']) ?></td>
+                                <td><?= esc($product['price']) ?></td>
+                                <td><?= esc($product['stock_in']) ?></td>
+                                <td><?= esc($product['stock_out']) ?></td>
+                                <td><?= esc($product['remaining_stock']) ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+
+
 
             <h3>Requesting New Products</h3>
 
@@ -282,6 +383,84 @@
             <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </div>
     </div>
+
+
+    <script>
+        // Mini Bar Chart
+        const miniBarCtx = document.getElementById('miniBarChart').getContext('2d');
+        const miniBarChart = new Chart(miniBarCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Stock In', 'Stock Out', 'Products', 'Catche'],
+                datasets: [{
+                    label: 'Stock Usage',
+                    data: [ <?= $totalStockIn ?>, <?= $totalStockOut ?>, 30000, 20000 ],
+                    backgroundColor: ['rgba(23, 162, 184, 0.8)', 'rgba(220, 53, 69, 0.8)', 'rgba(40, 167, 69, 0.8)', 'rgba(102, 16, 242, 0.8)'],
+                    borderRadius: 8,
+                    borderWidth: 1,
+                    barPercentage: 0.5,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 1200,
+                    easing: 'easeOutElastic'
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: '#343a40', font: { size: 12 } },
+                        grid: { display: false }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#343a40', font: { size: 12 } },
+                        grid: { color: 'rgba(0, 0, 0, 0.1)' }
+                    }
+                }
+            }
+        });
+
+        // Pie Chart
+        const ctx = document.getElementById('pieChart').getContext('2d');
+        const pieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Total Stock In', 'Total Stock Out', 'Low Stock'],
+                datasets: [{
+                    label: 'Stock Distribution',
+                    data: [<?= $totalStockIn ?>, <?= $totalStockOut ?>, <?= count($lowStockProducts) ?>],
+                    backgroundColor: ['#17a2b8', '#dc3545', '#ffc107'],
+                    borderColor: ['#ffffff', '#ffffff', '#ffffff'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            fontSize: 12,
+                            fontColor: '#343a40',
+                            boxWidth: 10
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
 
     <script>
         const toggleBtn = document.getElementById('toggle-btn');
