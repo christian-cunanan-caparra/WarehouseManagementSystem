@@ -235,7 +235,10 @@
 
   
     <div class="content" id="main-content">
-        <h2 class="text-center">Dashboard</h2>
+    <h1>Welcome, Admin <?= session()->get('user_name') ?>!</h1>
+
+
+
 <BR>
         <!-- Analytics Cards -->
         <div class="row mb-4">
