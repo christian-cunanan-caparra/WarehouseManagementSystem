@@ -10,7 +10,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
       body {
-    background: url('/img/manila.jpeg') no-repeat center center fixed;
+        background: url('/img/manila.jpeg.png') no-repeat center center fixed;
+
     background-size: cover;
     background-attachment: fixed;
     font-family: 'Arial', sans-serif;
