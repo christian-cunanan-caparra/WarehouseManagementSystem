@@ -220,6 +220,8 @@
             <li><a href="/admin_dashboard"><span class="material-icons">dashboard</span> Dashboard</a></li>
             <li><a href="/account-management"><span class="material-icons">inventory</span> Account Management</a></li>
             <li><a href="/archive-accounts"><span class="material-icons">archive</span> Account Archive</a></li>
+            <li><a href="/request-new-product"><span class="material-icons">add_box</span> Request Product</a></li>
+
         </ul>
         </div>
         <div class="logout-container">
