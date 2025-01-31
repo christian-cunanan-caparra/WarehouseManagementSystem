@@ -9,31 +9,16 @@
     <!-- Font Awesome for icon -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-      body {
-        background: url('/img/manila.jpeg.png') no-repeat center center fixed;
-
-    background-size: cover;
-    background-attachment: fixed;
-    font-family: 'Arial', sans-serif;
-    height: 100vh;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Adjustments for smaller screens */
-@media (max-width: 768px) {
-    body {
-        background-attachment: scroll; /* Prevents issues on mobile */
-    }
-
-    .container {
-        width: 90%; /* Make the form container more responsive */
-        padding: 20px;
-    }
-}
-
+        body {
+            
+            background-color: #f0f8ff; /* Light blue background */
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
         .container {
             background-color: #ffffff;
@@ -135,6 +120,9 @@
     </style>
 </head>
 <body>
+
+<img src="<?= base_url('app/view/img/manila.jpeg') ?>" alt="Image Description">
+
 
     <div class="container">
         <h1><i class="fas fa-warehouse"></i> Warehouse Management System</h1>
