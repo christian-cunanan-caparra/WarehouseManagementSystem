@@ -265,61 +265,33 @@ table th {
                 </tbody>
             </table>
 
-            <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+           
         </div>
     </div>
 
     <script>
-        const toggleBtn = document.getElementById('toggle-btn');
-        const closeBtn = document.getElementById('close-btn');
-        const sidebar = document.getElementById('sidebar');
-        const mainContent = document.getElementById('main-content');
+        // Sidebar Toggle Functionality
+        const sidebar = document.getElementById("sidebar");
+        const toggleBtn = document.getElementById("toggle-btn");
+        const content = document.getElementById("main-content");
 
-        // Automatically open sidebar on larger screens
-        window.onload = function() {
-            if (window.innerWidth > 768) {
-                sidebar.classList.add('active');
-                mainContent.classList.add('active');
-                toggleBtn.style.display = 'block'; // Ensure toggle button is visible on desktop
+        let isSidebarOpen = true;
+
+        toggleBtn.addEventListener("click", () => {
+            isSidebarOpen = !isSidebarOpen;
+
+            if (isSidebarOpen) {
+                sidebar.classList.remove("hidden");
+                content.classList.remove("full-width");
+                toggleBtn.classList.remove("move");
+                toggleBtn.style.left = "260px";
             } else {
-                sidebar.classList.remove('active');
-                mainContent.classList.remove('active');
-                toggleBtn.style.display = 'block'; // Show toggle button on mobile
-            }
-        };
-
-        // Toggle the sidebar on smaller screens
-        toggleBtn.addEventListener('click', function() {
-            sidebar.classList.toggle('active');
-            mainContent.classList.toggle('active');
-        });
-
-        // Close the sidebar when clicking the close button
-        closeBtn.addEventListener('click', function() {
-            sidebar.classList.remove('active');
-            mainContent.classList.remove('active');
-        });
-
-        // Optional: Close sidebar if user clicks outside
-        document.addEventListener('click', function(event) {
-            if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target) && !closeBtn.contains(event.target)) {
-                sidebar.classList.remove('active');
-                mainContent.classList.remove('active');
+                sidebar.classList.add("hidden");
+                content.classList.add("full-width");
+                toggleBtn.classList.add("move");
+                toggleBtn.style.left = "15px";
             }
         });
-
-        // Window resize to handle screen size change dynamically
-        window.onresize = function() {
-            if (window.innerWidth > 768) {
-                sidebar.classList.add('active');
-                mainContent.classList.add('active');
-                toggleBtn.style.display = 'block'; // Ensure toggle button is always visible on desktop
-            } else {
-                sidebar.classList.remove('active');
-                mainContent.classList.remove('active');
-                toggleBtn.style.display = 'block'; // Show toggle button on mobile
-            }
-        };
     </script>
 
 </body>
