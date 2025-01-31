@@ -79,38 +79,38 @@ class RequestController extends BaseController
 //     }
 
 
-    public function inventlogs()
-    {
-        if (!session()->get('is_logged_in')) {
-            return redirect()->to('/login');
-        }
+    // public function inventlogs()
+    // {
+    //     if (!session()->get('is_logged_in')) {
+    //         return redirect()->to('/login');
+    //     }
     
-        $role = session()->get('role');
+    //     $role = session()->get('role');
     
-        if ($role === 'Admin') {
-            // Fetch products where status = 0 (inactive products)
+    //     if ($role === 'Admin') {
+    //         // Fetch products where status = 0 (inactive products)
           
-      $InventoryLogModel = new \App\Models\InventoryLogModel();
+    //   $InventoryLogModel = new \App\Models\InventoryLogModel();
     
-            // Fetch all inventory logs
-            $data['inventory_log'] = $InventoryLogModel->findAll();
+    //         // Fetch all inventory logs
+    //         $data['inventory_log'] = $InventoryLogModel->findAll();
     
     
             
-            return view('admin_dashboard', $data); // Redirect to admin dashboard for Admin
-        } elseif ($role === 'Employee') {
-            // Load the InventoryLog model
+    //         return view('admin_dashboard', $data); // Redirect to admin dashboard for Admin
+    //     } elseif ($role === 'Employee') {
+    //         // Load the InventoryLog model
           
     
-      $data['products'] = $this->productModel->where('status', 0)->findAll();
+    //   $data['products'] = $this->productModel->where('status', 0)->findAll();
     
             
-            // Pass the data to the view
-            return view('inventory_log', $data);
-        }
+    //         // Pass the data to the view
+    //         return view('inventory_log', $data);
+    //     }
     
-        return redirect()->to('/login');
-    }
+    //     return redirect()->to('/login');
+    // }
     
 
 
