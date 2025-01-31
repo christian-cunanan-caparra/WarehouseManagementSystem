@@ -207,7 +207,9 @@
     .toggle-btn.move {
         left: 15px;
     }
-    
+    h1{
+    margin-left: 50px;
+    }
     </style>
 
 </head>
@@ -235,10 +237,8 @@
     <!-- Main Content -->
     <div class="content" id="main-content">
         <div class="dashboard-container">
-            <h1>Welcome, Admin <?= session()->get('user_name') ?>!</h1>
-            <p>You are logged in as an Admin.</p>
-
-            <h3>Requesting New Products</h3>
+           
+            <h1>Requesting New Products</h1>
 
             <table>
                 <thead>
