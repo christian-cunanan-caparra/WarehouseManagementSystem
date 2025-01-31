@@ -99,15 +99,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($inventory_logs as $log): ?>
-                        <tr>
-                            <td><?= esc($log['product_id']) ?></td>
-                            <td><?= esc($log['action']) ?></td>
-                            <td><?= esc($log['quantity']) ?></td>
-                            <td><?= esc($log['created_at']) ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
+    <?php foreach ($inventory_log as $log): ?>  <!-- Corrected variable name here -->
+        <tr>
+            <td><?= esc($log['product_id']) ?></td>
+            <td><?= esc($log['action']) ?></td>
+            <td><?= esc($log['quantity']) ?></td>
+            <td><?= esc($log['created_at']) ?></td>
+        </tr>
+    <?php endforeach; ?>
+</tbody>
+
             </table>
 
             <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
