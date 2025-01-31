@@ -218,13 +218,13 @@
 
     <!-- Toggle Button -->
     <button class="toggle-btn" id="toggle-btn">&#9776;</button>
-
+    
     <!-- Main Content -->
+
+  
     <div class="content" id="main-content">
-        <div class="dashboard-container">
-            <h1>Welcome, Admin <?= session()->get('user_name') ?>!</h1>
-            <h2 class="text-center">Dashboard</h2>
-        <BR>
+        <h2 class="text-center">Dashboard</h2>
+<BR>
         <!-- Analytics Cards -->
         <div class="row mb-4">
             <!-- Total Stock In -->
@@ -289,6 +289,7 @@
         </div>
 
         <!-- Product Table -->
+      
         <div class="table-container">
             <div class="table-responsive mt-4">
                 <table class="table table-striped">
@@ -319,12 +320,7 @@
                 </table>
             </div>
         </div>
-
-       
-
-        <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </div>
-</div>
 
 <script>
     // Mini Bar Chart
