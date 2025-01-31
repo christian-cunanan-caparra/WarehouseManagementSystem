@@ -216,7 +216,7 @@
 </head>
 <body>
     <!-- Sidebar -->
-    < class="sidebar" id="sidebar">
+    <div class="sidebar" id="sidebar">
         <button class="close-btn" id="close-btn">&times;</button>
         <div class="sidebar-header">Warehouse Management</div>
         <div class="sidebar-links-container">
