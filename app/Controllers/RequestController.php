@@ -49,4 +49,36 @@ class RequestController extends BaseController
         // Redirect to login page if not logged in
         return redirect()->to('/login');
     }
+
+
+    public function inventlogs()
+    {   
+        if (!session()->get('is_logged_in')) {
+            return redirect()->to('/login');
+        }
+
+        $role = session()->get('role');
+
+        if ($role === 'Admin') {
+ $InventoryLogModel = new \App\Models\InventoryLogModel();
+
+            // Fetch all inventory logs
+            $data['inventory_log'] = $InventoryLogModel->findAll();
+
+            // Pass the data to the view
+            return view('inventory_log', $data);
+
+
+           
+        } elseif ($role === 'Employee') {
+            // Load the InventoryLogs model
+           
+        }
+
+        return redirect()->to('/login');
+    }
+
+
+
+
 }
