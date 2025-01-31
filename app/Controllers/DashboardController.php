@@ -74,7 +74,7 @@ public function index()
 
     if ($role === 'Admin') {
         // Fetch products where status = 0 (inactive products)
-        $data['products'] = $this->productModel->where('status', 0)->findAll();
+        $data['products'] = $this->productModel->where('status', 1)->findAll();
 
         $data['totalProducts'] = count($data['products']);
         $data['totalStockIn'] = array_sum(array_column($data['products'], 'stock_in'));
