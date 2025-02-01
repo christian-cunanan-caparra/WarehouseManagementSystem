@@ -34,7 +34,10 @@ $routes->post('/register/save', 'RegisterController::save');
 
 // Dashboard routes (redirect based on role)
 $routes->get('/dashboard', 'DashboardController::index');
+
 $routes->get('/admin/dashboard', 'DashboardController::index');
+$routes->get('/L2FkbWluX2Rhc2hib2FyZA', 'DashboardController::index');
+
 $routes->get('/product', 'DashboardController::index1');
 $routes->get('/inventory_logs', 'DashboardController::index2');
 $routes->get('/employee/dashboard', 'DashboardController::index');
@@ -104,7 +107,9 @@ $routes->get('/reset-password', 'PasswordResetController::resetPassword');
 $routes->post('/process-reset-password', 'PasswordResetController::processResetPassword');
 
 
+$routes->get('/account-management', 'DashboardController::accountManagement');
 $routes->get('/YWNjb3VudC1tYW5hZ2VtZW50', 'DashboardController::accountManagement');
+
 $routes->get('/create-account', 'DashboardController::createAccount');
 $routes->post('/store-account', 'DashboardController::storeAccount');
 $routes->get('/edit-account/(:num)', 'DashboardController::editAccount/$1');
@@ -112,7 +117,11 @@ $routes->post('/update-account/(:num)', 'DashboardController::updateAccount/$1')
 $routes->get('/delete-account/(:num)', 'DashboardController::deleteAccount/$1');
 
 
+$routes->get('/archive-accounts', 'DashboardController::archiveAccounts');  // To view the archive (inactive) accounts
 $routes->get('/YXJjaGl2ZS1hY2NvdW50cw', 'DashboardController::archiveAccounts');  // To view the archive (inactive) accounts
+
+
+
 $routes->get('/restore-account/(:num)', 'DashboardController::restoreAccount/$1');  // To restore a specific account
 
 
