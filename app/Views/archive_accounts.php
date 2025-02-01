@@ -255,7 +255,11 @@
                                 <td><?= esc($user['email']) ?></td>
                                 <td><?= esc($user['role']) ?></td>
                                 <td>
-                                    <a href="/restore-account/<?= $user['id'] ?>" class="btn btn-success btn-sm">Accept</a>
+                                <button type="submit" class="btn btn-activate btn-sm"> <a href="/restore-account/<?= $user['id'] ?>" class="btn btn-success btn-sm">Accept</a></button>
+
+
+
+                                    
                                 </td>
                             </tr>
                         <?php endforeach; ?>
