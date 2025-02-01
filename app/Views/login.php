@@ -3,45 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <link rel="icon" type="image/x-icon" href="<?= base_url('favicon.ico'); ?>">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Warehouse Management System</title>
-    <!-- Include Bootstrap for Modal Styling -->
-
-
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for icon -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
         body {
-            background-color: #f0f8ff;
-            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #667eea, #764ba2); /* Modern gradient background */
+            font-family: 'Poppins', sans-serif; /* Modern font */
             height: 100vh;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden; /* Prevents scrollbars on background */
         }
 
         .container {
-            background-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
             padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* More pronounced shadow */
             width: 100%;
             max-width: 400px;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .container:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(5px); /* Subtle blur effect */
         }
 
         h1 {
             text-align: center;
-            color: #007bff;
+            color: #4a4a4a; /* Darker heading color */
+            margin-bottom: 30px;
         }
 
         .form-group {
@@ -50,98 +45,96 @@
 
         .form-control {
             border-radius: 10px;
-            padding: 10px;
+            padding: 12px; /* Slightly larger padding */
             font-size: 16px;
             box-shadow: none;
-            border: 1px solid #007bff;
+            border: 1px solid #ced4da; /* Lighter border color */
+            transition: border-color 0.3s ease; /* Smooth border transition */
         }
 
         .form-control:focus {
-            border-color: #0056b3;
-            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+            border-color: #764ba2; /* Highlight border on focus */
+            box-shadow: 0 0 0 0.2rem rgba(118, 75, 162, 0.25); /* Subtle shadow on focus */
         }
 
         .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
+            background: linear-gradient(to right, #667eea, #764ba2); /* Gradient button */
+            border: none;
             padding: 12px;
             width: 100%;
             border-radius: 10px;
             font-size: 16px;
+            font-weight: 500; /* Slightly bolder font */
+            transition: background 0.3s ease; /* Smooth background transition */
         }
 
         .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #004085;
+            background: linear-gradient(to right, #5a6acf, #623f81); /* Darker gradient on hover */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow on hover */
         }
 
         .icon {
-            font-size: 50px;
-            color: #007bff;
+            font-size: 60px; /* Larger icon */
+            color: #764ba2; /* Accent color */
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         ::placeholder {
-            color: #6c757d;
+            color: #adb5bd; /* Lighter placeholder color */
             opacity: 1;
         }
 
-        .signup-link {
+        .signup-link, .forgot-password {
             text-align: center;
             margin-top: 15px;
+            color: #6c757d; /* Slightly darker link color */
         }
 
-        .signup-link a {
-            color: #007bff;
+        .signup-link a, .forgot-password a {
+            color: #764ba2; /* Accent color for links */
             text-decoration: none;
+            font-weight: 500;
         }
 
-        .signup-link a:hover {
-            text-decoration: none;
+        .signup-link a:hover, .forgot-password a:hover {
+            text-decoration: underline;
         }
 
         .alert {
             font-size: 14px;
             padding: 15px;
+            border-radius: 10px; /* Rounded alert box */
         }
 
-        .forgot-password {
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            text-align: center;
-            padding-top: 10px;
-        }
-
-        /* Show Password Checkbox */
         .show-password {
             display: flex;
             align-items: center;
-            margin-top: -10px;
+            margin-top: 10px; /* Adjusted margin */
             font-size: 14px;
-            padding-top: 20px;
+            color: #6c757d;
         }
 
         .show-password input {
             margin-right: 8px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1><i class="fas fa-warehouse"></i> Warehouse Management System</h1>
+        <div class="icon">
+            <i class="fas fa-warehouse"></i>
+        </div>
+        <h1>Warehouse Management System</h1>
 
-        <!-- Display Flash Error -->
         <?php if (session()->getFlashdata('error')): ?>
             <div class="alert alert-danger">
                 <?= session()->getFlashdata('error') ?>
             </div>
         <?php endif; ?>
 
-        <!-- Display Validation Errors -->
         <?php if (isset($errors) && !empty($errors)): ?>
             <div class="alert alert-danger">
                 <ul>
@@ -152,49 +145,46 @@
             </div>
         <?php endif; ?>
 
-        <!-- Login Form -->
         <form action="/login/authenticate" method="post">
             <?= csrf_field() ?>
 
             <div class="form-group">
-                <label for="email">Email:</label>
+                <label for="email" class="form-label">Email:</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" value="<?= old('email') ?>" required>
             </div>
 
             <div class="form-group">
-                <label for="password">Password:</label>
+                <label for="password" class="form-label">Password:</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
-                <!-- Show Password Toggle -->
                 <div class="show-password">
                     <input type="checkbox" id="togglePassword"> Show Password
                 </div>
             </div>
 
             <button type="submit" class="btn btn-primary">Login</button>
-            <a href="/request-reset" class="text-primary forgot-password">Forgot Password?</a>
+            <div class="forgot-password">
+            <a href="/request-reset">Forgot Password?</a>
+            </div>
         </form>
 
-        <!-- Link to register page -->
         <div class="signup-link">
-            <p>Don't have an account yet? <a href="/register" class="sign-up">Sign up here</a></p>
+            <p>Don't have an account yet? <a href="/register">Sign up here</a></p>
         </div>
     </div>
 
-    <!-- Include Bootstrap JS (For Modal) -->
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     
     <script>
-        // Password validation on form submission
         document.querySelector('form').addEventListener('submit', function(event) {
             var password = document.getElementById('password').value;
             if (password.length < 8) {
-                event.preventDefault();  // Prevent form submission
+                event.preventDefault();
                 alert('Password must be at least 8 characters long.');
             }
         });
 
-        // Show/Hide Password Toggle
         document.getElementById('togglePassword').addEventListener('change', function() {
             var passwordField = document.getElementById('password');
             if (this.checked) {
