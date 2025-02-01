@@ -212,7 +212,7 @@
 
     </style>
 </head>
-</head>
+
 <body>
 
     <!-- Sidebar -->
@@ -422,25 +422,29 @@
         });
     </script>
 
-   <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    <script>
+        // Sidebar Toggle Functionality
         const sidebar = document.getElementById("sidebar");
-        const content = document.getElementById("main-content");
         const toggleBtn = document.getElementById("toggle-btn");
+        const content = document.getElementById("main-content");
 
-        toggleBtn.addEventListener("click", function () {
-            sidebar.classList.toggle("hidden");
-            content.classList.toggle("full-width");
-            toggleBtn.classList.toggle("move");
+        let isSidebarOpen = true;
 
-            if (sidebar.classList.contains("hidden")) {
-                toggleBtn.innerHTML = "&#9776;"; // Hamburger icon
+        toggleBtn.addEventListener("click", () => {
+            isSidebarOpen = !isSidebarOpen;
+
+            if (isSidebarOpen) {
+                sidebar.classList.remove("hidden");
+                content.classList.remove("full-width");
+                toggleBtn.classList.remove("move");
+                toggleBtn.style.left = "260px";
             } else {
-                toggleBtn.innerHTML = "&#10006;"; // Close icon
+                sidebar.classList.add("hidden");
+                content.classList.add("full-width");
+                toggleBtn.classList.add("move");
+                toggleBtn.style.left = "15px";
             }
         });
-    });
-</script>
-
+    </script>
 </body>
 </html>
