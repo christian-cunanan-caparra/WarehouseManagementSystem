@@ -212,17 +212,18 @@
 <body>
 
     <!-- Sidebar -->
+   
     <aside class="sidebar" id="sidebar">
-
         <div class="sidebar-header">Warehouse Management</div>
         <div class="sidebar-links-container">
-        <ul class="sidebar-links">
-            <li><a href="/admin_dashboard"><span class="material-icons">dashboard</span> Dashboard</a></li>
-            <li><a href="/account-management"><span class="material-icons">inventory</span> Account Management</a></li>
-            <li><a href="/archive-accounts"><span class="material-icons">archive</span> Account Archive</a></li>
-            <li><a href="/request-product"><span class="material-icons">add_box</span> Request Product</a></li>
-            
-        </ul>
+            <ul class="sidebar-links">
+            <li><a href="/L2FkbWluX2Rhc2hib2FyZA"><span class="material-icons">dashboard</span> Dashboard</a></li>
+            <li><a href="/YWNjb3VudC1tYW5hZ2VtZW50"><span class="material-icons">inventory</span> Account Management </a></li>
+            <li><a href="/YXJjaGl2ZS1hY2NvdW50cw"><span class="material-icons">storage</span> Account Archive</a></li>
+            <li><a href="/cmVxdWVzdC1wcm9kdWN0"><span class="material-icons">add_box</span> Request Product</a></li>
+
+                  <!-- <li><a href="/inventory-log"><span class="material-icons">list</span> Inventory Logs</a></li> -->
+            </ul>
         </div>
         <div class="logout-container">
             <a href="/logout" class="logout-button"><span class="material-icons">logout</span> Log out</a>
