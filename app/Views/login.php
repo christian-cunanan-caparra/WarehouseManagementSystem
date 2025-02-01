@@ -12,7 +12,7 @@
     
     <style>
         body {
-            background: linear-gradient(135deg, #f0f8ff, #dff6ff);
+            background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
             font-family: 'Arial', sans-serif;
             height: 100vh;
             margin: 0;
@@ -22,14 +22,14 @@
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(15px);
-            border-radius: 15px;
-            padding: 40px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-radius: 12px;
+            padding: 35px;
             max-width: 400px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
             animation: fadeIn 0.8s ease-in-out;
         }
 
@@ -45,15 +45,15 @@
         }
 
         .icon {
-            font-size: 55px;
-            color: #4a90e2;
+            font-size: 50px;
+            color: #1E88E5;
             margin-bottom: 15px;
             animation: bounce 2s infinite;
         }
 
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            50% { transform: translateY(-6px); }
         }
 
         .form-group {
@@ -65,7 +65,7 @@
             border-radius: 8px;
             padding: 12px;
             font-size: 16px;
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.9);
             border: 1px solid rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
         }
@@ -75,12 +75,12 @@
         }
 
         .form-control:focus {
-            box-shadow: 0 0 8px rgba(74, 144, 226, 0.5);
-            border-color: #4a90e2;
+            box-shadow: 0 0 8px rgba(30, 136, 229, 0.4);
+            border-color: #1E88E5;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #4a90e2, #56ccf2);
+            background: linear-gradient(135deg, #42A5F5, #1E88E5);
             border: none;
             padding: 12px;
             width: 100%;
@@ -92,7 +92,7 @@
 
         .btn-primary:hover {
             transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+            box-shadow: 0 4px 12px rgba(66, 165, 245, 0.4);
         }
 
         .show-password {
@@ -113,7 +113,7 @@
         }
 
         .forgot-password a, .signup-link a {
-            color: #4a90e2;
+            color: #1E88E5;
             text-decoration: none;
             font-weight: bold;
         }
