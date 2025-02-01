@@ -223,7 +223,7 @@
                     <?= session()->get('success') ?>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="window.location.href='/login'">Go to Login</button>
+                    
                 </div>
             </div>
         </div>
@@ -236,7 +236,7 @@
 
             setTimeout(function() {
                 window.location.href = '/login'; // Redirect after 4 seconds
-            }, 4000);
+            }, 2000);
         });
     </script>
     <?php endif; ?>
