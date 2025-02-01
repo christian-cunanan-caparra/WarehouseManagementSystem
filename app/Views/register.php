@@ -22,11 +22,11 @@
 
         .container {
             background: rgba(255, 255, 255, 0.9); /* Light white background for contrast */
-            padding: 40px;
+            padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 600px;
+            max-width: 500px;
             transition: all 0.3s ease-in-out;
             animation: fadeIn 1s ease-in-out;
         }
@@ -43,27 +43,27 @@
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .form-control {
             border-radius: 5px;
-            padding: 12px 18px;
-            font-size: 16px;
+            padding: 10px 15px;
+            font-size: 14px;
         }
 
         .btn-primary {
             background-color: #007bff;
             border-color: #007bff;
-            padding: 14px;
+            padding: 12px;
             width: 100%;
             border-radius: 15px;
-            font-size: 18px;
+            font-size: 16px;
         }
 
         .signup-link {
             text-align: center;
-            margin-top: 25px;
+            margin-top: 20px;
         }
 
         .signup-link a {
@@ -79,8 +79,8 @@
         h1 {
             text-align: center;
             color: #007bff;
-            font-size: 32px;
-            margin-bottom: 30px;
+            font-size: 28px;
+            margin-bottom: 25px;
         }
 
         /* Modal styling */
@@ -154,18 +154,18 @@
             }
 
             h1 {
-                font-size: 28px;
+                font-size: 26px;
                 margin-bottom: 20px;
             }
 
             .form-control {
-                font-size: 14px;
-                padding: 10px 15px;
+                font-size: 13px;
+                padding: 8px 12px;
             }
 
             .btn-primary {
-                font-size: 16px;
-                padding: 12px;
+                font-size: 15px;
+                padding: 10px;
             }
         }
 
@@ -176,22 +176,22 @@
             }
 
             h1 {
-                font-size: 24px;
+                font-size: 22px;
                 margin-bottom: 15px;
             }
 
             .form-control {
-                font-size: 14px;
-                padding: 8px 12px;
+                font-size: 12px;
+                padding: 8px 10px;
             }
 
             .btn-primary {
                 font-size: 14px;
-                padding: 10px;
+                padding: 8px;
             }
 
             .signup-link {
-                font-size: 14px;
+                font-size: 13px;
             }
         }
     </style>
