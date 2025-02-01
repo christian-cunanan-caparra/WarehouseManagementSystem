@@ -229,7 +229,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="mobile_number">Mobile Number</label>
-                        <input type="text" class="form-control" id="mobile_number" name="mobile_number" value="<?= old('mobile_number') ?>" placeholder="Enter your mobile number" required>
+                        <input type="number" class="form-control" id="mobile_number" name="mobile_number" value="<?= old('mobile_number') ?>" placeholder="Enter your mobile number" required>
                     </div>
                 </div>
             </div>
