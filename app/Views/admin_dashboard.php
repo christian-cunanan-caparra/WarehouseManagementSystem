@@ -13,8 +13,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
-
    
    
    
@@ -93,8 +91,8 @@
         }
 
         .sidebar-links li a:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-             transition: background 0.2s ease-in-out;
+            background-color: #495057;
+            border-radius: 5px;
         }
 
         /* Toggle Button */
@@ -162,9 +160,7 @@
         /* Responsive Design */
         @media screen and (max-width: 768px) {
             .sidebar {
-                position: absolute;
-        z-index: 1000;
-        transform: translateX(-100%);
+                transform: translateX(-250px);
             }
 
             .content {
@@ -173,12 +169,11 @@
 
             .toggle-btn {
                 left: 15px;
-        z-index: 1100;
             }
         }
 
         .sidebar.hidden {
-            transform: translateX(0);
+            transform: translateX(-250px);
         }
 
         .content.full-width {
@@ -217,7 +212,7 @@
 
     </style>
 </head>
-
+</head>
 <body>
 
     <!-- Sidebar -->
@@ -428,47 +423,28 @@
     </script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-    const sidebar = document.getElementById("sidebar");
-    const toggleBtn = document.getElementById("toggle-btn");
-    const mainContent = document.getElementById("main-content");
+        // Sidebar Toggle Functionality
+        const sidebar = document.getElementById("sidebar");
+        const toggleBtn = document.getElementById("toggle-btn");
+        const content = document.getElementById("main-content");
 
-    toggleBtn.addEventListener("click", function () {
-        sidebar.classList.toggle("hidden");
-        mainContent.classList.toggle("full-width");
-        toggleBtn.classList.toggle("move");
-    });
-});
+        let isSidebarOpen = true;
 
+        toggleBtn.addEventListener("click", () => {
+            isSidebarOpen = !isSidebarOpen;
+
+            if (isSidebarOpen) {
+                sidebar.classList.remove("hidden");
+                content.classList.remove("full-width");
+                toggleBtn.classList.remove("move");
+                toggleBtn.style.left = "260px";
+            } else {
+                sidebar.classList.add("hidden");
+                content.classList.add("full-width");
+                toggleBtn.classList.add("move");
+                toggleBtn.style.left = "15px";
+            }
+        });
     </script>
-    <!-- Low Stock Modal -->
-<div class="modal fade" id="lowStockModal" tabindex="-1" aria-labelledby="lowStockModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="lowStockModalLabel">Low Stock Alerts</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <ul>
-                    <?php foreach ($lowStockProducts as $product): ?>
-                        <li><?= esc($product['name']) ?> - <?= esc($product['remaining_stock']) ?> left</li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-    document.getElementById("toggle-btn").addEventListener("click", function() {
-        let sidebar = document.getElementById("sidebar");
-        let content = document.getElementById("main-content");
-        sidebar.classList.toggle("hidden");
-        content.classList.toggle("full-width");
-        this.classList.toggle("move");
-    });
-</script>
-
-
 </body>
 </html>
