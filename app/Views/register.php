@@ -307,34 +307,8 @@
         </div>
     </div>
 
-    <!-- Modal for success -->
+
    
-    <!-- <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="successModalLabel">Registration Processing</h5>
-                </div>
-                <div class="modal-body">
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
-                    <p class="loading-text">Please wait while we redirect you to the login page.</p>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var myModal = new bootstrap.Modal(document.getElementById('successModal'));
-            myModal.show();
-
-            setTimeout(function() {
-                window.location.href = '/login'; // Redirect after 4 seconds
-            }, 4000);
-        });
-    </script>
     <
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
