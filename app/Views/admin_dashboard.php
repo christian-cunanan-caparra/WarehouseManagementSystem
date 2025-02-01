@@ -227,7 +227,7 @@
             <ul class="sidebar-links">
             <li><a href="/admin_dashboard"><span class="material-icons">dashboard</span> Dashboard</a></li>
             <li><a href="/account-management"><span class="material-icons">inventory</span> Account Management </a></li>
-            <li><a href="/archive-accounts"><span class="material-icons">storage</span> Account Archive</a></li>
+            <li><a href="/YXJjaGl2ZS1hY2NvdW50cw"><span class="material-icons">storage</span> Account Archive</a></li>
             <li><a href="/request-product"><span class="material-icons">add_box</span> Request Product</a></li>
 
                   <!-- <li><a href="/inventory-log"><span class="material-icons">list</span> Inventory Logs</a></li> -->
