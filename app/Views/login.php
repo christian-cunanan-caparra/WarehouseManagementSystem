@@ -70,7 +70,7 @@
 
         .form-control:focus {
             border: #0056b3;
-            box-shadow: 0 0 8px rgba(38, 143, 255, 0.5);
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
         }
 
         .btn-primary {
