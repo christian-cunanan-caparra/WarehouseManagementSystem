@@ -13,7 +13,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f0f8ff; /* Light blue background */
+            background-color: #f0f8ff;
             font-family: 'Arial', sans-serif;
             height: 100vh;
             margin: 0;
@@ -32,7 +32,6 @@
             transition: all 0.3s ease-in-out;
         }
 
-        /* Hover effect for the container */
         .container:hover {
             transform: scale(1.05);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
@@ -40,7 +39,7 @@
 
         h1 {
             text-align: center;
-            color: #007bff; /* Blue color */
+            color: #007bff;
         }
 
         .form-group {
@@ -52,7 +51,7 @@
             padding: 10px;
             font-size: 16px;
             box-shadow: none;
-            border: 1px solid #007bff; /* Blue border */
+            border: 1px solid #007bff;
         }
 
         .form-control:focus {
@@ -61,7 +60,7 @@
         }
 
         .btn-primary {
-            background-color: #007bff; /* Blue button */
+            background-color: #007bff;
             border-color: #007bff;
             padding: 12px;
             width: 100%;
@@ -76,18 +75,16 @@
 
         .icon {
             font-size: 50px;
-            color: #007bff; /* Blue icon */
+            color: #007bff;
             text-align: center;
             margin-bottom: 20px;
         }
 
-        /* Placeholder styling */
         ::placeholder {
             color: #6c757d;
             opacity: 1;
         }
 
-        /* Style for the signup link */
         .signup-link {
             text-align: center;
             margin-top: 15px;
@@ -102,7 +99,6 @@
             text-decoration: none;
         }
 
-        /* Flash error styling */
         .alert {
             font-size: 14px;
             padding: 15px;
@@ -116,9 +112,19 @@
             text-align: center;
             padding-top: 10px;
         }
-      
 
-        
+        /* Show Password Checkbox */
+        .show-password {
+            display: flex;
+            align-items: center;
+            margin-top: -10px;
+            font-size: 14px;
+            padding-top: 20px;
+        }
+
+        .show-password input {
+            margin-right: 8px;
+        }
     </style>
 </head>
 <body>
@@ -156,15 +162,17 @@
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                <!-- Show Password Toggle -->
+                <div class="show-password">
+                    <input type="checkbox" id="togglePassword"> Show Password
+                </div>
             </div>
-            <div class="text-end">
-</div>
 
             <button type="submit" class="btn btn-primary">Login</button>
             <a href="/request-reset" class="text-primary forgot-password">Forgot Password?</a>
         </form>
 
-        <!-- Link to register page if the user doesn't have an account -->
+        <!-- Link to register page -->
         <div class="signup-link">
             <p>Don't have an account yet? <a href="/register" class="sign-up">Sign up here</a></p>
         </div>
@@ -173,15 +181,27 @@
     <!-- Include Bootstrap JS (For Modal) -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    
     <script>
-    document.querySelector('form').addEventListener('submit', function(event) {
-        var password = document.getElementById('password').value;
-        if (password.length < 8) {
-            event.preventDefault();  // Prevent form submission
-            alert('Password must be at least 8 characters long.');
-        }
-    });
-</script>
+        // Password validation on form submission
+        document.querySelector('form').addEventListener('submit', function(event) {
+            var password = document.getElementById('password').value;
+            if (password.length < 8) {
+                event.preventDefault();  // Prevent form submission
+                alert('Password must be at least 8 characters long.');
+            }
+        });
+
+        // Show/Hide Password Toggle
+        document.getElementById('togglePassword').addEventListener('change', function() {
+            var passwordField = document.getElementById('password');
+            if (this.checked) {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        });
+    </script>
 
 </body>
 </html>
