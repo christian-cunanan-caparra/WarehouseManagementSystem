@@ -14,16 +14,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        body {
-            background: linear-gradient(135deg, #74b9ff, #0984e3);
-            font-family: 'Poppins', sans-serif;
-            height: 100vh;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: background 0.5s ease;
-        }
+       body {
+    background: url('https://images.https://unsplash.com/photos/yellow-and-white-plastic-box-lot-sczNLg6rrhQ') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
         .container {
             background-color: #ffffff;
