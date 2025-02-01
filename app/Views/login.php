@@ -69,7 +69,8 @@
 
         .form-control:focus {
             border-bottom:rgb(0, 0, 0);
-            box-shadow: 0 0 8px rgba(38, 143, 255, 0.5);
+           
+            
         }
 
         .btn-primary {
