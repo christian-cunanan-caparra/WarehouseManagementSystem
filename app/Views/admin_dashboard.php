@@ -1,38 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+   <!-- Bootstrap 5 -->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
+   
+   
+   
+   <style>
+        /* General Styles */
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f4f6f8;
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
             margin: 0;
             padding: 0;
         }
 
+        /* Sidebar Styling */
         .sidebar {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             height: 100vh;
             width: 250px;
-            background-color: #304050;
+            background-color: #343a40;
             color: white;
             position: fixed;
             top: 0;
             left: 0;
             padding-top: 15px;
             transition: transform 0.3s ease-in-out;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
         }
 
         .sidebar-links-container {
@@ -52,11 +58,10 @@
             font-size: 16px;
             padding: 12px 15px;
             border-radius: 5px;
-            transition: background-color 0.3s ease;
         }
 
         .logout-button:hover {
-            background-color: #425464;
+            background-color: #495057;
         }
 
         .sidebar-header {
@@ -64,7 +69,7 @@
             text-align: center;
             padding: 15px;
             font-weight: bold;
-            border-bottom: 1px solid #425464;
+            border-bottom: 1px solid #495057;
         }
 
         .sidebar-links {
@@ -83,19 +88,19 @@
             align-items: center;
             gap: 10px;
             font-size: 16px;
-            transition: background-color 0.3s ease;
         }
 
         .sidebar-links li a:hover {
-            background-color: #425464;
+            background-color: #495057;
             border-radius: 5px;
         }
 
+        /* Toggle Button */
         .toggle-btn {
             position: fixed;
             left: 260px;
             top: 15px;
-            background-color: #304050;
+            background-color: #343a40;
             color: white;
             border: none;
             padding: 8px 12px;
@@ -103,13 +108,13 @@
             font-size: 20px;
             border-radius: 5px;
             transition: 0.3s;
-            z-index: 10; /* Ensure it's above the sidebar */
         }
 
         .toggle-btn:hover {
-            background-color: #425464;
+            background-color: #495057;
         }
 
+        /* Content Styling */
         .content {
             margin-left: 270px;
             padding: 20px;
@@ -119,83 +124,42 @@
         h2 {
             font-weight: bold;
             color: #343a40;
-            margin-top: 30px;
+            margin-top: 30px; /* Slight margin top for the dashboard */
         }
 
+        /* Dashboard Cards */
         .card {
-            border: none;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .card-title {
-            font-weight: 500;
-            color: #555;
-        }
-
-        .card-body h3 {
-            font-size: 2.5rem;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .chart-container {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
             margin-bottom: 20px;
         }
 
-        #miniBarChart,
-        #pieChart {
-            width: 100%;
-            height: 300px;
+        .card-title {
+            font-size: 16px;
         }
 
-        .table-container {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        .card-body {
             padding: 20px;
-            overflow-x: auto;
         }
 
-        .table-responsive {
-            max-height: 500px;
-            overflow-y: auto;
+        .card h3 {
+            font-size: 2rem;
         }
 
-        .table-striped tbody tr:nth-of-type(even) {
-            background-color: #f9f9f9;
+        /* Stock Trends Chart */
+        #stockTrendChart {
+            height: 400px;
         }
 
-        th,
-        td {
-            padding: 12px 15px;
-            text-align: left;
-        }
+        /* Mini Pie Chart */
+        #pieChart {
+    height: 250px;   /* Fixed height */
+    width: 250px;    /* Fixed width */
+    margin: 0 auto;
+    border-radius: 10px;
+}
 
-        th {
-            background-color: #f0f0f0;
-            font-weight: 600;
-        }
 
-        @media (max-width: 768px) {
-            .card-body h3 {
-                font-size: 2rem;
-            }
-
-            #miniBarChart,
-            #pieChart {
-                height: 250px;
-            }
-
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
             .sidebar {
                 transform: translateX(-250px);
             }
@@ -220,19 +184,53 @@
         .toggle-btn.move {
             left: 15px;
         }
+
+        /* Container for the Charts */
+        .chart-container {
+            margin-top: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+
+        .table-container {
+            margin-top: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+
+        .table-responsive {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        h1{
+            margin-left: 50px;
+        }
+
     </style>
 </head>
-
+</head>
 <body>
+
+    <!-- Sidebar -->
+   
+
+
 
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">Warehouse Management</div>
         <div class="sidebar-links-container">
             <ul class="sidebar-links">
-                <li><a href="/admin_dashboard"><span class="material-icons">dashboard</span> Dashboard</a></li>
-                <li><a href="/account-management"><span class="material-icons">inventory</span> Account Management </a></li>
-                <li><a href="/archive-accounts"><span class="material-icons">storage</span> Account Archive</a></li>
-                <li><a href="/request-product"><span class="material-icons">add_box</span> Request Product</a></li>
+            <li><a href="/admin_dashboard"><span class="material-icons">dashboard</span> Dashboard</a></li>
+            <li><a href="/account-management"><span class="material-icons">inventory</span> Account Management </a></li>
+            <li><a href="/archive-accounts"><span class="material-icons">storage</span> Account Archive</a></li>
+            <li><a href="/request-product"><span class="material-icons">add_box</span> Request Product</a></li>
+
+                  <!-- <li><a href="/inventory-log"><span class="material-icons">list</span> Inventory Logs</a></li> -->
             </ul>
         </div>
         <div class="logout-container">
@@ -240,36 +238,83 @@
         </div>
     </aside>
 
+    <!-- Toggle Button -->
     <button class="toggle-btn" id="toggle-btn">&#9776;</button>
+    
+    <!-- Main Content -->
 
+  
     <div class="content" id="main-content">
-        <h1>Welcome, Admin <?= session()->get('user_name') ?>
-          <div class="row mb-4">
+    <h1>Welcome, Admin <?= session()->get('user_name') ?>!</h1>
+
+
+
+<BR>
+        <!-- Analytics Cards -->
+        <div class="row mb-4">
+            <!-- Total Stock In -->
             <div class="col-md-4">
                 <div class="card shadow-sm border-0 bg-info text-white">
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <div>
                             <h5 class="card-title">Total Stock In</h5>
-                            <h3 class="card-text" id="totalStockIn"><?= $totalStockIn ?></h3>
+                            <h3 class="card-text" id="totalStockIn">
+                                <?= $totalStockIn ?>
+                            </h3>
                         </div>
                         <span class="material-icons">arrow_upward</span>
                     </div>
                 </div>
             </div>
+
+            <!-- Total Stock Out -->
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 bg-danger text-white">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Total Stock Out</h5>
+                            <h3 class="card-text" id="totalStockOut">
+                                <?= $totalStockOut ?>
+                            </h3>
+                        </div>
+                        <span class="material-icons">arrow_upward</span>
+                    </div>
+                </div>
             </div>
 
+            <!-- Low Stock Alerts -->
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 bg-warning text-white" data-bs-toggle="modal" data-bs-target="#lowStockModal">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Low Stock Alerts</h5>
+                            <h3 class="card-text" id="lowStockCount">
+                                <?= count($lowStockProducts) ?>
+                            </h3>
+                        </div>
+                        <span class="material-icons">warning</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <!-- Charts Section -->
         <div class="chart-container">
             <div class="row mt-4">
+                <!-- Mini Bar Chart -->
                 <div class="col-md-6">
                     <canvas id="miniBarChart"></canvas>
                 </div>
+
+                <!-- Pie Chart -->
                 <div class="col-md-6">
                     <canvas id="pieChart"></canvas>
                 </div>
             </div>
         </div>
 
+        <!-- Product Table -->
+      
         <div class="table-container">
             <div class="table-responsive mt-4">
                 <table class="table table-striped">
@@ -300,26 +345,9 @@
                 </table>
             </div>
         </div>
-
     </div>
 
     <script>
-        // Sidebar Toggle
-        const sidebar = document.getElementById("sidebar");
-        const toggleBtn = document.getElementById("toggle-btn");
-        const content = document.getElementById("main-content");
-
-        let isSidebarOpen = true;
-
-        toggleBtn.addEventListener("click", () => {
-            isSidebarOpen = !isSidebarOpen;
-            sidebar.classList.toggle("hidden");
-            content.classList.toggle("full-width");
-            toggleBtn.classList.toggle("move");
-            toggleBtn.style.left = isSidebarOpen ? "260px" : "15px";
-        });
-
-
         // Mini Bar Chart
         const miniBarCtx = document.getElementById('miniBarChart').getContext('2d');
         const miniBarChart = new Chart(miniBarCtx, {
@@ -328,7 +356,7 @@
                 labels: ['Stock In', 'Stock Out', 'Products', 'Catche'],
                 datasets: [{
                     label: 'Stock Usage',
-                    data: [<?= $totalStockIn ?>, <?= $totalStockOut ?>, 30000, 20000],
+                    data: [ <?= $totalStockIn ?>, <?= $totalStockOut ?>, 30000, 20000 ],
                     backgroundColor: ['rgba(23, 162, 184, 0.8)', 'rgba(220, 53, 69, 0.8)', 'rgba(40, 167, 69, 0.8)', 'rgba(102, 16, 242, 0.8)'],
                     borderRadius: 8,
                     borderWidth: 1,
@@ -345,84 +373,81 @@
                 plugins: {
                     legend: {
                         display: false
-                    },
-                    tooltip: { // Advanced Tooltip Example
-                        callbacks: {
-                            label: function(context) {
-                                return context.dataset.label + ': ' + context.formattedValue;
-                            }
-                        },
-                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                        titleColor: '#fff',
-                        bodyColor: '#fff',
-                        cornerRadius: 4,
                     }
                 },
                 scales: {
                     x: {
-                        ticks: {
-                            color: '#343a40',
-                            font: {
-                                size: 12
-                            }
-                        },
-                        grid: {
-                            display: false
-                        }
+                        ticks: { color: '#343a40', font: { size: 12 } },
+                        grid: { display: false }
                     },
                     y: {
                         beginAtZero: true,
-                        ticks: {
-                            color: '#343a40',
-                            font: {
-                                size: 12
-                            },
-                            callback: function(value) { // Number formatting
-                                return value.toLocaleString();
-                            }
-                        },
-                        grid: {
-                            color: 'rgba(0, 0, 0, 0.1)'
-                        }
+                        ticks: { color: '#343a40', font: { size: 12 } },
+                        grid: { color: 'rgba(0, 0, 0, 0.1)' }
                     }
                 }
             }
         });
 
         // Pie Chart
-        const pieCtx = document.getElementById('pieChart').getContext('2d');
-        const pieChart = new Chart(pieCtx, {
-            type: 'pie',
-            data: {
-                labels: ['Total Stock In', 'Total Stock Out', 'Low Stock'],
-                datasets: [{
-                    label: 'Stock Distribution',
-                    data: [<?= $totalStockIn ?>, <?= $totalStockOut ?>, <?= count($lowStockProducts) ?>],
-                    backgroundColor: ['#17a2b8', '#dc3545', '#ffc107'],
-                    borderColor: ['#ffffff', '#ffffff', '#ffffff'],
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: false,
-                animation: {
-                    animateScale: true,
-                    animateRotate: true
-                },
-                plugins: {
-                    legend: {
-                        position: 'top',
-                        labels: {
-                            fontSize: 12,
-                            fontColor: '#343a40',
-                            boxWidth: 10
-                        }
-                    }
+      // Pie Chart
+const ctx = document.getElementById('pieChart').getContext('2d');
+const pieChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['Total Stock In', 'Total Stock Out', 'Low Stock'],
+        datasets: [{
+            label: 'Stock Distribution',
+            data: [<?= $totalStockIn ?>, <?= $totalStockOut ?>, <?= count($lowStockProducts) ?>],
+            backgroundColor: ['#17a2b8', '#dc3545', '#ffc107'],
+            borderColor: ['#ffffff', '#ffffff', '#ffffff'],
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: false,  // Disable resizing
+        animation: {
+            animateScale: true,
+            animateRotate: true
+        },
+        plugins: {
+            legend: {
+                position: 'top',
+                labels: {
+                    fontSize: 12,
+                    fontColor: '#343a40',
+                    boxWidth: 10
                 }
+            }
+        }
+    }
+});
+
+    </script>
+
+    <script>
+        // Sidebar Toggle Functionality
+        const sidebar = document.getElementById("sidebar");
+        const toggleBtn = document.getElementById("toggle-btn");
+        const content = document.getElementById("main-content");
+
+        let isSidebarOpen = true;
+
+        toggleBtn.addEventListener("click", () => {
+            isSidebarOpen = !isSidebarOpen;
+
+            if (isSidebarOpen) {
+                sidebar.classList.remove("hidden");
+                content.classList.remove("full-width");
+                toggleBtn.classList.remove("move");
+                toggleBtn.style.left = "260px";
+            } else {
+                sidebar.classList.add("hidden");
+                content.classList.add("full-width");
+                toggleBtn.classList.add("move");
+                toggleBtn.style.left = "15px";
             }
         });
     </script>
-
 </body>
-
 </html>
