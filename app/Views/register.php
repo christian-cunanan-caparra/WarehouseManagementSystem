@@ -17,7 +17,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            animation: backgroundMove 5s linear infinite;
+            animation: backgroundMove 15s ease infinite;
             overflow: hidden;
         }
 
@@ -25,8 +25,11 @@
             0% {
                 background-position: 0 0;
             }
-            100% {
+            50% {
                 background-position: 400px 400px;
+            }
+            100% {
+                background-position: 0 0;
             }
         }
 
