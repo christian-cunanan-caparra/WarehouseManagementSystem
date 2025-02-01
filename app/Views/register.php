@@ -100,6 +100,14 @@
         .signup-link a:hover {
             text-decoration: underline;
         }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+
     </style>
 </head>
 <body>
