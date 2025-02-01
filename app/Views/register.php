@@ -9,7 +9,7 @@
     <!-- Font Awesome for icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-         body {
+        body {
             background: linear-gradient(135deg, #6a11cb, #2575fc);
             font-family: 'Arial', sans-serif;
             height: 100vh;
@@ -20,8 +20,7 @@
             animation: backgroundMove 5s linear infinite;
         }
 
-
-         @keyframes backgroundMove {
+        @keyframes backgroundMove {
             0% {
                 background-position: 0 0;
             }
@@ -30,18 +29,16 @@
             }
         }
 
-
         .container {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8));
             padding: 40px;
             border-radius: 10px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 380px;
+            max-width: 500px;
             transition: all 0.3s ease-in-out;
             animation: fadeIn 1s ease-in-out;
         }
-
 
         @keyframes fadeIn {
             from {
@@ -53,6 +50,7 @@
                 transform: translateY(0);
             }
         }
+
         .container:hover {
             transform: scale(1.05);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
@@ -66,7 +64,7 @@
         }
 
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .form-control {
@@ -93,30 +91,10 @@
             transition: background-color 0.3s, box-shadow 0.3s;
         }
 
-
         .btn-primary:hover {
             background-color: #0056b3;
             border-color: #004085;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .icon {
-            font-size: 55px;
-            color: #007bff;
-            text-align: center;
-            margin-bottom: 20px;
-            animation: bounce 1s infinite alternate;
-        }
-
-        @keyframes bounce {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-8px); }
-        }
-
-
-        .btn-primary:active {
-            transform: translateY(0);
-            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
         }
 
         .alert {
@@ -140,13 +118,18 @@
             text-decoration: underline;
         }
 
-        .icon {
-            font-size: 50px;
-            color: #007bff;
-            text-align: center;
-            margin-bottom: 20px;
+        .show-password {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            font-size: 14px;
         }
 
+        .show-password input {
+            margin-right: 10px;
+        }
+
+        /* Responsive fixes */
         @media (max-width: 768px) {
             h1 {
                 font-size: 24px;
@@ -178,64 +161,6 @@
                 font-size: 12px;
             }
         }
-        ::placeholder {
-            color: #6c757d;
-            opacity: 1;
-        }
-
-        .signup-link {
-            text-align: center;
-            margin-top: 25px;
-        }
-
-        .signup-link a {
-            color: #007bff;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .signup-link a:hover {
-            text-decoration: underline;
-        }
-
-        .alert {
-            font-size: 14px;
-            padding: 10px;
-            border-radius: 8px;
-        }
-
-        .forgot-password {
-            text-decoration: none;
-            display: flex;
-            justify-content: center;
-            padding-top: 12px;
-            font-weight: bold;
-            color: #007bff;
-        }
-
-        /* Show Password Checkbox */
-        .show-password {
-            display: flex;
-            align-items: center;
-            margin-top: 10px;
-            font-size: 14px;
-        }
-
-        .show-password input {
-            margin-right: 10px;
-        }
-
-        /* Responsive fixes */
-        @media (max-width: 575px) {
-            .container {
-                padding: 30px;
-                max-width: 100%;
-            }
-
-            h1 {
-                font-size: 26px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -261,38 +186,53 @@
         <!-- Registration form -->
         <form action="/register/save" method="POST">
             <?= csrf_field() ?>
-            
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" name="name" value="<?= old('name') ?>" placeholder="Enter your name" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" name="email" value="<?= old('email') ?>" placeholder="Enter your email" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" value="<?= old('name') ?>" placeholder="Enter your name" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" value="<?= old('email') ?>" placeholder="Enter your email" required>
+                    </div>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="address">Address</label>
-                <input type="text" class="form-control" id="address" name="address" value="<?= old('address') ?>" placeholder="Enter your address" required>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" class="form-control" id="address" name="address" value="<?= old('address') ?>" placeholder="Enter your address" required>
+                    </div>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="gender">Gender</label>
-                <select class="form-control" id="gender" name="gender" required>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                </select>
-            </div>
-
-            <div style="padding-bottom: 10px;" class="form-group">
-                <label for="mobile_number">Mobile Number</label>
-                <input type="text" class="form-control" id="mobile_number" name="mobile_number" value="<?= old('mobile_number') ?>" placeholder="Enter your mobile number" required>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select class="form-control" id="gender" name="gender" required>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="mobile_number">Mobile Number</label>
+                        <input type="text" class="form-control" id="mobile_number" name="mobile_number" value="<?= old('mobile_number') ?>" placeholder="Enter your mobile number" required>
+                    </div>
+                </div>
             </div>
 
             <button type="submit" class="btn btn-primary">Register</button>
