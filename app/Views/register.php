@@ -31,9 +31,9 @@
         }
 
         .container {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8));
-            padding: 20px;
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 10px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 400px;
@@ -55,25 +55,25 @@
         h1 {
             text-align: center;
             color: #007bff;
-            font-size: 28px;
-            margin-bottom: 20px;
+            font-size: 32px;
+            margin-bottom: 30px;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 25px;
         }
 
         .form-control {
-            border-radius: 25px;
+            border-radius: 5px;
             padding: 12px 18px;
             font-size: 16px;
-            border: 1px solid #007bff;
+            box-shadow: none;
+            border: 1px;
             transition: border 0.3s, box-shadow 0.3s;
         }
 
         .form-control:focus {
-            border-color: #0056b3;
-            box-shadow: 0 0 8px rgba(38, 143, 255, 0.5);
+            border-bottom: rgb(0, 0, 0);
         }
 
         .btn-primary {
@@ -81,7 +81,7 @@
             border-color: #007bff;
             padding: 14px;
             width: 100%;
-            border-radius: 25px;
+            border-radius: 15px;
             font-size: 18px;
             transition: background-color 0.3s, box-shadow 0.3s;
         }
@@ -94,70 +94,46 @@
 
         .alert {
             font-size: 14px;
-            margin-bottom: 20px;
-            padding: 15px;
+            padding: 10px;
             border-radius: 8px;
         }
 
-        .login-link {
+        .signup-link {
             text-align: center;
-            margin-top: 15px;
+            margin-top: 25px;
         }
 
-        .login-link a {
+        .signup-link a {
             color: #007bff;
             text-decoration: none;
+            font-weight: bold;
         }
 
-        .login-link a:hover {
+        .signup-link a:hover {
             text-decoration: underline;
         }
 
-        /* Mobile-first Styles */
-        @media (max-width: 768px) {
+        /* Show Password Checkbox */
+        .show-password {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .show-password input {
+            margin-right: 10px;
+        }
+
+        @media (max-width: 575px) {
             .container {
-                padding: 30px 20px;
+                padding: 30px;
                 max-width: 100%;
             }
 
             h1 {
-                font-size: 24px;
+                font-size: 26px;
             }
-
-            .btn-primary {
-                padding: 14px;
-                font-size: 16px;
-            }
-
-            .form-control {
-                padding: 14px;
-                font-size: 16px;
-            }
-
-            .alert {
-                font-size: 14px;
-                padding: 10px;
-            }
-        }
-
-        /* Full Screen Success Modal */
-        .modal-content {
-            border-radius: 0;
-            height: 100%;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
-            border-bottom: none;
-        }
-
-        .modal-body {
-            font-size: 18px;
-            text-align: center;
-            padding: 20px;
         }
     </style>
 </head>
@@ -166,22 +142,25 @@
     <div class="container">
         <h1><i class="fas fa-warehouse"></i> Warehouse Management System</h1>
 
-        <!-- Display errors or success messages -->
+        <!-- Display Flash Error -->
         <?php if (session()->getFlashdata('error')): ?>
             <div class="alert alert-danger">
                 <?= session()->getFlashdata('error') ?>
             </div>
         <?php endif; ?>
 
-        <?php if (session()->get('errors')): ?>
+        <!-- Display Validation Errors -->
+        <?php if (isset($errors) && !empty($errors)): ?>
             <div class="alert alert-danger">
-                <?php foreach (session()->get('errors') as $error): ?>
-                    <p><?= esc($error) ?></p>
-                <?php endforeach ?>
+                <ul>
+                    <?php foreach ($errors as $error): ?>
+                        <li><?= esc($error) ?></li>
+                    <?php endforeach; ?>
+                </ul>
             </div>
         <?php endif; ?>
 
-        <!-- Registration form -->
+        <!-- Registration Form -->
         <form action="/register/save" method="POST">
             <?= csrf_field() ?>
 
@@ -222,7 +201,7 @@
         </form>
 
         <!-- Link to Login -->
-        <div class="login-link">
+        <div class="signup-link">
             <p>Already have an account? <a href="/login">Login here</a></p>
         </div>
     </div>
