@@ -18,6 +18,7 @@
             justify-content: center;
             align-items: center;
             animation: backgroundMove 5s linear infinite;
+            overflow: hidden;
         }
 
         @keyframes backgroundMove {
@@ -31,11 +32,11 @@
 
         .container {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8));
-            padding: 40px;
-            border-radius: 10px;
+            padding: 20px;
+            border-radius: 15px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 500px;
+            max-width: 400px;
             transition: all 0.3s ease-in-out;
             animation: fadeIn 1s ease-in-out;
         }
@@ -51,27 +52,21 @@
             }
         }
 
-        .container:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-        }
-
         h1 {
             text-align: center;
             color: #007bff;
-            font-size: 32px;
-            margin-bottom: 30px;
-        }
-
-        .form-group {
+            font-size: 28px;
             margin-bottom: 20px;
         }
 
+        .form-group {
+            margin-bottom: 15px;
+        }
+
         .form-control {
-            border-radius: 15px;
+            border-radius: 25px;
             padding: 12px 18px;
             font-size: 16px;
-            box-shadow: none;
             border: 1px solid #007bff;
             transition: border 0.3s, box-shadow 0.3s;
         }
@@ -86,7 +81,7 @@
             border-color: #007bff;
             padding: 14px;
             width: 100%;
-            border-radius: 15px;
+            border-radius: 25px;
             font-size: 18px;
             transition: background-color 0.3s, box-shadow 0.3s;
         }
@@ -118,48 +113,51 @@
             text-decoration: underline;
         }
 
-        .show-password {
-            display: flex;
-            align-items: center;
-            margin-top: 10px;
-            font-size: 14px;
-        }
-
-        .show-password input {
-            margin-right: 10px;
-        }
-
-        /* Responsive fixes */
+        /* Mobile-first Styles */
         @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+                max-width: 100%;
+            }
+
             h1 {
                 font-size: 24px;
             }
 
             .btn-primary {
-                padding: 12px;
-                font-size: 14px;
+                padding: 14px;
+                font-size: 16px;
             }
 
             .form-control {
-                padding: 10px;
+                padding: 14px;
+                font-size: 16px;
+            }
+
+            .alert {
                 font-size: 14px;
+                padding: 10px;
             }
         }
 
-        @media (max-width: 576px) {
-            h1 {
-                font-size: 20px;
-            }
+        /* Full Screen Success Modal */
+        .modal-content {
+            border-radius: 0;
+            height: 100%;
+            overflow-y: auto;
+        }
 
-            .btn-primary {
-                padding: 10px;
-                font-size: 12px;
-            }
+        .modal-header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-bottom: none;
+        }
 
-            .form-control {
-                padding: 8px;
-                font-size: 12px;
-            }
+        .modal-body {
+            font-size: 18px;
+            text-align: center;
+            padding: 20px;
         }
     </style>
 </head>
@@ -187,52 +185,37 @@
         <form action="/register/save" method="POST">
             <?= csrf_field() ?>
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" value="<?= old('name') ?>" placeholder="Enter your name" required>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" value="<?= old('email') ?>" placeholder="Enter your email" required>
-                    </div>
-                </div>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name" value="<?= old('name') ?>" placeholder="Enter your name" required>
             </div>
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="address">Address</label>
-                        <input type="text" class="form-control" id="address" name="address" value="<?= old('address') ?>" placeholder="Enter your address" required>
-                    </div>
-                </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="<?= old('email') ?>" placeholder="Enter your email" required>
             </div>
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="gender">Gender</label>
-                        <select class="form-control" id="gender" name="gender" required>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="mobile_number">Mobile Number</label>
-                        <input type="text" class="form-control" id="mobile_number" name="mobile_number" value="<?= old('mobile_number') ?>" placeholder="Enter your mobile number" required>
-                    </div>
-                </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" class="form-control" id="address" name="address" value="<?= old('address') ?>" placeholder="Enter your address" required>
+            </div>
+
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select class="form-control" id="gender" name="gender" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="mobile_number">Mobile Number</label>
+                <input type="text" class="form-control" id="mobile_number" name="mobile_number" value="<?= old('mobile_number') ?>" placeholder="Enter your mobile number" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Register</button>
@@ -247,9 +230,9 @@
     <!-- Modal for success -->
     <?php if (session()->get('success')): ?>
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-fullscreen">
             <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
+                <div class="modal-header">
                     <h5 class="modal-title" id="successModalLabel">Registration Successful</h5>
                 </div>
                 <div class="modal-body">
