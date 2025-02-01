@@ -12,7 +12,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
 
    
@@ -93,8 +92,8 @@
         }
 
         .sidebar-links li a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            transition: 0.3s ease-in-out;
+            background-color: rgba(255, 255, 255, 0.3);
+             transition: background 0.2s ease-in-out;
         }
 
         /* Toggle Button */
@@ -459,6 +458,16 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementById("toggle-btn").addEventListener("click", function() {
+        let sidebar = document.getElementById("sidebar");
+        let content = document.getElementById("main-content");
+        sidebar.classList.toggle("hidden");
+        content.classList.toggle("full-width");
+        this.classList.toggle("move");
+    });
+</script>
+
 
 </body>
 </html>
