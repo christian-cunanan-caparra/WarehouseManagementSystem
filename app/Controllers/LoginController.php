@@ -58,7 +58,7 @@ class LoginController extends BaseController
 
     // Redirect based on user role
     return ($user['role'] === 'Admin') 
-        ? redirect()->to('/admin/dashboard') 
+        ? redirect()->to('/L2FkbWluX2Rhc2hib2FyZA') 
         : redirect()->to('/employee/dashboard');
 }
 
