@@ -10,7 +10,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #e9f5ff;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
             font-family: 'Arial', sans-serif;
             height: 100vh;
             margin: 0;
@@ -21,33 +21,33 @@
         }
 
         .container {
-            background-color: #ffffff;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6));
             padding: 40px 30px;
-            border-radius: 15px;
+            border-radius: 20px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 500px;
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
         }
 
         .container:hover {
-            transform: scale(1.03);
+            transform: scale(1.05);
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
         }
 
         h1 {
             text-align: center;
-            color: #0056b3;
-            margin-bottom: 20px;
+            color: #007bff;
+            font-size: 32px;
+            margin-bottom: 30px;
         }
 
-        .form-group label {
-            font-weight: bold;
-            color: #333333;
+        .form-group {
+            margin-bottom: 25px;
         }
 
         .form-control {
-            border-radius: 8px;
+            border-radius: 15px;
             padding: 12px;
             font-size: 16px;
             border: 1px solid #007bff;
@@ -55,30 +55,23 @@
 
         .form-control:focus {
             border-color: #0056b3;
-            box-shadow: 0 0 6px rgba(38, 143, 255, 0.5);
+            box-shadow: 0 0 8px rgba(38, 143, 255, 0.5);
         }
 
         .btn-primary {
-            background: linear-gradient(90deg, #007bff, #0056b3);
-            border: none;
+            background-color: #007bff;
+            border-color: #007bff;
             padding: 14px;
             width: 100%;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+            border-radius: 15px;
+            font-size: 18px;
+            transition: background-color 0.3s, box-shadow 0.3s;
         }
 
         .btn-primary:hover {
-            background: linear-gradient(90deg, #0056b3, #007bff);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
-        }
-
-        .btn-primary:active {
-            transform: translateY(0);
-            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+            background-color: #0056b3;
+            border-color: #004085;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .alert {
@@ -103,7 +96,7 @@
         }
 
         .icon {
-            font-size: 50px;
+            font-size: 55px;
             color: #007bff;
             text-align: center;
             margin-bottom: 20px;
@@ -111,7 +104,7 @@
 
         @media (max-width: 768px) {
             h1 {
-                font-size: 24px;
+                font-size: 26px;
             }
 
             .btn-primary {
@@ -127,7 +120,7 @@
 
         @media (max-width: 576px) {
             h1 {
-                font-size: 20px;
+                font-size: 22px;
             }
 
             .btn-primary {
@@ -194,7 +187,7 @@
                 </select>
             </div>
 
-            <div style="padding-bottom: 10px;" class="form-group">
+            <div class="form-group">
                 <label for="mobile_number">Mobile Number</label>
                 <input type="text" class="form-control" id="mobile_number" name="mobile_number" value="<?= old('mobile_number') ?>" placeholder="Enter your mobile number" required>
             </div>
@@ -208,30 +201,31 @@
         </div>
     </div>
 
+    <!-- Success Modal -->
     <?php if (session()->get('success')): ?>
-    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title" id="successModalLabel">Registration Successful</h5>
-                </div>
-                <div class="modal-body">
-                    <?= session()->get('success') ?>
+        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title" id="successModalLabel">Registration Successful</h5>
+                    </div>
+                    <div class="modal-body">
+                        <?= session()->get('success') ?>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var myModal = new bootstrap.Modal(document.getElementById('successModal'));
-            myModal.show();
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var myModal = new bootstrap.Modal(document.getElementById('successModal'));
+                myModal.show();
 
-            setTimeout(function() {
-                window.location.href = '/login';
-            }, 4000);
-        });
-    </script>
+                setTimeout(function() {
+                    window.location.href = '/login';
+                }, 4000);
+            });
+        </script>
     <?php endif; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
