@@ -27,16 +27,9 @@
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 800px;
-           
-            transition: all 0.3s ease-in-out;
-            animation: fadeIn 1s ease-in-out;
             transition: all 0.3s ease-in-out;
             animation: fadeIn 1s ease-in-out;
         }
-
-
-
-        
 
         @keyframes fadeIn {
             from {
@@ -214,7 +207,7 @@
             myModal.show();
 
             setTimeout(function() {
-                window.location.href = '/login';
+                window.location.href = '/login'; // Redirect after 4 seconds
             }, 4000);
         });
     </script>
