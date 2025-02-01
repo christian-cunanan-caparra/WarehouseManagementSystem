@@ -2,17 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/x-icon" href="<?= base_url('favicon.ico'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Warehouse Management System</title>
-    <!-- Include Bootstrap -->
+    <link rel="icon" type="image/x-icon" href="<?= base_url('favicon.ico'); ?>">
+
+    <!-- Bootstrap for Modal Styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for icons -->
+    <!-- Font Awesome for Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     
     <style>
         body {
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            background: linear-gradient(135deg, #4A00E0, #8E2DE2);
             font-family: 'Arial', sans-serif;
             height: 100vh;
             margin: 0;
@@ -22,14 +23,14 @@
         }
 
         .container {
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(12px);
-            border-radius: 15px;
-            padding: 40px;
+            border-radius: 12px;
+            padding: 35px;
             max-width: 400px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
             animation: fadeIn 1s ease-in-out;
         }
 
@@ -40,13 +41,13 @@
 
         h1 {
             font-size: 2rem;
-            color: #ffffff;
+            color: #fff;
             margin-bottom: 15px;
         }
 
         .icon {
             font-size: 55px;
-            color: #00c6ff;
+            color: #fff;
             margin-bottom: 15px;
             animation: bounce 2s infinite;
         }
@@ -65,23 +66,17 @@
             border-radius: 8px;
             padding: 12px;
             font-size: 16px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
             border: 1px solid rgba(255, 255, 255, 0.3);
             transition: all 0.3s ease;
         }
 
-        .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
         .form-control:focus {
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-            border-color: #00c6ff;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            border-color: #fff;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             border: none;
             padding: 12px;
             width: 100%;
@@ -93,19 +88,18 @@
 
         .btn-primary:hover {
             transform: scale(1.05);
-            box-shadow: 0 4px 20px rgba(0, 198, 255, 0.5);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
         }
 
         .show-password {
             display: flex;
             align-items: center;
             font-size: 14px;
-            color: #ddd;
-            padding-top: 10px;
+            color: #fff;
         }
 
         .show-password input {
-            margin-right: 8px;
+            margin-right: 6px;
         }
 
         .forgot-password, .signup-link {
@@ -114,7 +108,7 @@
         }
 
         .forgot-password a, .signup-link a {
-            color: #00c6ff;
+            color: #fff;
             text-decoration: none;
             font-weight: bold;
         }
@@ -136,16 +130,16 @@
 <body>
 
     <div class="container">
-        <h1><i class="fas fa-warehouse icon"></i> Warehouse Management System</h1>
+        <h1><i class="fas fa-warehouse icon"></i> Login</h1>
 
-        <!-- Display Flash Error -->
+        <!-- Flash Error Message -->
         <?php if (session()->getFlashdata('error')): ?>
             <div class="alert alert-danger">
                 <?= session()->getFlashdata('error') ?>
             </div>
         <?php endif; ?>
 
-        <!-- Display Validation Errors -->
+        <!-- Validation Errors -->
         <?php if (isset($errors) && !empty($errors)): ?>
             <div class="alert alert-danger">
                 <ul>
@@ -168,40 +162,46 @@
             <div class="form-group">
                 <label for="password" style="color: #fff;">Password:</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
-                <!-- Show Password Toggle -->
                 <div class="show-password">
                     <input type="checkbox" id="togglePassword"> Show Password
                 </div>
             </div>
 
             <button type="submit" class="btn btn-primary">Login</button>
-            <a href="/request-reset" class="forgot-password">Forgot Password?</a>
+            <div class="forgot-password">
+                <a href="/request-reset">Forgot Password?</a>
+            </div>
         </form>
 
-        <!-- Link to register page -->
         <div class="signup-link">
-            <p>Don't have an account yet? <a href="/register" class="sign-up">Sign up here</a></p>
+            <p>Don't have an account? <a href="/register">Sign up here</a></p>
         </div>
     </div>
 
-    <!-- Include Bootstrap JS -->
+    <!-- Bootstrap & Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 
     <script>
-        // Password validation on form submission
-        document.querySelector('form').addEventListener('submit', function(event) {
-            var password = document.getElementById('password').value;
-            if (password.length < 8) {
-                event.preventDefault();  // Prevent form submission
-                alert('Password must be at least 8 characters long.');
-            }
-        });
+        document.addEventListener("DOMContentLoaded", function () {
+            const passwordField = document.getElementById('password');
+            const togglePassword = document.getElementById('togglePassword');
+            const form = document.querySelector('form');
 
-        // Show/Hide Password Toggle
-        document.getElementById('togglePassword').addEventListener('change', function() {
-            var passwordField = document.getElementById('password');
-            passwordField.type = this.checked ? "text" : "password";
+            // Show/Hide Password Toggle
+            togglePassword.addEventListener('change', function () {
+                passwordField.type = this.checked ? "text" : "password";
+            });
+
+            // Password Validation
+            form.addEventListener('submit', function (event) {
+                let password = passwordField.value;
+
+                if (password.length < 8) {
+                    event.preventDefault();
+                    alert('Password must be at least 8 characters long.');
+                }
+            });
         });
     </script>
 
