@@ -30,7 +30,7 @@
         }
 
         .container {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6));
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8));
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
