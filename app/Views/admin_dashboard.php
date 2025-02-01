@@ -422,29 +422,25 @@
         });
     </script>
 
-    <script>
-        // Sidebar Toggle Functionality
+   <script>
+    document.addEventListener("DOMContentLoaded", function () {
         const sidebar = document.getElementById("sidebar");
-        const toggleBtn = document.getElementById("toggle-btn");
         const content = document.getElementById("main-content");
+        const toggleBtn = document.getElementById("toggle-btn");
 
-        let isSidebarOpen = true;
+        toggleBtn.addEventListener("click", function () {
+            sidebar.classList.toggle("hidden");
+            content.classList.toggle("full-width");
+            toggleBtn.classList.toggle("move");
 
-        toggleBtn.addEventListener("click", () => {
-            isSidebarOpen = !isSidebarOpen;
-
-            if (isSidebarOpen) {
-                sidebar.classList.remove("hidden");
-                content.classList.remove("full-width");
-                toggleBtn.classList.remove("move");
-                toggleBtn.style.left = "260px";
+            if (sidebar.classList.contains("hidden")) {
+                toggleBtn.innerHTML = "&#9776;"; // Hamburger icon
             } else {
-                sidebar.classList.add("hidden");
-                content.classList.add("full-width");
-                toggleBtn.classList.add("move");
-                toggleBtn.style.left = "15px";
+                toggleBtn.innerHTML = "&#10006;"; // Close icon
             }
         });
-    </script>
+    });
+</script>
+
 </body>
 </html>
