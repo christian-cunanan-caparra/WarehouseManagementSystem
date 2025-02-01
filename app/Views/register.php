@@ -58,7 +58,7 @@
             transition: all 0.3s ease;
         }
 
-        .form-control:hover,
+   
         .form-control:focus {
             border-color: #007bff;
             box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
