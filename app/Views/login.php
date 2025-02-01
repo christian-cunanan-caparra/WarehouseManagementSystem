@@ -22,7 +22,7 @@
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.9); /* Light white background for contrast */
+            background: rgba(255, 255, 255, 0.9); /* Light white backgASKLroundSS for contrast */
             padding: 40px;
             border-radius: 10px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
@@ -72,7 +72,7 @@
 
         .form-control:focus {
             border: #0056b3;
-            box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
         }
 
         .btn-primary {

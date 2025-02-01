@@ -48,7 +48,7 @@ class RegisterController extends BaseController
         // Save the user data into the database
         $userModel = new UserModel();
         if ($userModel->save($userData)) {
-            // If successful, store a success message in the session
+            // If successful, store a success messasge in the session
             session()->setFlashdata('success', 'Registration successful! Please wait, redirecting...');
 
             // Send a welcome email to the user
