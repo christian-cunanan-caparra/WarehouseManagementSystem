@@ -105,7 +105,7 @@
         .modal-content {
             border-radius: 15px;
             padding: 20px;
-            border: 2px solid #007bff;
+           
             box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
             background: #f8f9fa;
         }
