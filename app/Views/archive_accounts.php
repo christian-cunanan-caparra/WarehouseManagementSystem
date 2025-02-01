@@ -207,17 +207,6 @@
             margin-left: 50px;
         }
 
-        .btn-activate {
-        background: linear-gradient(45deg, #28a745, #218838);
-        color: white;
-        border: none;
-    }
-
-    .btn-activate:hover {
-        background: linear-gradient(45deg, #218838, #28a745);
-        transform: scale(1.05);
-    }
-
     </style>
 </head>
 <body>
@@ -266,8 +255,7 @@
                                 <td><?= esc($user['email']) ?></td>
                                 <td><?= esc($user['role']) ?></td>
                                 <td>
-                                <button type="submit" class="btn btn-activate btn-sm"> <a href="/restore-account/<?= $user['id'] ?>" class="btn btn-success btn-sm">Accept</a></button>
-
+                                    <a href="/restore-account/<?= $user['id'] ?>" class="btn btn-success btn-sm">Accept</a>
 
 
                                     
