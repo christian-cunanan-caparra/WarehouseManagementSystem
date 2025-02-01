@@ -30,6 +30,8 @@
             max-width: 380px;
             transition: all 0.3s ease-in-out;
             animation: fadeIn 1s ease-in-out;
+            transition: all 0.3s ease-in-out;
+            animation: fadeIn 1s ease-in-out;
         }
 
         @keyframes fadeIn {
