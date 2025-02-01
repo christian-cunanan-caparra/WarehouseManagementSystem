@@ -187,15 +187,11 @@
 
         /* Container for the Charts */
         .chart-container {
-            width: 80%;
-            max-width: 900px;
-            margin: 50px auto;
-            background-color: #212529;
+            margin-top: 30px;
+            background-color: #fff;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             padding: 20px;
-            color: white;
-            text-align: center;
         }
 
         .table-container {
@@ -218,7 +214,7 @@
     </style>
 </head>
 </head>
-<body style="background-color: #121212; color: white; font-family: Arial, sans-serif;"></body>
+<body>
 
     <!-- Sidebar -->
    
@@ -302,10 +298,20 @@
             </div>
         </div>
 
+        <!-- Charts Section -->
         <div class="chart-container">
-        <h2>Warehouse Stock Overview</h2>
-        <canvas id="advancedBarChart"></canvas>
-    </div>
+            <div class="row mt-4">
+                <!-- Mini Bar Chart -->
+                <div class="col-md-6">
+                    <canvas id="miniBarChart"></canvas>
+                </div>
+
+                <!-- Pie Chart -->
+                <div class="col-md-6">
+                    <canvas id="pieChart"></canvas>
+                </div>
+            </div>
+        </div>
 
         <!-- Product Table -->
       
@@ -341,69 +347,107 @@
         </div>
     </div>
 
-    const ctx = document.getElementById('advancedBarChart').getContext('2d');
+    <script>
+        // Mini Bar Chart
+        const miniBarCtx = document.getElementById('miniBarChart').getContext('2d');
+        const miniBarChart = new Chart(miniBarCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Stock In', 'Stock Out', 'Products', 'Catche'],
+                datasets: [{
+                    label: 'Stock Usage',
+                    data: [ <?= $totalStockIn ?>, <?= $totalStockOut ?>, 30000, 20000 ],
+                    backgroundColor: ['rgba(23, 162, 184, 0.8)', 'rgba(220, 53, 69, 0.8)', 'rgba(40, 167, 69, 0.8)', 'rgba(102, 16, 242, 0.8)'],
+                    borderRadius: 8,
+                    borderWidth: 1,
+                    barPercentage: 0.5,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 1200,
+                    easing: 'easeOutElastic'
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: '#343a40', font: { size: 12 } },
+                        grid: { display: false }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#343a40', font: { size: 12 } },
+                        grid: { color: 'rgba(0, 0, 0, 0.1)' }
+                    }
+                }
+            }
+        });
 
-// Create Gradient Colors for Bars
-const gradient1 = ctx.createLinearGradient(0, 0, 0, 400);
-gradient1.addColorStop(0, 'rgba(23, 162, 184, 1)');
-gradient1.addColorStop(1, 'rgba(23, 162, 184, 0.2)');
-
-const gradient2 = ctx.createLinearGradient(0, 0, 0, 400);
-gradient2.addColorStop(0, 'rgba(220, 53, 69, 1)');
-gradient2.addColorStop(1, 'rgba(220, 53, 69, 0.2)');
-
-const gradient3 = ctx.createLinearGradient(0, 0, 0, 400);
-gradient3.addColorStop(0, 'rgba(40, 167, 69, 1)');
-gradient3.addColorStop(1, 'rgba(40, 167, 69, 0.2)');
-
-const gradient4 = ctx.createLinearGradient(0, 0, 0, 400);
-gradient4.addColorStop(0, 'rgba(102, 16, 242, 1)');
-gradient4.addColorStop(1, 'rgba(102, 16, 242, 0.2)');
-
-// Warehouse Stock Data
-const advancedBarChart = new Chart(ctx, {
-    type: 'bar',
+        // Pie Chart
+      // Pie Chart
+const ctx = document.getElementById('pieChart').getContext('2d');
+const pieChart = new Chart(ctx, {
+    type: 'pie',
     data: {
-        labels: ['Stock In', 'Stock Out', 'Products', 'Cache'],
+        labels: ['Total Stock In', 'Total Stock Out', 'Low Stock'],
         datasets: [{
-            label: 'Stock Usage',
-            data: [<?= $totalStockIn ?>, <?= $totalStockOut ?>, 30000, 20000],
-            backgroundColor: [gradient1, gradient2, gradient3, gradient4],
-            borderColor: ['#17a2b8', '#dc3545', '#28a745', '#6610f2'],
-            borderWidth: 1.5,
-            borderRadius: 12,
-            hoverBackgroundColor: ['rgba(23, 162, 184, 0.9)', 'rgba(220, 53, 69, 0.9)', 'rgba(40, 167, 69, 0.9)', 'rgba(102, 16, 242, 0.9)'],
-            barPercentage: 0.6
+            label: 'Stock Distribution',
+            data: [<?= $totalStockIn ?>, <?= $totalStockOut ?>, <?= count($lowStockProducts) ?>],
+            backgroundColor: ['#17a2b8', '#dc3545', '#ffc107'],
+            borderColor: ['#ffffff', '#ffffff', '#ffffff'],
+            borderWidth: 2
         }]
     },
     options: {
-        responsive: true,
-        maintainAspectRatio: false,
+        responsive: false,  // Disable resizing
         animation: {
-            duration: 1200,
-            easing: 'easeOutQuart'
+            animateScale: true,
+            animateRotate: true
         },
         plugins: {
             legend: {
+                position: 'top',
                 labels: {
-                    color: '#fff'
+                    fontSize: 12,
+                    fontColor: '#343a40',
+                    boxWidth: 10
                 }
-            }
-        },
-        scales: {
-            x: {
-                ticks: { color: '#fff', font: { size: 12 } },
-                grid: { display: false }
-            },
-            y: {
-                beginAtZero: true,
-                ticks: { color: '#fff', font: { size: 12 } },
-                grid: { color: 'rgba(255, 255, 255, 0.1)' }
             }
         }
     }
 });
-</script>
 
+    </script>
+
+    <script>
+        // Sidebar Toggle Functionality
+        const sidebar = document.getElementById("sidebar");
+        const toggleBtn = document.getElementById("toggle-btn");
+        const content = document.getElementById("main-content");
+
+        let isSidebarOpen = true;
+
+        toggleBtn.addEventListener("click", () => {
+            isSidebarOpen = !isSidebarOpen;
+
+            if (isSidebarOpen) {
+                sidebar.classList.remove("hidden");
+                content.classList.remove("full-width");
+                toggleBtn.classList.remove("move");
+                toggleBtn.style.left = "260px";
+            } else {
+                sidebar.classList.add("hidden");
+                content.classList.add("full-width");
+                toggleBtn.classList.add("move");
+                toggleBtn.style.left = "15px";
+            }
+        });
+    </script>
 </body>
 </html>
