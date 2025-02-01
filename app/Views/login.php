@@ -12,8 +12,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #2c3e50;
-            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #2f3b52, #1e2a3b);
+            font-family: 'Roboto', sans-serif;
             height: 100vh;
             margin: 0;
             display: flex;
@@ -33,12 +33,13 @@
         }
 
         .container {
-            background-color: #34495e;
-            padding: 40px;
-            border-radius: 25px;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+            background-color: rgba(255, 255, 255, 0.15);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
             width: 100%;
-            max-width: 420px;
+            max-width: 450px;
+            backdrop-filter: blur(10px);
             transition: all 0.3s ease-in-out;
             animation: scaleUp 0.5s ease-in-out;
         }
@@ -54,9 +55,10 @@
 
         h1 {
             text-align: center;
-            color: #1abc9c;
-            font-size: 2.5rem;
-            margin-bottom: 30px;
+            color: #00bcd4;
+            font-size: 2.7rem;
+            margin-bottom: 20px;
+            font-weight: bold;
         }
 
         .form-group {
@@ -64,38 +66,41 @@
         }
 
         .form-control {
-            border-radius: 15px;
-            padding: 12px;
+            border-radius: 12px;
+            padding: 14px;
             font-size: 16px;
             background-color: #ecf0f1;
             border: none;
-            color: #2c3e50;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            color: #34495e;
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
         }
 
         .form-control:focus {
-            border: 2px solid #1abc9c;
-            box-shadow: 0 0 10px rgba(26, 188, 156, 0.3);
+            border: 2px solid #00bcd4;
+            box-shadow: 0 0 10px rgba(0, 188, 212, 0.3);
         }
 
         .btn-primary {
-            background-color: #1abc9c;
-            border-color: #16a085;
+            background-color: #00bcd4;
+            border-color: #0097a7;
             padding: 14px;
             width: 100%;
             border-radius: 10px;
             font-size: 18px;
-            transition: background-color 0.3s ease-in-out;
+            font-weight: bold;
+            transition: all 0.3s ease;
         }
 
         .btn-primary:hover {
-            background-color: #16a085;
-            border-color: #1abc9c;
+            background-color: #0097a7;
+            border-color: #00bcd4;
+            transform: translateY(-2px);
         }
 
         .icon {
-            font-size: 60px;
-            color: #1abc9c;
+            font-size: 70px;
+            color: #00bcd4;
             text-align: center;
             margin-bottom: 20px;
         }
@@ -107,13 +112,14 @@
 
         .signup-link {
             text-align: center;
-            margin-top: 15px;
+            margin-top: 20px;
         }
 
         .signup-link a {
-            color: #1abc9c;
+            color: #00bcd4;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 500;
+            letter-spacing: 0.5px;
         }
 
         .signup-link a:hover {
@@ -125,16 +131,25 @@
             padding: 15px;
             background-color: #e74c3c;
             color: #ecf0f1;
-            border-radius: 10px;
+            border-radius: 12px;
             margin-bottom: 20px;
+            border: 1px solid transparent;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+            }
+            to {
+                transform: translateX(0);
+            }
         }
 
         .forgot-password {
             text-decoration: none;
             display: flex;
-            flex-direction: column;
             justify-content: center;
-            text-align: center;
             padding-top: 10px;
             color: #ecf0f1;
             font-size: 14px;
@@ -145,6 +160,7 @@
             align-items: center;
             font-size: 14px;
             color: #ecf0f1;
+            margin-top: 5px;
         }
 
         .show-password input {
@@ -153,15 +169,15 @@
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 8px;
         }
 
         ::-webkit-scrollbar-track {
-            background: #34495e;
+            background: rgba(0, 0, 0, 0.2);
         }
 
         ::-webkit-scrollbar-thumb {
-            background-color: #16a085;
+            background-color: #00bcd4;
             border-radius: 5px;
         }
     </style>
