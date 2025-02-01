@@ -8,10 +8,14 @@
     <title>Login & Registration Form</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        * {
+        body {
+            background-color: #f0f8ff;
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
             margin: 0;
-            padding: 0;
-            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .section {
@@ -129,7 +133,6 @@
 
 <body>
     <div class="section">
-        <!-- Form Part -->
         <div class="form-box">
             <div class="button-box">
                 <div id="btn"></div>
@@ -142,30 +145,37 @@
                 <a href="https://www.google.com/"><img src="login/gp.png"></a>
             </div>
 
-            <form id="login" class="input-group">
-                <input type="text" class="input-field" placeholder="User Id" required>
-                <input type="text" class="input-field" placeholder="Enter Password" required>
+            <!-- Login Form -->
+            <form id="login" class="input-group" action="/login/authenticate" method="post">
+                <?= csrf_field() ?>
+                <input type="text" class="input-field" placeholder="User Id" name="email" value="<?= old('email') ?>" required>
+                <input type="password" class="input-field" placeholder="Enter Password" name="password" required>
+                <!-- Show Password Toggle -->
+                <div class="show-password">
+                    <input type="checkbox" id="togglePassword"> Show Password
+                </div>
                 <input type="checkbox" class="check-box"><span>Remember Password</span>
                 <button type="submit" class="submit-btn">Log in</button>
             </form>
 
-            <form id="register" class="input-group">
-                <input type="text" class="input-field" placeholder="User Id" required>
-                <input type="email" class="input-field" placeholder="Email Id" required>
-                <input type="text" class="input-field" placeholder="Enter Password" required>
+            <!-- Register Form -->
+            <form id="register" class="input-group" action="/register/create" method="post">
+                <?= csrf_field() ?>
+                <input type="text" class="input-field" placeholder="User Id" name="username" value="<?= old('username') ?>" required>
+                <input type="email" class="input-field" placeholder="Email Id" name="email" value="<?= old('email') ?>" required>
+                <input type="password" class="input-field" placeholder="Enter Password" name="password" required>
                 <input type="checkbox" class="check-box"><span>I agree to the terms & condition</span>
-                <button type="submit" class="submit-btn">Log in</button>
+                <button type="submit" class="submit-btn">Register</button>
             </form>
         </div>
     </div>
 
-    <!-- JavaScript Part -->
     <script>
         var x = document.getElementById("login");
         var y = document.getElementById("register");
         var z = document.getElementById("btn");
 
-        // Register and login Function.
+        // Register and login Function
         function register() {
             x.style.left = "-400px";
             y.style.left = "50px";
@@ -177,6 +187,16 @@
             y.style.left = "450px";
             z.style.left = "0px";
         }
+
+        // Show/Hide Password Toggle
+        document.getElementById('togglePassword').addEventListener('change', function () {
+            var passwordField = document.querySelector('[name="password"]');
+            if (this.checked) {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        });
     </script>
 </body>
 
