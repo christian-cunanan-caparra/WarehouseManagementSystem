@@ -6,25 +6,135 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Warehouse Management System</title>
-    <!-- Include Bootstrap for Modal Styling -->
-
-
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for icon -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-       body {
-    background: url('<?= base_url('public/images/new.PNG'); ?>') no-repeat center center fixed;
-    background-size: cover;
-    font-family: 'Poppins', sans-serif;
-    height: 100vh;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
 
+        body {
+            background-color: #f0f8ff;
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .section {
+            height: 100%;
+            width: 100%;
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(login/banner.jpg);
+            background-position: center;
+            background-size: cover;
+            position: absolute;
+        }
+
+        .form-box {
+            width: 380px;
+            height: 480px;
+            position: relative;
+            margin: 6% auto;
+            background: #fff;
+            padding: 5px;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .button-box {
+            width: 220px;
+            margin: 35px auto;
+            position: relative;
+            box-shadow: 0 0 20px 9px #ff61241f;
+            border-radius: 30px;
+        }
+
+        .toggle-btn {
+            padding: 10px 30px;
+            cursor: pointer;
+            background: transparent;
+            border: 0;
+            outline: none;
+            position: relative;
+        }
+
+        #btn {
+            top: 0;
+            left: 0;
+            position: absolute;
+            width: 110px;
+            height: 100%;
+            background: linear-gradient(to right, #ff105f, #ffad06);
+            border-radius: 30px;
+            transition: .5s;
+        }
+
+        .social-icons {
+            margin: 30px auto;
+            text-align: center;
+        }
+
+        .social-icons img {
+            width: 30px;
+            margin: 0 12px;
+            box-shadow: 0 0 20px 0 #7f7f7f3d;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .input-group {
+            top: 180px;
+            position: absolute;
+            width: 280px;
+            transition: .5s;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px 0;
+            margin: 5px 0;
+            border-left: 0;
+            border-top: 0;
+            border-right: 0;
+            border-bottom: 1px solid #999;
+            outline: none;
+            background: transparent;
+        }
+
+        .submit-btn {
+            width: 85%;
+            padding: 10px 30px;
+            cursor: pointer;
+            display: block;
+            margin: auto;
+            background: linear-gradient(to right, #ff105f, #ffad06);
+            border: 0;
+            outline: none;
+            border-radius: 30px;
+        }
+
+        .check-box {
+            margin: 30px 10px 30px 0;
+        }
+
+        span {
+            color: #777;
+            font-size: 12px;
+            bottom: 68px;
+            position: absolute;
+        }
+
+        #login {
+            left: 50px;
+        }
+
+        #register {
+            left: 450px;
+        }
 
         .container {
             background-color: #ffffff;
@@ -117,7 +227,6 @@
             padding-top: 10px;
         }
 
-        /* Show Password Checkbox */
         .show-password {
             display: flex;
             align-items: center;
@@ -133,70 +242,65 @@
 </head>
 <body>
 
-    <div class="container">
-        <h1><i class="fas fa-warehouse"></i> Warehouse Management System</h1>
+    <div class="section"></div>
+    <div class="form-box">
+        <div class="container">
+            <h1><i class="fas fa-warehouse"></i> Warehouse Management System</h1>
 
-        <!-- Display Flash Error -->
-        <?php if (session()->getFlashdata('error')): ?>
-            <div class="alert alert-danger">
-                <?= session()->getFlashdata('error') ?>
-            </div>
-        <?php endif; ?>
-
-        <!-- Display Validation Errors -->
-        <?php if (isset($errors) && !empty($errors)): ?>
-            <div class="alert alert-danger">
-                <ul>
-                    <?php foreach ($errors as $error): ?>
-                        <li><?= esc($error) ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        <?php endif; ?>
-
-        <!-- Login Form -->
-        <form action="/login/authenticate" method="post">
-            <?= csrf_field() ?>
-
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" value="<?= old('email') ?>" required>
-            </div>
-
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
-                <!-- Show Password Toggle -->
-                <div class="show-password">
-                    <input type="checkbox" id="togglePassword"> Show Password
+            <?php if (session()->getFlashdata('error')): ?>
+                <div class="alert alert-danger">
+                    <?= session()->getFlashdata('error') ?>
                 </div>
+            <?php endif; ?>
+
+            <?php if (isset($errors) && !empty($errors)): ?>
+                <div class="alert alert-danger">
+                    <ul>
+                        <?php foreach ($errors as $error): ?>
+                            <li><?= esc($error) ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
+
+            <form action="/login/authenticate" method="post">
+                <?= csrf_field() ?>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" value="<?= old('email') ?>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                    <div class="show-password">
+                        <input type="checkbox" id="togglePassword"> Show Password
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Login</button>
+                <a href="/request-reset" class="text-primary forgot-password">Forgot Password?</a>
+            </form>
+
+            <div class="signup-link">
+                <p>Don't have an account yet? <a href="/register" class="sign-up">Sign up here</a></p>
             </div>
-
-            <button type="submit" class="btn btn-primary">Login</button>
-            <a href="/request-reset" class="text-primary forgot-password">Forgot Password?</a>
-        </form>
-
-        <!-- Link to register page -->
-        <div class="signup-link">
-            <p>Don't have an account yet? <a href="/register" class="sign-up">Sign up here</a></p>
         </div>
     </div>
 
-    <!-- Include Bootstrap JS (For Modal) -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    
+
     <script>
-        // Password validation on form submission
         document.querySelector('form').addEventListener('submit', function(event) {
             var password = document.getElementById('password').value;
             if (password.length < 8) {
-                event.preventDefault();  // Prevent form submission
+                event.preventDefault();
                 alert('Password must be at least 8 characters long.');
             }
         });
 
-        // Show/Hide Password Toggle
         document.getElementById('togglePassword').addEventListener('change', function() {
             var passwordField = document.getElementById('password');
             if (this.checked) {
