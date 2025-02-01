@@ -17,7 +17,7 @@ class RegisterController extends BaseController
         // Validate user input
         $validation = $this->validate([
             'name' => 'required',
-            'email' => 'required|valid_email|is_unique[users.email]',
+            'email' => 'required|valid_email|is_unique[users.email]', // Check if email is unique
             'password' => 'required|min_length[8]',
             'address' => 'required',
             'gender' => 'required',
@@ -25,7 +25,12 @@ class RegisterController extends BaseController
         ]);
 
         if (!$validation) {
-            // If validation fails, go back to the registration form with errors
+            // If validation fails and the email is already in use
+            if ($this->validator->getError('email')) {
+                session()->setFlashdata('error', 'The email address is already registered.');
+            }
+            
+            // Redirect back with errors
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
@@ -45,7 +50,7 @@ class RegisterController extends BaseController
         if ($userModel->save($userData)) {
             // If successful, store a success message in the session
             session()->setFlashdata('success', 'Registration successful! Please wait, redirecting...');
-            
+
             // Send a welcome email to the user
             $email = \Config\Services::email();
             $email->setTo($this->request->getPost('email'));

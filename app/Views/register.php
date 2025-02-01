@@ -190,6 +190,13 @@
             </div>
         <?php endif; ?>
 
+        <!-- Display Flash Success -->
+        <?php if (session()->getFlashdata('success')): ?>
+            <div class="alert alert-success">
+                <?= session()->getFlashdata('success') ?>
+            </div>
+        <?php endif; ?>
+
         <!-- Registration Form -->
         <form action="/register/save" method="POST">
             <?= csrf_field() ?>
