@@ -11,6 +11,8 @@
     <style>
         body {
             background: linear-gradient(135deg, #6a11cb, #2575fc);
+            background-size: 200% 200%;
+            animation: gradientBG 5s ease infinite;
             font-family: 'Arial', sans-serif;
             height: 100vh;
             margin: 0;
@@ -18,6 +20,18 @@
             justify-content: center;
             align-items: center;
             padding: 15px;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         .container {
