@@ -28,31 +28,16 @@
             width: 100%;
             max-width: 800px;
             transition: all 0.3s ease-in-out;
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        h1 {
-            text-align: center;
-            color: #007bff;
-            font-size: 32px;
-            margin-bottom: 30px;
         }
 
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .form-control {
             border-radius: 5px;
             padding: 12px 18px;
             font-size: 16px;
-            box-shadow: none;
-            border: 1px;
-            transition: border 0.3s, box-shadow 0.3s;
-        }
-
-        .form-control:focus {
-            border-bottom: rgb(0, 0, 0);
         }
 
         .btn-primary {
@@ -62,40 +47,43 @@
             width: 100%;
             border-radius: 15px;
             font-size: 18px;
-            transition: background-color 0.3s, box-shadow 0.3s;
         }
 
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #004085;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        .signup-link {
+            text-align: center;
+            margin-top: 25px;
         }
 
-        /* Responsive fixes */
         @media (max-width: 575px) {
             .container {
                 padding: 30px;
                 max-width: 100%;
             }
-
-            h1 {
-                font-size: 26px;
-            }
         }
 
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
+        .container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
 
-        .col-6 {
-            width: 48%;
+        .alert {
+            font-size: 14px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .signup-link a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-
     <div class="container">
         <h1><i class="fas fa-warehouse"></i> Warehouse Management System</h1>
 
@@ -122,39 +110,46 @@
             <?= csrf_field() ?>
 
             <div class="row">
-                <!-- First column -->
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" class="form-control" id="name" name="name" value="<?= old('name') ?>" placeholder="Enter your name" required>
                     </div>
-
+                </div>
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" class="form-control" id="email" name="email" value="<?= old('email') ?>" placeholder="Enter your email" required>
                     </div>
+                </div>
+            </div>
 
+            <div class="row">
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="password">Password</label>
                         <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
                     </div>
-
-                    <div class="form-group">
-                        <label for="gender">Gender</label>
-                        <select class="form-control" id="gender" name="gender" required>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                        </select>
-                    </div>
                 </div>
-
-                <!-- Second column -->
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="address">Address</label>
                         <input type="text" class="form-control" id="address" name="address" value="<?= old('address') ?>" placeholder="Enter your address" required>
                     </div>
+                </div>
+            </div>
 
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select class="form-control" id="gender" name="gender" required>
+                            <option value="Male" <?= old('gender') == 'Male' ? 'selected' : '' ?>>Male</option>
+                            <option value="Female" <?= old('gender') == 'Female' ? 'selected' : '' ?>>Female</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="mobile_number">Mobile Number</label>
                         <input type="text" class="form-control" id="mobile_number" name="mobile_number" value="<?= old('mobile_number') ?>" placeholder="Enter your mobile number" required>
