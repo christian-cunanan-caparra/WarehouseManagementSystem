@@ -59,7 +59,7 @@
         }
 
         .form-control {
-            border-radius: 15px;
+            border-radius: 10px;
             padding: 12px 18px;
             font-size: 16px;
             box-shadow: none;
