@@ -116,7 +116,7 @@
             align-items: center;
             margin-top: -10px;
             font-size: 14px;
-            padding-top: 10px;
+            padding-top: 20px;
         }
 
         .show-password input {
