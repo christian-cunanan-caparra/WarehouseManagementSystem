@@ -50,6 +50,13 @@
             border-radius: 5px;
             padding: 10px 15px;
             font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:hover,
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
         }
 
         .btn-primary {
@@ -59,6 +66,12 @@
             width: 100%;
             border-radius: 15px;
             font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
         }
 
         .signup-link {
@@ -70,9 +83,11 @@
             color: #007bff;
             text-decoration: none;
             font-weight: bold;
+            transition: color 0.3s ease;
         }
 
         .signup-link a:hover {
+            color: #0056b3;
             text-decoration: underline;
         }
 
