@@ -31,6 +31,11 @@
             animation: fadeIn 1s ease-in-out;
         }
 
+        .container:hover {
+            transform: scale(1.02); /* Slightly scale up on hover */
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+        }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
