@@ -158,6 +158,14 @@
         .modal-dialog-centered {
             transform: translateY(0);
         }
+
+        /* Remove outline from modal */
+        .modal-content:focus,
+        .modal-header:focus,
+        .modal-body:focus,
+        .modal-footer:focus {
+            outline: none;
+        }
     </style>
 </head>
 <body>
