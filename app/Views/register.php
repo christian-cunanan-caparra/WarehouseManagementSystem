@@ -10,15 +10,16 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
        body {
-            background: linear-gradient(135deg, #6a11cb, #2575fc); /* Smooth static gradient */
-            font-family: 'Arial', sans-serif;
-            height: 100vh;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Static smooth gradient */
+    font-family: 'Arial', sans-serif;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
 
        
         
