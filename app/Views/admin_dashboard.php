@@ -405,7 +405,7 @@ const pieChart = new Chart(ctx, {
         }]
     },
     options: {
-        responsive: false,  // Disable resizing
+        responsive: false,  // Disable sresizing
         animation: {
             animateScale: true,
             animateRotate: true
