@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    
     <link rel="icon" href="<?= base_url('favicon.ico'); ?>" type="image/x-icon">
+
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Warehouse Management System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -68,9 +69,8 @@
         }
 
         .form-control:focus {
-            border-bottom:rgb(0, 0, 0);
-           
-            
+            border: #0056b3;
+            box-shadow: 0 0 8px rgba(38, 143, 255, 0.5);
         }
 
         .btn-primary {
