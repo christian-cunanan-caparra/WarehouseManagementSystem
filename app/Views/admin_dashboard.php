@@ -151,11 +151,12 @@
 
         /* Mini Pie Chart */
         #pieChart {
-            height: 250px;
-            max-width: 300px;
-            margin: 0 auto;
-            border-radius: 10px;
-        }
+    height: 250px;   /* Fixed height */
+    width: 250px;    /* Fixed width */
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
 
         /* Responsive Design */
         @media screen and (max-width: 768px) {
@@ -389,37 +390,39 @@
         });
 
         // Pie Chart
-        const ctx = document.getElementById('pieChart').getContext('2d');
-        const pieChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['Total Stock In', 'Total Stock Out', 'Low Stock'],
-                datasets: [{
-                    label: 'Stock Distribution',
-                    data: [<?= $totalStockIn ?>, <?= $totalStockOut ?>, <?= count($lowStockProducts) ?>],
-                    backgroundColor: ['#17a2b8', '#dc3545', '#ffc107'],
-                    borderColor: ['#ffffff', '#ffffff', '#ffffff'],
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                animation: {
-                    animateScale: true,
-                    animateRotate: true
-                },
-                plugins: {
-                    legend: {
-                        position: 'top',
-                        labels: {
-                            fontSize: 12,
-                            fontColor: '#343a40',
-                            boxWidth: 10
-                        }
-                    }
+      // Pie Chart
+const ctx = document.getElementById('pieChart').getContext('2d');
+const pieChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['Total Stock In', 'Total Stock Out', 'Low Stock'],
+        datasets: [{
+            label: 'Stock Distribution',
+            data: [<?= $totalStockIn ?>, <?= $totalStockOut ?>, <?= count($lowStockProducts) ?>],
+            backgroundColor: ['#17a2b8', '#dc3545', '#ffc107'],
+            borderColor: ['#ffffff', '#ffffff', '#ffffff'],
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: false,  // Disable resizing
+        animation: {
+            animateScale: true,
+            animateRotate: true
+        },
+        plugins: {
+            legend: {
+                position: 'top',
+                labels: {
+                    fontSize: 12,
+                    fontColor: '#343a40',
+                    boxWidth: 10
                 }
             }
-        });
+        }
+    }
+});
+
     </script>
 
     <script>
