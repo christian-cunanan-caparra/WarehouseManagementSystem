@@ -212,7 +212,7 @@
 
     </style>
 </head>
-</head>
+
 <body>
 
     <!-- Sidebar -->
