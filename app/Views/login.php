@@ -11,26 +11,35 @@
     <style>
         /* Base styling */
         body {
-            background: linear-gradient(45deg, #1c1c1c, #4e4e4e);
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
             font-family: 'Arial', sans-serif;
             height: 100vh;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
+            animation: gradientMove 6s ease infinite;
             overflow: hidden;
         }
 
-        /* Container with Glassmorphism effect */
+        @keyframes gradientMove {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 400px 400px;
+            }
+        }
+
+        /* Container with Advanced Neumorphism effect */
         .container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
+            background: #e0e5ec;
+            box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.1), -4px -4px 20px rgba(255, 255, 255, 0.7);
+            border-radius: 30px;
+            padding: 60px 40px;
             max-width: 380px;
             width: 100%;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease;
             animation: fadeIn 1s ease-in-out;
         }
 
@@ -47,16 +56,18 @@
 
         .container:hover {
             transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.2), -8px -8px 30px rgba(255, 255, 255, 0.8);
         }
 
         /* Title */
         h1 {
             text-align: center;
-            color: #ffffff;
+            color: #007bff;
             font-size: 32px;
             margin-bottom: 30px;
             font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         /* Floating Label Input Style */
@@ -70,17 +81,16 @@
             padding: 18px 12px;
             font-size: 16px;
             border-radius: 20px;
-            border: 1px solid #ffffff;
+            border: 1px solid #007bff;
+            background: #e0e5ec;
             box-shadow: none;
             transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.3);
-            color: #ffffff;
         }
 
         .form-control:focus {
-            border-color: #00c7ff;
-            box-shadow: 0 0 8px rgba(0, 199, 255, 0.5);
-            background-color: rgba(255, 255, 255, 0.7);
+            border-color: #0056b3;
+            box-shadow: 0 0 8px rgba(38, 143, 255, 0.5);
+            background-color: #fff;
         }
 
         .form-control::placeholder {
@@ -92,7 +102,7 @@
             top: 18px;
             left: 15px;
             font-size: 16px;
-            color: #ffffff;
+            color: #888;
             transition: all 0.2s ease;
         }
 
@@ -101,13 +111,13 @@
             top: -12px;
             left: 12px;
             font-size: 14px;
-            color: #00c7ff;
+            color: #007bff;
         }
 
         /* Button */
         .btn-primary {
-            background-color: #00c7ff;
-            border-color: #00c7ff;
+            background-color: #007bff;
+            border-color: #007bff;
             padding: 14px;
             width: 100%;
             border-radius: 15px;
@@ -117,15 +127,15 @@
         }
 
         .btn-primary:hover {
-            background-color: #008bb8;
-            border-color: #008bb8;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            background-color: #0056b3;
+            border-color: #004085;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
 
         /* Icon */
         .icon {
             font-size: 60px;
-            color: #ffffff;
+            color: #007bff;
             text-align: center;
             margin-bottom: 20px;
             animation: bounce 1s infinite alternate;
@@ -145,7 +155,7 @@
             display: block;
             text-align: center;
             font-size: 14px;
-            color: #00c7ff;
+            color: #007bff;
             font-weight: bold;
             text-decoration: none;
             margin-top: 20px;
@@ -153,7 +163,7 @@
         }
 
         .forgot-password:hover {
-            color: #008bb8;
+            color: #0056b3;
         }
 
         .signup-link {
@@ -162,14 +172,14 @@
         }
 
         .signup-link a {
-            color: #00c7ff;
+            color: #007bff;
             text-decoration: none;
             font-weight: bold;
             transition: color 0.2s ease;
         }
 
         .signup-link a:hover {
-            color: #008bb8;
+            color: #0056b3;
             text-decoration: underline;
         }
 
@@ -188,11 +198,11 @@
         /* Responsive */
         @media (max-width: 575px) {
             .container {
-                padding: 30px;
+                padding: 40px 30px;
             }
 
             h1 {
-                font-size: 26px;
+                font-size: 28px;
             }
         }
     </style>
