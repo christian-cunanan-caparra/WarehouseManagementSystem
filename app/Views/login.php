@@ -12,53 +12,36 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(135deg, #2f3b52, #1e2a3b);
-            font-family: 'Roboto', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Arial', sans-serif;
             height: 100vh;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #ecf0f1;
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
         }
 
         .container {
-            background-color: rgba(255, 255, 255, 0.15);
-            padding: 50px;
-            border-radius: 20px;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+            background-color: #1f1f1f;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
             width: 100%;
-            max-width: 450px;
-            backdrop-filter: blur(10px);
+            max-width: 400px;
             transition: all 0.3s ease-in-out;
-            animation: scaleUp 0.5s ease-in-out;
         }
 
-        @keyframes scaleUp {
-            from {
-                transform: scale(0.95);
-            }
-            to {
-                transform: scale(1);
-            }
+        .container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
         }
 
         h1 {
             text-align: center;
             color: #00bcd4;
-            font-size: 2.7rem;
-            margin-bottom: 20px;
-            font-weight: bold;
+            font-size: 30px;
+            margin-bottom: 30px;
         }
 
         .form-group {
@@ -66,60 +49,54 @@
         }
 
         .form-control {
-            border-radius: 12px;
-            padding: 14px;
+            background-color: #333;
+            color: #e0e0e0;
+            border-radius: 10px;
+            padding: 12px;
             font-size: 16px;
-            background-color: #ecf0f1;
-            border: none;
-            color: #34495e;
-            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
+            box-shadow: none;
+            border: 1px solid #00bcd4;
         }
 
         .form-control:focus {
-            border: 2px solid #00bcd4;
-            box-shadow: 0 0 10px rgba(0, 188, 212, 0.3);
+            border-color: #0097a7;
+            box-shadow: 0 0 0 0.2rem rgba(0, 179, 212, 0.5);
         }
 
         .btn-primary {
             background-color: #00bcd4;
-            border-color: #0097a7;
+            border-color: #00bcd4;
             padding: 14px;
             width: 100%;
             border-radius: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            transition: all 0.3s ease;
+            font-size: 16px;
         }
 
         .btn-primary:hover {
             background-color: #0097a7;
-            border-color: #00bcd4;
-            transform: translateY(-2px);
+            border-color: #007f8f;
         }
 
         .icon {
-            font-size: 70px;
+            font-size: 50px;
             color: #00bcd4;
             text-align: center;
             margin-bottom: 20px;
         }
 
         ::placeholder {
-            color: #7f8c8d;
+            color: #9e9e9e;
             opacity: 1;
         }
 
         .signup-link {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
         .signup-link a {
             color: #00bcd4;
             text-decoration: none;
-            font-weight: 500;
-            letter-spacing: 0.5px;
         }
 
         .signup-link a:hover {
@@ -129,56 +106,36 @@
         .alert {
             font-size: 14px;
             padding: 15px;
-            background-color: #e74c3c;
-            color: #ecf0f1;
-            border-radius: 12px;
+            background-color: #ff4d4d;
+            color: #fff;
             margin-bottom: 20px;
-            border: 1px solid transparent;
-            animation: slideIn 0.5s ease-in-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(-100%);
-            }
-            to {
-                transform: translateX(0);
-            }
         }
 
         .forgot-password {
             text-decoration: none;
             display: flex;
+            flex-direction: column;
             justify-content: center;
+            text-align: center;
             padding-top: 10px;
-            color: #ecf0f1;
-            font-size: 14px;
+            color: #00bcd4;
         }
 
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        /* Show Password Checkbox */
         .show-password {
             display: flex;
             align-items: center;
+            margin-top: -10px;
             font-size: 14px;
-            color: #ecf0f1;
-            margin-top: 5px;
+            padding-top: 20px;
         }
 
         .show-password input {
-            margin-right: 10px;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background-color: #00bcd4;
-            border-radius: 5px;
+            margin-right: 8px;
         }
     </style>
 </head>
@@ -229,14 +186,14 @@
 
         <!-- Link to register page -->
         <div class="signup-link">
-            <p>Don't have an account yet? <a href="/register">Sign up here</a></p>
+            <p>Don't have an account yet? <a href="/register" class="sign-up">Sign up here</a></p>
         </div>
     </div>
 
     <!-- Include Bootstrap JS (For Modal) -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-
+    
     <script>
         // Password validation on form submission
         document.querySelector('form').addEventListener('submit', function(event) {
