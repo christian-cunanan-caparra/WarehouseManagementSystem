@@ -13,8 +13,8 @@
     <style>
         body {
             background-color: #121212;
-            color: #e0e0e0;
-            font-family: 'Arial', sans-serif;
+            color: #f0f0f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             height: 100vh;
             margin: 0;
             display: flex;
@@ -23,25 +23,26 @@
         }
 
         .container {
-            background-color: #1f1f1f;
+            background-color: #1c1c1c;
             padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             transition: all 0.3s ease-in-out;
         }
 
         .container:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+            transform: scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
         }
 
         h1 {
             text-align: center;
             color: #00bcd4;
-            font-size: 30px;
+            font-size: 36px;
             margin-bottom: 30px;
+            font-weight: bold;
         }
 
         .form-group {
@@ -50,17 +51,18 @@
 
         .form-control {
             background-color: #333;
-            color: #e0e0e0;
+            color: #f0f0f0;
             border-radius: 10px;
             padding: 12px;
             font-size: 16px;
+            border: 1px solid #444;
             box-shadow: none;
-            border: 1px solid #00bcd4;
+            transition: border-color 0.3s ease;
         }
 
         .form-control:focus {
-            border-color: #0097a7;
-            box-shadow: 0 0 0 0.2rem rgba(0, 179, 212, 0.5);
+            border-color: #00bcd4;
+            box-shadow: 0 0 0 0.2rem rgba(0, 188, 212, 0.4);
         }
 
         .btn-primary {
@@ -70,6 +72,9 @@
             width: 100%;
             border-radius: 10px;
             font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .btn-primary:hover {
@@ -81,11 +86,11 @@
             font-size: 50px;
             color: #00bcd4;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         ::placeholder {
-            color: #9e9e9e;
+            color: #888;
             opacity: 1;
         }
 
@@ -97,6 +102,8 @@
         .signup-link a {
             color: #00bcd4;
             text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 0.5px;
         }
 
         .signup-link a:hover {
@@ -106,19 +113,21 @@
         .alert {
             font-size: 14px;
             padding: 15px;
-            background-color: #ff4d4d;
+            background-color: #f44336;
             color: #fff;
             margin-bottom: 20px;
+            border-radius: 8px;
         }
 
         .forgot-password {
             text-decoration: none;
+            color: #00bcd4;
+            font-weight: bold;
             display: flex;
             flex-direction: column;
             justify-content: center;
             text-align: center;
             padding-top: 10px;
-            color: #00bcd4;
         }
 
         .forgot-password:hover {
@@ -132,6 +141,7 @@
             margin-top: -10px;
             font-size: 14px;
             padding-top: 20px;
+            color: #888;
         }
 
         .show-password input {
