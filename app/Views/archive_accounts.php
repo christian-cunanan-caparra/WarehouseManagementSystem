@@ -207,6 +207,17 @@
             margin-left: 50px;
         }
 
+        .btn-activate {
+        background: linear-gradient(45deg, #28a745, #218838);
+        color: white;
+        border: none;
+    }
+
+    .btn-activate:hover {
+        background: linear-gradient(45deg, #218838, #28a745);
+        transform: scale(1.05);
+    }
+
     </style>
 </head>
 <body>
