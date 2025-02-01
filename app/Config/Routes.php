@@ -136,6 +136,8 @@ $routes->get('/inventory-log', 'DashboardController::inventoryLogsPage');
 //req product
 
 $routes->get('/request-product', 'RequestController::requestprod');
+$routes->get('/cmVxdWVzdC1wcm9kdWN0', 'RequestController::requestprod');
+
 
 //admin invent logs
 
