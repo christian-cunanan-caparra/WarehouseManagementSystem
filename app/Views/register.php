@@ -105,12 +105,16 @@
         .modal-content {
             border-radius: 15px;
             padding: 20px;
+            border: 2px solid #007bff;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            background: #f8f9fa;
         }
 
         .modal-header {
             background-color: #007bff;
             color: white;
             border-radius: 10px 10px 0 0;
+            padding: 15px;
         }
 
         .modal-title {
@@ -121,18 +125,38 @@
         .modal-body {
             text-align: center;
             font-size: 18px;
+            padding: 30px;
         }
 
         .modal-footer {
             justify-content: center;
+            border: none;
+            padding: 10px 0;
         }
 
         /* Spinner Styling */
         .spinner-border {
-            width: 3rem;
-            height: 3rem;
-            border-width: 0.3em;
+            width: 4rem;
+            height: 4rem;
+            border-width: 0.4em;
             margin-bottom: 20px;
+            animation: spin 1s infinite linear;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Text and color styling for loading message */
+        .loading-text {
+            color: #007bff;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .modal-dialog-centered {
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -231,7 +255,7 @@
                     <div class="spinner-border text-primary" role="status">
                         <span class="visually-hidden">Loading...</span>
                     </div>
-                    <p>Please wait while we redirect you to the login page.</p>
+                    <p class="loading-text">Please wait while we redirect you to the login page.</p>
                 </div>
             </div>
         </div>
