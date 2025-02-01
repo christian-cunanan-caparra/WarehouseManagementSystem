@@ -11,35 +11,27 @@
     <style>
         /* Base styling */
         body {
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            background: linear-gradient(45deg, #1c1c1c, #4e4e4e);
             font-family: 'Arial', sans-serif;
             height: 100vh;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            animation: gradientMove 5s ease infinite;
+            overflow: hidden;
         }
 
-        @keyframes gradientMove {
-            0% {
-                background-position: 0 0;
-            }
-            100% {
-                background-position: 400px 400px;
-            }
-        }
-
-        /* Container with Neumorphism effect */
+        /* Container with Glassmorphism effect */
         .container {
-            background: #e0e5ec;
-            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             border-radius: 20px;
-            padding: 50px;
+            padding: 40px;
             max-width: 380px;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
             animation: fadeIn 1s ease-in-out;
-            width: 100%;
         }
 
         @keyframes fadeIn {
@@ -55,13 +47,13 @@
 
         .container:hover {
             transform: scale(1.05);
-            box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.2), -8px -8px 20px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
 
         /* Title */
         h1 {
             text-align: center;
-            color: #007bff;
+            color: #ffffff;
             font-size: 32px;
             margin-bottom: 30px;
             font-weight: bold;
@@ -78,16 +70,17 @@
             padding: 18px 12px;
             font-size: 16px;
             border-radius: 20px;
-            border: 1px solid #007bff;
+            border: 1px solid #ffffff;
             box-shadow: none;
             transition: all 0.3s ease;
-            background: #e0e5ec;
+            background: rgba(255, 255, 255, 0.3);
+            color: #ffffff;
         }
 
         .form-control:focus {
-            border-color: #0056b3;
-            box-shadow: 0 0 8px rgba(38, 143, 255, 0.5);
-            background-color: #fff;
+            border-color: #00c7ff;
+            box-shadow: 0 0 8px rgba(0, 199, 255, 0.5);
+            background-color: rgba(255, 255, 255, 0.7);
         }
 
         .form-control::placeholder {
@@ -99,7 +92,7 @@
             top: 18px;
             left: 15px;
             font-size: 16px;
-            color: #888;
+            color: #ffffff;
             transition: all 0.2s ease;
         }
 
@@ -108,13 +101,13 @@
             top: -12px;
             left: 12px;
             font-size: 14px;
-            color: #007bff;
+            color: #00c7ff;
         }
 
         /* Button */
         .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
+            background-color: #00c7ff;
+            border-color: #00c7ff;
             padding: 14px;
             width: 100%;
             border-radius: 15px;
@@ -124,15 +117,15 @@
         }
 
         .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #004085;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background-color: #008bb8;
+            border-color: #008bb8;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
         }
 
         /* Icon */
         .icon {
             font-size: 60px;
-            color: #007bff;
+            color: #ffffff;
             text-align: center;
             margin-bottom: 20px;
             animation: bounce 1s infinite alternate;
@@ -152,7 +145,7 @@
             display: block;
             text-align: center;
             font-size: 14px;
-            color: #007bff;
+            color: #00c7ff;
             font-weight: bold;
             text-decoration: none;
             margin-top: 20px;
@@ -160,7 +153,7 @@
         }
 
         .forgot-password:hover {
-            color: #0056b3;
+            color: #008bb8;
         }
 
         .signup-link {
@@ -169,14 +162,14 @@
         }
 
         .signup-link a {
-            color: #007bff;
+            color: #00c7ff;
             text-decoration: none;
             font-weight: bold;
             transition: color 0.2s ease;
         }
 
         .signup-link a:hover {
-            color: #0056b3;
+            color: #008bb8;
             text-decoration: underline;
         }
 
