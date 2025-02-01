@@ -101,6 +101,31 @@
             margin-bottom: 30px;
         }
 
+        /* Modal styling */
+        .modal-content {
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .modal-header {
+            background-color: #007bff;
+            color: white;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .modal-body {
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .modal-footer {
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
@@ -189,13 +214,16 @@
     <!-- Modal for success -->
     <?php if (session()->get('success')): ?>
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="successModalLabel">Registration Successful</h5>
                 </div>
                 <div class="modal-body">
                     <?= session()->get('success') ?>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="window.location.href='/login'">Go to Login</button>
                 </div>
             </div>
         </div>
