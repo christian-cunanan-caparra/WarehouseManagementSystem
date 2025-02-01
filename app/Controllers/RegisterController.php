@@ -49,7 +49,7 @@ class RegisterController extends BaseController
         $userModel = new UserModel();
         if ($userModel->save($userData)) {
             // If successful, store a success message in the session
-            session()->setFlashdata('success', 'Registration successful! Please wait, redirecting...');
+            session()->setFlashdata('success', ' ');
 
             // Send a welcome email to the user
             $email = \Config\Services::email();
