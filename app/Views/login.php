@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <link rel="icon" type="image/x-icon" href="<?= base_url('favicon.ico'); ?>">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Warehouse Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Include Bootstrap for Modal Styling -->
 
 
@@ -15,15 +17,15 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f0f8ff;
-            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #29323c, #485563);
+            font-family: 'Poppins', sans-serif;
             height: 100vh;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
         }
-
         .container {
             background-color: #ffffff;
             padding: 40px;
@@ -129,19 +131,15 @@
         }
     </style>
 </head>
-<body>
-
-    <div class="container">
+<div class="container">
         <h1><i class="fas fa-warehouse"></i> Warehouse Management System</h1>
 
-        <!-- Display Flash Error -->
         <?php if (session()->getFlashdata('error')): ?>
             <div class="alert alert-danger">
                 <?= session()->getFlashdata('error') ?>
             </div>
         <?php endif; ?>
 
-        <!-- Display Validation Errors -->
         <?php if (isset($errors) && !empty($errors)): ?>
             <div class="alert alert-danger">
                 <ul>
@@ -152,7 +150,6 @@
             </div>
         <?php endif; ?>
 
-        <!-- Login Form -->
         <form action="/login/authenticate" method="post">
             <?= csrf_field() ?>
 
@@ -164,37 +161,31 @@
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
-                <!-- Show Password Toggle -->
                 <div class="show-password">
                     <input type="checkbox" id="togglePassword"> Show Password
                 </div>
             </div>
 
             <button type="submit" class="btn btn-primary">Login</button>
-            <a href="/request-reset" class="text-primary forgot-password">Forgot Password?</a>
+            <a href="/request-reset" class="forgot-password">Forgot Password?</a>
         </form>
 
-        <!-- Link to register page -->
         <div class="signup-link">
             <p>Don't have an account yet? <a href="/register" class="sign-up">Sign up here</a></p>
         </div>
     </div>
 
-    <!-- Include Bootstrap JS (For Modal) -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    
     <script>
-        // Password validation on form submission
         document.querySelector('form').addEventListener('submit', function(event) {
             var password = document.getElementById('password').value;
             if (password.length < 8) {
-                event.preventDefault();  // Prevent form submission
+                event.preventDefault();
                 alert('Password must be at least 8 characters long.');
             }
         });
 
-        // Show/Hide Password Toggle
         document.getElementById('togglePassword').addEventListener('change', function() {
             var passwordField = document.getElementById('password');
             if (this.checked) {
