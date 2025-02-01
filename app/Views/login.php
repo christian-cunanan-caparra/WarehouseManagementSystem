@@ -32,6 +32,7 @@
             width: 100%;
             max-width: 420px;
             transition: all 0.3s ease-in-out;
+            box-sizing: border-box;  /* Ensures padding doesn't affect overall width */
         }
 
         .container:hover {
@@ -139,6 +140,28 @@
 
         .show-password input {
             margin-right: 8px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+                margin-bottom: 15px;
+            }
+
+            .form-control {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .btn-primary {
+                padding: 10px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
