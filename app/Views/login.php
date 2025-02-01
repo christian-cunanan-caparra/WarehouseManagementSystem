@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <link rel="icon" type="image/x-icon" href="<?= base_url('favicon.ico'); ?>">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Warehouse Management System</title>
 
@@ -13,6 +12,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <!-- Google Fonts for modern typography -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <style>
         body {
             background: linear-gradient(135deg, #74b9ff, #0984e3);
@@ -22,6 +22,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            transition: background 0.5s ease;
         }
 
         .container {
@@ -32,7 +33,7 @@
             width: 100%;
             max-width: 420px;
             transition: all 0.3s ease-in-out;
-            box-sizing: border-box;  /* Ensures padding doesn't affect overall width */
+            box-sizing: border-box;
         }
 
         .container:hover {
@@ -45,10 +46,12 @@
             color: #0984e3;
             font-weight: 600;
             margin-bottom: 20px;
+            font-size: 30px;
         }
 
         .form-group {
             margin-bottom: 25px;
+            position: relative;
         }
 
         .form-control {
@@ -62,6 +65,16 @@
         .form-control:focus {
             border-color: #0984e3;
             box-shadow: 0 0 5px rgba(9, 132, 227, 0.4);
+        }
+
+        .form-control::placeholder {
+            color: #aaa;
+            opacity: 1;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .form-control:focus::placeholder {
+            opacity: 0.5;
         }
 
         .btn-primary {
@@ -87,27 +100,6 @@
             margin-bottom: 20px;
         }
 
-        ::placeholder {
-            color: #aaa;
-            opacity: 1;
-        }
-
-        .signup-link {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 14px;
-        }
-
-        .signup-link a {
-            color: #0984e3;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .signup-link a:hover {
-            text-decoration: underline;
-        }
-
         .alert {
             font-size: 14px;
             padding: 15px;
@@ -129,7 +121,6 @@
             text-decoration: underline;
         }
 
-        /* Show Password Checkbox */
         .show-password {
             display: flex;
             align-items: center;
@@ -163,9 +154,24 @@
                 font-size: 14px;
             }
         }
+
+        /* Theme Switch Button */
+        .theme-switch {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
     </style>
 </head>
 <body>
+
+    <!-- Theme Switcher (Light/Dark Mode) -->
+    <div class="theme-switch" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+    </div>
 
     <div class="container">
         <h1><i class="fas fa-warehouse"></i> Warehouse Management System</h1>
@@ -189,7 +195,7 @@
         <?php endif; ?>
 
         <!-- Login Form -->
-        <form action="/login/authenticate" method="post">
+        <form action="/login/authenticate" method="post" id="loginForm">
             <?= csrf_field() ?>
 
             <div class="form-group">
@@ -216,18 +222,38 @@
         </div>
     </div>
 
+    <!-- Loading Spinner -->
+    <div id="loading" style="display:none; text-align:center;">
+        <i class="fas fa-spinner fa-spin" style="font-size: 30px; color: #0984e3;"></i>
+    </div>
+
     <!-- Include Bootstrap JS (For Modal) -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 
     <script>
         // Password validation on form submission
-        document.querySelector('form').addEventListener('submit', function(event) {
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
             var password = document.getElementById('password').value;
+            var email = document.getElementById('email').value;
+
+            // Email validation
+            var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (!emailPattern.test(email)) {
+                event.preventDefault();
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            // Password validation
             if (password.length < 8) {
                 event.preventDefault();  // Prevent form submission
                 alert('Password must be at least 8 characters long.');
+                return;
             }
+
+            // Show loading spinner
+            document.getElementById('loading').style.display = 'block';
         });
 
         // Show/Hide Password Toggle
@@ -239,7 +265,19 @@
                 passwordField.type = "password";
             }
         });
-    </script>
 
+        // Toggle Dark/Light Theme
+        function toggleTheme() {
+            var body = document.body;
+            body.classList.toggle('dark-theme');
+            if (body.classList.contains('dark-theme')) {
+                document.querySelector('.theme-switch i').classList.replace('fa-moon', 'fa-sun');
+                body.style.background = '#2d3436';  // Dark theme background
+            } else {
+                document.querySelector('.theme-switch i').classList.replace('fa-sun', 'fa-moon');
+                body.style.background = 'linear-gradient(135deg, #74b9ff, #0984e3)';  // Original light theme
+            }
+        }
+    </script>
 </body>
 </html>
