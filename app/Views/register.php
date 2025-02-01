@@ -257,7 +257,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="successModalLabel">Registration Successful</h5>
+                    <h5 class="modal-title" id="successModalLabel">Registration Processing</h5>
                 </div>
                 <div class="modal-body">
                     <div class="spinner-border text-primary" role="status">
