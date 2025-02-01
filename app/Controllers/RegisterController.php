@@ -58,6 +58,7 @@ class RegisterController extends BaseController
             $email->setSubject('Welcome!');
             $email->setMessage('Welcome to the Warehouse Management System! You have successfully registered.');
             $email->send();
+            return redirect()->to('/login');
         } else {
             // If saving the data fails, store an error message
             session()->setFlashdata('error', 'There was an error with your registration.');
