@@ -308,8 +308,8 @@
     </div>
 
     <!-- Modal for success -->
-    <?php if (session()->get('success')): ?>
-    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+   
+    <!-- <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -323,7 +323,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -335,7 +335,7 @@
             }, 4000);
         });
     </script>
-    <?php endif; ?>
+    <
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
