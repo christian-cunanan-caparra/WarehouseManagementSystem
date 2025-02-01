@@ -26,7 +26,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 500px;
+            max-width: 700px; /* Slightly larger max width for PC/Laptop */
             transition: all 0.3s ease-in-out;
             animation: fadeIn 1s ease-in-out;
         }
@@ -151,10 +151,11 @@
         @media (max-width: 768px) {
             .container {
                 padding: 20px;
+                max-width: 90%; /* Smaller width on mobile devices */
             }
 
             h1 {
-                font-size: 26px;
+                font-size: 24px;
                 margin-bottom: 20px;
             }
 
@@ -172,7 +173,7 @@
         @media (max-width: 480px) {
             .container {
                 padding: 15px;
-                max-width: 100%;
+                max-width: 100%; /* Full width on very small screens */
             }
 
             h1 {
