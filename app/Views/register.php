@@ -26,7 +26,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 380px;
+            max-width: 800px;
            
             transition: all 0.3s ease-in-out;
             animation: fadeIn 1s ease-in-out;
@@ -36,7 +36,7 @@
 
 
 
-      
+        
 
         @keyframes fadeIn {
             from {
