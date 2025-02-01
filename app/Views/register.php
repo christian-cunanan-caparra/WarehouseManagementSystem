@@ -126,6 +126,14 @@
         .modal-footer {
             justify-content: center;
         }
+
+        /* Spinner Styling */
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+            border-width: 0.3em;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -220,10 +228,10 @@
                     <h5 class="modal-title" id="successModalLabel">Registration Successful</h5>
                 </div>
                 <div class="modal-body">
-                    <?= session()->get('success') ?>
-                </div>
-                <div class="modal-footer">
-                    
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p>Please wait while we redirect you to the login page.</p>
                 </div>
             </div>
         </div>
@@ -236,7 +244,7 @@
 
             setTimeout(function() {
                 window.location.href = '/login'; // Redirect after 4 seconds
-            }, 2000);
+            }, 4000);
         });
     </script>
     <?php endif; ?>
