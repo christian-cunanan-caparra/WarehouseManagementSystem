@@ -10,71 +10,83 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
             font-family: 'Arial', sans-serif;
             height: 100vh;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
+            animation: backgroundMove 5s linear infinite;
+        }
+
+        @keyframes backgroundMove {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 400px 400px;
+            }
         }
 
         .container {
             background-color: #ffffff;
             padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 400px;
+            max-width: 380px;
             transition: all 0.3s ease-in-out;
         }
 
         .container:hover {
             transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
 
         h1 {
             text-align: center;
             color: #007bff;
-            font-size: 28px;
-            margin-bottom: 20px;
+            font-size: 32px;
+            margin-bottom: 30px;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .form-control {
-            border-radius: 10px;
-            padding: 10px;
+            border-radius: 15px;
+            padding: 12px 18px;
             font-size: 16px;
             box-shadow: none;
             border: 1px solid #007bff;
+            transition: border 0.3s, box-shadow 0.3s;
         }
 
         .form-control:focus {
             border-color: #0056b3;
-            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+            box-shadow: 0 0 8px rgba(38, 143, 255, 0.5);
         }
 
         .btn-primary {
             background-color: #007bff;
             border-color: #007bff;
-            padding: 12px;
+            padding: 14px;
             width: 100%;
-            border-radius: 10px;
-            font-size: 16px;
-            transition: background-color 0.3s;
+            border-radius: 15px;
+            font-size: 18px;
+            transition: background-color 0.3s, box-shadow 0.3s;
         }
 
         .btn-primary:hover {
             background-color: #0056b3;
             border-color: #004085;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .icon {
-            font-size: 50px;
+            font-size: 55px;
             color: #007bff;
             text-align: center;
             margin-bottom: 20px;
@@ -83,7 +95,7 @@
 
         @keyframes bounce {
             0% { transform: translateY(0); }
-            100% { transform: translateY(-10px); }
+            100% { transform: translateY(-8px); }
         }
 
         ::placeholder {
@@ -93,52 +105,56 @@
 
         .signup-link {
             text-align: center;
-            margin-top: 15px;
+            margin-top: 25px;
         }
 
         .signup-link a {
             color: #007bff;
             text-decoration: none;
+            font-weight: bold;
         }
 
         .signup-link a:hover {
-            text-decoration: none;
+            text-decoration: underline;
         }
 
         .alert {
             font-size: 14px;
-            padding: 15px;
+            padding: 10px;
+            border-radius: 8px;
         }
 
         .forgot-password {
             text-decoration: none;
             display: flex;
-            flex-direction: column;
             justify-content: center;
-            text-align: center;
-            padding-top: 10px;
+            padding-top: 12px;
+            font-weight: bold;
+            color: #007bff;
         }
 
         /* Show Password Checkbox */
         .show-password {
             display: flex;
             align-items: center;
-            margin-top: -10px;
+            margin-top: 10px;
             font-size: 14px;
-            padding-top: 20px;
         }
 
         .show-password input {
-            margin-right: 8px;
+            margin-right: 10px;
         }
 
-        /* Adding subtle animations on form fields */
-        .form-group input {
-            transition: border-color 0.3s ease;
-        }
+        /* Responsive fixes */
+        @media (max-width: 575px) {
+            .container {
+                padding: 30px;
+                max-width: 100%;
+            }
 
-        .form-group input:focus {
-            border-color: #0056b3;
+            h1 {
+                font-size: 26px;
+            }
         }
     </style>
 </head>
@@ -184,7 +200,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Login</button>
-            <a href="/request-reset" class="text-primary forgot-password">Forgot Password?</a>
+            <a href="/request-reset" class="forgot-password">Forgot Password?</a>
         </form>
 
         <!-- Link to register page -->
