@@ -26,7 +26,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 800px;
+            max-width: 600px;
             transition: all 0.3s ease-in-out;
             animation: fadeIn 1s ease-in-out;
         }
@@ -66,24 +66,6 @@
             margin-top: 25px;
         }
 
-        @media (max-width: 575px) {
-            .container {
-                padding: 30px;
-                max-width: 100%;
-            }
-        }
-
-        .container:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-        }
-
-        .alert {
-            font-size: 14px;
-            padding: 10px;
-            border-radius: 8px;
-        }
-
         .signup-link a {
             color: #007bff;
             text-decoration: none;
@@ -105,7 +87,6 @@
         .modal-content {
             border-radius: 15px;
             padding: 20px;
-           
             box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
             background: #f8f9fa;
         }
@@ -148,7 +129,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Text and color styling for loading message */
         .loading-text {
             color: #007bff;
             font-size: 18px;
@@ -165,6 +145,54 @@
         .modal-body:focus,
         .modal-footer:focus {
             outline: none;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+                margin-bottom: 20px;
+            }
+
+            .form-control {
+                font-size: 14px;
+                padding: 10px 15px;
+            }
+
+            .btn-primary {
+                font-size: 16px;
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+                max-width: 100%;
+            }
+
+            h1 {
+                font-size: 24px;
+                margin-bottom: 15px;
+            }
+
+            .form-control {
+                font-size: 14px;
+                padding: 8px 12px;
+            }
+
+            .btn-primary {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .signup-link {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
