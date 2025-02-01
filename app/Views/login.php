@@ -6,12 +6,8 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Warehouse Management System</title>
-    <!-- Include Bootstrap for Modal Styling -->
-
-
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for icon -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
@@ -22,35 +18,37 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            color: #333;
         }
 
         .container {
             background-color: #ffffff;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 400px;
-            transition: all 0.3s ease-in-out;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .container:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
             text-align: center;
             color: #007bff;
+            margin-bottom: 20px;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .form-control {
             border-radius: 10px;
-            padding: 10px;
+            padding: 12px;
             font-size: 16px;
             box-shadow: none;
             border: 1px solid #007bff;
@@ -76,7 +74,7 @@
         }
 
         .icon {
-            font-size: 50px;
+            font-size: 60px;
             color: #007bff;
             text-align: center;
             margin-bottom: 20px;
@@ -98,7 +96,7 @@
         }
 
         .signup-link a:hover {
-            text-decoration: none;
+            text-decoration: underline;
         }
 
         .alert {
@@ -115,18 +113,33 @@
             padding-top: 10px;
         }
 
-        /* Show Password Checkbox */
         .show-password {
             display: flex;
             align-items: center;
-            margin-top: -10px;
+            margin-top: 10px;
             font-size: 14px;
-            padding-top: 20px;
         }
 
         .show-password input {
             margin-right: 8px;
         }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 20px;
+                max-width: 90%;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .btn-primary {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -180,7 +193,6 @@
         </div>
     </div>
 
-    <!-- Include Bootstrap JS (For Modal) -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     
