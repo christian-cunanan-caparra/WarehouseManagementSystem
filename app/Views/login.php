@@ -24,13 +24,11 @@
         }
 
         .container {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            width: 90%; /* Occupy most of the screen on smaller devices */
-            max-width: 400px; /* Set a maximum width for larger screens */
-            backdrop-filter: blur(5px);
+            /* ... (other container styles) ... */
+            height: auto; /* Key change: Set height to auto */
+            /* OR, if you want to keep a maximum height but allow it to shrink: */
+             max-height: 90vh; /* Example: 90% of viewport height */
+            overflow-y: auto; /* Add scroll if content overflows */
         }
 
         /* Media Queries for Responsiveness */
