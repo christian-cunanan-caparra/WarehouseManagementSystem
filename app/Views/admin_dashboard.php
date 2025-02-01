@@ -13,8 +13,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
-
    
    
    
@@ -93,8 +91,8 @@
         }
 
         .sidebar-links li a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            transition: 0.3s ease-in-out;
+            background-color: #495057;
+            border-radius: 5px;
         }
 
         /* Toggle Button */
@@ -162,9 +160,7 @@
         /* Responsive Design */
         @media screen and (max-width: 768px) {
             .sidebar {
-                position: absolute;
-        z-index: 1000;
-        transform: translateX(-100%);
+                transform: translateX(-250px);
             }
 
             .content {
@@ -177,7 +173,7 @@
         }
 
         .sidebar.hidden {
-            transform: translateX(0);
+            transform: translateX(-250px);
         }
 
         .content.full-width {
@@ -186,7 +182,6 @@
 
         .toggle-btn.move {
             left: 15px;
-        z-index: 1100;
         }
 
         /* Container for the Charts */
@@ -217,7 +212,7 @@
 
     </style>
 </head>
-
+</head>
 <body>
 
     <!-- Sidebar -->
@@ -355,62 +350,101 @@
         // Mini Bar Chart
         const miniBarCtx = document.getElementById('miniBarChart').getContext('2d');
         const miniBarChart = new Chart(miniBarCtx, {
-    type: 'bar',
-    data: {
-        labels: ['Stock In', 'Stock Out', 'Products', 'Cache'],
-        datasets: [{
-            label: 'Stock Usage',
-            data: [<?= $totalStockIn ?>, <?= $totalStockOut ?>, 30000, 20000],
-            backgroundColor: ['#17a2b8', '#dc3545', '#28a745', '#6610f2'],
-            borderWidth: 1,
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-            y: { beginAtZero: true }
-        }
-    }
-});
+            type: 'bar',
+            data: {
+                labels: ['Stock In', 'Stock Out', 'Products', 'Catche'],
+                datasets: [{
+                    label: 'Stock Usage',
+                    data: [ <?= $totalStockIn ?>, <?= $totalStockOut ?>, 30000, 20000 ],
+                    backgroundColor: ['rgba(23, 162, 184, 0.8)', 'rgba(220, 53, 69, 0.8)', 'rgba(40, 167, 69, 0.8)', 'rgba(102, 16, 242, 0.8)'],
+                    borderRadius: 8,
+                    borderWidth: 1,
+                    barPercentage: 0.5,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 1200,
+                    easing: 'easeOutElastic'
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: '#343a40', font: { size: 12 } },
+                        grid: { display: false }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#343a40', font: { size: 12 } },
+                        grid: { color: 'rgba(0, 0, 0, 0.1)' }
+                    }
+                }
+            }
+        });
 
+        // Pie Chart
+        const ctx = document.getElementById('pieChart').getContext('2d');
+        const pieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Total Stock In', 'Total Stock Out', 'Low Stock'],
+                datasets: [{
+                    label: 'Stock Distribution',
+                    data: [<?= $totalStockIn ?>, <?= $totalStockOut ?>, <?= count($lowStockProducts) ?>],
+                    backgroundColor: ['#17a2b8', '#dc3545', '#ffc107'],
+                    borderColor: ['#ffffff', '#ffffff', '#ffffff'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            fontSize: 12,
+                            fontColor: '#343a40',
+                            boxWidth: 10
+                        }
+                    }
+                }
+            }
+        });
     </script>
 
-   <script>
-   document.addEventListener("DOMContentLoaded", function () {
-    const sidebar = document.getElementById("sidebar");
-    const toggleBtn = document.getElementById("toggle-btn");
-    const mainContent = document.getElementById("main-content");
+    <script>
+        // Sidebar Toggle Functionality
+        const sidebar = document.getElementById("sidebar");
+        const toggleBtn = document.getElementById("toggle-btn");
+        const content = document.getElementById("main-content");
 
-    toggleBtn.addEventListener("click", function () {
-        sidebar.classList.toggle("hidden");
-        mainContent.classList.toggle("full-width");
-        toggleBtn.classList.toggle("move");
-    });
-});
+        let isSidebarOpen = true;
 
-</script>
+        toggleBtn.addEventListener("click", () => {
+            isSidebarOpen = !isSidebarOpen;
 
-<!-- Low Stock Modal -->
-<div class="modal fade" id="lowStockModal" tabindex="-1" aria-labelledby="lowStockModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="lowStockModalLabel">Low Stock Alerts</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <ul>
-                    <?php foreach ($lowStockProducts as $product): ?>
-                        <li><?= esc($product['name']) ?> - <?= esc($product['remaining_stock']) ?> left</li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-
+            if (isSidebarOpen) {
+                sidebar.classList.remove("hidden");
+                content.classList.remove("full-width");
+                toggleBtn.classList.remove("move");
+                toggleBtn.style.left = "260px";
+            } else {
+                sidebar.classList.add("hidden");
+                content.classList.add("full-width");
+                toggleBtn.classList.add("move");
+                toggleBtn.style.left = "15px";
+            }
+        });
+    </script>
 </body>
 </html>
