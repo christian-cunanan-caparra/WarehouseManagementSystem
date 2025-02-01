@@ -6,16 +6,11 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Warehouse Management System</title>
-    <!-- Include Bootstrap for Modal Styling -->
-
-
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for icon -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f0f8ff;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
             font-family: 'Arial', sans-serif;
             height: 100vh;
             margin: 0;
@@ -42,6 +37,8 @@
         h1 {
             text-align: center;
             color: #007bff;
+            font-size: 28px;
+            margin-bottom: 20px;
         }
 
         .form-group {
@@ -68,6 +65,7 @@
             width: 100%;
             border-radius: 10px;
             font-size: 16px;
+            transition: background-color 0.3s;
         }
 
         .btn-primary:hover {
@@ -80,6 +78,12 @@
             color: #007bff;
             text-align: center;
             margin-bottom: 20px;
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
         }
 
         ::placeholder {
@@ -126,6 +130,15 @@
 
         .show-password input {
             margin-right: 8px;
+        }
+
+        /* Adding subtle animations on form fields */
+        .form-group input {
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #0056b3;
         }
     </style>
 </head>
@@ -180,7 +193,6 @@
         </div>
     </div>
 
-    <!-- Include Bootstrap JS (For Modal) -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     
