@@ -9,72 +9,110 @@
     <!-- Font Awesome for icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #e9f5ff;
+         body {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
             font-family: 'Arial', sans-serif;
             height: 100vh;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 15px;
+            animation: backgroundMove 5s linear infinite;
         }
+
+
+         @keyframes backgroundMove {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 400px 400px;
+            }
+        }
+
 
         .container {
-            background-color: #ffffff;
-            padding: 40px 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8));
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 500px;
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            max-width: 380px;
+            transition: all 0.3s ease-in-out;
+            animation: fadeIn 1s ease-in-out;
         }
 
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
         .container:hover {
-            transform: scale(1.03);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+            transform: scale(1.05);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
 
         h1 {
             text-align: center;
-            color: #0056b3;
-            margin-bottom: 20px;
+            color: #007bff;
+            font-size: 32px;
+            margin-bottom: 30px;
         }
 
-        .form-group label {
-            font-weight: bold;
-            color: #333333;
+        .form-group {
+            margin-bottom: 25px;
         }
 
         .form-control {
-            border-radius: 8px;
-            padding: 12px;
+            border-radius: 15px;
+            padding: 12px 18px;
             font-size: 16px;
+            box-shadow: none;
             border: 1px solid #007bff;
+            transition: border 0.3s, box-shadow 0.3s;
         }
 
         .form-control:focus {
             border-color: #0056b3;
-            box-shadow: 0 0 6px rgba(38, 143, 255, 0.5);
+            box-shadow: 0 0 8px rgba(38, 143, 255, 0.5);
         }
 
         .btn-primary {
-            background: linear-gradient(90deg, #007bff, #0056b3);
-            border: none;
+            background-color: #007bff;
+            border-color: #007bff;
             padding: 14px;
             width: 100%;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+            border-radius: 15px;
+            font-size: 18px;
+            transition: background-color 0.3s, box-shadow 0.3s;
         }
 
+
         .btn-primary:hover {
-            background: linear-gradient(90deg, #0056b3, #007bff);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
+            background-color: #0056b3;
+            border-color: #004085;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+
+        .icon {
+            font-size: 55px;
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-8px); }
+        }
+
 
         .btn-primary:active {
             transform: translateY(0);
@@ -138,6 +176,64 @@
             .form-control {
                 padding: 8px;
                 font-size: 12px;
+            }
+        }
+        ::placeholder {
+            color: #6c757d;
+            opacity: 1;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .signup-link a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        .alert {
+            font-size: 14px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .forgot-password {
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            padding-top: 12px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        /* Show Password Checkbox */
+        .show-password {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .show-password input {
+            margin-right: 10px;
+        }
+
+        /* Responsive fixes */
+        @media (max-width: 575px) {
+            .container {
+                padding: 30px;
+                max-width: 100%;
+            }
+
+            h1 {
+                font-size: 26px;
             }
         }
     </style>
