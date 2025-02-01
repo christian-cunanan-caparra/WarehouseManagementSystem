@@ -23,7 +23,7 @@
         }
 
         .container {
-            background-color: #1c1c1c;
+            background-color: #1f1f1f;
             padding: 40px;
             border-radius: 12px;
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
