@@ -160,8 +160,7 @@
 
         /* Responsive Design */
         @media screen and (max-width: 768px) {
-            @media (max-width: 768px) {
-    .sidebar {
+            .sidebar {
         width: 200px; /* Smaller width for mobile */
         transform: translateX(-100%); /* Hide sidebar by default */
     }
@@ -183,7 +182,6 @@
         border-radius: 5px;
         z-index: 1000;
     }
-}
 
             .content {
                 margin-left: 0;
@@ -194,7 +192,10 @@
             }
         }
 
-       
+        .sidebar.hidden {
+            transform: translateX(-250px);
+        }
+
         .content.full-width {
             margin-left: 0;
         }
@@ -472,7 +473,6 @@ const pieChart = new Chart(ctx, {
 
 
 
-
         document.addEventListener("DOMContentLoaded", function () {
     const sidebar = document.querySelector(".sidebar");
     const toggleBtn = document.createElement("button");
@@ -485,8 +485,6 @@ const pieChart = new Chart(ctx, {
         sidebar.classList.toggle("open");
     });
 });
-
-
 
     </script>
 </body>
