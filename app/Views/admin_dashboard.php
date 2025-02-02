@@ -27,16 +27,20 @@
 
         /* Sidebar Styling */
         .sidebar {
-    width: 250px;
-    height: 100vh;
-    background-color: #343a40;
-    color: white;
-    position: fixed;
-    top: 0;
-    left: -250px; /* Hidden initially */
-    transition: left 0.3s ease-in-out;
-    z-index: 1000; /* Ensure it is above content */
-}
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100vh;
+            width: 250px;
+            background-color: #343a40;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 15px;
+            transition: transform 0.3s ease-in-out;
+        }
+
         .sidebar-links-container {
             flex-grow: 1;
         }
@@ -60,51 +64,51 @@
             background-color: #495057;
         }
 
-        .sidebar.open {
-    left: 0;
-}
+        .sidebar-header {
+            font-size: 20px;
+            text-align: center;
+            padding: 15px;
+            font-weight: bold;
+            border-bottom: 1px solid #495057;
+        }
 
-/* Sidebar Header */
-.sidebar-header {
-    font-size: 20px;
-    text-align: center;
-    padding: 15px;
-    font-weight: bold;
-    border-bottom: 1px solid #495057;
-}
+        .sidebar-links {
+            list-style: none;
+            padding: 0;
+        }
 
-.sidebar-links li {
-    padding: 12px 15px;
-}
+        .sidebar-links li {
+            padding: 12px 15px;
+        }
 
-.sidebar-links li a {
-    text-decoration: none;
-    color: white;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 16px;
-}
+        .sidebar-links li a {
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+        }
 
-.sidebar-links li a:hover {
-    background-color: #495057;
-    border-radius: 5px;
-}
+        .sidebar-links li a:hover {
+            background-color: #495057;
+            border-radius: 5px;
+        }
 
         /* Toggle Button */
         .toggle-btn {
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    background-color: #495057;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    font-size: 18px;
-    cursor: pointer;
-    border-radius: 5px;
-    z-index: 1100; /* Above sidebar */
-}
+            position: fixed;
+            left: 260px;
+            top: 15px;
+            background-color: #343a40;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 20px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
 
         .toggle-btn:hover {
             background-color: #495057;
@@ -112,10 +116,10 @@
 
         /* Content Styling */
         .content {
-    margin-left: 0;
-    padding: 20px;
-    transition: margin-left 0.3s;
-}
+            margin-left: 270px;
+            padding: 20px;
+            transition: margin-left 0.3s;
+        }
 
         h2 {
             font-weight: bold;
@@ -157,27 +161,8 @@
         /* Responsive Design */
         @media screen and (max-width: 768px) {
             .sidebar {
-        left: 0;
-    }
-    .sidebar.open ~ .content {
-        margin-left: 250px;
-    }
-
-   
-
-    .sidebar-toggle {
-        position: fixed;
-        top: 15px;
-        left: 15px;
-        background-color: #495057;
-        color: white;
-        border: none;
-        padding: 10px 15px;
-        font-size: 18px;
-        cursor: pointer;
-        border-radius: 5px;
-        z-index: 1000;
-    }
+                transform: translateX(-250px);
+            }
 
             .content {
                 margin-left: 0;
@@ -225,134 +210,6 @@
         h1{
             margin-left: 50px;
         }
-
-
-
-
-
-
-
-
-
-
-
-    /* General Styles */
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f8f9fa;
-        margin: 0;
-        padding: 0;
-    }
-
-    /* Sidebar Styling */
-    .sidebar {
-        width: 250px;
-        height: 100vh;
-        background-color: #343a40;
-        color: white;
-        position: fixed;
-        top: 0;
-        left: -250px; /* Initially hidden on mobile */
-        transition: left 0.3s ease-in-out;
-        z-index: 1000;
-    }
-
-    .sidebar.open {
-        left: 0;
-    }
-
-    .sidebar-header {
-        font-size: 20px;
-        text-align: center;
-        padding: 15px;
-        font-weight: bold;
-        border-bottom: 1px solid #495057;
-    }
-
-    .sidebar-links li {
-        padding: 12px 15px;
-    }
-
-    .sidebar-links li a {
-        text-decoration: none;
-        color: white;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 16px;
-    }
-
-    .sidebar-links li a:hover {
-        background-color: #495057;
-        border-radius: 5px;
-    }
-
-    .logout-container {
-        padding: 15px;
-    }
-
-    .logout-button {
-        text-decoration: none;
-        color: white;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 16px;
-        padding: 12px 15px;
-        border-radius: 5px;
-    }
-
-    .logout-button:hover {
-        background-color: #495057;
-    }
-
-    /* Toggle Button */
-    .toggle-btn {
-        position: fixed;
-        top: 15px;
-        left: 15px;
-        background-color: #495057;
-        color: white;
-        border: none;
-        padding: 10px 15px;
-        font-size: 18px;
-        cursor: pointer;
-        border-radius: 5px;
-        z-index: 1100;
-    }
-
-    .toggle-btn:hover {
-        background-color: #6c757d;
-    }
-
-    /* Content Styling */
-    .content {
-        margin-left: 0;
-        padding: 20px;
-        transition: margin-left 0.3s;
-    }
-
-    /* Responsive Adjustments */
-    @media screen and (min-width: 768px) {
-        .sidebar {
-            left: 0;
-        }
-        
-        .content {
-            margin-left: 250px;
-        }
-
-        .toggle-btn {
-            left: 260px;
-        }
-    }
-
-
-
-
-
-
-
 
     </style>
 </head>
@@ -571,7 +428,10 @@ const pieChart = new Chart(ctx, {
 
     <script>
         // Sidebar Toggle Functionality
-        
+        const sidebar = document.getElementById("sidebar");
+        const toggleBtn = document.getElementById("toggle-btn");
+        const content = document.getElementById("main-content");
+
         let isSidebarOpen = true;
 
         toggleBtn.addEventListener("click", () => {
@@ -589,56 +449,6 @@ const pieChart = new Chart(ctx, {
                 toggleBtn.style.left = "15px";
             }
         });
-
-
-
-
-
-        const sidebar = document.getElementById("sidebar");
-        const toggleBtn = document.getElementById("toggle-btn");
-        const content = document.getElementById("main-content");
-
-        toggleBtn.addEventListener("click", () => {
-            sidebar.classList.toggle("open");
-
-            // Adjust content margin based on sidebar state
-            if (sidebar.classList.contains("open")) {
-                if (window.innerWidth >= 768) {
-                    content.style.marginLeft = "250px";
-                    toggleBtn.style.left = "260px";
-                }
-            } else {
-                content.style.marginLeft = "0";
-                toggleBtn.style.left = "15px";
-            }
-        });
-
-        // Ensure proper sidebar behavior on window resize
-        window.addEventListener("resize", () => {
-            if (window.innerWidth >= 768) {
-                sidebar.classList.add("open");
-                content.style.marginLeft = "250px";
-                toggleBtn.style.left = "260px";
-            } else {
-                sidebar.classList.remove("open");
-                content.style.marginLeft = "0";
-                toggleBtn.style.left = "15px";
-            }
-        });
-
-        // Initialize sidebar state based on screen width
-        document.addEventListener("DOMContentLoaded", () => {
-            if (window.innerWidth >= 768) {
-                sidebar.classList.add("open");
-                content.style.marginLeft = "250px";
-                toggleBtn.style.left = "260px";
-            } else {
-                sidebar.classList.remove("open");
-                content.style.marginLeft = "0";
-                toggleBtn.style.left = "15px";
-            }
-        });
-
     </script>
 </body>
 </html>
