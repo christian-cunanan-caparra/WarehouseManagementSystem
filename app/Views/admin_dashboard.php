@@ -498,7 +498,7 @@ const pieChart = new Chart(ctx, {
         },
         plugins: {
             legend: {
-                position: 'right',
+                position: 'top',
                 labels: {
                     fontSize: 12,
                     fontColor: '#343a40',
