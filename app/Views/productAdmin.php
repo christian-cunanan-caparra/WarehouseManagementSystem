@@ -6,19 +6,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product List</title>
+    <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-
-body {
+        /* Include the same styles as in admin_dashboard.php */
+        body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
             margin: 0;
             padding: 0;
         }
 
-        /* Sidebar Styling */
         .sidebar {
-            display: flex;  
+            display: flex;
             flex-direction: column;
             justify-content: space-between;
             height: 100vh;
@@ -86,7 +92,6 @@ body {
             border-radius: 5px;
         }
 
-        /* Toggle Button */
         .toggle-btn {
             position: fixed;
             left: 260px;
@@ -105,51 +110,12 @@ body {
             background-color: #495057;
         }
 
-        /* Content Styling */
         .content {
             margin-left: 270px;
             padding: 20px;
             transition: margin-left 0.3s;
         }
 
-        h2 {
-            font-weight: bold;
-            color: #343a40;
-            margin-top: 30px; /* Slight margin top for the dashboard */
-        }
-
-        /* Dashboard Cards */
-        .card {
-            margin-bottom: 20px;
-        }
-
-        .card-title {
-            font-size: 16px;
-        }
-
-        .card-body {
-            padding: 20px;
-        }
-
-        .card h3 {
-            font-size: 2rem;
-        }
-
-        /* Stock Trends Chart */
-        #stockTrendChart {
-            height: 400px;
-        }
-
-        /* Mini Pie Chart */
-        #pieChart {
-    height: 250px;   /* Fixed height */
-    width: 250px;    /* Fixed width */
-    margin: 0 auto;
-    border-radius: 10px;
-}
-
-
-        /* Responsive Design */
         @media screen and (max-width: 768px) {
             .sidebar {
                 transform: translateX(-250px);
@@ -176,15 +142,6 @@ body {
             left: 15px;
         }
 
-        /* Container for the Charts */
-        .chart-container {
-            margin-top: 30px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            padding: 20px;
-        }
-
         .table-container {
             margin-top: 30px;
             background-color: #fff;
@@ -197,58 +154,76 @@ body {
             max-height: 500px;
             overflow-y: auto;
         }
-
-        h1{
-            margin-left: 50px;
-        }
     </style>
 </head>
 <body>
-    <div class="container mt-5">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">Warehouse Management</div>
+        <div class="sidebar-links-container">
+            <ul class="sidebar-links">
+                <li><a href="/L2FkbWluX2Rhc2hib2FyZA"><span class="material-icons">dashboard</span> Dashboard</a></li>
+                <li><a href="/YWNjb3VudC1tYW5hZ2VtZW50"><span class="material-icons">inventory</span> Account Management</a></li>
+                <li><a href="/YXJjaGl2ZS1hY2NvdW50cw"><span class="material-icons">storage</span> Account Archive</a></li>
+                <li><a href="/cmVxdWVzdC1wcm9kdWN0"><span class="material-icons">add_box</span> Request Product</a></li>
+                <li><a href="/admin/product-list"><span class="material-icons">list_alt</span> Product List</a></li>
+            </ul>
+        </div>
+        <div class="logout-container">
+            <a href="/logout" class="logout-button"><span class="material-icons">logout</span> Log out</a>
+        </div>
+    </aside>
+
+    <!-- Toggle Button -->
+    <button class="toggle-btn" id="toggle-btn">&#9776;</button>
+    
+    <!-- Main Content -->
+    <div class="content" id="main-content">
         <h1>Product List</h1>
         <a href="/admin/add-product" class="btn btn-primary mb-3">Add Product</a>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Stock In</th>
-                    <th>Stock Out</th>
-                    <th>Remaining Stock</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($products as $product): ?>
-                    <tr>
-                        <td><?= esc($product['id']) ?></td>
-                        <td><?= esc($product['name']) ?></td>
-                        <td><?= esc($product['description']) ?></td>
-                        <td><?= esc($product['price']) ?></td>
-                        <td><?= esc($product['quantity']) ?></td>
-                        <td><?= esc($product['stock_in']) ?></td>
-                        <td><?= esc($product['stock_out']) ?></td>
-                        <td><?= esc($product['remaining_stock']) ?></td>
-                        <td><?= esc($product['status']) ?></td>
-                        <td>
-                            <a href="/admin/edit-product/<?= $product['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="/admin/delete-product/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+        <div class="table-container">
+            <div class="table-responsive mt-4">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Stock In</th>
+                            <th>Stock Out</th>
+                            <th>Remaining Stock</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productTable">
+                        <?php foreach ($products as $product): ?>
+                            <tr>
+                                <td><?= esc($product['id']) ?></td>
+                                <td><?= esc($product['name']) ?></td>
+                                <td><?= esc($product['description']) ?></td>
+                                <td><?= esc($product['price']) ?></td>
+                                <td><?= esc($product['quantity']) ?></td>
+                                <td><?= esc($product['stock_in']) ?></td>
+                                <td><?= esc($product['stock_out']) ?></td>
+                                <td><?= esc($product['remaining_stock']) ?></td>
+                                <td><?= esc($product['status']) ?></td>
+                                <td>
+                                    <a href="/admin/edit-product/<?= $product['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="/admin/delete-product/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
-
-
-
     <script>
-
         // Sidebar Toggle Functionality
         const sidebar = document.getElementById("sidebar");
         const toggleBtn = document.getElementById("toggle-btn");
