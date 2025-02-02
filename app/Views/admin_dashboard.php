@@ -33,9 +33,7 @@
     padding-top: 15px;
     transition: left 0.3s ease-in-out;
     z-index: 1000;
-    display: flex;
-   
-    justify-content: space-between;
+  
 }
 
 /* Hidden sidebar */
