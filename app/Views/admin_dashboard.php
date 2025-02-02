@@ -163,7 +163,21 @@
         margin-left: 250px;
     }
 
- 
+   
+
+    .sidebar-toggle {
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        background-color: #495057;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        font-size: 18px;
+        cursor: pointer;
+        border-radius: 5px;
+        z-index: 1000;
+    }
 
             .content {
                 margin-left: 0;
@@ -456,35 +470,17 @@ const pieChart = new Chart(ctx, {
 
 
         document.addEventListener("DOMContentLoaded", function () {
-    const sidebar = document.getElementById("sidebar");
-    const toggleBtn = document.getElementById("toggle-btn");
-    const content = document.getElementById("main-content");
+    const sidebar = document.querySelector(".sidebar");
+    const toggleBtn = document.createElement("button");
+
+    toggleBtn.classList.add("sidebar-toggle");
+    toggleBtn.innerText = "☰";
+    document.body.appendChild(toggleBtn);
 
     toggleBtn.addEventListener("click", function () {
         sidebar.classList.toggle("open");
-
-        // Adjust content margin on larger screens
-        if (window.innerWidth >= 768) {
-            if (sidebar.classList.contains("open")) {
-                content.style.marginLeft = "250px";
-            } else {
-                content.style.marginLeft = "0";
-            }
-        }
-    });
-
-    // Ensure proper behavior when resizing window
-    window.addEventListener("resize", function () {
-        if (window.innerWidth < 768) {
-            sidebar.classList.remove("open");
-            content.style.marginLeft = "0";
-        } else {
-            sidebar.classList.add("open");
-            content.style.marginLeft = "250px";
-        }
     });
 });
-
 
     </script>
 </body>
