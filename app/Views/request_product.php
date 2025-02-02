@@ -289,12 +289,12 @@ h2 {
 
     <!-- Main Content -->
     <div class="content" id="main-content">
-        
-        <div class="dashboard-container">
-           
-            <h1>Requesting New Products</h1>
+    <h1>Requesting New Products</h1>
 
-            <table>
+    <div class="table-container">
+
+        <div class="table-responsive mt-4">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>Product Name</th>
@@ -303,7 +303,7 @@ h2 {
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="productTable">
                     <?php foreach ($products as $product): ?>
                         <tr>
                             <td><?= esc($product['name']) ?></td>
@@ -311,12 +311,12 @@ h2 {
                             <td><?= esc($product['price']) ?></td>
                             <td>
                                 <form action="/admin/activate/<?= $product['id'] ?>" method="post" class="d-inline">
-                                    <button type="submit" class="btn btn-activate btn-sm">
+                                    <button type="submit" class="btn btn-success btn-sm">
                                         <i class="fas fa-check"></i> Accept
                                     </button>
                                 </form>
                                 <form action="/admin/reject/<?= $product['id'] ?>" method="post" class="d-inline">
-                                    <button type="submit" class="btn btn-reject btn-sm">
+                                    <button type="submit" class="btn btn-danger btn-sm">
                                         <i class="fas fa-times"></i> Reject
                                     </button>
                                 </form>
@@ -325,9 +325,10 @@ h2 {
                     <?php endforeach; ?>
                 </tbody>
             </table>
-
         </div>
     </div>
+</div>
+
 
  
     <script>
