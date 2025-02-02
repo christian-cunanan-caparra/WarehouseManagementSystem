@@ -229,7 +229,7 @@
     <div class="container">
         </BR>
         <h1><i class="fas fa-warehouse"></i> Warehouse Management</h1>
-
+<br>
         <!-- Display Flash Error -->
         <?php if (session()->getFlashdata('error')): ?>
             <div class="alert alert-danger">
@@ -314,7 +314,6 @@
         <!-- Link to Login -->
         <div class="signup-link">
             <p>Already have an account? <a href="/login">Login here</a></p>
-            </BR>
         </div>
     </div>
 
