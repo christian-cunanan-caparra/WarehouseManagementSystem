@@ -157,7 +157,7 @@
             .container {
                 padding: 30px;
                 max-width: 85%;
-                max-height: 75%;
+                max-height: 78%;
                 margin-top: -53px;
                
               
