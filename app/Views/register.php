@@ -193,6 +193,9 @@
             .container {
                 padding: 15px;
                 max-width: 85%; /* Full width on very small screens */
+                margin-top: -53px;
+                margin-left: auto;
+                margin-right: auto;
             }
 
             h1 {
