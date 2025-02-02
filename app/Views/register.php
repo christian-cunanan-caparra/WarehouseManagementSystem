@@ -181,10 +181,10 @@
             }
 
             .form-control {
-                border-radius: 5px;
+                border-radius: 15px;
             padding: 12px 18px;
             font-size: 16px;
-            height: 50px;
+            height: 40px;
             box-shadow: none;
             border: 1px;
             transition: border 0.3s, box-shadow 0.3s;
