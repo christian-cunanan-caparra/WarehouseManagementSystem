@@ -58,7 +58,7 @@
         }
 
         .form-control {
-            border-radius: 5px;
+            border-radius: 15px;
             padding: 12px 18px;
             font-size: 16px;
             box-shadow: none;
@@ -156,7 +156,7 @@
             <?= csrf_field() ?>
 
             <div class="form-group">
-                <label for="email">Email:</label>
+              
                 <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
             </div>
 
