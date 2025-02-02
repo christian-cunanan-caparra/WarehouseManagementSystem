@@ -16,208 +16,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
-    /* General Styles */
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f8f9fa;
-        margin: 0;
-        padding: 0;
-    }
-
-    /* Sidebar Styling */
-    .sidebar {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 100vh;
-        width: 250px;
-        background-color: #343a40;
-        color: white;
-        position: fixed;
-        top: 0;
-        left: 0;
-        padding-top: 15px;
-        transition: transform 0.3s ease-in-out;
-    }
-
-    .sidebar-links-container {
-        flex-grow: 1;
-    }
-
-    .logout-container {
-        padding: 15px;
-    }
-
-    .logout-button {
-        text-decoration: none;
-        color: white;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 16px;
-        padding: 12px 15px;
-        border-radius: 5px;
-    }
-
-    .logout-button:hover {
-        background-color: #495057;
-    }
-
-    .sidebar-header {
-        font-size: 20px;
-        text-align: center;
-        padding: 15px;
-        font-weight: bold;
-        border-bottom: 1px solid #495057;
-    }
-
-    .sidebar-links {
-        list-style: none;
-        padding: 0;
-    }
-
-    .sidebar-links li {
-        padding: 12px 15px;
-    }
-
-    .sidebar-links li a {
-        text-decoration: none;
-        color: white;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 16px;
-    }
-
-    .sidebar-links li a:hover {
-        background-color: #495057;
-        border-radius: 5px;
-    }
-
-    /* Toggle Button */
-    .toggle-btn {
-        position: fixed;
-        left: 260px;
-        top: 15px;
-        background-color: #343a40;
-        color: white;
-        border: none;
-        padding: 8px 12px;
-        cursor: pointer;
-        font-size: 20px;
-        border-radius: 5px;
-        transition: 0.3s;
-    }
-
-    .toggle-btn:hover {
-        background-color: #495057;
-    }
-
-    /* Content Styling */
-    .content {
-        margin-left: 270px;
-        padding: 20px;
-        transition: margin-left 0.3s;
-    }
-
-    h2 {
-        font-weight: bold;
-        color: #343a40;
-        margin-top: 30px;
-    }
-
-    /* Request Product Table */
-    table {
-        width: 100%;
-        margin-top: 30px;
-        border-collapse: collapse;
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    table th, table td {
-        padding: 12px;
-        text-align: center;
-        border: 1px solid #ddd;
-    }
-
-    table th {
-        background-color: #007bff;
-        color: white;
-    }
-
-    /* Accept/Reject Button Styling */
-    .btn {
-        padding: 10px 20px;
-        border-radius: 50px;
-        font-size: 14px;
-        transition: all 0.3s ease;
-    }
-
-    .btn-activate {
-        background: linear-gradient(45deg, #28a745, #218838);
-        color: white;
-        border: none;
-    }
-
-    .btn-activate:hover {
-        background: linear-gradient(45deg, #218838, #28a745);
-        transform: scale(1.05);
-    }
-
-    .btn-reject {
-        background-color: #dc3545;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 50px;
-        font-size: 14px;
-        transition: all 0.3s ease;
-    }
-
-    .btn-reject:hover {
-        background-color: #c82333;
-        transform: scale(1.05);
-    }
-
-    /* Responsive Design */
-    @media screen and (max-width: 768px) {
-        .sidebar {
-            transform: translateX(-250px);
-        }
-
-        .content {
-            margin-left: 0;
-        }
-
-        .toggle-btn {
-            left: 15px;
-        }
-    }
-
-    .sidebar.hidden {
-        transform: translateX(-250px);
-    }
-
-    .content.full-width {
-        margin-left: 0;
-    }
-
-    .toggle-btn.move {
-        left: 15px;
-    }
-    h1{
-    margin-left: 50px;
-    }
-
-
-
-
-
-
-  /* General Styles */
-  body {
+        /* General Styles */
+        body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
             margin: 0;
@@ -360,6 +160,39 @@ h2 {
         }
 
 
+        .btn {
+        padding: 10px 20px;
+        border-radius: 50px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-activate {
+        background: linear-gradient(45deg, #28a745, #218838);
+        color: white;
+        border: none;
+    }
+
+    .btn-activate:hover {
+        background: linear-gradient(45deg, #218838, #28a745);
+        transform: scale(1.05);
+    }
+
+    .btn-reject {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 50px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-reject:hover {
+        background-color: #c82333;
+        transform: scale(1.05);
+    }
+
 
         #stockTrendChart {
             height: 400px;
@@ -426,9 +259,6 @@ h2 {
         left: 15px;
     }
         }
-
-
-
     </style>
 
 </head>
@@ -459,6 +289,7 @@ h2 {
 
     <!-- Main Content -->
     <div class="content" id="main-content">
+        
         <div class="dashboard-container">
            
             <h1>Requesting New Products</h1>
@@ -498,6 +329,7 @@ h2 {
         </div>
     </div>
 
+ 
     <script>
          // Sidebar Toggle Functionality
          const sidebar = document.getElementById("sidebar");
