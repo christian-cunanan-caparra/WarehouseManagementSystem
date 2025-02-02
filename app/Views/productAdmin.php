@@ -158,7 +158,7 @@
 </head>
 <body>
 
-    <!-- Sidebar -->
+    <!-- Sidehbar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">Warehouse Management</div>
         <div class="sidebar-links-container">
