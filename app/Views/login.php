@@ -152,7 +152,7 @@
         }
 
         /* Responsive fixes */
-        @media (max-width: 800px) {
+        @media (max-width: 600px) {
             .container {
                 padding: 30px;
                 max-width: 80%;
