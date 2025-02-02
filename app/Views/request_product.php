@@ -210,225 +210,7 @@
     h1{
     margin-left: 50px;
     }
-
-
-
-
-
-
-  /* General Styles */
-  body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Sidebar Styling */
-        .sidebar {
-    height: 100vh;
-    width: 250px;
-    background-color: #343a40;
-    color: white;
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding-top: 15px;
-    transition: left 0.3s ease-in-out;
-    z-index: 1000;
-  
-}
-
-/* Hidden sidebar */
-.sidebar.hidden {
-    left: -250px;
-}
-
-
-        .sidebar-header {
-            font-size: 20px;
-            text-align: center;
-            padding: 15px;
-            font-weight: bold;
-            border-bottom: 1px solid #495057;
-        }
-
-        .sidebar-links {
-            list-style: none;
-            padding: 0;
-        }
-
-        .sidebar-links li {
-            padding: 12px 15px;
-        }
-
-        .sidebar-links li a {
-            text-decoration: none;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 16px;
-        }
-
-        .sidebar-links li a:hover {
-            background-color: #495057;
-            border-radius: 5px;
-        }
-
-        .logout-container {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding: 15px;
-}
-
-.logout-button {
-    text-decoration: none;
-    color: white;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 16px;
-    padding: 12px 15px;
-    border-radius: 5px;
-}
-
-.logout-button:hover {
-    background-color: #495057;
-}
-
-
-        /* Toggle Button */
-        .toggle-btn {
-    position: fixed;
-    left: 260px;
-    top: 15px;
-    background-color: #343a40;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    font-size: 20px;
-    border-radius: 5px;
-    transition: left 0.3s ease-in-out;
-    z-index: 1001;
-}
-
-.toggle-btn:hover {
-            background-color: #495057;
-        }
-
-
-
-.toggle-btn.move {
-    left: 15px;
-}
-        /* Content Styling */
-        .content {
-    margin-left: 270px;
-    padding: 20px;
-    transition: margin-left 0.3s ease-in-out;
-}
-
-.content.full-width {
-    margin-left: 0;
-}
-
-
-h2 {
-            font-weight: bold;
-            color: #343a40;
-            margin-top: 30px; /* Slight margin top for the dashboard */
-        }
-
-        /* Dashboard Cards */
-        .card {
-            margin-bottom: 20px;
-        }
-
-        .card-title {
-            font-size: 16px;
-        }
-
-        .card-body {
-            padding: 20px;
-        }
-
-        .card h3 {
-            font-size: 2rem;
-        }
-
-
-
-        #stockTrendChart {
-            height: 400px;
-        }
-
-        /* Mini Pie Chart */
-        #pieChart {
-    height: 250px;   /* Fixed height */
-    width: 250px;    /* Fixed width */
-    margin: 0 auto;
-    border-radius: 10px;
-}
-
-.table-container {
-            margin-top: 30px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            padding: 20px;
-        }
-
-        .table-responsive {
-            max-height: 500px;
-            overflow-y: auto;
-        }
-
-        /* Responsive Design */
-        @media screen and (max-width: 768px) {
-            .sidebar {
-        left: -250px; /* Hide sidebar initially */
-    }
-
-     /* Container for the Charts */
-     .chart-container {
-            margin-top: 30px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            padding: 20px;
-        }
-
-        .table-container {
-            margin-top: 30px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            padding: 20px;
-        }
-
-        .table-responsive {
-            max-height: 500px;
-            overflow-y: auto;
-        }
-
-        h1{
-            margin-left: 50px;
-        }
-
-    .content {
-        margin-left: 0;
-    }
-
-    .toggle-btn {
-        left: 15px;
-    }
-        }
-
-
-
+    
     </style>
 
 </head>
@@ -499,65 +281,28 @@ h2 {
     </div>
 
     <script>
-         // Sidebar Toggle Functionality
-         const sidebar = document.getElementById("sidebar");
-const toggleBtn = document.getElementById("toggle-btn");
-const content = document.getElementById("main-content");
+        // Sidebar Toggle Functionality
+        const sidebar = document.getElementById("sidebar");
+        const toggleBtn = document.getElementById("toggle-btn");
+        const content = document.getElementById("main-content");
 
-let isSidebarOpen = false; // Default state is closed on mobile
+        let isSidebarOpen = true;
 
-toggleBtn.addEventListener("click", () => {
-    isSidebarOpen = !isSidebarOpen;
+        toggleBtn.addEventListener("click", () => {
+            isSidebarOpen = !isSidebarOpen;
 
-    if (isSidebarOpen) {
-        sidebar.classList.remove("hidden");
-        content.classList.remove("full-width");
-        toggleBtn.classList.remove("move");
-        sidebar.style.left = "0"; // Open sidebar
-        toggleBtn.style.left = "260px"; 
-    } else {
-        sidebar.classList.add("hidden");
-        content.classList.add("full-width");
-        toggleBtn.classList.add("move");
-        sidebar.style.left = "-250px"; // Close sidebar
-        toggleBtn.style.left = "15px";
-    }
-});
-
-// Ensure sidebar is hidden on smaller screens on load
-if (window.innerWidth <= 768) {
-    sidebar.classList.add("hidden");
-    sidebar.style.left = "-250px";
-    content.classList.add("full-width");
-    toggleBtn.classList.add("move");
-    toggleBtn.style.left = "15px";
-}
-
-
-        // Automatically hide sidebar on small screens
-        window.addEventListener('resize', () => {
-            if (window.innerWidth <= 768) {
-                sidebar.classList.add("hidden");
-                content.classList.add("full-width");
-                toggleBtn.classList.add("move");
-                toggleBtn.style.left = "15px";
-            } else {
+            if (isSidebarOpen) {
                 sidebar.classList.remove("hidden");
                 content.classList.remove("full-width");
                 toggleBtn.classList.remove("move");
                 toggleBtn.style.left = "260px";
+            } else {
+                sidebar.classList.add("hidden");
+                content.classList.add("full-width");
+                toggleBtn.classList.add("move");
+                toggleBtn.style.left = "15px";
             }
         });
-
-        // Initial check on page load
-        if (window.innerWidth <= 768) {
-            sidebar.classList.add("hidden");
-            content.classList.add("full-width");
-            toggleBtn.classList.add("move");
-            toggleBtn.style.left = "15px";
-        }
-
-
     </script>
 
 </body>
