@@ -458,13 +458,13 @@ if (window.innerWidth <= 768) {
                 },
                 plugins: {
                     legend: {
-                        display: false
+                        display: true
                     }
                 },
                 scales: {
                     x: {
                         ticks: { color: '#343a40', font: { size: 12 } },
-                        grid: { display: false }
+                        grid: { display: true }
                     },
                     y: {
                         beginAtZero: true,
