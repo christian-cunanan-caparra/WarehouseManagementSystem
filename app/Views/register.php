@@ -314,6 +314,7 @@
         <!-- Link to Login -->
         <div class="signup-link">
             <p>Already have an account? <a href="/login">Login here</a></p>
+            </BR>
         </div>
     </div>
 
