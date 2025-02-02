@@ -322,7 +322,7 @@ h2 {
 
         <!-- Product Table -->
       
-        <div class="table-container" id="main-content">
+        <div class="table-container">
             <div class="table-responsive mt-4">
                 <table class="table table-striped">
                     <thead>

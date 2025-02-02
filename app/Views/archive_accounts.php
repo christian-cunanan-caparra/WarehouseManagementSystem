@@ -252,7 +252,7 @@ h2 {
    <button class="toggle-btn" id="toggle-btn">&#9776;</button>
  <h1>Archived Accounts</h1>
     <!-- Main Content -->
-    <div class="table-container">
+    <div class="table-container" id="main-content">
         <div class="table-responsive mt-4">
            
             <table class="table table-striped">
