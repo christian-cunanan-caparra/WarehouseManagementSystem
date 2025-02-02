@@ -181,7 +181,7 @@
     <!-- Main Content -->
     <div class="content" id="main-content">
         <h1>Product List</h1>
-        <a href="/admin/add-product" class="btn btn-primary mb-3">Add Product</a>
+        <a href="/addproduct" class="btn btn-primary mb-3">Add Product</a>
         <div class="table-container">
             <div class="table-responsive mt-4">
                 <table class="table table-striped">
