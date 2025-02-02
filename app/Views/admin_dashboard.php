@@ -484,6 +484,7 @@ const pieChart = new Chart(ctx, {
         labels: ['Total Stock In', 'Total Stock Out', 'Low Stock'],
         datasets: [{
             label: 'Stock Distribution',
+            fontSize: 20,
             data: [<?= $totalStockIn ?>, <?= $totalStockOut ?>, <?= count($lowStockProducts) ?>],
             backgroundColor: ['#17a2b8', '#dc3545', '#ffc107'],
             borderColor: ['#ffffff', '#ffffff', '#ffffff'],
