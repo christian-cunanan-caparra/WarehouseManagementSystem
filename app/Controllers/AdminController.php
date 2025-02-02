@@ -1,5 +1,6 @@
 <?php
 
+// app/Controllers/AdminController.php
 
 namespace App\Controllers;
 
@@ -22,7 +23,7 @@ class AdminController extends BaseController
         $data['products'] = $this->productModel->findAll();
 
         // Load the product list view
-        return view('productList', $data);
+        return view('productAdmin', $data);
     }
 
     // Create: Display the add product form
@@ -63,7 +64,7 @@ class AdminController extends BaseController
         ]);
 
         // Redirect to the product list with a success message
-        return redirect()->to('/admin/product-list')->with('message', 'Product added successfully.');
+        return redirect()->to('/product-list')->with('message', 'Product added successfully.');
     }
 
     // Update: Display the edit product form
