@@ -166,7 +166,18 @@ h2 {
     border-radius: 10px;
 }
 
+.table-container {
+            margin-top: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
 
+        .table-responsive {
+            max-height: 500px;
+            overflow-y: auto;
+        }
 
         /* Responsive Design */
         @media screen and (max-width: 768px) {
