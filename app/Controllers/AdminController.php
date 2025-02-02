@@ -120,6 +120,6 @@ class AdminController extends BaseController
         $this->productModel->delete($id);
 
         // Redirect to the product list with a success message ahhhhhh
-        return redirect()->to('/productlist')->with('message', 'Product deleted successfully.');
+        return redirect()->to('/product-list')->with('message', 'Product deleted successfully.');
     }
 }
