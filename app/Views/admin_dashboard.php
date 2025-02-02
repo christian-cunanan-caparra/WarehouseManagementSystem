@@ -166,26 +166,38 @@
     <script>
         // Sidebar Toggle Functionality
         const sidebar = document.getElementById("sidebar");
-        const toggleBtn = document.getElementById("toggle-btn");
-        const content = document.getElementById("main-content");
+const toggleBtn = document.getElementById("toggle-btn");
+const content = document.getElementById("main-content");
 
-        let isSidebarOpen = true;
+let isSidebarOpen = false; // Default state is closed on mobile
 
-        toggleBtn.addEventListener("click", () => {
-            isSidebarOpen = !isSidebarOpen;
+toggleBtn.addEventListener("click", () => {
+    isSidebarOpen = !isSidebarOpen;
 
-            if (isSidebarOpen) {
-                sidebar.classList.remove("hidden");
-                content.classList.remove("full-width");
-                toggleBtn.classList.remove("move");
-                toggleBtn.style.left = "260px";
-            } else {
-                sidebar.classList.add("hidden");
-                content.classList.add("full-width");
-                toggleBtn.classList.add("move");
-                toggleBtn.style.left = "15px";
-            }
-        });
+    if (isSidebarOpen) {
+        sidebar.classList.remove("hidden");
+        content.classList.remove("full-width");
+        toggleBtn.classList.remove("move");
+        sidebar.style.left = "0"; // Open sidebar
+        toggleBtn.style.left = "260px"; 
+    } else {
+        sidebar.classList.add("hidden");
+        content.classList.add("full-width");
+        toggleBtn.classList.add("move");
+        sidebar.style.left = "-250px"; // Close sidebar
+        toggleBtn.style.left = "15px";
+    }
+});
+
+// Ensure sidebar is hidden on smaller screens on load
+if (window.innerWidth <= 768) {
+    sidebar.classList.add("hidden");
+    sidebar.style.left = "-250px";
+    content.classList.add("full-width");
+    toggleBtn.classList.add("move");
+    toggleBtn.style.left = "15px";
+}
+
 
         // Automatically hide sidebar on small screens
         window.addEventListener('resize', () => {
