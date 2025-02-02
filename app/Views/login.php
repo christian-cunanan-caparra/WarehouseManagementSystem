@@ -157,7 +157,7 @@
             .container {
                 padding: 30px;
                 max-width: 85%;
-                margin-top: -55px;
+                margin-top: -53px;
             }
 
             h1 {
