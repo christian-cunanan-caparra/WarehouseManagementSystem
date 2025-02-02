@@ -250,9 +250,13 @@ h2 {
 
    <!-- Toggle Button -->
    <button class="toggle-btn" id="toggle-btn">&#9776;</button>
- <h1>Archived Accounts</h1>
+
     <!-- Main Content -->
-    <div class="table-container" id="main-content">
+    <div class="content" id="main-content">
+ <h1>Archived Accounts</h1>
+
+    <div class="table-container">
+
         <div class="table-responsive mt-4">
            
             <table class="table table-striped">
@@ -290,10 +294,11 @@ h2 {
             </table>
         </div>
     </div>
+    </div>
 
     <script>
-        // Sidebar Toggle Functionality
-        const sidebar = document.getElementById("sidebar");
+         // Sidebar Toggle Functionality
+         const sidebar = document.getElementById("sidebar");
 const toggleBtn = document.getElementById("toggle-btn");
 const content = document.getElementById("main-content");
 
@@ -349,9 +354,6 @@ if (window.innerWidth <= 768) {
             toggleBtn.classList.add("move");
             toggleBtn.style.left = "15px";
         }
-
-
-
 
 
     </script>
