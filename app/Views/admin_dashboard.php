@@ -23,21 +23,23 @@
 
         /* Sidebar Styling */
         .sidebar {
-            height: 100vh;
-            width: 250px;
-            background-color: #343a40;
-            color: white;
-            position: fixed;
-            top: 0;
-            left: 0;
-            padding-top: 15px;
-            transition: transform 0.3s ease-in-out;
-            z-index: 1000;
-        }
+    height: 100vh;
+    width: 250px;
+    background-color: #343a40;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 15px;
+    transition: left 0.3s ease-in-out;
+    z-index: 1000;
+}
 
-        .sidebar.hidden {
-            transform: translateX(-250px);
-        }
+/* Hidden sidebar */
+.sidebar.hidden {
+    left: -250px;
+}
+
 
         .sidebar-header {
             font-size: 20px;
@@ -91,48 +93,46 @@
 
         /* Toggle Button */
         .toggle-btn {
-            position: fixed;
-            left: 260px;
-            top: 15px;
-            background-color: #343a40;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            cursor: pointer;
-            font-size: 20px;
-            border-radius: 5px;
-            transition: 0.3s;
-            z-index: 1001;
-        }
+    position: fixed;
+    left: 260px;
+    top: 15px;
+    background-color: #343a40;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 5px;
+    transition: left 0.3s ease-in-out;
+    z-index: 1001;
+}
 
-        .toggle-btn.move {
-            left: 15px;
-        }
-
+.toggle-btn.move {
+    left: 15px;
+}
         /* Content Styling */
         .content {
-            margin-left: 270px;
-            padding: 20px;
-            transition: margin-left 0.3s;
-        }
+    margin-left: 270px;
+    padding: 20px;
+    transition: margin-left 0.3s ease-in-out;
+}
 
-        .content.full-width {
-            margin-left: 0;
-        }
-
+.content.full-width {
+    margin-left: 0;
+}
         /* Responsive Design */
         @media screen and (max-width: 768px) {
             .sidebar {
-                transform: translateX(-250px);
-            }
+        left: -250px; /* Hide sidebar initially */
+    }
 
-            .content {
-                margin-left: 0;
-            }
+    .content {
+        margin-left: 0;
+    }
 
-            .toggle-btn {
-                left: 15px;
-            }
+    .toggle-btn {
+        left: 15px;
+    }
         }
     </style>
 </head>
