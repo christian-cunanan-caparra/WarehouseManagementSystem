@@ -7,7 +7,6 @@
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
     <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -33,7 +32,10 @@
     left: 0;
     padding-top: 15px;
     transition: left 0.3s ease-in-out;
-    /* z-index: 1000; */
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 /* Hidden sidebar */
@@ -74,23 +76,26 @@
         }
 
         .logout-container {
-            padding: 15px;
-        }
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 15px;
+}
 
-        .logout-button {
-            text-decoration: none;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 16px;
-            padding: 12px 15px;
-            border-radius: 5px;
-        }
+.logout-button {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    padding: 12px 15px;
+    border-radius: 5px;
+}
 
-        .logout-button:hover {
-            background-color: #495057;
-        }
+.logout-button:hover {
+    background-color: #495057;
+}
 
 
         /* Toggle Button */
