@@ -428,27 +428,39 @@ const pieChart = new Chart(ctx, {
 
     <script>
         // Sidebar Toggle Functionality
-        const sidebar = document.getElementById("sidebar");
-        const toggleBtn = document.getElementById("toggle-btn");
-        const content = document.getElementById("main-content");
+        document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.getElementById("sidebar");
+    const toggleBtn = document.getElementById("toggle-btn");
+    const content = document.getElementById("main-content");
+    let isSidebarOpen = window.innerWidth > 768;
 
-        let isSidebarOpen = true;
+    function updateSidebar() {
+        if (isSidebarOpen) {
+            sidebar.classList.add("show");
+            content.style.marginLeft = window.innerWidth > 768 ? "270px" : "0";
+            toggleBtn.style.left = window.innerWidth > 768 ? "260px" : "15px";
+        } else {
+            sidebar.classList.remove("show");
+            content.style.marginLeft = "0";
+            toggleBtn.style.left = "15px";
+        }
+    }
 
-        toggleBtn.addEventListener("click", () => {
-            isSidebarOpen = !isSidebarOpen;
+    toggleBtn.addEventListener("click", () => {
+        isSidebarOpen = !isSidebarOpen;
+        updateSidebar();
+    });
 
-            if (isSidebarOpen) {
-                sidebar.classList.remove("hidden");
-                content.classList.remove("full-width");
-                toggleBtn.classList.remove("move");
-                toggleBtn.style.left = "260px";
-            } else {
-                sidebar.classList.add("hidden");
-                content.classList.add("full-width");
-                toggleBtn.classList.add("move");
-                toggleBtn.style.left = "15px";
-            }
-        });
+    window.addEventListener("resize", () => {
+        if (window.innerWidth > 768) {
+            isSidebarOpen = true;
+        }
+        updateSidebar();
+    });
+
+    updateSidebar();
+});
+
     </script>
 </body>
 </html>
