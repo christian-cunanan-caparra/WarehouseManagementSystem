@@ -143,3 +143,9 @@ $routes->get('/cmVxdWVzdC1wcm9kdWN0', 'RequestController::requestprod');
 
 
 $routes->get('/product-list', 'AdminController::productList');
+
+$routes->get('/add-product', 'AdminController::addProduct');
+$routes->post('/save-product', 'AdminController::saveProduct');
+$routes->get('/edit-product/(:num)', 'AdminController::editProduct/$1');
+$routes->post('/update-product/(:num)', 'AdminController::updateProduct/$1');
+$routes->get('/delete-product/(:num)', 'AdminController::deleteProduct/$1');

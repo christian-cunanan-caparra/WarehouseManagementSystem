@@ -110,7 +110,7 @@ class AdminController extends BaseController
         ]);
 
         // Redirect to the product list with a success message
-        return redirect()->to('/admin/product-list')->with('message', 'Product updated successfully.');
+        return redirect()->to('/addproduct-list')->with('message', 'Product updated successfully.');
     }
 
     // Delete: Remove a product
@@ -119,7 +119,7 @@ class AdminController extends BaseController
         // Delete the product
         $this->productModel->delete($id);
 
-        // Redirect to the product list with a success message
-        return redirect()->to('/admin/product-list')->with('message', 'Product deleted successfully.');
+        // Redirect to the product list with a success message ahhhhhh
+        return redirect()->to('/product-list')->with('message', 'Product deleted successfully.');
     }
 }
