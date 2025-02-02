@@ -212,8 +212,8 @@
                                 <td><?= esc($product['remaining_stock']) ?></td>
                                 <td><?= esc($product['status']) ?></td>
                                 <td>
-                                    <a href="/admin/edit-product/<?= $product['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                                    <a href="/admin/delete-product/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                                    <a href="/editproduct/<?= $product['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="/deleteproduct/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
