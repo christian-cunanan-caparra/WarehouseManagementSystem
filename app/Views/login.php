@@ -111,6 +111,7 @@
         .signup-link {
             text-align: center;
             margin-top: 20px;
+            font-size: 10px;
         }
 
         .signup-link a {
