@@ -227,7 +227,7 @@
 </head>
 <body>
     <div class="container">
-        </BR>
+       
         <h1><i class="fas fa-warehouse"></i> Warehouse<br>Management</h1>
 <br>
         <!-- Display Flash Error -->
