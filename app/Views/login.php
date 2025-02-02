@@ -158,6 +158,10 @@
                 padding: 30px;
                 max-width: 85%;
                 margin-top: -53px;
+               
+              
+                margin-left: auto;
+                margin-right: auto;
             }
 
             h1 {
