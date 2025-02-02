@@ -108,22 +108,22 @@
             color: #6c757d;
             opacity: 1;
         }
-
         .signup-link {
             text-align: center;
-            margin-top: 25px;
+            margin-top: 20px;
         }
 
         .signup-link a {
             color: #007bff;
             text-decoration: none;
             font-weight: bold;
+            transition: color 0.3s ease;
         }
 
         .signup-link a:hover {
+            color: #0056b3;
             text-decoration: underline;
         }
-
         .alert {
             font-size: 14px;
             padding: 10px;
