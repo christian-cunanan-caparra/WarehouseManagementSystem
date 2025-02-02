@@ -24,42 +24,24 @@
 
         /* Sidebar Styling */
         .sidebar {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100vh;
-            width: 250px;
-            background-color: #343a40;
-            color: white;
-            position: fixed;
-            top: 0;
-            left: 0;
-            padding-top: 15px;
-            transition: transform 0.3s ease-in-out;
-        }
+    height: 100vh;
+    width: 250px;
+    background-color: #343a40;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 15px;
+    transition: left 0.3s ease-in-out;
+    z-index: 1000;
+  
+}
 
-        .sidebar-links-container {
-            flex-grow: 1;
-        }
+/* Hidden sidebar */
+.sidebar.hidden {
+    left: -250px;
+}
 
-        .logout-container {
-            padding: 15px;
-        }
-
-        .logout-button {
-            text-decoration: none;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 16px;
-            padding: 12px 15px;
-            border-radius: 5px;
-        }
-
-        .logout-button:hover {
-            background-color: #495057;
-        }
 
         .sidebar-header {
             font-size: 20px;
@@ -92,33 +74,67 @@
             border-radius: 5px;
         }
 
+        .logout-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 15px;
+}
+
+.logout-button {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    padding: 12px 15px;
+    border-radius: 5px;
+}
+
+.logout-button:hover {
+    background-color: #495057;
+}
+
+
         /* Toggle Button */
         .toggle-btn {
-            position: fixed;
-            left: 260px;
-            top: 15px;
-            background-color: #343a40;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            cursor: pointer;
-            font-size: 20px;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
+    position: fixed;
+    left: 260px;
+    top: 15px;
+    background-color: #343a40;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 5px;
+    transition: left 0.3s ease-in-out;
+    z-index: 1001;
+}
 
-        .toggle-btn:hover {
+.toggle-btn:hover {
             background-color: #495057;
         }
 
+
+
+.toggle-btn.move {
+    left: 15px;
+}
         /* Content Styling */
         .content {
-            margin-left: 270px;
-            padding: 20px;
-            transition: margin-left 0.3s;
-        }
+    margin-left: 270px;
+    padding: 20px;
+    transition: margin-left 0.3s ease-in-out;
+}
 
-        h2 {
+.content.full-width {
+    margin-left: 0;
+}
+
+
+h2 {
             font-weight: bold;
             color: #343a40;
             margin-top: 30px; /* Slight margin top for the dashboard */
@@ -141,48 +157,41 @@
             font-size: 2rem;
         }
 
-        /* Stock Trends Chart */
+
+
         #stockTrendChart {
             height: 400px;
         }
 
         /* Mini Pie Chart */
         #pieChart {
-            height: 250px;
-            max-width: 300px;
-            margin: 0 auto;
+    height: 250px;   /* Fixed height */
+    width: 250px;    /* Fixed width */
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
+.table-container {
+            margin-top: 30px;
+            background-color: #fff;
             border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+
+        .table-responsive {
+            max-height: 500px;
+            overflow-y: auto;
         }
 
         /* Responsive Design */
         @media screen and (max-width: 768px) {
             .sidebar {
-                transform: translateX(-250px);
-            }
+        left: -250px; /* Hide sidebar initially */
+    }
 
-            .content {
-                margin-left: 0;
-            }
-
-            .toggle-btn {
-                left: 15px;
-            }
-        }
-
-        .sidebar.hidden {
-            transform: translateX(-250px);
-        }
-
-        .content.full-width {
-            margin-left: 0;
-        }
-
-        .toggle-btn.move {
-            left: 15px;
-        }
-
-        /* Container for the Charts */
-        .chart-container {
+     /* Container for the Charts */
+     .chart-container {
             margin-top: 30px;
             background-color: #fff;
             border-radius: 10px;
@@ -207,6 +216,14 @@
             margin-left: 50px;
         }
 
+    .content {
+        margin-left: 0;
+    }
+
+    .toggle-btn {
+        left: 15px;
+    }
+        }
     </style>
 </head>
 <body>
@@ -277,26 +294,140 @@
     <script>
         // Sidebar Toggle Functionality
         const sidebar = document.getElementById("sidebar");
-        const toggleBtn = document.getElementById("toggle-btn");
-        const content = document.getElementById("main-content");
+const toggleBtn = document.getElementById("toggle-btn");
+const content = document.getElementById("main-content");
 
-        let isSidebarOpen = true;
+let isSidebarOpen = false; // Default state is closed on mobile
 
-        toggleBtn.addEventListener("click", () => {
-            isSidebarOpen = !isSidebarOpen;
+toggleBtn.addEventListener("click", () => {
+    isSidebarOpen = !isSidebarOpen;
 
-            if (isSidebarOpen) {
-                sidebar.classList.remove("hidden");
-                content.classList.remove("full-width");
-                toggleBtn.classList.remove("move");
-                toggleBtn.style.left = "260px";
-            } else {
+    if (isSidebarOpen) {
+        sidebar.classList.remove("hidden");
+        content.classList.remove("full-width");
+        toggleBtn.classList.remove("move");
+        sidebar.style.left = "0"; // Open sidebar
+        toggleBtn.style.left = "260px"; 
+    } else {
+        sidebar.classList.add("hidden");
+        content.classList.add("full-width");
+        toggleBtn.classList.add("move");
+        sidebar.style.left = "-250px"; // Close sidebar
+        toggleBtn.style.left = "15px";
+    }
+});
+
+// Ensure sidebar is hidden on smaller screens on load
+if (window.innerWidth <= 768) {
+    sidebar.classList.add("hidden");
+    sidebar.style.left = "-250px";
+    content.classList.add("full-width");
+    toggleBtn.classList.add("move");
+    toggleBtn.style.left = "15px";
+}
+
+
+        // Automatically hide sidebar on small screens
+        window.addEventListener('resize', () => {
+            if (window.innerWidth <= 768) {
                 sidebar.classList.add("hidden");
                 content.classList.add("full-width");
                 toggleBtn.classList.add("move");
                 toggleBtn.style.left = "15px";
+            } else {
+                sidebar.classList.remove("hidden");
+                content.classList.remove("full-width");
+                toggleBtn.classList.remove("move");
+                toggleBtn.style.left = "260px";
             }
         });
+
+        // Initial check on page load
+        if (window.innerWidth <= 768) {
+            sidebar.classList.add("hidden");
+            content.classList.add("full-width");
+            toggleBtn.classList.add("move");
+            toggleBtn.style.left = "15px";
+        }
+
+
+
+
+ // Mini Bar Chart
+ const miniBarCtx = document.getElementById('miniBarChart').getContext('2d');
+        const miniBarChart = new Chart(miniBarCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Stock In', 'Stock Out', 'Products', 'Catche'],
+                datasets: [{
+                    label: 'Stock Usage',
+                    data: [ <?= $totalStockIn ?>, <?= $totalStockOut ?>, 30000, 20000 ],
+                    backgroundColor: ['rgba(23, 162, 184, 0.8)', 'rgba(220, 53, 69, 0.8)', 'rgba(40, 167, 69, 0.8)', 'rgba(102, 16, 242, 0.8)'],
+                    borderRadius: 8,
+                    borderWidth: 1,
+                    barPercentage: 0.5,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 1200,
+                    easing: 'easeOutElastic'
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: '#343a40', font: { size: 12 } },
+                        grid: { display: false }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#343a40', font: { size: 12 } },
+                        grid: { color: 'rgba(0, 0, 0, 0.1)' }
+                    }
+                }
+            }
+        });
+
+        // Pie Chart
+      // Pie Chart
+const ctx = document.getElementById('pieChart').getContext('2d');
+const pieChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['Total Stock In', 'Total Stock Out', 'Low Stock'],
+        datasets: [{
+            label: 'Stock Distribution',
+            data: [<?= $totalStockIn ?>, <?= $totalStockOut ?>, <?= count($lowStockProducts) ?>],
+            backgroundColor: ['#17a2b8', '#dc3545', '#ffc107'],
+            borderColor: ['#ffffff', '#ffffff', '#ffffff'],
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: false,  // Disable sresizing
+        animation: {
+            animateScale: true,
+            animateRotate: true
+        },
+        plugins: {
+            legend: {
+                position: 'top',
+                labels: {
+                    fontSize: 12,
+                    fontColor: '#343a40',
+                    boxWidth: 10
+                }
+            }
+        }
+    }
+});
+
     </script>
 </body>
 </html>
