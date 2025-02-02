@@ -52,7 +52,7 @@
         }
 
         .form-control {
-            border-radius: 5px;
+            border-radius: 15px;
             padding: 15px 20px;
             font-size: 16px;
             box-shadow: none;
@@ -173,6 +173,7 @@
             .container {
                 padding: 20px;
                 max-width: 90%; /* Smaller width on mobile devices */
+                
             }
 
             h1 {

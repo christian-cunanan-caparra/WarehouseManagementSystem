@@ -24,7 +24,7 @@
         .container {
             background: rgba(255, 255, 255, 0.9); /* Light white backgASKLroundSS for contrast */
             padding: 40px;
-            border-radius: 10px;
+            border-radius: 15px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 400px;
