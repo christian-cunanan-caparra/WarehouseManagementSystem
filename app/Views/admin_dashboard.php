@@ -27,33 +27,19 @@
 
         /* Sidebar Styling */
         .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 250px;
-    background-color: #343a40;
-    color: white;
-    transform: translateX(-250px);
-    transition: transform 0.3s ease-in-out;
-}
-.sidebar.show {
-    transform: translateX(0);
-}
-
-
-@media screen and (min-width: 768px) {
-    .sidebar {
-        transform: translateX(0);
-    }
-    .content {
-        margin-left: 270px;
-    }
-    .toggle-btn {
-        left: 260px;
-    }
-}
-
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100vh;
+            width: 250px;
+            background-color: #343a40;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 15px;
+            transition: transform 0.3s ease-in-out;
+        }
 
         .sidebar-links-container {
             flex-grow: 1;
@@ -442,39 +428,27 @@ const pieChart = new Chart(ctx, {
 
     <script>
         // Sidebar Toggle Functionality
-        document.addEventListener("DOMContentLoaded", function () {
-    const sidebar = document.getElementById("sidebar");
-    const toggleBtn = document.getElementById("toggle-btn");
-    const content = document.getElementById("main-content");
-    let isSidebarOpen = window.innerWidth > 768;
+        const sidebar = document.getElementById("sidebar");
+        const toggleBtn = document.getElementById("toggle-btn");
+        const content = document.getElementById("main-content");
 
-    function updateSidebar() {
-        if (isSidebarOpen) {
-            sidebar.classList.add("show");
-            content.style.marginLeft = window.innerWidth > 768 ? "270px" : "0";
-            toggleBtn.style.left = window.innerWidth > 768 ? "260px" : "15px";
-        } else {
-            sidebar.classList.remove("show");
-            content.style.marginLeft = "0";
-            toggleBtn.style.left = "15px";
-        }
-    }
+        let isSidebarOpen = true;
 
-    toggleBtn.addEventListener("click", () => {
-        isSidebarOpen = !isSidebarOpen;
-        updateSidebar();
-    });
+        toggleBtn.addEventListener("click", () => {
+            isSidebarOpen = !isSidebarOpen;
 
-    window.addEventListener("resize", () => {
-        if (window.innerWidth > 768) {
-            isSidebarOpen = true;
-        }
-        updateSidebar();
-    });
-
-    updateSidebar();
-});
-
+            if (isSidebarOpen) {
+                sidebar.classList.remove("hidden");
+                content.classList.remove("full-width");
+                toggleBtn.classList.remove("move");
+                toggleBtn.style.left = "260px";
+            } else {
+                sidebar.classList.add("hidden");
+                content.classList.add("full-width");
+                toggleBtn.classList.add("move");
+                toggleBtn.style.left = "15px";
+            }
+        });
     </script>
 </body>
 </html>
