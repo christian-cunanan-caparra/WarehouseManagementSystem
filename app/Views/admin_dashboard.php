@@ -7,54 +7,132 @@
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Google Icons & FontAwesome -->
+    <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
     <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
         /* Sidebar Styling */
         .sidebar {
-            height: 100vh;
-            width: 250px;
-            background-color: #343a40;
-            color: white;
-            position: fixed;
-            top: 0;
-            left: 0;
-            padding-top: 15px;
-            transition: left 0.3s ease-in-out;
-            z-index: 1000;
+    height: 100vh;
+    width: 250px;
+    background-color: #343a40;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 15px;
+    transition: left 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+/* Hidden sidebar */
+.sidebar.hidden {
+    left: -250px;
+}
+
+
+        .sidebar-header {
+            font-size: 20px;
+            text-align: center;
+            padding: 15px;
+            font-weight: bold;
+            border-bottom: 1px solid #495057;
         }
-        .sidebar.hidden { left: -250px; }
-        .sidebar-header { text-align: center; padding: 15px; font-weight: bold; border-bottom: 1px solid #495057; }
-        .sidebar-links { list-style: none; padding: 0; }
-        .sidebar-links li { padding: 12px 15px; }
-        .sidebar-links li a { text-decoration: none; color: white; display: flex; align-items: center; gap: 10px; font-size: 16px; }
-        .sidebar-links li a:hover { background-color: #495057; border-radius: 5px; }
+
+        .sidebar-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar-links li {
+            padding: 12px 15px;
+        }
+
+        .sidebar-links li a {
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+        }
+
+        .sidebar-links li a:hover {
+            background-color: #495057;
+            border-radius: 5px;
+        }
+
+        .logout-container {
+            padding: 15px;
+        }
+
+        .logout-button {
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            padding: 12px 15px;
+            border-radius: 5px;
+        }
+
+        .logout-button:hover {
+            background-color: #495057;
+        }
 
         /* Toggle Button */
         .toggle-btn {
-            position: fixed; left: 260px; top: 15px;
-            background-color: #343a40; color: white;
-            border: none; padding: 8px 12px;
-            cursor: pointer; font-size: 20px;
-            border-radius: 5px; transition: left 0.3s ease-in-out;
-            z-index: 1001;
-        }
-        .toggle-btn.move { left: 15px; }
+    position: fixed;
+    left: 260px;
+    top: 15px;
+    background-color: #343a40;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 5px;
+    transition: left 0.3s ease-in-out;
+    z-index: 1001;
+}
 
-        /* Main Content */
-        .content { margin-left: 270px; padding: 20px; transition: margin-left 0.3s ease-in-out; }
-        .content.full-width { margin-left: 0; }
+.toggle-btn.move {
+    left: 15px;
+}
+        /* Content Styling */
+        .content {
+    margin-left: 270px;
+    padding: 20px;
+    transition: margin-left 0.3s ease-in-out;
+}
 
-        /* Responsive */
+.content.full-width {
+    margin-left: 0;
+}
+        /* Responsive Design */
         @media screen and (max-width: 768px) {
-            .sidebar { left: -250px; }
-            .content { margin-left: 0; }
-            .toggle-btn { left: 15px; }
+            .sidebar {
+        left: -250px; /* Hide sidebar initially */
+    }
+
+    .content {
+        margin-left: 0;
+    }
+
+    .toggle-btn {
+        left: 15px;
+    }
         }
     </style>
 </head>
@@ -62,12 +140,18 @@
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">Warehouse Management</div>
-        <ul class="sidebar-links">
-            <li><a href="#"><span class="material-icons">dashboard</span> Dashboard</a></li>
-            <li><a href="#"><span class="material-icons">inventory</span> Inventory</a></li>
-            <li><a href="#"><span class="material-icons">list_alt</span> Products</a></li>
-            <li><a href="#"><span class="material-icons">logout</span> Log out</a></li>
-        </ul>
+        <div class="sidebar-links-container">
+            <ul class="sidebar-links">
+                <li><a href="/L2FkbWluX2Rhc2hib2FyZA"><span class="material-icons">dashboard</span> Dashboard</a></li>
+                <li><a href="/YWNjb3VudC1tYW5hZ2VtZW50"><span class="material-icons">inventory</span> Account Management</a></li>
+                <li><a href="/YXJjaGl2ZS1hY2NvdW50cw"><span class="material-icons">storage</span> Account Archive</a></li>
+                <li><a href="/cmVxdWVzdC1wcm9kdWN0"><span class="material-icons">add_box</span> Request Product</a></li>
+                <li><a href="/product-list"><span class="material-icons">list_alt</span> Product List</a></li>
+            </ul>
+        </div>
+        <div class="logout-container">
+            <a href="/logout" class="logout-button"><span class="material-icons">logout</span> Log out</a>
+        </div>
     </aside>
 
     <!-- Toggle Button -->
@@ -76,79 +160,67 @@
     <!-- Main Content -->
     <div class="content" id="main-content">
         <h1>Welcome, Admin <?= session()->get('user_name') ?>!</h1>
-
-        <!-- Inventory Data -->
-        <h3>Stock Overview</h3>
-        <canvas id="inventoryChart"></canvas>
-
-        <!-- Live Chat -->
-        <h3>Live Chat</h3>
-        <div id="chat-box" style="border:1px solid #ddd; padding:10px; height:200px; overflow-y:scroll;"></div>
-        <input type="text" id="chat-input" class="form-control" placeholder="Type a message...">
-        <button id="send-message" class="btn btn-primary mt-2">Send</button>
+        <!-- Your content here -->
     </div>
 
     <script>
-        // Sidebar Toggle
+        // Sidebar Toggle Functionality
         const sidebar = document.getElementById("sidebar");
-        const toggleBtn = document.getElementById("toggle-btn");
-        const content = document.getElementById("main-content");
+const toggleBtn = document.getElementById("toggle-btn");
+const content = document.getElementById("main-content");
 
-        let isSidebarOpen = false;
-        toggleBtn.addEventListener("click", () => {
-            isSidebarOpen = !isSidebarOpen;
-            sidebar.classList.toggle("hidden");
-            content.classList.toggle("full-width");
-            toggleBtn.classList.toggle("move");
-        });
+let isSidebarOpen = false; // Default state is closed on mobile
 
-        // Chart.js - Inventory Pie Chart
-        function loadChart() {
-            $.ajax({
-                url: "<?= base_url('dashboard/getInventoryData') ?>",
-                method: "GET",
-                success: function(data) {
-                    let parsedData = JSON.parse(data);
-                    let ctx = document.getElementById("inventoryChart").getContext("2d");
-                    new Chart(ctx, {
-                        type: "pie",
-                        data: {
-                            labels: parsedData.labels,
-                            datasets: [{
-                                data: parsedData.values,
-                                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
-                            }]
-                        }
-                    });
-                }
-            });
-        }
-        loadChart();
+toggleBtn.addEventListener("click", () => {
+    isSidebarOpen = !isSidebarOpen;
 
-        // Live Chat AJAX
-        function loadChat() {
-            $.ajax({
-                url: "<?= base_url('chat/fetchMessages') ?>",
-                method: "GET",
-                success: function(data) {
-                    $("#chat-box").html(data);
-                }
-            });
-        }
-        setInterval(loadChat, 2000);
+    if (isSidebarOpen) {
+        sidebar.classList.remove("hidden");
+        content.classList.remove("full-width");
+        toggleBtn.classList.remove("move");
+        sidebar.style.left = "0"; // Open sidebar
+        toggleBtn.style.left = "260px"; 
+    } else {
+        sidebar.classList.add("hidden");
+        content.classList.add("full-width");
+        toggleBtn.classList.add("move");
+        sidebar.style.left = "-250px"; // Close sidebar
+        toggleBtn.style.left = "15px";
+    }
+});
 
-        $("#send-message").click(function() {
-            let message = $("#chat-input").val();
-            if (message.trim() !== "") {
-                $.post("<?= base_url('chat/sendMessage') ?>", { message: message }, function() {
-                    $("#chat-input").val("");
-                    loadChat();
-                });
+// Ensure sidebar is hidden on smaller screens on load
+if (window.innerWidth <= 768) {
+    sidebar.classList.add("hidden");
+    sidebar.style.left = "-250px";
+    content.classList.add("full-width");
+    toggleBtn.classList.add("move");
+    toggleBtn.style.left = "15px";
+}
+
+
+        // Automatically hide sidebar on small screens
+        window.addEventListener('resize', () => {
+            if (window.innerWidth <= 768) {
+                sidebar.classList.add("hidden");
+                content.classList.add("full-width");
+                toggleBtn.classList.add("move");
+                toggleBtn.style.left = "15px";
+            } else {
+                sidebar.classList.remove("hidden");
+                content.classList.remove("full-width");
+                toggleBtn.classList.remove("move");
+                toggleBtn.style.left = "260px";
             }
         });
 
-        // Auto-Hide Sidebar on Mobile
-        if (window.innerWidth <= 768) { sidebar.classList.add("hidden"); content.classList.add("full-width"); toggleBtn.classList.add("move"); }
+        // Initial check on page load
+        if (window.innerWidth <= 768) {
+            sidebar.classList.add("hidden");
+            content.classList.add("full-width");
+            toggleBtn.classList.add("move");
+            toggleBtn.style.left = "15px";
+        }
     </script>
 </body>
 </html>
