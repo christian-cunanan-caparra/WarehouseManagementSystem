@@ -14,6 +14,8 @@
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
    
+   
+   
    <style>
         /* General Styles */
         body {
@@ -149,19 +151,17 @@
 
         /* Mini Pie Chart */
         #pieChart {
-            height: 250px; /* Fixed height */
-            width: 250px; /* Fixed width */
-            margin: 0 auto;
-            border-radius: 10px;
-        }
+    height: 250px;   /* Fixed height */
+    width: 250px;    /* Fixed width */
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
 
         /* Responsive Design */
         @media screen and (max-width: 768px) {
             .sidebar {
                 transform: translateX(-250px);
-                width: 100%;
-                position: absolute;
-                z-index: 1000;
             }
 
             .content {
@@ -171,18 +171,18 @@
             .toggle-btn {
                 left: 15px;
             }
+        }
 
-            .sidebar.hidden {
-                transform: translateX(-250px);
-            }
+        .sidebar.hidden {
+            transform: translateX(-250px);
+        }
 
-            .content.full-width {
-                margin-left: 0;
-            }
+        .content.full-width {
+            margin-left: 0;
+        }
 
-            .toggle-btn.move {
-                left: 15px;
-            }
+        .toggle-btn.move {
+            left: 15px;
         }
 
         /* Container for the Charts */
@@ -207,15 +207,20 @@
             overflow-y: auto;
         }
 
-        h1 {
+        h1{
             margin-left: 50px;
         }
 
     </style>
 </head>
+</head>
 <body>
 
     <!-- Sidebar -->
+   
+
+
+
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">Warehouse Management</div>
         <div class="sidebar-links-container">
@@ -225,6 +230,8 @@
             <li><a href="/YXJjaGl2ZS1hY2NvdW50cw"><span class="material-icons">storage</span> Account Archive</a></li>
             <li><a href="/cmVxdWVzdC1wcm9kdWN0"><span class="material-icons">add_box</span> Request Product</a></li>
             <li><a href="/product-list"><span class="material-icons">list_alt</span> Product List</a></li>
+
+                  <!-- <li><a href="/inventory-log"><span class="material-icons">list</span> Inventory Logs</a></li> -->
             </ul>
         </div>
         <div class="logout-container">
@@ -236,9 +243,14 @@
     <button class="toggle-btn" id="toggle-btn">&#9776;</button>
     
     <!-- Main Content -->
+
+  
     <div class="content" id="main-content">
-        <h1>Welcome, Admin <?= session()->get('user_name') ?>!</h1>
-        
+    <h1>Welcome, Admin <?= session()->get('user_name') ?>!</h1>
+
+
+
+<BR>
         <!-- Analytics Cards -->
         <div class="row mb-4">
             <!-- Total Stock In -->
@@ -303,6 +315,7 @@
         </div>
 
         <!-- Product Table -->
+      
         <div class="table-container">
             <div class="table-responsive mt-4">
                 <table class="table table-striped">
@@ -334,6 +347,84 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Mini Bar Chart
+        const miniBarCtx = document.getElementById('miniBarChart').getContext('2d');
+        const miniBarChart = new Chart(miniBarCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Stock In', 'Stock Out', 'Products', 'Catche'],
+                datasets: [{
+                    label: 'Stock Usage',
+                    data: [ <?= $totalStockIn ?>, <?= $totalStockOut ?>, 30000, 20000 ],
+                    backgroundColor: ['rgba(23, 162, 184, 0.8)', 'rgba(220, 53, 69, 0.8)', 'rgba(40, 167, 69, 0.8)', 'rgba(102, 16, 242, 0.8)'],
+                    borderRadius: 8,
+                    borderWidth: 1,
+                    barPercentage: 0.5,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 1200,
+                    easing: 'easeOutElastic'
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: '#343a40', font: { size: 12 } },
+                        grid: { display: false }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#343a40', font: { size: 12 } },
+                        grid: { color: 'rgba(0, 0, 0, 0.1)' }
+                    }
+                }
+            }
+        });
+
+        // Pie Chart
+      // Pie Chart
+const ctx = document.getElementById('pieChart').getContext('2d');
+const pieChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['Total Stock In', 'Total Stock Out', 'Low Stock'],
+        datasets: [{
+            label: 'Stock Distribution',
+            data: [<?= $totalStockIn ?>, <?= $totalStockOut ?>, <?= count($lowStockProducts) ?>],
+            backgroundColor: ['#17a2b8', '#dc3545', '#ffc107'],
+            borderColor: ['#ffffff', '#ffffff', '#ffffff'],
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: false,  // Disable sresizing
+        animation: {
+            animateScale: true,
+            animateRotate: true
+        },
+        plugins: {
+            legend: {
+                position: 'top',
+                labels: {
+                    fontSize: 12,
+                    fontColor: '#343a40',
+                    boxWidth: 10
+                }
+            }
+        }
+    }
+});
+
+    </script>
 
     <script>
         // Sidebar Toggle Functionality
