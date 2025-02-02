@@ -2,136 +2,172 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="<?= base_url('favicon.ico'); ?>" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Password</title>
+    <title>Reset Password - Warehouse Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-        /* General Styling */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-        }
-
         body {
+            background: linear-gradient(135deg, #6a11cb, #2575fc); /* Smooth static gradient */
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: whitesmoke;
-            padding: 20px;
+            overflow: hidden;
         }
 
-        /* Form Container */
-        form {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        .container {
+            background: rgba(255, 255, 255, 0.9); /* Light white background for contrast */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 400px;
-            text-align: center;
+            transition: all 0.3s ease-in-out;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
 
         h1 {
-            margin-bottom: 15px;
-            font-size: 24px;
-            color: #333;
+            text-align: center;
+            color: #007bff;
+            font-size: 32px;
+            margin-bottom: 30px;
         }
 
-        p {
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 20px;
+        .form-group {
+            margin-bottom: 25px;
         }
 
-        /* Label & Input Styling */
-        label {
-            display: block;
-            text-align: left;
-            font-size: 14px;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #333;
+        .form-control {
+            border-radius: 5px;
+            padding: 12px 18px;
+            font-size: 16px;
+            box-shadow: none;
+            border: 1px;
+            transition: border 0.3s, box-shadow 0.3s;
         }
 
-        input[type="email"] {
+        .form-control:focus {
+            border: #0056b3;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            padding: 14px;
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 14px;
+            border-radius: 15px;
+            font-size: 18px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .icon {
+            font-size: 55px;
+            color: #007bff;
+            text-align: center;
             margin-bottom: 20px;
-            outline: none;
-            transition: 0.3s ease-in-out;
+            animation: bounce 1s infinite alternate;
         }
 
-        input[type="email"]:focus {
-            border-color: #4facfe;
-            box-shadow: 0 0 5px rgba(79, 172, 254, 0.5);
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-8px); }
         }
 
-        /* Button Styling */
-        .button-container {
+        ::placeholder {
+            color: #6c757d;
+            opacity: 1;
+        }
+
+        .forgot-password {
+            text-decoration: none;
             display: flex;
-            justify-content: space-between;
-            gap: 10px;
+            justify-content: center;
+            padding-top: 12px;
+            font-weight: bold;
+            color: #007bff;
         }
 
-        button {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 6px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: 0.3s ease-in-out;
-        }
-
-        button[type="submit"] {
-            background-color: #28a745;
-            color: white;
-        }
-
-        button[type="button"] {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        button:hover {
-            opacity: 0.85;
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 480px) {
-            form {
-                padding: 20px;
+        /* Responsive fixes */
+        @media (max-width: 900px) {
+            .container {
+                padding: 30px;
+                max-width: 85%;
+                margin-top: -53px;
             }
 
-            .button-container {
-                flex-direction: column;
-            }
-
-            button {
-                width: 100%;
+            h1 {
+                font-size: 26px;
             }
         }
     </style>
 </head>
 <body>
 
-<form action="/send-reset-code" method="post">
-    <h1>Reset Password</h1>
-    <p>Please enter your email to reset your password.</p>
-    
-    <label for="email">Email:</label>
-    <input type="email" name="email" required>  
+    <div class="container">
+        <h1><i class="fas fa-key"></i> Reset Password</h1>
 
-    <div class="button-container">
-        <button type="button" onclick="window.location.href='/'">Cancel</button>
-        <button type="submit">Reset</button>
+        <!-- Display Flash Error -->
+        <?php if (session()->getFlashdata('error')): ?>
+            <div class="alert alert-danger">
+                <?= session()->getFlashdata('error') ?>
+            </div>
+        <?php endif; ?>
+
+        <!-- Display Validation Errors -->
+        <?php if (isset($errors) && !empty($errors)): ?>
+            <div class="alert alert-danger">
+                <ul>
+                    <?php foreach ($errors as $error): ?>
+                        <li><?= esc($error) ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+
+        <!-- Reset Password Form -->
+        <form action="/send-reset-code" method="post">
+            <?= csrf_field() ?>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Reset Password</button>
+            <a href="/" class="forgot-password">Cancel</a>
+        </form>
+
     </div>
-</form>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 
 </body>
 </html>
