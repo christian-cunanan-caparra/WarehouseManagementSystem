@@ -224,7 +224,7 @@
 <body>
     <div class="container">
         </BR>
-        <h1><i class="fas fa-warehouse"></i> SIGN UP</h1>
+        <h1><i class="fas fa-warehouse"></i> Warehouse Management System</h1>
 
         <!-- Display Flash Error -->
         <?php if (session()->getFlashdata('error')): ?>
