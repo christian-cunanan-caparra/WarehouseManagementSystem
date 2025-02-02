@@ -256,13 +256,13 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="name">Name</label>
+                       
                         <input type="text" class="form-control" id="name" name="name" value="<?= old('name') ?>" placeholder="Enter your name" required>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="email">Email</label>
+                      
                         <input type="email" class="form-control" id="email" name="email" value="<?= old('email') ?>" placeholder="Enter your email" required>
                     </div>
                 </div>
@@ -271,14 +271,14 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="password">Password</label>
+                       
                         <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required minlength="8">
                         <!-- <small class="text-muted">Password must be at least 8 characters.</small> -->
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="address">Address</label>
+                      
                         <input type="text" class="form-control" id="address" name="address" value="<?= old('address') ?>" placeholder="Enter your address" required>
                     </div>
                 </div>
@@ -287,7 +287,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="gender">Gender</label>
+                       
                         <select class="form-control" id="gender" name="gender" required>
                             <option value="Male" <?= old('gender') == 'Male' ? 'selected' : '' ?>>Male</option>
                             <option value="Female" <?= old('gender') == 'Female' ? 'selected' : '' ?>>Female</option>
@@ -296,7 +296,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="mobile_number">Mobile Number</label>
+                        
                         <input type="number" class="form-control" id="mobile_number" name="mobile_number" value="<?= old('mobile_number') ?>" placeholder="Enter your mobile number" required>
                     </div>
                 </div>
