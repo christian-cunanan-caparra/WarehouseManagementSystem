@@ -25,7 +25,7 @@ class RegisterController extends BaseController
         ]);
 
         if (!$validation) {
-            // If validation fails and the email is already in use
+            // If validations fails and the email is already in use
             if ($this->validator->getError('email')) {
                 session()->setFlashdata('error', 'The email address is already registered.');
             }
