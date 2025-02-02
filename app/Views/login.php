@@ -152,10 +152,12 @@
         }
 
         /* Responsive fixes */
+        
         @media (max-width: 900px) {
             .container {
                 padding: 30px;
                 max-width: 85%;
+                margin-top: -20px;
             }
 
             h1 {
