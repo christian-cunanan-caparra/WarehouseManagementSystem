@@ -152,10 +152,10 @@
         }
 
         /* Responsive fixes */
-        @media (max-width: 400px) {
+        @media (max-width: 100px) {
             .container {
                 padding: 30px;
-                max-width: 100%;
+                max-width: 80%;
             }
 
             h1 {
