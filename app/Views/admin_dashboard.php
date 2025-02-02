@@ -444,8 +444,8 @@ if (window.innerWidth <= 768) {
                     label: 'Stock Usage',
                     data: [ <?= $totalStockIn ?>, <?= $totalStockOut ?>, 30000, 20000 ],
                     backgroundColor: ['rgba(23, 162, 184, 0.8)', 'rgba(220, 53, 69, 0.8)', 'rgba(40, 167, 69, 0.8)', 'rgba(102, 16, 242, 0.8)'],
-                    borderRadius: 8,
-                    borderWidth: 5,
+                    borderRadius: 9,
+                    borderWidth: 1,
                     barPercentage: 0.5,
                 }]
             },
