@@ -53,13 +53,15 @@
 
         .form-control {
             border-radius: 5px;
-            padding: 10px 15px;
-            font-size: 14px;
-            transition: all 0.3s ease;
+            padding: 12px 18px;
+            font-size: 16px;
+            box-shadow: none;
+            border: 1px;
+            transition: border 0.3s, box-shadow 0.3s;
         }
 
         .form-control:focus {
-            border-color: #007bff;
+            border: #0056b3;
             box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
         }
 
