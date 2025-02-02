@@ -155,7 +155,7 @@
         @media (max-width: 900px) {
             .container {
                 padding: 30px;
-                max-width: 80%;
+                max-width: 85%;
             }
 
             h1 {
