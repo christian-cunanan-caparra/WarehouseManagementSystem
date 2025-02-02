@@ -193,7 +193,7 @@
 
             .btn-primary {
                 font-size: 15px;
-                padding: 10px;
+                padding: 15px;
             }
         }
 
