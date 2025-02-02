@@ -164,8 +164,8 @@ h2 {
 
         /* Mini Pie Chart */
         #pieChart {
-    height: 250px;   /* Fixed height */
-    width: 250px;    /* Fixed width */
+    height: 300px;   /* Fixed height */
+    width: 300px;    /* Fixed width */
     margin: 0 auto;
     border-radius: 10px;
 }
