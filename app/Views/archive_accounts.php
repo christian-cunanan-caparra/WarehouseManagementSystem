@@ -250,12 +250,12 @@ h2 {
 
    <!-- Toggle Button -->
    <button class="toggle-btn" id="toggle-btn">&#9776;</button>
-
+ <h1>Archived Accounts</h1>
     <!-- Main Content -->
-    <div class="content" id="main-content">
-        <div class="container mt-4">
-            <h1>Archived Accounts</h1>
-            <table class="table table-bordered">
+    <div class="table-container">
+        <div class="table-responsive mt-4">
+           
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -265,7 +265,7 @@ h2 {
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="productTable">
                     <?php if (!empty($users)): ?>
                         <?php foreach ($users as $user): ?>
                             <tr>
