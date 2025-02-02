@@ -195,7 +195,7 @@
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th>Product Name</th>
+                        <th>Product ID</th>
                         <th>Quantity</th>
                         <th>Date</th>
                         <th>Action</th>
