@@ -191,11 +191,9 @@
                             <th>Name</th>
                             <th>Description</th>
                             <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Stock In</th>
-                            <th>Stock Out</th>
-                            <th>Remaining Stock</th>
-                            <th>Status</th>
+                            
+                          
+                           
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -206,11 +204,7 @@
                                 <td><?= esc($product['name']) ?></td>
                                 <td><?= esc($product['description']) ?></td>
                                 <td><?= esc($product['price']) ?></td>
-                                <td><?= esc($product['quantity']) ?></td>
-                                <td><?= esc($product['stock_in']) ?></td>
-                                <td><?= esc($product['stock_out']) ?></td>
-                                <td><?= esc($product['remaining_stock']) ?></td>
-                                <td><?= esc($product['status']) ?></td>
+                               
                                 <td>
                                     <a href="/editproduct/<?= $product['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
                                     <a href="/deleteproduct/<?= $product['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
