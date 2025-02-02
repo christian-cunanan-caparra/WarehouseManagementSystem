@@ -10,7 +10,7 @@
 <body>
     <div class="container mt-5">
         <h1>Edit Product</h1>
-        <form action="/update-product/<?= $product['id'] ?>" method="post">
+        <form action="/updateproduct/<?= $product['id'] ?>" method="post">
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
                 <input type="text" class="form-control" id="name" name="name" value="<?= esc($product['name']) ?>" required>

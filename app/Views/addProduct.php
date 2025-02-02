@@ -11,7 +11,7 @@
 <body>
     <div class="container mt-5">
         <h1>Add Product</h1>
-        <form action="/save-product" method="post">
+        <form action="/saveproduct" method="post">
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
                 <input type="text" class="form-control" id="name" name="name" required>
