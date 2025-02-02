@@ -160,9 +160,30 @@
 
         /* Responsive Design */
         @media screen and (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-250px);
-            }
+            @media (max-width: 768px) {
+    .sidebar {
+        width: 200px; /* Smaller width for mobile */
+        transform: translateX(-100%); /* Hide sidebar by default */
+    }
+
+    .sidebar.open {
+        transform: translateX(0); /* Show sidebar when open */
+    }
+
+    .sidebar-toggle {
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        background-color: #495057;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        font-size: 18px;
+        cursor: pointer;
+        border-radius: 5px;
+        z-index: 1000;
+    }
+}
 
             .content {
                 margin-left: 0;
@@ -173,10 +194,7 @@
             }
         }
 
-        .sidebar.hidden {
-            transform: translateX(-250px);
-        }
-
+       
         .content.full-width {
             margin-left: 0;
         }
@@ -449,6 +467,27 @@ const pieChart = new Chart(ctx, {
                 toggleBtn.style.left = "15px";
             }
         });
+
+
+
+
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.querySelector(".sidebar");
+    const toggleBtn = document.createElement("button");
+
+    toggleBtn.classList.add("sidebar-toggle");
+    toggleBtn.innerText = "☰";
+    document.body.appendChild(toggleBtn);
+
+    toggleBtn.addEventListener("click", function () {
+        sidebar.classList.toggle("open");
+    });
+});
+
+
+
     </script>
 </body>
 </html>
