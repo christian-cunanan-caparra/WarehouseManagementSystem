@@ -27,19 +27,33 @@
 
         /* Sidebar Styling */
         .sidebar {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100vh;
-            width: 250px;
-            background-color: #343a40;
-            color: white;
-            position: fixed;
-            top: 0;
-            left: 0;
-            padding-top: 15px;
-            transition: transform 0.3s ease-in-out;
-        }
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 250px;
+    background-color: #343a40;
+    color: white;
+    transform: translateX(-250px);
+    transition: transform 0.3s ease-in-out;
+}
+.sidebar.show {
+    transform: translateX(0);
+}
+
+
+@media screen and (min-width: 768px) {
+    .sidebar {
+        transform: translateX(0);
+    }
+    .content {
+        margin-left: 270px;
+    }
+    .toggle-btn {
+        left: 260px;
+    }
+}
+
 
         .sidebar-links-container {
             flex-grow: 1;
