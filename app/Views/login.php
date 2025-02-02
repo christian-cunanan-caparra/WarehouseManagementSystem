@@ -27,7 +27,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 300px;
+            max-width: 400px;
             transition: all 0.3s ease-in-out;
             animation: fadeIn 1s ease-in-out;
             transition: all 0.3s ease-in-out;
@@ -152,7 +152,7 @@
         }
 
         /* Responsive fixes */
-        @media (max-width: 575px) {
+        @media (max-width: 400px) {
             .container {
                 padding: 30px;
                 max-width: 100%;
