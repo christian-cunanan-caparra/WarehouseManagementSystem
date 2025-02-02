@@ -18,7 +18,7 @@ class DashboardController extends Controller
         $this->userModel = new UserModel(); // Initialize UserModel
     }
 
-    // Inventory Logs
+    // Inventory Logsss
     public function index2()
     {   
         if (!session()->get('is_logged_in')) {
@@ -324,10 +324,6 @@ public function inventoryLogsPage()
     if ($role === 'Admin') {
         // Fetch products where status = 0 (inactive products)
         $data['products'] = $this->productModel->where('status', 0)->findAll();
-        
-
-
-        
         return view('admin_dashboard', $data); // Redirect to admin dashboard for Admin
     } elseif ($role === 'Employee') {
         // Load the InventoryLog model
@@ -336,18 +332,12 @@ public function inventoryLogsPage()
         // Fetch all inventory logs
         $data['inventory_log'] = $InventoryLogModel->findAll();
 
-
-
-
-        
         // Pass the data to the view
         return view('inventory_log', $data);
     }
 
     return redirect()->to('/login');
 }
-
-
 
 
 }

@@ -141,3 +141,5 @@ $routes->get('/cmVxdWVzdC1wcm9kdWN0', 'RequestController::requestprod');
 
 //admin invent logs
 
+
+$routes->get('/product-list', 'AdminController::productList');
