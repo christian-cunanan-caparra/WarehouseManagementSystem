@@ -217,7 +217,7 @@
 
         <!-- Link to register page -->
         <div class="signup-link">
-            <p>Don't have an account yet? <a href="/register" class="sign-up">Sign up here</a></p>
+            <p>Don't have an account yet? <a href="/register"  class="sign-up"><br>Sign up here</a></p>
         </div>
     </div>
 
