@@ -267,10 +267,10 @@
         <div class="modal fade" id="addProductModal">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <!-- <div class="modal-header">
                         <h5 class="modal-title">Add New Product</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
+                    </div> -->
                     <div class="modal-body">
                         <form id="addProductForm">
                             <input type="text" class="form-control mb-2" id="productName" name="name" placeholder="Product Name" required>
