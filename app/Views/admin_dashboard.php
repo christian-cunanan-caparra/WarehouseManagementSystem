@@ -500,7 +500,7 @@ const pieChart = new Chart(ctx, {
             legend: {
                 position: 'left',
                 labels: {
-                    fontSize: 12,
+                    fontSize: 15,
                     fontColor: '#343a40',
                     boxWidth: 10
                 }
