@@ -32,7 +32,7 @@
     left: 0;
     padding-top: 15px;
     transition: left 0.3s ease-in-out;
-    z-index: 1000;
+    /* z-index: 1000; */
 }
 
 /* Hidden sidebar */
