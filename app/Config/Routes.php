@@ -34,7 +34,10 @@ $routes->post('/register/save', 'RegisterController::save');
 
 // Dashboard routes (redirect based on role)
 $routes->get('/dashboard', 'DashboardController::index');
+
 $routes->get('/admin/dashboard', 'DashboardController::index');
+$routes->get('/L2FkbWluX2Rhc2hib2FyZA', 'DashboardController::index');
+
 $routes->get('/product', 'DashboardController::index1');
 $routes->get('/inventory_logs', 'DashboardController::index2');
 $routes->get('/employee/dashboard', 'DashboardController::index');
@@ -105,6 +108,8 @@ $routes->post('/process-reset-password', 'PasswordResetController::processResetP
 
 
 $routes->get('/account-management', 'DashboardController::accountManagement');
+$routes->get('/YWNjb3VudC1tYW5hZ2VtZW50', 'DashboardController::accountManagement');
+
 $routes->get('/create-account', 'DashboardController::createAccount');
 $routes->post('/store-account', 'DashboardController::storeAccount');
 $routes->get('/edit-account/(:num)', 'DashboardController::editAccount/$1');
@@ -113,6 +118,10 @@ $routes->get('/delete-account/(:num)', 'DashboardController::deleteAccount/$1');
 
 
 $routes->get('/archive-accounts', 'DashboardController::archiveAccounts');  // To view the archive (inactive) accounts
+$routes->get('/YXJjaGl2ZS1hY2NvdW50cw', 'DashboardController::archiveAccounts');  // To view the archive (inactive) accounts
+
+
+
 $routes->get('/restore-account/(:num)', 'DashboardController::restoreAccount/$1');  // To restore a specific account
 
 
@@ -121,4 +130,14 @@ $routes->get('/waiting-confirmation', 'LoginController::waitingConfirmation');
 
 
 $routes->get('/inventory-log', 'DashboardController::inventoryLogsPage');
+
+
+
+//req product
+
+$routes->get('/request-product', 'RequestController::requestprod');
+$routes->get('/cmVxdWVzdC1wcm9kdWN0', 'RequestController::requestprod');
+
+
+//admin invent logs
 

@@ -17,7 +17,7 @@ class RegisterController extends BaseController
         // Validate user input
         $validation = $this->validate([
             'name' => 'required',
-            'email' => 'required|valid_email|is_unique[users.email]',
+            'email' => 'required|valid_email|is_unique[users.email]', // Check if email is unique
             'password' => 'required|min_length[8]',
             'address' => 'required',
             'gender' => 'required',
@@ -25,7 +25,12 @@ class RegisterController extends BaseController
         ]);
 
         if (!$validation) {
-            // If validation fails, go back to the registration form with errors
+            // If validation fails and the email is already in use
+            if ($this->validator->getError('email')) {
+                session()->setFlashdata('error', 'The email address is already registered.');
+            }
+            
+            // Redirect back with errors
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
@@ -43,9 +48,9 @@ class RegisterController extends BaseController
         // Save the user data into the database
         $userModel = new UserModel();
         if ($userModel->save($userData)) {
-            // If successful, store a success message in the session
+            // If successful, store a success messasge in the session
             session()->setFlashdata('success', 'Registration successful! Please wait, redirecting...');
-            
+
             // Send a welcome email to the user
             $email = \Config\Services::email();
             $email->setTo($this->request->getPost('email'));
@@ -53,6 +58,7 @@ class RegisterController extends BaseController
             $email->setSubject('Welcome!');
             $email->setMessage('Welcome to the Warehouse Management System! You have successfully registered.');
             $email->send();
+            return redirect()->to('/login');
         } else {
             // If saving the data fails, store an error message
             session()->setFlashdata('error', 'There was an error with your registration.');
