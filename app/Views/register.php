@@ -221,6 +221,7 @@
 </head>
 <body>
     <div class="container">
+        </BR>
         <h1><i class="fas fa-warehouse"></i> SIGN UP</h1>
 
         <!-- Display Flash Error -->
