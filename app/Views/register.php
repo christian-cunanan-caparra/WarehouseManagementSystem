@@ -182,7 +182,7 @@
 
             .form-control {
                 border-radius: 5px;
-            padding: 20px 20px;
+            padding: 50px;
             font-size: 16px;
             box-shadow: none;
             border: 1px;
