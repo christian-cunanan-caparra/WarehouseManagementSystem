@@ -192,7 +192,10 @@
         @media (max-width: 480px) {
             .container {
                 padding: 15px;
-                max-width: 100%; /* Full width on very small screens */
+                max-width: 85%; /* Full width on very small screens */
+                margin-top: -53px;
+                margin-left: auto;
+                margin-right: auto;
             }
 
             h1 {
@@ -269,7 +272,7 @@
                     <div class="form-group">
                         <label for="password">Password</label>
                         <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required minlength="8">
-                        <small class="text-muted">Password must be at least 8 characters.</small>
+                        <!-- <small class="text-muted">Password must be at least 8 characters.</small> -->
                     </div>
                 </div>
                 <div class="col-md-6">
