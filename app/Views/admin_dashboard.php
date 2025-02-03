@@ -226,7 +226,7 @@ h2 {
     </style>
 </head>
 <body>
-    <!-- Sidebar -->
+    <!-- Sidebassr -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">Warehouse Management</div>
         <div class="sidebar-links-container">
