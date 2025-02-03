@@ -307,20 +307,7 @@ h1{
             </div>
         </div>
 
-        <!-- Charts Section -->
-        <div class="chart-container">
-            <div class="row mt-4">
-                <!-- Mini Bar Chart -->
-                <div class="col-md-6">
-                    <canvas id="miniBarChart"></canvas>
-                </div>
-
-                <!-- Pie Chart -->
-                <div class="col-md-6">
-                    <canvas id="pieChart"></canvas>
-                </div>
-            </div>
-        </div>
+      
 
         <!-- Product Table -->
       
