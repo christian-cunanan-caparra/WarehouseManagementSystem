@@ -157,7 +157,9 @@ h2 {
         }
 
 
-
+h1{
+    margin-left: 30px;
+}
         #stockTrendChart {
             height: 400px;
         }
