@@ -20,7 +20,7 @@ class RegisterController extends BaseController
         $existingUser = $userModel->where('email', $email)->first();
 
         if (!$existingUser) {
-            session()->setFlashdata('error', 'Your email is not found. Please provide your valid Email.');
+            session()->setFlashdata('error', 'Your email is not found. Please register first.');
             return redirect()->back()->withInput();
         }
 
@@ -49,6 +49,24 @@ class RegisterController extends BaseController
             'mobile_number' => $this->request->getPost('mobile_number'),
             'role' => 'Inactive',
         ];
+
+        $userModel = new UserModel();
+        if ($userModel->save($userData)) {
+            // If successful, store a success messasge in the session
+            session()->setFlashdata('success', 'Registration successful! Please wait, redirecting...');
+
+            // Send a welcome email to the user
+            $email = \Config\Services::email();
+            $email->setTo($this->request->getPost('email'));
+            $email->setFrom('caparrachristian47@gmail.com', 'Warehouse Management System');
+            $email->setSubject('Welcome!');
+            $email->setMessage('Welcome to the Warehouse Management System! You have successfully registered.');
+            $email->send();
+            return redirect()->to('/login');
+        } else {
+            // If saving the data fails, store an error message
+            session()->setFlashdata('error', 'There was an error with your registration.');
+        }
 
         if ($userModel->save($userData)) {
             session()->setFlashdata('success', 'Registration successful! Please wait, redirecting...');
