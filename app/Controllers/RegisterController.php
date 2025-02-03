@@ -8,33 +8,38 @@ class RegisterController extends BaseController
 {
     public function register()
     {
-        // Load the registration form view
         return view('register');
     }
 
     public function save()
     {
+        $userModel = new UserModel();
+
+        // Check if the email exists in the database
+        $email = $this->request->getPost('email');
+        $existingUser = $userModel->where('email', $email)->first();
+
+        if (!$existingUser) {
+            session()->setFlashdata('error', 'Your email is not found. Please register first.');
+            return redirect()->back()->withInput();
+        }
+
         // Validate user input
         $validation = $this->validate([
-            'name' => 'required',
-            'email' => 'required|valid_email|is_unique[users.email]', // Check if email is unique
+            'name' => 'required|max_length[255]',
+            'email' => 'required|valid_email|is_unique[users.email]',
             'password' => 'required|min_length[8]',
-            'address' => 'required',
-            'gender' => 'required',
-            'mobile_number' => 'required|numeric|max_length[15]', // Assuming mobile number is 10 digits
+            'address' => 'required|max_length[255]',
+            'gender' => 'required|max_length[10]',
+            'mobile_number' => 'required|numeric|max_length[15]',
         ]);
 
         if (!$validation) {
-            // If validations fails and the email is already in use
-            if ($this->validator->getError('email')) {
-                session()->setFlashdata('error', 'The email address is already registered.');
-            }
-            
-            // Redirect back with errors
+            session()->setFlashdata('error', 'There were validation errors. Please check your inputs.');
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        // Prepare user data to be saved
+        // Save the user data
         $userData = [
             'name' => $this->request->getPost('name'),
             'email' => $this->request->getPost('email'),
@@ -42,29 +47,15 @@ class RegisterController extends BaseController
             'address' => $this->request->getPost('address'),
             'gender' => $this->request->getPost('gender'),
             'mobile_number' => $this->request->getPost('mobile_number'),
-            'role' => 'Inactive',  // Set the role to Employee by default
+            'role' => 'Inactive',
         ];
 
-        // Save the user data into the database
-        $userModel = new UserModel();
         if ($userModel->save($userData)) {
-            // If successful, store a success messasge in the session
             session()->setFlashdata('success', 'Registration successful! Please wait, redirecting...');
-
-            // Send a welcome email to the user
-            $email = \Config\Services::email();
-            $email->setTo($this->request->getPost('email'));
-            $email->setFrom('caparrachristian47@gmail.com', 'Warehouse Management System');
-            $email->setSubject('Welcome!');
-            $email->setMessage('Welcome to the Warehouse Management System! You have successfully registered.');
-            $email->send();
             return redirect()->to('/login');
         } else {
-            // If saving the data fails, store an error message
             session()->setFlashdata('error', 'There was an error with your registration.');
+            return redirect()->to('/register');
         }
-
-        // Redirect to the register page to show the success modal
-        return redirect()->to('/register');
     }
 }

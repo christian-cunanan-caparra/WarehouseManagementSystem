@@ -232,6 +232,9 @@
         </BR>
         <h1><i class="fas fa-warehouse"></i> Warehouse<br>Management</h1>
 
+
+
+        
         <!-- Display Flash Error -->
         <?php if (session()->getFlashdata('error')): ?>
             <div class="alert alert-danger">
