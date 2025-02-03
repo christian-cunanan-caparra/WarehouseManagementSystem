@@ -233,13 +233,10 @@ h1{
         <div class="sidebar-header">Warehouse Management</div>
         <div class="sidebar-links-container">
             <ul class="sidebar-links">
-            <li><a href="/L2FkbWluX2Rhc2hib2FyZA"><span class="material-icons">dashboard</span> Dashboard</a></li>
-            <li><a href="/YWNjb3VudC1tYW5hZ2VtZW50"><span class="material-icons">inventory</span> Account Management </a></li>
-            <li><a href="/YXJjaGl2ZS1hY2NvdW50cw"><span class="material-icons">storage</span> Account Archive</a></li>
-            <li><a href="/cmVxdWVzdC1wcm9kdWN0"><span class="material-icons">add_box</span> Request Product</a></li>
-            <li><a href="/product-list"><span class="material-icons">list_alt</span> Product List</a></li>
-
-                  <!-- <li><a href="/inventory-log"><span class="material-icons">list</span> Inventory Logs</a></li> -->
+                <li><a href="/employee_dashboard"><span class="material-icons">dashboard</span> Dashboard</a></li>
+                <li><a href="/product"><span class="material-icons">inventory</span> Products</a></li>
+                <li><a href="/inventory"><span class="material-icons">storage</span> Inventory</a></li>
+                <li><a href="/inventory_logs"><span class="material-icons">history</span> Inventory Logs</a></li>
             </ul>
         </div>
         <div class="logout-container">
