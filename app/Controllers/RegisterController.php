@@ -20,7 +20,7 @@ class RegisterController extends BaseController
         $existingUser = $userModel->where('email', $email)->first();
 
         if (!$existingUser) {
-            session()->setFlashdata('error', 'Your email is not found. Please register first.');
+            session()->setFlashdata('error', 'Your email is not found. Please provide your valid Email.');
             return redirect()->back()->withInput();
         }
 
