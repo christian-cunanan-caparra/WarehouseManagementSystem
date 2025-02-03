@@ -39,6 +39,11 @@
   
 }
 
+
+h1{
+    margin-left: 30px;
+}
+
 /* Hidden sidebar */
 .sidebar.hidden {
     left: -250px;

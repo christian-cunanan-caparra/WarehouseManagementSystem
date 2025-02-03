@@ -43,6 +43,10 @@
 }
 
 
+h1{
+    margin-left: 30px;
+}
+
         .sidebar-header {
             font-size: 20px;
             text-align: center;

@@ -162,7 +162,9 @@ h2 {
             font-size: 2rem;
         }
 
-
+        h1{
+    margin-left: 30px;
+}
 
         #stockTrendChart {
             height: 400px;

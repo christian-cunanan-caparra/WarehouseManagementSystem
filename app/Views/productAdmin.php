@@ -134,7 +134,9 @@
     margin-left: 0;
 }
 
-
+h1{
+    margin-left: 30px;
+}
 h2 {
             font-weight: bold;
             color: #343a40;
